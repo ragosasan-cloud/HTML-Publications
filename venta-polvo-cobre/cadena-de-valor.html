@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cadena de Valor — Polvo de Cobre</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inconsolata:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #F5F0E8;
+  --bg2:       #EDE5D4;
+  --ink:       #1C1510;
+  --ink2:      #4A3D30;
+  --ink3:      #8A7A68;
+  --copper:    #A0522D;
+  --copper2:   #C07840;
+  --copper3:   #E09060;
+  --gold:      #B8860B;
+  --rule:      rgba(160,82,45,0.2);
+  --shadow:    rgba(28,21,16,0.10);
+}
+
+html, body {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Inconsolata', monospace;
+}
+
+/* ── PAGE ── */
+.page {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 52px 48px 60px;
+}
+
+/* ── HEADER ── */
+.page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  border-bottom: 1.5px solid var(--copper);
+  padding-bottom: 20px;
+  margin-bottom: 48px;
+  animation: rise 0.7s ease both;
+}
+
+.page-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(28px, 3.5vw, 48px);
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1;
+  letter-spacing: -0.5px;
+}
+
+.page-title span { color: var(--copper); font-style: italic; }
+
+.page-meta {
+  text-align: right;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--ink3);
+  line-height: 1.8;
+}
+
+/* ── CHAIN LAYOUT ── */
+.chain {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  position: relative;
+}
+
+/* ── NODE ── */
+.node {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border: 1px solid var(--rule);
+  position: relative;
+  animation: rise 0.6s ease both;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+  overflow: hidden;
+}
+
+.node:hover {
+  box-shadow: 0 8px 32px var(--shadow);
+  transform: translateY(-4px);
+  z-index: 10;
+}
+
+.node:nth-child(1) { animation-delay: 0.10s; }
+.node:nth-child(3) { animation-delay: 0.25s; }
+.node:nth-child(5) { animation-delay: 0.40s; }
+.node:nth-child(7) { animation-delay: 0.55s; }
+
+/* accent bar at top */
+.node::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+}
+
+.node.n-producer::before  { background: var(--copper); }
+.node.n-logistics::before { background: var(--ink2); }
+.node.n-separator::before { background: linear-gradient(90deg, #B8860B, #E8B84B, #A0522D, #E8B84B, #B8860B); background-size: 300% 100%; animation: shimmer 4s linear infinite; }
+.node.n-end::before       { background: var(--copper3); }
+
+@keyframes shimmer {
+  0%   { background-position: 0% 0%; }
+  100% { background-position: 300% 0%; }
+}
+
+.node.n-separator {
+  background: linear-gradient(160deg, #FFFBF0 0%, #FEF3D0 60%, #FDF0C4 100%);
+  border-color: rgba(184,134,11,0.4);
+  box-shadow: 0 0 0 1px rgba(184,134,11,0.2), inset 0 1px 0 rgba(232,184,75,0.3);
+}
+
+.node.n-separator:hover {
+  box-shadow: 0 12px 40px rgba(184,134,11,0.18), 0 0 0 1px rgba(184,134,11,0.4);
+  transform: translateY(-6px);
+}
+
+.node.n-separator .node-num  { color: rgba(184,134,11,0.15); }
+.node.n-separator .node-tag  { color: #8A6400; letter-spacing: 3px; }
+.node.n-separator .node-title { color: #2A1C00; }
+.node.n-separator .node-desc  { color: #5A4010; }
+.node.n-separator .bullets li { color: #4A3408; }
+.node.n-separator .bullets li::before { color: #B8860B; }
+.node.n-separator .bullets li strong { color: #7A5200; }
+
+.node.n-separator .band-a {
+  background: rgba(160,82,45,0.12);
+  border-color: rgba(160,82,45,0.35);
+}
+.node.n-separator .band-b {
+  background: rgba(184,134,11,0.12);
+  border-color: rgba(184,134,11,0.4);
+}
+.node.n-separator .band-range { color: #2A1C00; }
+.node.n-separator .band-price { color: #7A6030; }
+
+/* ── CONNECTOR ARROW ── */
+.arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 5;
+}
+
+.arrow svg {
+  width: 28px;
+  height: 28px;
+  opacity: 0.45;
+}
+
+/* ── NODE INNER ── */
+.node-num {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 40px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  color: var(--rule);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.node-body {
+  padding: 24px 22px 28px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.node-tag {
+  font-size: 8.5px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--ink3);
+  margin-bottom: 10px;
+  margin-top: 4px;
+}
+
+.n-producer  .node-tag { color: var(--copper); }
+.n-separator .node-tag { color: var(--gold); }
+.n-end       .node-tag { color: var(--copper2); }
+
+.node-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(17px, 1.6vw, 22px);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+
+.node-desc {
+  font-size: 11px;
+  color: var(--ink2);
+  line-height: 1.7;
+  margin-bottom: 18px;
+}
+
+.bullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  flex: 1;
+}
+
+.bullets li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 10.5px;
+  color: var(--ink2);
+  line-height: 1.5;
+}
+
+.bullets li::before {
+  content: '—';
+  color: var(--copper3);
+  flex-shrink: 0;
+  margin-top: 0;
+  font-size: 10px;
+}
+
+.node-badge {
+  display: inline-block;
+  margin-top: 18px;
+  font-size: 8.5px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border: 1px solid;
+  align-self: flex-start;
+}
+
+.n-producer  .node-badge { color: var(--copper); border-color: var(--copper); background: rgba(160,82,45,0.05); }
+.n-logistics .node-badge { color: var(--ink2);   border-color: var(--ink2);   background: rgba(74,61,48,0.05); }
+.n-separator .node-badge { color: #F5E8C0; border-color: #7A5200; background: #2A1C00; }
+.n-end       .node-badge { color: var(--copper2);border-color: var(--copper2);background: rgba(192,120,64,0.05); }
+
+/* ── END USERS BLOCK — special multi-sub ── */
+.n-end .node-body { padding-bottom: 18px; }
+
+.end-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 4px;
+  flex: 1;
+}
+
+.end-sub {
+  background: var(--bg2);
+  border: 1px solid var(--rule);
+  padding: 10px 11px 12px;
+  transition: background 0.2s ease;
+}
+
+.end-sub:hover { background: white; }
+
+.end-sub-label {
+  font-size: 8px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink3);
+  margin-bottom: 5px;
+}
+
+.end-sub-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+.end-sub-detail {
+  font-size: 9.5px;
+  color: var(--ink2);
+  line-height: 1.5;
+}
+
+.end-sub-cagr {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  background: rgba(192,120,64,0.10);
+  color: var(--copper2);
+}
+
+/* ── FOOTER ── */
+.page-footer {
+  margin-top: 36px;
+  border-top: 1px solid var(--rule);
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  animation: rise 0.8s ease 0.7s both;
+  opacity: 0;
+}
+
+.footer-rule {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 15px;
+  color: var(--ink2);
+}
+
+.footer-rule strong {
+  font-style: normal;
+  color: var(--copper);
+}
+
+.footer-tag {
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink3);
+}
+
+/* ── SEPARATOR BAND VISUAL ── */
+.band-visual {
+  display: flex;
+  gap: 5px;
+  margin-top: 12px;
+  margin-bottom: 6px;
+}
+
+.band {
+  flex: 1;
+  padding: 7px 8px;
+  text-align: center;
+}
+
+.band-a {
+  background: rgba(160,82,45,0.10);
+  border: 1px solid rgba(160,82,45,0.3);
+}
+
+.band-b {
+  background: rgba(184,134,11,0.08);
+  border: 1px solid rgba(184,134,11,0.25);
+}
+
+.band-label {
+  font-size: 8px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.band-a .band-label { color: var(--copper); }
+.band-b .band-label { color: var(--gold); }
+
+.band-range {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.band-price {
+  font-size: 9px;
+  color: var(--ink3);
+  margin-top: 2px;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 900px) {
+  .chain { flex-direction: column; }
+  .arrow { width: auto; height: 28px; transform: rotate(90deg); align-self: center; }
+  .page { padding: 28px 18px 40px; }
+  .end-grid { grid-template-columns: 1fr 1fr; }
+  .page-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .page-meta { text-align: left; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div class="page-title">Cadena de <span>Valor</span><br>Polvo de Cobre ≥99.5%</div>
+    <div class="page-meta">
+      Mercado objetivo: China · Shenzhen / Suzhou / Shanghai / Xi'an<br>
+      Estrategia: Pieza Estratégica · Confidencial
+    </div>
+  </div>
+
+  <!-- CHAIN -->
+  <div class="chain">
+
+    <!-- NODE 1 — PRODUCTOR -->
+    <div class="node n-producer">
+      <div class="node-num">01</div>
+      <div class="node-body">
+        <div class="node-tag">Bloque 01 · Origen</div>
+        <div class="node-title">Productor de Materia Prima</div>
+        <div class="node-desc">Proceso propietario de producción. El activo fundacional que no se negocia, no se replica y no se subcontrata.</div>
+        <ul class="bullets">
+          <li>Pureza ≥99.5% Cu garantizada por lote</li>
+          <li>Espectro completo: submicra → 2,000 µm</li>
+          <li>Consistencia lote a lote — variable más valorada por compradores HiSpec</li>
+          <li>Conocimiento tácito no replicable · 1 tonelada disponible por mes</li>
+          <li>Capacidad de producción continua y escalable</li>
+        </ul>
+        <span class="node-badge">Activo Fundacional</span>
+      </div>
+    </div>
+
+    <div class="arrow">
+      <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 14h20M17 7l7 7-7 7" stroke="#A0522D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <!-- NODE 2 — LOGÍSTICA -->
+    <div class="node n-logistics">
+      <div class="node-num">02</div>
+      <div class="node-body">
+        <div class="node-tag">Bloque 02 · Movimiento</div>
+        <div class="node-title">Sistema de Logística y Transporte</div>
+        <div class="node-desc">Infraestructura robusta para el manejo, certificación y traslado del polvo virgen desde el origen hasta el punto de separación.</div>
+        <ul class="bullets">
+          <li>Cadena de custodia certificada y trazable por lote</li>
+          <li>Cumplimiento aduanero internacional · origen verificable</li>
+          <li>Coordinación con zonas francas industriales en China</li>
+        </ul>
+        <span class="node-badge">Columna Vertebral</span>
+      </div>
+    </div>
+
+    <div class="arrow">
+      <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 14h20M17 7l7 7-7 7" stroke="#A0522D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <!-- NODE 3 — SEPARADOR -->
+    <div class="node n-separator">
+      <div class="node-num">03</div>
+      <div class="node-body">
+        <div class="node-tag">Bloque 03 · Transformación · Clave</div>
+        <div class="node-title">Separador + Proveedor Certificado</div>
+        <div class="node-desc">El nodo crítico de la alianza. Convierte el polvo virgen en las dos bandas de valor que el mercado demanda — y ya está dentro como proveedor calificado.</div>
+
+        <div class="band-visual">
+          <div class="band band-a">
+            <div class="band-label">Banda A</div>
+            <div class="band-range">0 – 45 µm</div>
+            <div class="band-price">$40 – $100 / g</div>
+          </div>
+          <div class="band band-b">
+            <div class="band-label">Banda B</div>
+            <div class="band-range">45 – 150 µm</div>
+            <div class="band-price">$15 – $40 / g</div>
+          </div>
+        </div>
+
+        <ul class="bullets">
+          <li>Tamizado ultrasónico + air classifier en atmósfera inerte</li>
+          <li><strong>Ya certificado como proveedor preferencial</strong> de los usuarios finales objetivo</li>
+          <li>Precios internos basados en valor de banda, no en commodity</li>
+        </ul>
+        <span class="node-badge">Pieza Estratégica</span>
+      </div>
+    </div>
+
+    <div class="arrow">
+      <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 14h20M17 7l7 7-7 7" stroke="#A0522D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <!-- NODE 4 — USUARIOS FINALES -->
+    <div class="node n-end">
+      <div class="node-num">04</div>
+      <div class="node-body">
+        <div class="node-tag">Bloque 04 · Mercado Final</div>
+        <div class="node-title">Usuarios Finales China</div>
+        <div class="node-desc">Cuatro segmentos prioritarios. 45–55% del mercado mundial de 4,300 t/año.</div>
+
+        <div class="end-grid">
+          <div class="end-sub">
+            <div class="end-sub-label">Segmento A</div>
+            <div class="end-sub-name">Solar HJT</div>
+            <div class="end-sub-detail">LONGi · Risen · Tongwei<br>Xi'an / Shenzhen</div>
+            <div class="end-sub-cagr">CAGR +28%</div>
+          </div>
+          <div class="end-sub">
+            <div class="end-sub-label">Segmento B</div>
+            <div class="end-sub-name">Electrónica EV</div>
+            <div class="end-sub-detail">CATL · BYD<br>Shenzhen / Suzhou</div>
+            <div class="end-sub-cagr">CAGR +35%</div>
+          </div>
+          <div class="end-sub">
+            <div class="end-sub-label">Segmento C</div>
+            <div class="end-sub-name">MLCC / Pasivos</div>
+            <div class="end-sub-detail">Componentes electrónicos<br>Suzhou / Shanghai</div>
+            <div class="end-sub-cagr">CAGR +18%</div>
+          </div>
+          <div class="end-sub">
+            <div class="end-sub-label">Segmento D</div>
+            <div class="end-sub-name">Manufactura Aditiva</div>
+            <div class="end-sub-detail">Industria + Defensa<br>Shanghai / Beijing</div>
+            <div class="end-sub-cagr">En expansión</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /chain -->
+
+  <!-- FOOTER -->
+  <div class="page-footer">
+    <div class="footer-rule">
+      "El distribuidor vende lo que producimos. Y lo que producimos —
+      <strong>el proceso, la consistencia, el conocimiento tácito</strong> — no se negocia."
+    </div>
+    <div class="footer-tag">Versión 1.0 · Confidencial</div>
+  </div>
+
+</div>
+</body>
+</html>
