@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Charizomai — La Gracia del Perdón</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f7f3ec;
+    --warm-white: #fdfaf5;
+    --ink: #1c1a17;
+    --brown: #5c4a32;
+    --gold: #b8860b;
+    --gold-light: #d4a017;
+    --green-dark: #2d5a27;
+    --green-mid: #3a7a32;
+    --green-light: #eef6ed;
+    --green-border: #5a9e50;
+    --muted: #7a6a58;
+    --rule: #c8bfaf;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background-color: var(--cream);
+    color: var(--ink);
+    font-family: 'Lora', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.85;
+  }
+
+  /* Parchment texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page-wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+  }
+
+  /* ── Header ── */
+  header {
+    text-align: center;
+    padding-bottom: 48px;
+    border-bottom: 2px solid var(--rule);
+    margin-bottom: 56px;
+  }
+
+  .series-label {
+    font-family: 'Lora', serif;
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.6rem, 6vw, 4rem);
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--green-dark);
+  }
+
+  .subtitle {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--muted);
+    margin-top: 14px;
+    margin-bottom: 28px;
+  }
+
+  .gold-rule {
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    margin: 0 auto;
+    border-radius: 2px;
+  }
+
+  /* ── Opening hook ── */
+  .hook {
+    background: var(--warm-white);
+    border-left: 5px solid var(--gold-light);
+    padding: 28px 32px;
+    margin-bottom: 52px;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 2px 2px 14px rgba(0,0,0,0.05);
+  }
+
+  .hook p {
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--brown);
+    line-height: 1.9;
+  }
+
+  /* ── Sections ── */
+  section {
+    margin-bottom: 56px;
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 8px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  h2 .section-num {
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    font-family: 'Lora', serif;
+    font-weight: 400;
+    margin-bottom: 4px;
+  }
+
+  h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-style: italic;
+    color: var(--brown);
+    margin: 28px 0 12px;
+  }
+
+  p { margin-bottom: 18px; }
+
+  /* ── Bible verse boxes ── */
+  .verse-box {
+    background: var(--green-light);
+    border: 1.5px solid var(--green-border);
+    border-left: 6px solid var(--green-dark);
+    border-radius: 0 10px 10px 0;
+    padding: 24px 28px 20px;
+    margin: 28px 0;
+    position: relative;
+  }
+
+  .verse-box::before {
+    content: '❝';
+    font-size: 2.8rem;
+    color: var(--green-border);
+    opacity: 0.4;
+    position: absolute;
+    top: 6px;
+    left: 14px;
+    line-height: 1;
+    font-family: Georgia, serif;
+  }
+
+  .verse-text {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--green-dark);
+    line-height: 1.9;
+    padding-left: 20px;
+  }
+
+  .verse-ref {
+    display: block;
+    margin-top: 10px;
+    font-family: 'Lora', serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-style: normal;
+    letter-spacing: 0.08em;
+    color: var(--green-mid);
+    text-align: right;
+    padding-left: 20px;
+  }
+
+  /* ── Greek word spotlight ── */
+  .greek-spotlight {
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: 12px;
+    padding: 36px 36px 32px;
+    margin: 36px 0;
+    text-align: center;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+  }
+
+  .greek-word {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-style: italic;
+    color: var(--gold-light);
+    letter-spacing: 0.04em;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .greek-transliteration {
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--rule);
+    display: block;
+    margin-bottom: 18px;
+  }
+
+  .greek-meaning {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #d4cbbd;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .greek-root {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 20px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 40px;
+    padding: 8px 22px;
+    font-size: 0.9rem;
+    color: var(--gold-light);
+  }
+
+  /* ── Key insight callout ── */
+  .insight {
+    background: var(--warm-white);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 26px 30px;
+    margin: 32px 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  }
+
+  .insight-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .insight p {
+    font-size: 1.05rem;
+    color: var(--brown);
+    margin-bottom: 0;
+  }
+
+  /* ── Application questions ── */
+  .questions {
+    background: var(--warm-white);
+    border-radius: 10px;
+    padding: 32px 36px;
+    margin-top: 16px;
+    border: 1px solid var(--rule);
+  }
+
+  .questions h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+  }
+
+  .questions ol {
+    padding-left: 22px;
+  }
+
+  .questions ol li {
+    margin-bottom: 14px;
+    font-size: 1rem;
+    color: var(--brown);
+  }
+
+  /* ── Prayer ── */
+  .prayer {
+    background: linear-gradient(135deg, #2d5a27 0%, #3d7a35 100%);
+    color: #eef6ed;
+    border-radius: 12px;
+    padding: 40px 40px 36px;
+    margin-top: 20px;
+    text-align: center;
+    box-shadow: 0 8px 28px rgba(45,90,39,0.25);
+  }
+
+  .prayer-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: #a8d4a0;
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  .prayer p {
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 2;
+    color: #dff0dc;
+    margin-bottom: 0;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  /* ── Closing ── */
+  .closing {
+    text-align: center;
+    margin-top: 64px;
+    padding-top: 40px;
+    border-top: 2px solid var(--rule);
+  }
+
+  .closing p {
+    font-style: italic;
+    color: var(--muted);
+    font-size: 1.05rem;
+    margin-bottom: 0;
+  }
+
+  .closing .final-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-style: italic;
+    color: var(--green-dark);
+    margin-top: 20px;
+    margin-bottom: 0;
+    line-height: 1.6;
+  }
+
+  /* ── Divider ── */
+  .divider {
+    text-align: center;
+    margin: 48px 0 40px;
+    color: var(--rule);
+    letter-spacing: 0.5em;
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 600px) {
+    .page-wrap { padding: 36px 20px 70px; }
+    h1 { font-size: 2.1rem; }
+    .prayer, .greek-spotlight { padding: 28px 22px; }
+    .greek-word { font-size: 2.2rem; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- ══ HEADER ══ -->
+  <header>
+    <p class="series-label">Lección Bíblica · Serie: La Gracia que Transforma</p>
+    <h1><em>Charizomai</em><br>El Perdón que Viene de la Gracia</h1>
+    <p class="subtitle">¿Y si el perdón no dependiera de ti?</p>
+    <div class="gold-rule"></div>
+  </header>
+
+  <!-- ══ GANCHO DE APERTURA ══ -->
+  <div class="hook">
+    <p>¿Hay algún nombre con el que todavía se te tensa la mandíbula cuando lo escuchas? Alguien a quien dijiste que perdonaste hace años... y luego viste su rostro, o una publicación en redes sociales, y tus manos se cerraron en puños antes de que tuvieras tiempo de decidir.</p>
+    <p style="margin-bottom:0;">Si alguna vez te has sentido así, esta lección es para ti.</p>
+  </div>
+
+  <!-- ══ SECCIÓN 1 ══ -->
+  <section>
+    <h2>
+      <span class="section-num">Parte I</span>
+      La Trampa del Perdón Incompleto
+    </h2>
+
+    <p>Muchos creyentes caminan con una culpa silenciosa: la sensación de que su perdón <em>no funcionó</em>. Oraron. Dijeron las palabras. Incluso lo creyeron por un tiempo. Pero luego, sin aviso, el dolor regresó — y con él, la duda: <em>"¿Realmente perdoné?"</em></p>
+
+    <p>Esta experiencia es más común de lo que pensamos. No significa que el perdón fue falso; significa que hemos entendido mal lo que el perdón realmente es.</p>
+
+    <div class="insight">
+      <span class="insight-label">Punto clave</span>
+      <p>El problema no es la debilidad de nuestra voluntad. El problema es que hemos intentado perdonar desde nuestra propia cuenta bancaria espiritual — y esa cuenta siempre se queda vacía.</p>
+    </div>
+
+    <p>La Biblia tiene mucho que decir sobre el perdón. Pero para entenderlo bien, necesitamos ir directamente al texto original y descubrir una palabra que lo cambia todo.</p>
+  </section>
+
+  <div class="divider">· · ·</div>
+
+  <!-- ══ SECCIÓN 2: EL TEXTO CENTRAL ══ -->
+  <section>
+    <h2>
+      <span class="section-num">Parte II</span>
+      El Texto Central: Colosenses 3
+    </h2>
+
+    <p>El pasaje que más directamente habla del perdón entre creyentes se encuentra en la carta del apóstol Pablo a los Colosenses:</p>
+
+    <div class="verse-box">
+      <p class="verse-text">
+        "Vestíos, pues, como escogidos de Dios, santos y amados, de entrañable misericordia, de benignidad, de humildad, de mansedumbre, de paciencia; soportándoos unos a otros, y perdonándoos unos a otros si alguno tuviere queja contra otro. De la manera que Cristo os perdonó, así también hacedlo vosotros."
+      </p>
+      <span class="verse-ref">— Colosenses 3:12–13 (RVR 1960)</span>
+    </div>
+
+    <p>A primera vista, este versículo parece una orden directa: <em>perdona a los demás</em>. Y lo es. Pero hay una profundidad escondida en el idioma original que transforma completamente cómo entendemos esa orden.</p>
+  </section>
+
+  <div class="divider">· · ·</div>
+
+  <!-- ══ SECCIÓN 3: LA PALABRA GRIEGA ══ -->
+  <section>
+    <h2>
+      <span class="section-num">Parte III</span>
+      Una Palabra que lo Cambia Todo: <em>Charizomai</em>
+    </h2>
+
+    <p>En el texto griego original de Colosenses 3:13, la palabra traducida como "perdonándoos" no es la palabra griega común para perdón (<em>aphiemi</em>). Es una palabra diferente, más rica:</p>
+
+    <div class="greek-spotlight">
+      <span class="greek-word">χαρίζομαι</span>
+      <span class="greek-transliteration">charizomai</span>
+      <p class="greek-meaning">Literalmente: "actuar con gracia hacia alguien" o "conceder gracia libremente". Implica un don generoso que fluye de la naturaleza del dador, no del mérito del receptor.</p>
+      <div class="greek-root">✦ Raíz: <strong>χάρις</strong> (charis) = gracia</div>
+    </div>
+
+    <h3>¿Por qué importa esta distinción?</h3>
+
+    <p><strong>Charizomai</strong> no comienza con la idea de "perdón" en el sentido de cancelar una deuda. Comienza con la palabra <strong>charis</strong>, que significa <em>gracia</em>. Es decir: lo que Pablo nos pide no es simplemente que borremos lo que alguien nos hizo, sino que <em>actuemos con gracia hacia ellos</em>.</p>
+
+    <p>Y aún más importante: en el Nuevo Testamento, esta palabra aparece primero como algo que <strong>se recibe</strong> antes de poder darse.</p>
+
+    <div class="insight">
+      <span class="insight-label">Distinción fundamental</span>
+      <p><em>Charizomai</em> no es primero un verbo que tú haces. Es primero un verbo que tú recibes. El perdón fluye desde la gracia recibida, no desde el esfuerzo propio.</p>
+    </div>
+  </section>
+
+  <div class="divider">· · ·</div>
+
+  <!-- ══ SECCIÓN 4: CHARIZOMAI EN LA BIBLIA ══ -->
+  <section>
+    <h2>
+      <span class="section-num">Parte IV</span>
+      <em>Charizomai</em> a lo Largo de las Escrituras
+    </h2>
+
+    <h3>1. En Romanos 8: Lo que Dios hizo con su Hijo</h3>
+
+    <p>La primera y más grande instancia de <em>charizomai</em> en el Nuevo Testamento es el don del propio Hijo de Dios:</p>
+
+    <div class="verse-box">
+      <p class="verse-text">
+        "El que no escatimó ni a su propio Hijo, sino que lo entregó por todos nosotros, ¿cómo no nos dará también con él todas las cosas?"
+      </p>
+      <span class="verse-ref">— Romanos 8:32 (RVR 1960)</span>
+    </div>
+
+    <p>La palabra "dará" en este versículo es <em>charizomai</em>. Dios no simplemente nos perdonó en el sentido legal — nos concedió gracia de la manera más costosa posible: entregando a su propio Hijo. Eso es <em>charizomai</em> en su expresión más alta.</p>
+
+    <h3>2. En Lucas 7: El acreedor y las dos deudas</h3>
+
+    <p>Jesús usa esta misma palabra en una parábola que ilustra la naturaleza del perdón:</p>
+
+    <div class="verse-box">
+      <p class="verse-text">
+        "Un acreedor tenía dos deudores: el uno le debía quinientos denarios, y el otro cincuenta. Y no teniendo ellos con qué pagar, perdonó a ambos. Di, pues, ¿cuál de ellos le amará más?"
+      </p>
+      <span class="verse-ref">— Lucas 7:41–42 (RVR 1960)</span>
+    </div>
+
+    <p>La palabra "perdonó" aquí es también <em>charizomai</em>. El acreedor no simplemente canceló números en un libro contable. Actuó con gracia hacia personas que no podían pagar. No les pidió nada. La deuda desapareció porque la generosidad del acreedor era mayor que la deuda.</p>
+
+    <div class="insight">
+      <span class="insight-label">La lógica del perdón</span>
+      <p>En esta parábola, el acreedor no esperó sentir afecto por los deudores antes de perdonarlos. La gracia precedió al sentimiento. Así es como funciona <em>charizomai</em>.</p>
+    </div>
+
+    <h3>3. De regreso a Colosenses 3: El círculo completo</h3>
+
+    <p>Con este trasfondo, el mandato de Pablo adquiere una dimensión totalmente nueva:</p>
+
+    <div class="verse-box">
+      <p class="verse-text">
+        "...perdonándoos unos a otros si alguno tuviere queja contra otro. De la manera que Cristo os perdonó, así también hacedlo vosotros."
+      </p>
+      <span class="verse-ref">— Colosenses 3:13 (RVR 1960)</span>
+    </div>
+
+    <p>Pablo no dice: "perdona a los demás con tu propia fuerza". Dice: "<em>de la manera que Cristo os perdonó</em>". El modelo y la fuente son el mismo: la gracia que ya recibiste de Cristo es la misma gracia que puedes extender a otros. No se te pide que generes algo nuevo. Se te pide que dejes fluir lo que ya te fue dado.</p>
+  </section>
+
+  <div class="divider">· · ·</div>
+
+  <!-- ══ SECCIÓN 5: EL ESTÁNDAR ══ -->
+  <section>
+    <h2>
+      <span class="section-num">Parte V</span>
+      El Estándar No es 70 Veces 7 — Es la Cruz
+    </h2>
+
+    <p>En el Evangelio de Mateo, Pedro hace una pregunta que muchos de nosotros hemos pensado:</p>
+
+    <div class="verse-box">
+      <p class="verse-text">
+        "Entonces se le acercó Pedro y le dijo: Señor, ¿cuántas veces perdonaré a mi hermano que peque contra mí? ¿Hasta siete? Jesús le dijo: No te digo hasta siete, sino aun hasta setenta veces siete."
+      </p>
+      <span class="verse-ref">— Mateo 18:21–22 (RVR 1960)</span>
+    </div>
+
+    <p>Jesús no estaba estableciendo un límite de 490 perdonazos. Estaba diciendo: <em>elimina la contabilidad por completo</em>. Pero incluso este número señala hacia algo más profundo: la cruz misma.</p>
+
+    <p>El estándar del perdón cristiano no es matemático — es personal. No es "perdona muchas veces"; es "perdona como Cristo te perdonó". Y Cristo perdonó desde la cruz, sin límite, sin condición, mientras sus verdugos todavía lo estaban matando:</p>
+
+    <div class="verse-box">
+      <p class="verse-text">
+        "Y Jesús decía: Padre, perdónalos, porque no saben lo que hacen. Y repartiendo sus vestidos, echaron suertes."
+      </p>
+      <span class="verse-ref">— Lucas 23:34 (RVR 1960)</span>
+    </div>
+
+    <p>Eso es <em>charizomai</em> en su expresión más pura. Gracia sin condición. Amor que no espera merecer ser amado primero.</p>
+
+    <div class="insight">
+      <span class="insight-label">La buena noticia</span>
+      <p>El estándar es alto — pero el pozo no es tuyo. Nunca se te pidió que perdonaras desde tu propia cuenta bancaria. El recurso es Él. Siempre fue Él.</p>
+    </div>
+  </section>
+
+  <div class="divider">· · ·</div>
+
+  <!-- ══ SECCIÓN 6: CÓMO FUNCIONA EN PRÁCTICA ══ -->
+  <section>
+    <h2>
+      <span class="section-num">Parte VI</span>
+      Cómo Funciona Esto en la Práctica
+    </h2>
+
+    <p>Aquí es donde la teología se convierte en vida real. Quizás tienes un nombre en mente. Una persona cuya presencia —incluso su recuerdo— todavía genera tensión en tu cuerpo. ¿Qué haces con eso?</p>
+
+    <h3>Paso 1: Recuerda lo que te fue dado a ti primero</h3>
+
+    <p>El perdón cristiano no comienza mirando a la persona que te hirió. Comienza mirando la cruz. Antes de poder extender <em>charizomai</em>, necesitas recordar que tú también eras deudor — y que la deuda fue cancelada.</p>
+
+    <div class="verse-box">
+      <p class="verse-text">
+        "Antes sed benignos unos con otros, misericordiosos, perdonándoos unos a otros, como Dios también os perdonó a vosotros en Cristo."
+      </p>
+      <span class="verse-ref">— Efesios 4:32 (RVR 1960)</span>
+    </div>
+
+    <h3>Paso 2: Distingue el perdón del sentimiento</h3>
+
+    <p>El perdón bíblico no es una emoción — es una decisión. No necesitas <em>sentir</em> perdón hacia alguien para <em>actuar</em> con gracia hacia esa persona. Los sentimientos pueden tardar. La gracia puede comenzar hoy.</p>
+
+    <p>Esto no significa negar el dolor. Significa no dejar que el dolor tenga la última palabra.</p>
+
+    <h3>Paso 3: Deja fluir lo que recibiste</h3>
+
+    <p>Una vez que te has parado frente a la cruz y has recordado la enormidad de lo que te fue dado, puedes orar: <em>"Señor, no tengo suficiente amor por esta persona. Pero Tú sí. Y me lo has dado ya. Ayúdame a dejarlo fluir."</em></p>
+
+    <div class="insight">
+      <span class="insight-label">Una imagen útil</span>
+      <p>Piensa en ti mismo no como la fuente del perdón, sino como un canal. El agua no viene de ti — viene de Él. Tu trabajo no es generarla, sino no obstruirla.</p>
+    </div>
+
+    <h3>Paso 4: Entiende que el perdón es un proceso</h3>
+
+    <p>Perdonar una sola vez puede ser suficiente legalmente. Pero emocionalmente, muchas veces el perdón necesita renovarse — especialmente ante heridas profundas. Eso no significa que hayas fallado. Significa que eres humano, y que la gracia está disponible para ti cada vez que la necesitas:</p>
+
+    <div class="verse-box">
+      <p class="verse-text">
+        "Por la misericordia de Jehová no hemos sido consumidos, porque nunca decayeron sus misericordias. Nuevas son cada mañana; grande es tu fidelidad."
+      </p>
+      <span class="verse-ref">— Lamentaciones 3:22–23 (RVR 1960)</span>
+    </div>
+  </section>
+
+  <div class="divider">· · ·</div>
+
+  <!-- ══ SECCIÓN 7: PREGUNTAS DE REFLEXIÓN ══ -->
+  <section>
+    <h2>
+      <span class="section-num">Parte VII</span>
+      Preguntas para Reflexión y Discusión
+    </h2>
+
+    <div class="questions">
+      <h3>Para meditación personal o grupo pequeño</h3>
+      <ol>
+        <li>¿Hay alguna persona en tu vida cuyo nombre todavía genera una reacción negativa en ti? ¿Cómo te sientes al leer que eso no necesariamente significa que tu perdón fue falso?</li>
+        <li>¿Cuál es la diferencia entre perdonar desde tu propia fuerza y perdonar como un canal de la gracia de Dios? ¿Cuál has estado intentando hacer?</li>
+        <li>Piensa en la enormidad de lo que Dios te perdonó a ti. ¿Cómo cambia esa perspectiva la manera en que ves lo que alguien te hizo?</li>
+        <li>¿Cómo distingues el perdón del sentimiento de reconciliación? ¿Es posible perdonar genuinamente a alguien sin restaurar la relación?</li>
+        <li>¿Qué ha significado para ti saber que el pozo del perdón no es tuyo — que eres un canal, no la fuente?</li>
+      </ol>
+    </div>
+  </section>
+
+  <div class="divider">· · ·</div>
+
+  <!-- ══ SECCIÓN 8: ORACIÓN ══ -->
+  <section>
+    <h2>
+      <span class="section-num">Cierre</span>
+      Oración de Entrega
+    </h2>
+
+    <div class="prayer">
+      <span class="prayer-label">✦ Oremos juntos ✦</span>
+      <p>
+        Señor, hoy traemos ante Ti los nombres<br>
+        que todavía nos cuestan pronunciar sin dolor.<br>
+        No venimos con suficiente amor propio,<br>
+        venimos con las manos vacías —<br>
+        porque reconocemos que el perdón verdadero<br>
+        nunca fue nuestro para darlo desde nosotros mismos.<br><br>
+        Recuérdanos la cruz.<br>
+        Recuérdanos lo que Tú hiciste por nosotros<br>
+        cuando nosotros tampoco lo merecíamos.<br>
+        Y que esa misma gracia — tu <em>charizomai</em> —<br>
+        fluya libremente a través de nosotros<br>
+        hacia quienes más nos ha costado perdonar.<br><br>
+        El pozo es Tuyo. Nosotros somos el canal.<br>
+        Que así sea.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══ CIERRE ══ -->
+  <div class="closing">
+    <p>Cualquiera que sea el nombre que hace que se te tense la mandíbula...</p>
+    <p class="final-quote">"Él nunca tensó la suya cuando pronunció el tuyo."</p>
+    <p style="margin-top:28px; font-size:0.9rem; letter-spacing:0.08em;">— Basado en la enseñanza de Adam · Colosenses 3:12–13</p>
+  </div>
+
+</div>
+</body>
+</html>
