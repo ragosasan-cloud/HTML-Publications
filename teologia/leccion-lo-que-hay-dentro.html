@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lo que hay dentro — La Bola de Golf y el Corazón</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f7f3ec;
+    --warm-white: #fdfaf5;
+    --ink: #1c1a17;
+    --brown: #5c4a32;
+    --gold: #b8860b;
+    --gold-light: #d4a017;
+    --green-dark: #2d5a27;
+    --green-mid: #3a7a32;
+    --green-light: #eef6ed;
+    --green-border: #5a9e50;
+    --muted: #7a6a58;
+    --rule: #c8bfaf;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background-color: var(--cream);
+    color: var(--ink);
+    font-family: 'Lora', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.85;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page-wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+  }
+
+  /* ── Header ── */
+  header {
+    text-align: center;
+    padding-bottom: 48px;
+    border-bottom: 2px solid var(--rule);
+    margin-bottom: 56px;
+  }
+
+  .series-label {
+    font-family: 'Lora', serif;
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.6rem, 6vw, 4rem);
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--green-dark);
+  }
+
+  .subtitle {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--muted);
+    margin-top: 14px;
+    margin-bottom: 28px;
+  }
+
+  .gold-rule {
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    margin: 0 auto;
+    border-radius: 2px;
+  }
+
+  /* ── Opening hook ── */
+  .hook {
+    background: var(--warm-white);
+    border-left: 5px solid var(--gold-light);
+    padding: 28px 32px;
+    margin-bottom: 52px;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 2px 2px 14px rgba(0,0,0,0.05);
+  }
+
+  .hook p {
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--brown);
+    line-height: 1.9;
+  }
+
+  /* ── Sections ── */
+  section {
+    margin-bottom: 56px;
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 8px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  h2 .section-num {
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    font-family: 'Lora', serif;
+    font-weight: 400;
+    margin-bottom: 4px;
+  }
+
+  h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-style: italic;
+    color: var(--brown);
+    margin: 28px 0 12px;
+  }
+
+  p { margin-bottom: 18px; }
+
+  /* ── Bible verse boxes ── */
+  .verse-box {
+    background: var(--green-light);
+    border: 1.5px solid var(--green-border);
+    border-left: 6px solid var(--green-dark);
+    border-radius: 0 10px 10px 0;
+    padding: 24px 28px 20px;
+    margin: 28px 0;
+    position: relative;
+  }
+
+  .verse-box::before {
+    content: '❝';
+    font-size: 2.8rem;
+    color: var(--green-border);
+    opacity: 0.4;
+    position: absolute;
+    top: 6px;
+    left: 14px;
+    line-height: 1;
+    font-family: Georgia, serif;
+  }
+
+  .verse-text {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--green-dark);
+    line-height: 1.9;
+    padding-left: 20px;
+  }
+
+  .verse-ref {
+    display: block;
+    margin-top: 10px;
+    font-family: 'Lora', serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-style: normal;
+    letter-spacing: 0.08em;
+    color: var(--green-mid);
+    text-align: right;
+    padding-left: 20px;
+  }
+
+  /* ── Key concept spotlight ── */
+  .concept-spotlight {
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: 12px;
+    padding: 36px 36px 32px;
+    margin: 36px 0;
+    text-align: center;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+  }
+
+  .concept-word {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    font-style: italic;
+    color: var(--gold-light);
+    letter-spacing: 0.04em;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .concept-sub {
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--rule);
+    display: block;
+    margin-bottom: 18px;
+  }
+
+  .concept-body {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #d4cbbd;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .concept-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 20px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 40px;
+    padding: 8px 22px;
+    font-size: 0.9rem;
+    color: var(--gold-light);
+  }
+
+  /* ── Key insight callout ── */
+  .insight {
+    background: var(--warm-white);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 26px 30px;
+    margin: 32px 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  }
+
+  .insight-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .insight p {
+    font-size: 1.05rem;
+    color: var(--brown);
+    margin-bottom: 0;
+  }
+
+  /* ── Application questions ── */
+  .questions {
+    background: var(--warm-white);
+    border-radius: 10px;
+    padding: 32px 36px;
+    margin-top: 16px;
+    border: 1px solid var(--rule);
+  }
+
+  .questions h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+  }
+
+  .questions ol {
+    padding-left: 22px;
+  }
+
+  .questions ol li {
+    margin-bottom: 14px;
+    font-size: 1rem;
+    color: var(--brown);
+  }
+
+  /* ── Prayer ── */
+  .prayer {
+    background: linear-gradient(135deg, #2d5a27 0%, #3d7a35 100%);
+    color: #eef6ed;
+    border-radius: 12px;
+    padding: 40px 40px 36px;
+    margin-top: 20px;
+    text-align: center;
+    box-shadow: 0 8px 28px rgba(45,90,39,0.25);
+  }
+
+  .prayer-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: #a8d4a0;
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  .prayer p {
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 2;
+    color: #dff0dc;
+    margin-bottom: 0;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  /* ── Closing ── */
+  .closing {
+    text-align: center;
+    margin-top: 64px;
+    padding-top: 40px;
+    border-top: 2px solid var(--rule);
+  }
+
+  .closing p {
+    font-style: italic;
+    color: var(--muted);
+    font-size: 1.05rem;
+    margin-bottom: 0;
+  }
+
+  .closing .final-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-style: italic;
+    color: var(--green-dark);
+    margin-top: 20px;
+    margin-bottom: 0;
+    line-height: 1.6;
+  }
+
+  /* ── Divider ── */
+  .divider {
+    text-align: center;
+    margin: 48px 0 40px;
+    color: var(--rule);
+    letter-spacing: 0.5em;
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 600px) {
+    .page-wrap { padding: 36px 20px 70px; }
+    h1 { font-size: 2.1rem; }
+    .prayer, .concept-spotlight { padding: 28px 22px; }
+    .concept-word { font-size: 1.8rem; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- ══ HEADER ══ -->
+  <header>
+    <p class="series-label">Lección Bíblica · Serie: El Corazón que Habla</p>
+    <h1>Lo que Hay<br><em>Dentro de Ti</em></h1>
+    <p class="subtitle">La bola de golf no lo puso ahí — solo lo reveló</p>
+    <div class="gold-rule"></div>
+  </header>
+
+  <!-- ══ GANCHO DE APERTURA ══ -->
+  <div class="hook">
+    <p>Una bola de golf mal golpeada. Un misionero caído al suelo. Y un torrente de palabras que nadie esperaba escuchar — especialmente de alguien que llevaba más de veinte años en el campo misionero. Lo que pasó ese día no fue un accidente de vocabulario. Fue una revelación del corazón.</p>
+    <p style="margin-bottom:0;">Esta historia nos incomoda precisamente porque nos hace una pregunta que preferiríamos no responder: <em>¿Qué saldría de mí si alguien me golpeara de improviso?</em></p>
+  </div>
+
+  <!-- ══ SECCIÓN 1 ══ -->
+  <section>
+    <h2>
+      <span class="section-num">Parte I</span>
+      La Historia: Lo que Reveló el Golpe
+    </h2>
+
+    <p>El orador estaba en un campo de golf, listo para su turno. Los misioneros estaban cerca. Dio un swing enorme — y la bola, en lugar de ir hacia adelante, salió disparada en dirección contraria e impactó directamente en el pecho de uno de ellos. El hombre cayó al suelo. Los demás corrieron hacia él orando.</p>
+
+    <p>Afortunadamente, el misionero sobrevivió. Pero lo que hizo al levantarse dejó a todos en silencio: comenzó a lanzar insulto tras insulto, maldición tras maldición.</p>
+
+    <p>Y entonces vino la observación que lo cambia todo:</p>
+
+    <div class="insight">
+      <span class="insight-label">La observación clave</span>
+      <p>"Esa bola de golf no metió eso dentro de él. Eso ya estaba allí adentro. Lo que hizo esa bola de golf fue liberar lo que ya estaba en su interior."</p>
+    </div>
+
+    <p>Un hombre. Veinte años o más en el ministerio. Y durante todo ese tiempo, nadie supo que eso estaba ahí — hasta que una bola de golf lo reveló.</p>
+  </section>
+
+  <div class="divider">· · ·</div>
+
+  <!-- ══ SECCIÓN 2 ══ -->
+  <section>
+    <h2>
+      <span class="section-num">Parte II</span>
+      El Principio Central: Como Piensa el Corazón, Así Es el Hombre
+    </h2>
+
+    <p>Este relato no es solo una anécdota curiosa. Es la ilustración perfecta de uno de los principios más profundos de la Escritura. El libro de Proverbios lo establece con una claridad que no deja escapatoria:</p>
+
+    <div class="verse-box">
+      <p class="verse-text">
+        "Porque cual es su pensamiento en su corazón, tal es él."
+      </p>
+      <span class="verse-ref">— Proverbios 23:7a (RVR 1960)</span>
+    </div>
+
+    <p>No somos lo que aparentamos en los momentos cómodos. Somos lo que pensamos en lo más profundo de nuestro corazón. Y esa realidad interior, tarde o temprano, encuentra su camino hacia afuera.</p>
+
+    <div class="concept-spotlight">
+      <span class="concept-word">El corazón no miente</span>
+      <span class="concept-sub">Principio bíblico fundamental</span>
+      <p class="concept-body">La presión no crea el carácter — lo <em>revela</em>. Los momentos de crisis, dolor, sorpresa o provocación son como radiografías espirituales: no cambian lo que hay adentro, simplemente lo hacen visible.</p>
+      <div class="concept-tag">✦ Proverbios 23:7 · Mateo 12:34 · Lucas 6:45</div>
+    </div>
+  </section>
+
+  <div class="divider">· · ·</div>
+
+  <!-- ══ SECCIÓN 3 ══ -->
+  <section>
+    <h2>
+      <span class="section-num">Parte III</span>
+      Lo que Dice Jesús sobre el Corazón y la Boca
+    </h2>
+
+    <p>Jesús abordó este mismo principio de manera directa en su ministerio. Los fariseos se escandalizaban por lo que salía de la boca de otros — pero Él les señaló el verdadero problema:</p>
+
+    <div class="verse-box">
+      <p class="verse-text">
+        "¡Generación de víboras! ¿Cómo podéis hablar lo bueno, siendo malos? Porque de la abundancia del corazón habla la boca."
+      </p>
+      <span class="verse-ref">— Mateo 12:34 (RVR 1960)</span>
+    </div>
+
+    <p>La frase es contundente: <em>"de la abundancia del corazón habla la boca"</em>. Lo que más llena el corazón es lo que rebosa cuando hay presión. No es posible hablar diferente a lo que en verdad se es por dentro.</p>
+
+    <p>Lucas registra la misma enseñanza con una imagen adicional que ilumina el principio:</p>
+
+    <div class="verse-box">
+      <p class="verse-text">
+        "El hombre bueno, del buen tesoro de su corazón saca lo bueno; y el hombre malo, del mal tesoro de su corazón saca lo malo; porque de la abundancia del corazón habla la boca."
+      </p>
+      <span class="verse-ref">— Lucas 6:45 (RVR 1960)</span>
+    </div>
+
+    <p>La imagen es la de un <em>tesoro</em>. Lo que guardamos en el corazón — mediante pensamientos, meditaciones, hábitos, lo que vemos, lo que escuchamos, lo que alimentamos — es el depósito del que la boca extrae en los momentos de presión.</p>
+
+    <div class="insight">
+      <span class="insight-label">Aplicación inmediata</span>
+      <p>La pregunta no es "¿qué digo cuando estoy tranquilo?" sino "¿qué sale de mí cuando algo me golpea de improviso?" Ese es el inventario real del corazón.</p>
+    </div>
+  </section>
+
+  <div class="divider">· · ·</div>
+
+  <!-- ══ SECCIÓN 4 ══ -->
+  <section>
+    <h2>
+      <span class="section-num">Parte IV</span>
+      El Corazón: Raíz de Todo lo que Somos
+    </h2>
+
+    <p>La Escritura trata el corazón no como un órgano sentimental, sino como el centro de la identidad y la voluntad de una persona. Por eso Salomón da una de las instrucciones más importantes de toda la literatura sapiencial:</p>
+
+    <div class="verse-box">
+      <p class="verse-text">
+        "Sobre toda cosa guardada, guarda tu corazón; porque de él mana la vida."
+      </p>
+      <span class="verse-ref">— Proverbios 4:23 (RVR 1960)</span>
+    </div>
+
+    <p>"Sobre toda cosa guardada" — es decir, con más celo que cualquier otra cosa que cuides en tu vida. <em>¿Por qué?</em> Porque de él mana la vida. Todo lo que somos fluye de ese centro invisible.</p>
+
+    <h3>Lo que guardamos dentro determina lo que somos por fuera</h3>
+
+    <p>El misionero de la historia muy probablemente nunca tuvo intención de decir lo que dijo. Quizás ni siquiera sabía que esas palabras estaban dentro de él. Pero estaban. Y la bola de golf simplemente actuó como una llave que abrió una puerta que llevaba años cerrada.</p>
+
+    <p>Eso debería hacernos reflexionar: no sobre él, sino sobre nosotros. ¿Qué habría salido de nosotros en ese mismo instante? ¿Qué está guardado en el depósito de nuestro corazón?</p>
+
+    <div class="insight">
+      <span class="insight-label">Una distinción importante</span>
+      <p>Guardar el corazón no significa suprimir emociones ni fingir que todo está bien. Significa ser intencional con lo que alimentamos, lo que meditamos, y lo que permitimos que se asiente en nuestra vida interior. El corazón se forma, no simplemente se recibe.</p>
+    </div>
+  </section>
+
+  <div class="divider">· · ·</div>
+
+  <!-- ══ SECCIÓN 5 ══ -->
+  <section>
+    <h2>
+      <span class="section-num">Parte V</span>
+      El Peligro de la Religiosidad sin Transformación
+    </h2>
+
+    <p>Quizás la parte más incómoda de esta historia no es lo que dijo el misionero. Es que llevaba veinte años en el ministerio.</p>
+
+    <p>Es posible predicar, servir, orar, ir al campo misionero — y al mismo tiempo tener un interior que no ha sido genuinamente transformado. Jesús lo advirtió con una claridad que incomoda:</p>
+
+    <div class="verse-box">
+      <p class="verse-text">
+        "¡Ay de vosotros, escribas y fariseos, hipócritas! porque sois semejantes a sepulcros blanqueados, que por fuera, a la verdad, se muestran hermosos, mas por dentro están llenos de huesos de muertos y de toda inmundicia."
+      </p>
+      <span class="verse-ref">— Mateo 23:27 (RVR 1960)</span>
+    </div>
+
+    <p>El problema de los sepulcros blanqueados no era la pintura blanca — era lo que había debajo. La actividad religiosa externa puede coexistir con un corazón que nunca ha sido entregado del todo. El ministerio puede convertirse en un escenario que oculta, en lugar de un fruto que revela, lo que realmente hay dentro.</p>
+
+    <div class="verse-box">
+      <p class="verse-text">
+        "Este pueblo de labios me honra; mas su corazón está lejos de mí."
+      </p>
+      <span class="verse-ref">— Mateo 15:8 (RVR 1960)</span>
+    </div>
+
+    <div class="insight">
+      <span class="insight-label">La pregunta difícil</span>
+      <p>¿Es posible que estemos invirtiendo más energía en limpiar el exterior que en transformar el interior? La actividad religiosa nunca puede sustituir la obra genuina de la gracia en el corazón.</p>
+    </div>
+  </section>
+
+  <div class="divider">· · ·</div>
+
+  <!-- ══ SECCIÓN 6 ══ -->
+  <section>
+    <h2>
+      <span class="section-num">Parte VI</span>
+      La Solución: Un Corazón Nuevo
+    </h2>
+
+    <p>Si el problema es el corazón, la solución también tiene que ser el corazón. Y aquí es donde el evangelio entra con toda su potencia. Dios no nos llama simplemente a esforzarnos más — nos promete algo radicalmente diferente:</p>
+
+    <div class="verse-box">
+      <p class="verse-text">
+        "Os daré corazón nuevo, y pondré espíritu nuevo dentro de vosotros; y quitaré de vuestra carne el corazón de piedra, y os daré un corazón de carne."
+      </p>
+      <span class="verse-ref">— Ezequiel 36:26 (RVR 1960)</span>
+    </div>
+
+    <p>Dios no ofrece mejoras al viejo corazón — ofrece uno nuevo. Esa es la promesa de la nueva vida en Cristo: no una reforma moral, sino una transformación desde adentro hacia afuera.</p>
+
+    <h3>La renovación de la mente como proceso continuo</h3>
+
+    <p>Esta transformación no ocurre de una sola vez. El apóstol Pablo describe un proceso continuo de renovación que es la respuesta cristiana al problema del corazón:</p>
+
+    <div class="verse-box">
+      <p class="verse-text">
+        "No os conforméis a este siglo, sino transformaos por medio de la renovación de vuestro entendimiento, para que comprobéis cuál sea la buena voluntad de Dios, agradable y perfecta."
+      </p>
+      <span class="verse-ref">— Romanos 12:2 (RVR 1960)</span>
+    </div>
+
+    <p>La palabra "transformaos" en griego es <em>metamorfóo</em> — de donde viene "metamorfosis". No es un cambio superficial, sino una transformación estructural. Y ocurre, dice Pablo, por medio de la <em>renovación del entendimiento</em>: lo que pensamos, lo que meditamos, lo que dejamos entrar al corazón.</p>
+
+    <h3>¿Qué estamos alimentando?</h3>
+
+    <p>El apóstol nos da también una guía práctica de qué llenar el corazón:</p>
+
+    <div class="verse-box">
+      <p class="verse-text">
+        "Por lo demás, hermanos, todo lo que es verdadero, todo lo honesto, todo lo justo, todo lo puro, todo lo amable, todo lo que es de buen nombre; si hay virtud alguna, si algo digno de alabanza, en esto pensad."
+      </p>
+      <span class="verse-ref">— Filipenses 4:8 (RVR 1960)</span>
+    </div>
+
+    <div class="insight">
+      <span class="insight-label">El principio práctico</span>
+      <p>Lo que voluntariamente alimentamos en nuestra mente hoy es lo que saldrá involuntariamente bajo presión mañana. La formación espiritual no es para los momentos de crisis — es lo que nos prepara para ellos.</p>
+    </div>
+  </section>
+
+  <div class="divider">· · ·</div>
+
+  <!-- ══ SECCIÓN 7: PREGUNTAS DE REFLEXIÓN ══ -->
+  <section>
+    <h2>
+      <span class="section-num">Parte VII</span>
+      Preguntas para Reflexión y Discusión
+    </h2>
+
+    <div class="questions">
+      <h3>Para meditación personal o grupo pequeño</h3>
+      <ol>
+        <li>Si alguien te "golpeara de improviso" hoy — con una crítica inesperada, una injusticia, una humillación — ¿qué crees que saldría de ti? ¿Eso te sorprende o lo esperabas?</li>
+        <li>¿Hay algo en tu interior que llevas tiempo sabiendo que está ahí, pero que has evitado presentar ante Dios? ¿Qué te ha impedido hacerlo?</li>
+        <li>¿Cuál es la diferencia entre "guardar el corazón" (Proverbios 4:23) y simplemente suprimir emociones o fingir que todo está bien?</li>
+        <li>Piensa en lo que habitualmente alimentas: lo que ves, escuchas, meditas, a lo que dedicas tu tiempo. ¿Qué tipo de tesoro está construyendo eso dentro de ti?</li>
+        <li>¿Qué significa para ti la promesa de Ezequiel 36:26 — un corazón nuevo — en términos prácticos y concretos esta semana?</li>
+      </ol>
+    </div>
+  </section>
+
+  <div class="divider">· · ·</div>
+
+  <!-- ══ SECCIÓN 8: ORACIÓN ══ -->
+  <section>
+    <h2>
+      <span class="section-num">Cierre</span>
+      Oración de Examen y Entrega
+    </h2>
+
+    <div class="prayer">
+      <span class="prayer-label">✦ Oremos juntos ✦</span>
+      <p>
+        Señor, hoy no venimos a hablar de otro —<br>
+        venimos a preguntarte por lo nuestro.<br>
+        ¿Qué hay dentro de nosotros<br>
+        que todavía no hemos visto?<br>
+        ¿Qué está guardado en lo profundo<br>
+        que la presión podría revelar?<br><br>
+        No queremos sepulcros blanqueados.<br>
+        No queremos años de servicio<br>
+        con un corazón que nunca fue tuyo del todo.<br><br>
+        Cumple en nosotros tu promesa:<br>
+        quita el corazón de piedra.<br>
+        Danos uno nuevo.<br>
+        Y renueva nuestro entendimiento cada día,<br>
+        para que lo que salga de nosotros<br>
+        —en los momentos en que nadie lo planea—<br>
+        sea un reflejo de Ti.<br><br>
+        Examíname, oh Dios.<br>
+        Y guíame en el camino eterno.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══ CIERRE ══ -->
+  <div class="closing">
+    <p>La bola de golf no puso nada dentro de él. Solo lo reveló.</p>
+    <p class="final-quote">"Lo que está dentro de ti es lo que determina lo que eres."</p>
+    <p style="margin-top:28px; font-size:0.9rem; letter-spacing:0.08em;">— Basado en la enseñanza del video · Proverbios 23:7 · Proverbios 4:23 · Ezequiel 36:26</p>
+  </div>
+
+  <div class="divider">· · ·</div>
+
+  <!-- ══ ORACIÓN PERSONAL (SINGULAR) ══ -->
+  <section>
+    <h2>
+      <span class="section-num">Oración Personal</span>
+      Una Oración para Llevar Contigo
+    </h2>
+
+    <div class="prayer">
+      <span class="prayer-label">✦ Oración personal ✦</span>
+      <p>
+        Señor, hoy no vengo a hablar de otro —<br>
+        vengo a preguntarte por lo mío.<br>
+        ¿Qué hay dentro de mí<br>
+        que todavía no he visto?<br>
+        ¿Qué está guardado en lo profundo<br>
+        que la presión podría revelar?<br><br>
+        No quiero ser un sepulcro blanqueado.<br>
+        No quiero años de servicio<br>
+        con un corazón que nunca fue tuyo del todo.<br><br>
+        Cumple en mí tu promesa:<br>
+        quita el corazón de piedra.<br>
+        Dame uno nuevo.<br>
+        Y renueva mi entendimiento cada día,<br>
+        para que lo que salga de mí<br>
+        —en los momentos en que nadie lo planea—<br>
+        sea un reflejo de Ti.<br><br>
+        Examíname, oh Dios.<br>
+        Y guíame en el camino eterno.
+      </p>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
