@@ -77,6 +77,7 @@ y un registro trazable en Notion.
 <ol>
   <li><strong>Sintaxis <code>dict | None</code> incompatible con Python 3.9</strong> &mdash; a&ntilde;adimos <code>from __future__ import annotations</code> para que las anotaciones de uni&oacute;n funcionen en este Mac.</li>
   <li><strong>Campo <code>Folder</code> vac&iacute;o en Notion</strong> &mdash; la funci&oacute;n <code>build_properties</code> no recib&iacute;a ni enviaba <code>folder</code>. Lo a&ntilde;adimos como par&aacute;metro y como propiedad <code>rich_text</code> en el dict.</li>
+  <li><strong>Sin reintentos ante errores transitorios</strong> &mdash; un <code>502 Bad Gateway</code> de Notion abortaba la publicaci&oacute;n. Ahora hay reintentos con backoff exponencial v&iacute;a <code>urllib3.Retry</code> para GET/PUT/PATCH, y una funci&oacute;n <code>publish_notion()</code> que re-consulta Notion antes de cada intento para evitar filas duplicadas si un POST fall&oacute; pero s&iacute; persisti&oacute;.</li>
 </ol>
 
 <h2>Capacidades</h2>
@@ -92,7 +93,7 @@ y un registro trazable en Notion.
 <h2>Limitaciones</h2>
 <ul>
   <li><strong>Interactivo por dise&ntilde;o</strong>: usa <code>input()</code>, no acepta argumentos de l&iacute;nea de comandos. Para integrar con webhooks, Shortcuts de iOS o cron, habr&iacute;a que a&ntilde;adir <code>argparse</code> (<code>--file</code>, <code>--folder</code>, <code>--recipient</code>).</li>
-  <li><strong>Sin manejo de errores</strong>: si GitHub o Notion devuelven un error, el script revienta con <code>raise_for_status()</code> sin reintentos ni rollback. Si GitHub sube bien pero Notion falla, te queda el archivo publicado sin registrar.</li>
+  <li><strong>Sin rollback de GitHub</strong>: si Notion sigue ca&iacute;do despu&eacute;s de todos los reintentos, el archivo queda publicado en GitHub Pages aunque la fila de Notion no se cree. El script imprime un mensaje claro y sale con c&oacute;digo <code>2</code>; re-ejecutar es id&eacute;ntico y registra la fila (idempotente).</li>
   <li><strong>Sin validaci&oacute;n</strong>: no verifica que el archivo sea HTML v&aacute;lido, ni que la propiedad <code>Name</code> en Notion sea &uacute;nica.</li>
   <li><strong>Identificaci&oacute;n por nombre de archivo</strong>: si publicas el mismo nombre en dos carpetas distintas, la fila de Notion se sobrescribir&aacute; con la &uacute;ltima carpeta &mdash; no son &uacute;nicas por <code>(folder, filename)</code>.</li>
   <li><strong>GitHub Pages tiene latencia</strong>: el enlace puede dar 404 por ~30&ndash;60 segundos despu&eacute;s de la primera publicaci&oacute;n.</li>
