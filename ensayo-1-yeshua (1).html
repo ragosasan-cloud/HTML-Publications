@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Nombre que lo Dice Todo — Yeshua</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1208;
+    --gold: #8b6914;
+    --gold-light: #c9a84c;
+    --parchment: #faf6ef;
+    --parchment-dark: #f0e8d8;
+    --rule: #d4b896;
+    --muted: #6b5c44;
+    --accent-bg: #f5ede0;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--parchment);
+    color: var(--ink);
+    font-family: 'EB Garamond', 'Cormorant Garamond', Georgia, serif;
+    font-size: 20px;
+    line-height: 1.85;
+    min-height: 100vh;
+  }
+
+  /* Texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(180,150,100,0.04) 28px, rgba(180,150,100,0.04) 29px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 80px 48px 120px;
+  }
+
+  /* Series badge */
+  .series-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 64px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .series-label {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .series-dots {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--rule);
+  }
+
+  .dot.active {
+    background: var(--gold);
+    width: 10px;
+    height: 10px;
+  }
+
+  /* Header */
+  .essay-header {
+    margin-bottom: 64px;
+    text-align: center;
+  }
+
+  .part-label {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 28px;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 20px;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .subtitle {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--muted);
+    margin-bottom: 40px;
+  }
+
+  .header-rule {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 40px;
+  }
+
+  .header-rule::before,
+  .header-rule::after {
+    content: '';
+    flex: 1;
+    max-width: 80px;
+    height: 1px;
+    background: var(--gold-light);
+  }
+
+  .header-ornament {
+    color: var(--gold);
+    font-size: 1.1rem;
+  }
+
+  /* Body text */
+  .intro {
+    font-size: 1.15rem;
+    line-height: 1.9;
+    margin-bottom: 48px;
+    color: var(--ink);
+  }
+
+  .intro p + p {
+    margin-top: 1.4em;
+  }
+
+  /* Section headers */
+  h2 {
+    font-family: 'Cinzel', serif;
+    font-weight: 400;
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 64px 0 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  h2::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  /* Paragraphs */
+  p {
+    margin-bottom: 1.5em;
+    font-size: 1rem;
+    hyphens: auto;
+  }
+
+  em { font-style: italic; }
+
+  strong {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  /* Pull quote */
+  .pull-quote {
+    margin: 48px -24px;
+    padding: 36px 48px;
+    background: var(--accent-bg);
+    border-left: 3px solid var(--gold);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+
+  /* Key term callout */
+  .key-term {
+    display: inline-block;
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    background: var(--parchment-dark);
+    padding: 3px 10px;
+    border: 1px solid var(--rule);
+    margin: 0 3px;
+    vertical-align: middle;
+  }
+
+  /* Scripture reference */
+  .scripture {
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  /* Divider */
+  .section-break {
+    text-align: center;
+    margin: 56px 0;
+    color: var(--rule);
+    font-size: 1.2rem;
+    letter-spacing: 0.5em;
+  }
+
+  /* Footer */
+  .essay-footer {
+    margin-top: 80px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .footer-note {
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-style: italic;
+    line-height: 1.7;
+  }
+
+  .series-footer {
+    margin-top: 48px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .series-link {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 10px 18px;
+    border: 1px solid var(--rule);
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .series-link:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .series-link.current {
+    background: var(--parchment-dark);
+    color: var(--gold);
+    border-color: var(--gold-light);
+  }
+
+  .arrow { font-size: 0.9em; }
+
+  /* Drop cap */
+  .drop-cap::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.5em;
+    font-weight: 300;
+    line-height: 0.75;
+    float: left;
+    margin-right: 8px;
+    margin-top: 6px;
+    color: var(--gold);
+  }
+
+  /* Animate in */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .essay-header { animation: fadeUp 0.8s ease both; }
+  .intro { animation: fadeUp 0.8s ease 0.15s both; }
+
+  @media (max-width: 600px) {
+    .page { padding: 48px 24px 80px; }
+    .pull-quote { margin: 36px -12px; padding: 28px 24px; }
+    h1 { font-size: 2rem; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <nav class="series-nav">
+    <span class="series-label">El Nombre que lo Dice Todo — Trilogía Teológica</span>
+    <div class="series-dots">
+      <div class="dot active"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+  </nav>
+
+  <header class="essay-header">
+    <span class="part-label">Ensayo I &nbsp;·&nbsp; Yeshua</span>
+    <h1>El Nombre que<br>lo Dice <em>Todo</em></h1>
+    <p class="subtitle">Yeshua y el verdadero significado de la salvación</p>
+    <div class="header-rule">
+      <span class="header-ornament">✦</span>
+    </div>
+  </header>
+
+  <div class="intro">
+    <p class="drop-cap">Hay palabras que, de tanto usarse, pierden su filo. Se vuelven familiares, domésticas, casi decorativas. <em>Salvación</em> es una de ellas. La pronunciamos en los himnos, la inscribimos en las portadas de las biblias, la cosemos en los cojines del sofá de la sala. Y sin embargo, algo se ha ido perdiendo en el camino: la urgencia original de la palabra, su peso de rescate inminente, su sabor a polvo y mar abierto.</p>
+    <p>Para recuperar ese filo es necesario volver al principio, a la lengua en que fue forjada por primera vez. Y cuando uno hace ese viaje de regreso al hebreo, descubre que la salvación nunca fue una póliza de seguros para el más allá. Fue, desde el primer momento, el nombre de una intervención.</p>
+  </div>
+
+  <div class="section-break">· · ·</div>
+
+  <h2>I. Gramática como Teología</h2>
+
+  <p>En hebreo, la palabra que traducimos como <em>salvación</em> es <span class="key-term">Yeshua</span> (Strong's H3444). Procede del verbo <em>Yasha</em>, que significa rescatar, librar, sacar de un peligro. Lo que resulta gramaticalmente decisivo es que <em>Yeshua</em> funciona como participante pasivo sobre ese verbo: literalmente es "el estado de haber sido rescatado", "la condición del que ha recibido extracción". No es una acción que el sujeto ejecuta. Es algo que le sucede.</p>
+
+  <p>Este detalle gramatical no es un accidente. Es una declaración teológica incrustada en la estructura misma del idioma: la salvación, por definición, nunca se produce desde adentro. No emerge del esfuerzo, la voluntad ni la inteligencia del que está en peligro. Viene de afuera. Viene de otro.</p>
+
+  <p>Esta distinción importa porque la religiosidad humana, en todas sus formas, tiende hacia el sentido inverso: hacia la salvación como logro, mérito o técnica. El hebreo corta esa tendencia de raíz. No hay forma de conjugar <em>Yeshua</em> de manera que el sujeto sea el agente de su propia liberación. La gramática no lo permite. Y esa restricción no es un capricho lingüístico — es la forma en que el idioma porta una convicción fundamental sobre la condición humana y sobre quién tiene la capacidad de cambiarla.</p>
+
+  <div class="section-break">· · ·</div>
+
+  <h2>II. Salvación Mojada y Ruidosa</h2>
+
+  <p>La primera vez que <em>Yeshua</em> aparece de manera dramática en el Antiguo Testamento es en Éxodo 14:13, cuando Moisés le dice a un pueblo aterrorizado: <span class="scripture">"No teman. Estén firmes y vean la salvación [Yeshua] del Señor."</span></p>
+
+  <p>Vale la pena detenerse en la escena. Seiscientos carros de guerra egipcios levantando polvo a sus espaldas. El Mar Rojo al frente, inconmovible y sin puente. No había ruta de escape, no había plan B, no había negociación posible. La única alternativa a la intervención divina era la muerte o la re-esclavización. En ese contexto —y no en otro— pronuncia Moisés la palabra <em>Yeshua</em>.</p>
+
+  <div class="pull-quote">
+    Dios no despeja el camino lateral. Toma el obstáculo mismo —el mar— y lo convierte en el arma que destruye al enemigo. La salvación es literal, física, visible, mojada y ruidosa.
+  </div>
+
+  <p>Esa es la textura de <em>Yeshua</em> a lo largo de las 78 veces que aparece en el Antiguo Testamento. En los Salmos, es el nombre para la paz íntima del perseguido que ha encontrado refugio <span class="scripture">(Salmo 27:1)</span>. En Isaías, la salvación no es un destino al que se llega — es una fuente de la que se bebe cada día <span class="scripture">(Isaías 12:2-3)</span>. En las guerras de Israel, es el término para la victoria concreta en el campo de batalla <span class="scripture">(1 Samuel 14:45)</span>. En el vientre del pez, es la única palabra que Jonás puede pronunciar desde su oscuridad total <span class="scripture">(Jonás 2:9)</span>.</p>
+
+  <p>En ninguna de sus 78 apariciones <em>Yeshua</em> significa "lo que te ocurrirá después de morir". Siempre, sin excepción, es un rescate urgente de una situación presente. La escatología llegará después; la salvación bíblica vive en el presente.</p>
+
+  <div class="section-break">· · ·</div>
+
+  <h2>III. Cuando el Verbo Se Convirtió en Nombre</h2>
+
+  <p>El salto más asombroso en la historia de esta palabra ocurre en Mateo 1:21. Un ángel le dice a José: <span class="scripture">"Le pondrás por nombre Yeshua, porque él salvará [Yasha] a su pueblo de sus pecados."</span></p>
+
+  <p>La estructura de la frase es un juego de palabras deliberado que en el original hebreo resulta inmediato y transparente: nómbralo según la acción que va a realizar. El niño no recibe un nombre que lo describa o que honre a un ancestro. Recibe el nombre del verbo que define su misión. Él es, en persona, la extracción que viene.</p>
+
+  <p>Lo que hace el ángel a continuación es igualmente importante: reencuadra completamente al enemigo. Los judíos del siglo I, viviendo bajo la ocupación romana, esperaban un <em>Yeshua</em> de la variedad Éxodo 14: un mesías guerrero que repitiera las gestas de los Macabeos, que expulsara a Roma como Dios expulsó a Egipto. El ángel no niega esa expectativa — la profundiza. El verdadero Faraón, revela, no lleva armadura romana. Habita en el corazón humano. La esclavitud más antigua y más resistente no es política sino espiritual.</p>
+
+  <p>La palabra viajó luego a través de los siglos y las lenguas. El griego, que no tiene sonido <em>sh</em>, la recibió como <em>Iēsous</em>. El latín la transformó en <em>Iesus</em>. El español la recibió finalmente como <em>Jesús</em>. Veinte siglos de deriva fonética separan el nombre del carpintero nazareno del sustantivo hebreo del que brotó. Pero la semántica viajó intacta.</p>
+
+  <div class="pull-quote">
+    Cada vez que alguien pronuncia ese nombre —en una oración, en una blasfemia, en un susurro de hospital— está repitiendo, sepa o no sepa, la afirmación más antigua del pueblo de Israel sobre su Dios: <em>Él rescata</em>.
+  </div>
+
+  <p>Éxodo 15:2 lo dice sin rodeos: <span class="scripture">"El Señor es mi salvación."</span> No el Señor <em>tiene</em> salvación, ni el Señor <em>da</em> salvación. El Señor <em>es</em> la salvación. En Jesús de Nazaret, esta ecuación se vuelve historia encarnada: Dios no solo envió un rescate — se convirtió en él.</p>
+
+  <div class="section-break">· · ·</div>
+
+  <h2>IV. La Operación de Tres Fases</h2>
+
+  <p>La teología popular tiende a ubicar la salvación exclusivamente en el pasado: un evento que ocurrió el día en que alguien "aceptó a Cristo", firmó la conversión, fue bautizado. Ese evento es real e importante. Pero el Nuevo Testamento no lo trata como el único tiempo gramatical de la salvación.</p>
+
+  <p>Pablo escribe en Efesios 2:8: <span class="scripture">"Por gracia habéis sido salvados."</span> Tiempo perfecto: acción completada con efecto presente. La mano ya te agarró. El rescate inició.</p>
+
+  <p>Pero en 1 Corintios 1:18 el mismo Pablo describe a quienes están siendo salvados usando un participio presente activo: la salvación como proceso en curso, como extracción que continúa. No es un estado cerrado sino una operación activa.</p>
+
+  <p>Y en 1 Pedro 1:5, la salvación aparece en futuro: lista para ser revelada en el tiempo final. El rescate tiene una consumación que todavía no ha llegado.</p>
+
+  <p>Vivir en la fe cristiana es habitar los tres tiempos simultáneamente. Ya fui rescatado. Estoy siendo rescatado. Seré rescatado. Perder cualquiera de los tres tiempos empobrece la comprensión entera.</p>
+
+  <p>El griego del Nuevo Testamento añade un detalle más. La palabra <em>Sozo</em>, equivalente funcional de <em>Yeshua</em>, se usa en los evangelios de manera intercambiable para describir la salvación espiritual y la sanidad física. En Marcos 5:34, Jesús le dice a la mujer que ha vivido doce años con una hemorragia: <span class="scripture">"Tu fe te ha salvado/sanado."</span> Una sola palabra, dos realidades. Esto no es ambigüedad — es coherencia. La salvación que Dios tiene en mente apunta a toda la catástrofe humana: el espíritu fracturado, el cuerpo enfermo, las relaciones rotas, el propósito extraviado. No es un rescate parcial. Es una restauración total.</p>
+
+  <div class="section-break">· · ·</div>
+
+  <h2>V. La Palabra que Recupera su Filo</h2>
+
+  <p>Existe un ejercicio pequeño pero poderoso para quien quiera devolver a esta palabra su peso original: reemplazar mentalmente la palabra <em>salvación</em> por <em>rescate</em> cada vez que la encuentre en las Escrituras o en los himnos.</p>
+
+  <p><span class="scripture">"Ocúpense en su salvación con temor y temblor"</span> (Filipenses 2:12) se convierte en <span class="scripture">"Ocúpense en su rescate con temor y temblor."</span> La urgencia se vuelve inmediata. Ya no suena a administración espiritual de largo plazo. Suena a alguien que todavía está en el valle, que sabe que el helicóptero viene, y que por eso no puede darse el lujo de quedarse dormido.</p>
+
+  <p>El lenguaje de Yeshua no está diseñado para personas satisfechas que necesitan un complemento espiritual a una vida bien ordenada. Está diseñado para personas que han agotado sus propios recursos y se encuentran, como Israel en la orilla del mar, entre el ejército y las aguas.</p>
+
+  <div class="pull-quote">
+    El nombre de ese rescate es el mismo desde hace miles de años. Y cada vez que alguien lo pronuncia — en cualquier idioma, en cualquier siglo — está diciendo, sin saberlo del todo, la frase más verdadera que el lenguaje humano puede contener: <strong>Dios rescata.</strong>
+  </div>
+
+  <footer class="essay-footer">
+    <p class="footer-note">Basado en el estudio hebreo del término Yeshua (H3444) y su recorrido a través del Antiguo y Nuevo Testamento.</p>
+
+    <div class="series-footer">
+      <span class="series-link current"><span class="arrow">◆</span> I · Yeshua</span>
+      <a href="ensayo-2-metamorfosis.html" class="series-link">II · Metamorphoō <span class="arrow">→</span></a>
+      <a href="ensayo-3-apostolado.html" class="series-link">III · Apostolos <span class="arrow">→</span></a>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
