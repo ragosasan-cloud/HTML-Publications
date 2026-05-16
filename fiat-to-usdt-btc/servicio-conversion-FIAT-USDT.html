@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Servicio de Conversión FIAT → USDT</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #212529;
+      background: #f8f9fa;
+    }
+
+    /* ── Sticky Header ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #1a3a5c;
+      color: #fff;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+    .site-header .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+    .site-header .logo-icon {
+      width: 32px; height: 32px;
+      background: #26a17b;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; font-weight: 900; color: #fff;
+    }
+    .site-header .tagline {
+      font-size: 0.8rem;
+      opacity: 0.75;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── Main Container ── */
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    /* ── Section titles ── */
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #1a3a5c;
+      margin: 2.5rem 0 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid #1a3a5c;
+    }
+    h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1a3a5c;
+      margin: 1.5rem 0 0.5rem;
+    }
+    p { margin-bottom: 0.75rem; }
+
+    /* ── Section card ── */
+    .section-card {
+      background: #fff;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+
+    /* ── [POR DEFINIR] badge ── */
+    .tbd {
+      display: inline-block;
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      color: #856404;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 1px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.02em;
+      vertical-align: middle;
+    }
+
+    /* ── Tables ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: 0.93rem;
+    }
+    thead th {
+      background: #1a3a5c;
+      color: #fff;
+      padding: 0.65rem 0.9rem;
+      text-align: left;
+      font-weight: 600;
+    }
+    tbody td {
+      padding: 0.6rem 0.9rem;
+      border: 1px solid #dee2e6;
+      vertical-align: top;
+    }
+    tbody tr:nth-child(even) td { background: #f8f9fa; }
+
+    /* ── Diagram ── */
+    .diagram-wrapper {
+      margin: 1.5rem 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+    .diagram-inputs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      width: 100%;
+    }
+    .input-box {
+      flex: 1 1 180px;
+      max-width: 210px;
+      padding: 0.85rem 1rem;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #fff;
+      position: relative;
+    }
+    .input-box.c1 { background: #2563eb; }
+    .input-box.c2 { background: #7c3aed; }
+    .input-box.c3 { background: #0891b2; }
+    .input-box.c4 { background: #0d9488; }
+    .input-box .label-small {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 400;
+      opacity: 0.85;
+      margin-top: 0.2rem;
+    }
+
+    /* arrow down from inputs row */
+    .arrow-down {
+      width: 0; height: 0;
+      border-left: 14px solid transparent;
+      border-right: 14px solid transparent;
+      border-top: 18px solid #6c757d;
+      margin: 0.5rem auto;
+    }
+    .arrow-connector {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 1rem;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+    .arrow-connector-col {
+      flex: 1 1 180px;
+      max-width: 210px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .process-box {
+      background: #1a3a5c;
+      color: #fff;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1rem;
+      width: 280px;
+      box-shadow: 0 2px 8px rgba(26,58,92,0.35);
+    }
+    .output-box {
+      background: #26a17b;
+      color: #fff;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1rem;
+      width: 340px;
+      box-shadow: 0 2px 8px rgba(38,161,123,0.35);
+    }
+    .output-box .sub { font-weight: 400; font-size: 0.82rem; opacity: 0.85; margin-top: 0.2rem; }
+
+    /* ── Entry cards (4 options) ── */
+    .entry-card {
+      background: #fff;
+      border-left: 5px solid #1a3a5c;
+      border-radius: 0 8px 8px 0;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .entry-card.e1 { border-left-color: #2563eb; }
+    .entry-card.e2 { border-left-color: #7c3aed; }
+    .entry-card.e3 { border-left-color: #0891b2; }
+    .entry-card.e4 { border-left-color: #0d9488; }
+
+    .entry-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+    .entry-card.e1 .entry-title { color: #2563eb; }
+    .entry-card.e2 .entry-title { color: #7c3aed; }
+    .entry-card.e3 .entry-title { color: #0891b2; }
+    .entry-card.e4 .entry-title { color: #0d9488; }
+
+    .entry-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 2rem;
+      font-size: 0.88rem;
+      margin-bottom: 0.75rem;
+      color: #495057;
+    }
+    .entry-meta span strong { color: #212529; }
+
+    .steps-list {
+      padding-left: 1.2rem;
+      margin: 0.5rem 0;
+    }
+    .steps-list li { margin-bottom: 0.3rem; font-size: 0.91rem; }
+
+    .cities-tag {
+      display: inline-block;
+      background: #e9ecef;
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 0.8rem;
+      color: #495057;
+      margin-right: 4px;
+      margin-top: 4px;
+    }
+
+    /* ── Checklist ── */
+    .checklist { list-style: none; padding: 0; }
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.45rem 0;
+      border-bottom: 1px solid #e9ecef;
+      font-size: 0.95rem;
+    }
+    .checklist li:last-child { border-bottom: none; }
+    .check-box {
+      width: 20px; height: 20px;
+      min-width: 20px;
+      border: 2px solid #6c757d;
+      border-radius: 3px;
+      display: inline-block;
+      margin-top: 2px;
+    }
+
+    /* ── FAQ ── */
+    .faq-item {
+      border-bottom: 1px solid #dee2e6;
+      padding: 0.9rem 0;
+    }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-q {
+      font-weight: 700;
+      color: #1a3a5c;
+      margin-bottom: 0.3rem;
+      font-size: 0.97rem;
+    }
+    .faq-a {
+      color: #495057;
+      font-size: 0.93rem;
+    }
+
+    /* ── Steps next action ── */
+    .steps-next {
+      counter-reset: step-counter;
+      list-style: none;
+      padding: 0;
+    }
+    .steps-next li {
+      counter-increment: step-counter;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #e9ecef;
+      font-size: 0.95rem;
+    }
+    .steps-next li:last-child { border-bottom: none; }
+    .steps-next li::before {
+      content: counter(step-counter);
+      min-width: 30px; height: 30px;
+      background: #1a3a5c;
+      color: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    /* ── Security bullets ── */
+    .security-list {
+      list-style: none;
+      padding: 0;
+    }
+    .security-list li {
+      padding: 0.45rem 0 0.45rem 1.6rem;
+      border-bottom: 1px solid #e9ecef;
+      font-size: 0.93rem;
+      position: relative;
+    }
+    .security-list li:last-child { border-bottom: none; }
+    .security-list li::before {
+      content: "🔒";
+      position: absolute;
+      left: 0;
+      top: 0.45rem;
+      font-size: 0.85rem;
+    }
+
+    /* ── Salida única banner ── */
+    .output-banner {
+      background: linear-gradient(135deg, #1a3a5c 0%, #26a17b 100%);
+      color: #fff;
+      border-radius: 8px;
+      padding: 1.5rem 2rem;
+      margin: 1rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .output-banner h3 { color: #fff; margin: 0; font-size: 1.15rem; }
+    .output-banner p { margin: 0; opacity: 0.9; font-size: 0.95rem; }
+    .output-banner .pill {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 20px;
+      padding: 3px 14px;
+      font-size: 0.83rem;
+      margin-top: 0.3rem;
+    }
+
+    /* ── Footer ── */
+    .site-footer {
+      background: #1a3a5c;
+      color: rgba(255,255,255,0.65);
+      text-align: center;
+      padding: 1.1rem 2rem;
+      font-size: 0.82rem;
+      letter-spacing: 0.03em;
+    }
+    .site-footer strong { color: rgba(255,255,255,0.9); }
+
+    /* ── Resumen highlight ── */
+    .summary-highlight {
+      background: #e8f0fe;
+      border-left: 4px solid #2563eb;
+      border-radius: 0 6px 6px 0;
+      padding: 1rem 1.25rem;
+      font-size: 0.97rem;
+      margin: 0.75rem 0;
+      color: #1a3a5c;
+      font-weight: 500;
+    }
+
+    /* ── Print ── */
+    @media print {
+      .site-header { position: static; }
+      body { background: #fff; font-size: 13px; }
+      .section-card, .entry-card { box-shadow: none; break-inside: avoid; }
+      .container { padding: 0.5rem; }
+      @page { margin: 2cm 2.5cm; }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .site-header { padding: 0 1rem; }
+      .site-header .tagline { display: none; }
+      .container { padding: 1rem; }
+      .input-box { max-width: 100%; flex: 1 1 100%; }
+      .process-box, .output-box { width: 100%; max-width: 320px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     STICKY HEADER
+══════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="logo">
+    <div class="logo-icon">₮</div>
+    Conversión&nbsp;FIAT&nbsp;→&nbsp;USDT
+  </div>
+  <span class="tagline">Servicio profesional de conversión de divisas a stablecoin</span>
+</header>
+
+
+<!-- ══════════════════════════════════════════
+     MAIN CONTENT
+══════════════════════════════════════════ -->
+<main class="container">
+
+  <!-- ── 1. RESUMEN EJECUTIVO ── -->
+  <h2>1. Resumen Ejecutivo</h2>
+  <div class="section-card">
+    <p>
+      Este servicio permite convertir <strong>pesos mexicanos (MXN)</strong> o <strong>dólares americanos (USD)</strong> en
+      <strong>USDT</strong> (stablecoin vinculada al dólar), que se entrega directamente a la wallet digital del cliente.
+      El proceso es seguro, trazable y opera con tiempos definidos.
+    </p>
+    <p>
+      El cliente elige la forma que mejor se adapta a su situación: hay <strong>4 canales de entrada</strong>, pero todos
+      terminan en el mismo resultado.
+    </p>
+    <div class="summary-highlight">
+      ✦ USDT en su wallet — sin intermediarios adicionales visibles.
+    </div>
+    <p>
+      Cada operación genera un <strong>folio único</strong> y queda registrada de forma pública e inmutable en blockchain,
+      garantizando transparencia y trazabilidad completa.
+    </p>
+  </div>
+
+
+  <!-- ── 2. LA SALIDA ÚNICA ── -->
+  <h2>2. La Salida Única</h2>
+  <div class="section-card">
+    <div class="output-banner">
+      <h3>Salida única: USDT en wallet del cliente</h3>
+      <p>
+        Independientemente del canal de entrada elegido, el resultado es siempre el mismo:
+        el cliente recibe USDT en la wallet (dirección y red confirmadas previamente),
+        junto con un <strong>folio de operación</strong> y evidencia de la transacción en blockchain.
+      </p>
+      <div>
+        <span class="pill">📍 Wallet confirmada previamente</span>
+        <span class="pill">🔗 TxID en blockchain</span>
+        <span class="pill">📄 Folio de operación</span>
+      </div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Componente de entrega</th>
+          <th>Detalle</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Activo entregado</strong></td>
+          <td>USDT (Tether USD — stablecoin 1:1 con el dólar)</td>
+        </tr>
+        <tr>
+          <td><strong>Destino</strong></td>
+          <td>Wallet address proporcionada y verificada por el cliente</td>
+        </tr>
+        <tr>
+          <td><strong>Red disponibles</strong></td>
+          <td>TRC20 (Tron) · ERC20 (Ethereum) · BEP20 (BNB Chain)</td>
+        </tr>
+        <tr>
+          <td><strong>Evidencia</strong></td>
+          <td>Transaction ID (TxID) verificable en blockchain explorer público</td>
+        </tr>
+        <tr>
+          <td><strong>Folio</strong></td>
+          <td>Número de operación único emitido al completar la entrega de fondos</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- ── 3. DIAGRAMA DE FLUJO ── -->
+  <h2>3. Diagrama: 4 Entradas → 1 Salida</h2>
+  <div class="section-card">
+    <div class="diagram-wrapper">
+
+      <!-- Row 1: 4 input boxes -->
+      <div class="diagram-inputs">
+        <div class="input-box c1">
+          MXN en Efectivo
+          <span class="label-small">Canal presencial</span>
+        </div>
+        <div class="input-box c2">
+          MXN por Transferencia
+          <span class="label-small">SPEI bancario</span>
+        </div>
+        <div class="input-box c3">
+          USD en Efectivo
+          <span class="label-small">Canal presencial</span>
+        </div>
+        <div class="input-box c4">
+          USD Wire / ACH
+          <span class="label-small">Transferencia internacional</span>
+        </div>
+      </div>
+
+      <!-- Arrows down from each input -->
+      <div class="arrow-connector" style="margin-top:0.4rem;">
+        <div class="arrow-connector-col"><div class="arrow-down" style="border-top-color:#2563eb;"></div></div>
+        <div class="arrow-connector-col"><div class="arrow-down" style="border-top-color:#7c3aed;"></div></div>
+        <div class="arrow-connector-col"><div class="arrow-down" style="border-top-color:#0891b2;"></div></div>
+        <div class="arrow-connector-col"><div class="arrow-down" style="border-top-color:#0d9488;"></div></div>
+      </div>
+
+      <!-- Row 2: Proceso común -->
+      <div class="process-box">⚙ Proceso Común</div>
+
+      <!-- Arrow down -->
+      <div class="arrow-down" style="border-top-color:#1a3a5c;"></div>
+
+      <!-- Row 3: Output -->
+      <div class="output-box">
+        ₮ Salida única: USDT en wallet
+        <div class="sub">Con folio · TxID · evidencia blockchain</div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ── 4. LAS 4 OPCIONES DE ENTRADA ── -->
+  <h2>4. Las 4 Opciones de Entrada</h2>
+
+  <!-- ENTRADA 1 -->
+  <div class="entry-card e1">
+    <div class="entry-title">ENTRADA 1 — MXN en Efectivo (Canal Presencial)</div>
+    <div class="entry-meta">
+      <span><strong>Moneda:</strong> Pesos mexicanos (MXN)</span>
+      <span><strong>Modalidad:</strong> Presencial</span>
+      <span><strong>Tiempo:</strong> Mismo día (antes 12:00 pm) o siguiente día hábil</span>
+      <span><strong>Costo total:</strong> <span class="tbd">[TOTAL_%]</span></span>
+    </div>
+    <p style="font-size:0.91rem; margin-bottom:0.5rem;"><strong>Qué confirma el cliente:</strong> monto, ciudad, fecha, identidad, wallet address y red USDT.</p>
+    <h3>Pasos:</h3>
+    <ol class="steps-list">
+      <li>Contactar al equipo y solicitar cotización.</li>
+      <li>Confirmar monto, ciudad y fecha de entrega.</li>
+      <li>Proporcionar wallet address y red (TRC20 / ERC20 / BEP20).</li>
+      <li>Presentarse en punto de recepción con efectivo e identificación oficial vigente.</li>
+      <li>Firma de confirmación y entrega de folio de operación.</li>
+      <li>Recepción de USDT en wallet (verificar con TxID).</li>
+    </ol>
+    <p style="margin-top:0.75rem; font-size:0.88rem;"><strong>Ciudades disponibles:</strong>
+      <span class="cities-tag">Monterrey</span>
+      <span class="cities-tag">Guadalajara</span>
+      <span class="cities-tag">Cancún</span>
+      <span class="cities-tag">Reynosa</span>
+      <span class="cities-tag">Matamoros</span>
+    </p>
+  </div>
+
+  <!-- ENTRADA 2 -->
+  <div class="entry-card e2">
+    <div class="entry-title">ENTRADA 2 — MXN por Transferencia Bancaria</div>
+    <div class="entry-meta">
+      <span><strong>Moneda:</strong> Pesos mexicanos (MXN)</span>
+      <span><strong>Modalidad:</strong> Transferencia SPEI</span>
+      <span><strong>Tiempo:</strong> Mismo día (antes 12:00 pm) / 24h en otros casos</span>
+      <span><strong>Costo total:</strong> <span class="tbd">[TOTAL_%]</span></span>
+    </div>
+    <p style="font-size:0.91rem; margin-bottom:0.5rem;"><strong>Qué confirma el cliente:</strong> monto, CLABE destino, comprobante, wallet address y red USDT.</p>
+    <h3>Pasos:</h3>
+    <ol class="steps-list">
+      <li>Solicitar cotización y CLABE de depósito al equipo.</li>
+      <li>Realizar transferencia SPEI con la referencia asignada.</li>
+      <li>Enviar comprobante de transferencia.</li>
+      <li>Confirmar wallet address y red (TRC20 / ERC20 / BEP20).</li>
+      <li>Esperar validación bancaria de los fondos.</li>
+      <li>Recepción de USDT en wallet (verificar con TxID).</li>
+    </ol>
+  </div>
+
+  <!-- ENTRADA 3 -->
+  <div class="entry-card e3">
+    <div class="entry-title">ENTRADA 3 — USD en Efectivo (Canal Presencial)</div>
+    <div class="entry-meta">
+      <span><strong>Moneda:</strong> Dólares americanos (USD)</span>
+      <span><strong>Modalidad:</strong> Presencial</span>
+      <span><strong>Tiempo:</strong> Mismo día o siguiente día hábil según ciudad</span>
+      <span><strong>Costo total:</strong> <span class="tbd">[TOTAL_%]</span></span>
+    </div>
+    <p style="font-size:0.91rem; margin-bottom:0.5rem;"><strong>Qué confirma el cliente:</strong> monto, ciudad, fecha, identidad, wallet address y red USDT.</p>
+    <h3>Pasos:</h3>
+    <ol class="steps-list">
+      <li>Contactar al equipo y solicitar cotización en USD.</li>
+      <li>Confirmar monto, ciudad y fecha de entrega.</li>
+      <li>Proporcionar wallet address y red (TRC20 / ERC20 / BEP20).</li>
+      <li>Presentarse en punto de recepción con efectivo e identificación oficial vigente.</li>
+      <li>Firma de confirmación y entrega de folio de operación.</li>
+      <li>Recepción de USDT en wallet (verificar con TxID).</li>
+    </ol>
+    <p style="margin-top:0.75rem; font-size:0.88rem;"><strong>Ciudades disponibles:</strong>
+      <span class="cities-tag">Monterrey</span>
+      <span class="cities-tag">Guadalajara</span>
+      <span class="cities-tag">Cancún</span>
+      <span class="cities-tag">Reynosa</span>
+      <span class="cities-tag">Matamoros</span>
+    </p>
+  </div>
+
+  <!-- ENTRADA 4 -->
+  <div class="entry-card e4">
+    <div class="entry-title">ENTRADA 4 — USD por Transferencia Internacional / Wire</div>
+    <div class="entry-meta">
+      <span><strong>Moneda:</strong> Dólares americanos (USD)</span>
+      <span><strong>Modalidad:</strong> Wire transfer o ACH</span>
+      <span><strong>Tiempo:</strong> 24–48h (depende de banco origen y horarios de corte)</span>
+      <span><strong>Costo total:</strong> <span class="tbd">[TOTAL_%]</span></span>
+    </div>
+    <p style="font-size:0.91rem; margin-bottom:0.5rem;"><strong>Qué confirma el cliente:</strong> monto, datos bancarios, comprobante SWIFT/ACH, wallet address y red USDT.</p>
+    <h3>Pasos:</h3>
+    <ol class="steps-list">
+      <li>Solicitar cotización e instrucciones bancarias al equipo.</li>
+      <li>Realizar wire transfer con la referencia asignada.</li>
+      <li>Enviar comprobante SWIFT / ACH.</li>
+      <li>Confirmar wallet address y red (TRC20 / ERC20 / BEP20).</li>
+      <li>Esperar confirmación de fondos (puede incluir reposo de 24h según ruta).</li>
+      <li>Recepción de USDT en wallet (verificar con TxID).</li>
+    </ol>
+  </div>
+
+
+  <!-- ── 5. CHECKLIST DE INICIO ── -->
+  <h2>5. Checklist de Inicio</h2>
+  <div class="section-card">
+    <p style="margin-bottom:1rem; color:#495057; font-size:0.93rem;">Antes de iniciar su operación, verifique que cumple con todos los puntos siguientes:</p>
+    <ul class="checklist">
+      <li><span class="check-box"></span> Tengo definido el <strong>monto exacto</strong> a convertir.</li>
+      <li><span class="check-box"></span> Sé qué <strong>moneda voy a entregar</strong> (MXN o USD).</li>
+      <li><span class="check-box"></span> Tengo mi <strong>wallet lista</strong> y sé la red que usa (TRC20 / ERC20 / BEP20).</li>
+      <li><span class="check-box"></span> Tengo mi <strong>wallet address copiada correctamente</strong> (verificar carácter por carácter).</li>
+      <li><span class="check-box"></span> Tengo <strong>identificación oficial vigente</strong> (si la operación es presencial).</li>
+      <li><span class="check-box"></span> Conozco la <strong>ciudad donde haré la operación</strong> (si es en efectivo).</li>
+      <li><span class="check-box"></span> Estoy disponible en el <strong>horario de operación</strong> (antes de 12:00 pm para procesamiento el mismo día).</li>
+      <li><span class="check-box"></span> Tengo forma de <strong>recibir y enviar comprobantes</strong> (correo electrónico o mensajería).</li>
+    </ul>
+  </div>
+
+
+  <!-- ── 6. TIEMPOS Y CONDICIONES OPERATIVAS ── -->
+  <h2>6. Tiempos y Condiciones Operativas</h2>
+  <div class="section-card">
+    <table>
+      <thead>
+        <tr>
+          <th>Condición</th>
+          <th>Detalle</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Horario límite para mismo día</strong></td>
+          <td>Antes de las 12:00 pm hora local</td>
+        </tr>
+        <tr>
+          <td><strong>Procesamiento fuera de ventana</strong></td>
+          <td>Siguiente día hábil</td>
+        </tr>
+        <tr>
+          <td><strong>Wire transfers internacionales</strong></td>
+          <td>24–48h adicionales por validación bancaria (depende del banco origen y horarios de corte)</td>
+        </tr>
+        <tr>
+          <td><strong>Reposo de fondos (algunas rutas)</strong></td>
+          <td>Hasta 24h antes de liberar USDT</td>
+        </tr>
+        <tr>
+          <td><strong>Días de operación</strong></td>
+          <td><span class="tbd">[POR DEFINIR]</span></td>
+        </tr>
+        <tr>
+          <td><strong>Monto mínimo</strong></td>
+          <td><span class="tbd">[POR DEFINIR]</span></td>
+        </tr>
+        <tr>
+          <td><strong>Monto máximo por operación</strong></td>
+          <td><span class="tbd">[POR DEFINIR]</span></td>
+        </tr>
+        <tr>
+          <td><strong>Ciudades disponibles</strong></td>
+          <td>Monterrey · Guadalajara · Cancún · Reynosa · Matamoros</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- ── 7. SEGURIDAD Y CUMPLIMIENTO ── -->
+  <h2>7. Seguridad y Cumplimiento</h2>
+  <div class="section-card">
+    <ul class="security-list">
+      <li>Todas las operaciones requieren <strong>verificación de identidad</strong> del cliente (KYC básico).</li>
+      <li>Los datos personales son tratados conforme a la <strong>normativa aplicable de protección de datos</strong>.</li>
+      <li>Las transacciones son <strong>trazables en blockchain</strong>: cualquier USDT enviado puede verificarse públicamente con su TxID en un explorador de bloques.</li>
+      <li><strong>No se garantiza la reversibilidad</strong> de una operación una vez ejecutada en blockchain.</li>
+      <li>En caso de wallet incorrecta proporcionada por el cliente, <strong>la responsabilidad recae íntegramente en el cliente</strong>. Se recomienda verificar la dirección carácter por carácter antes de confirmar.</li>
+      <li><span class="tbd">[POR DEFINIR]</span> — Menciones a cumplimiento regulatorio específico, licencias o registros aplicables.</li>
+    </ul>
+  </div>
+
+
+  <!-- ── 8. PREGUNTAS FRECUENTES ── -->
+  <h2>8. Preguntas Frecuentes (FAQ)</h2>
+  <div class="section-card">
+
+    <div class="faq-item">
+      <div class="faq-q">Q1 — ¿Qué es USDT?</div>
+      <div class="faq-a">USDT (Tether USD) es una <em>stablecoin</em>, es decir, una criptomoneda cuyo valor está vinculado 1:1 al dólar americano. Esto significa que 1 USDT equivale, en todo momento, a aproximadamente 1 USD. Su ventaja es que combina la estabilidad del dólar con la portabilidad y velocidad de las criptomonedas.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Q2 — ¿Qué es una wallet y cómo consigo una?</div>
+      <div class="faq-a">Una wallet (billetera digital) es una aplicación o servicio que te permite almacenar, enviar y recibir criptomonedas. Puedes obtener una descargando apps como Trust Wallet, MetaMask o Coinbase Wallet, o usando una cuenta en un exchange como Binance o Kraken. Cada wallet genera una dirección única (wallet address) que es la que debes proporcionarnos.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Q3 — ¿Qué es la "red" de USDT y por qué importa?</div>
+      <div class="faq-a">El USDT puede circular sobre distintas redes blockchain: <strong>TRC20</strong> (red Tron), <strong>ERC20</strong> (red Ethereum) y <strong>BEP20</strong> (BNB Chain), entre otras. Es absolutamente crítico que la red que eliges coincida con la que soporta tu wallet; si se envía USDT por la red equivocada, los fondos podrían perderse de forma permanente.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Q4 — ¿Qué pasa si proporciono una wallet o red incorrecta?</div>
+      <div class="faq-a">Las transacciones en blockchain son irreversibles. Si el cliente proporciona una dirección o red incorrecta, la recuperación de fondos no está garantizada y la responsabilidad recae en el cliente. Por eso es fundamental verificar la wallet address carácter por carácter y confirmar la red antes de completar la operación.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Q5 — ¿Cómo sé que recibí mi USDT?</div>
+      <div class="faq-a">Una vez procesada la operación, recibirás un <strong>TxID</strong> (Transaction ID). Con ese código puedes verificar la transacción de forma pública en un explorador de bloques (por ejemplo, tronscan.org para TRC20 o etherscan.io para ERC20). También verás el saldo directamente en tu wallet.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Q6 — ¿Puedo cancelar una operación?</div>
+      <div class="faq-a">La cancelación solo es posible <strong>antes</strong> de que los fondos FIAT sean validados y procesados. Una vez que la operación entra en ejecución y el USDT es enviado a blockchain, no existe posibilidad de reversión. Contacta al equipo de inmediato si necesitas cancelar antes de completar tu entrega de fondos.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Q7 — ¿El tipo de cambio está fijo desde el inicio?</div>
+      <div class="faq-a">El tipo de cambio se fija al momento de emitir la <strong>cotización</strong>, que tiene una vigencia limitada (definida en el folio provisional). Si el cliente no completa la entrega de fondos dentro de esa ventana, se deberá solicitar una nueva cotización con la tasa vigente en ese momento.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Q8 — ¿Qué documentos de identidad aceptan?</div>
+      <div class="faq-a">Se acepta identificación oficial vigente: <strong>INE/IFE</strong> (credencial de elector), <strong>pasaporte</strong> mexicano o extranjero, o <strong>cédula profesional</strong>. Para operaciones presenciales es obligatorio presentarla físicamente en el punto de recepción.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Q9 — ¿Puedo hacer varias operaciones en el mismo día?</div>
+      <div class="faq-a">Sí, es posible realizar más de una operación en el mismo día, sujeto a disponibilidad del equipo y a los montos máximos por operación. Cada transacción genera su propio folio y su propio TxID en blockchain.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Q10 — ¿Operan en mi ciudad?</div>
+      <div class="faq-a">Actualmente las operaciones presenciales en efectivo (MXN o USD) están disponibles en: <strong>Monterrey, Guadalajara, Cancún, Reynosa y Matamoros</strong>. Las opciones bancarias (SPEI y wire transfer) están disponibles para clientes en cualquier ubicación dentro de México o el extranjero.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Q11 — ¿Es legal este servicio?</div>
+      <div class="faq-a">La compraventa de activos digitales entre particulares y a través de operadores es una actividad legal en México. Sin embargo, el entorno regulatorio evoluciona constantemente. <span class="tbd">[POR DEFINIR]</span> — detalle de licencias, registros o cumplimiento regulatorio específico aplicable al servicio.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Q12 — ¿Qué hago si no recibo mi USDT?</div>
+      <div class="faq-a">Si han transcurrido los tiempos estimados y no has recibido tu USDT: (1) verifica el TxID proporcionado en un explorador de bloques; (2) confirma que la wallet address y red son correctas; (3) contacta al equipo de soporte con tu <strong>folio de operación</strong> y el comprobante de entrega de fondos. El equipo revisará el estado de la transacción y te dará respuesta a la brevedad.</div>
+    </div>
+
+  </div>
+
+
+  <!-- ── 9. SIGUIENTE PASO ── -->
+  <h2>9. Siguiente Paso</h2>
+  <div class="section-card">
+    <p style="margin-bottom:1rem; color:#495057; font-size:0.93rem;">Para iniciar su operación, siga estos pasos en orden:</p>
+    <ol class="steps-next">
+      <li><strong>Elige tu entrada (1–4)</strong> — decide si usarás efectivo o transferencia, y en qué moneda (MXN o USD).</li>
+      <li><strong>Contacta al equipo</strong> con los datos básicos: monto, moneda, ciudad (si aplica), wallet address y red.</li>
+      <li><strong>Recibe cotización y folio provisional</strong> — el equipo te enviará el tipo de cambio vigente y un número de referencia temporal.</li>
+      <li><strong>Completa la entrega de fondos</strong> según tu entrada elegida (presentarte en punto de recepción o realizar transferencia).</li>
+      <li><strong>Recibe confirmación con TxID</strong> — el equipo procesará la operación y te enviará el Transaction ID de la blockchain como evidencia final.</li>
+    </ol>
+  </div>
+
+</main>
+
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════ -->
+<footer class="site-footer">
+  <strong>Documento confidencial</strong> — <span class="tbd" style="font-size:0.78rem;">[POR DEFINIR]</span>
+  &nbsp;·&nbsp; Conversión FIAT → USDT &nbsp;·&nbsp; Generado el 15 de mayo de 2026
+</footer>
+
+</body>
+</html>
