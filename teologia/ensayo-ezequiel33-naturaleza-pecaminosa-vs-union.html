@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oír sin Obedecer — Ezequiel 33</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1208;
+    --gold: #8b6914;
+    --gold-light: #c9a84c;
+    --parchment: #faf6ef;
+    --parchment-dark: #f0e8d8;
+    --rule: #d4b896;
+    --muted: #6b5c44;
+    --accent-bg: #f5ede0;
+    --crimson: #7b1f1f;
+    --crimson-light: #a83232;
+    --crimson-tint: #fdf0f0;
+    --navy: #1a335c;
+    --navy-tint: #eef2f7;
+    --olive: #3d522a;
+    --olive-tint: #f0f7ee;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--parchment);
+    color: var(--ink);
+    font-family: 'EB Garamond', 'Cormorant Garamond', Georgia, serif;
+    font-size: 20px;
+    line-height: 1.85;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(180,150,100,0.04) 28px, rgba(180,150,100,0.04) 29px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 80px 48px 120px;
+  }
+
+  /* Nav */
+  .series-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 64px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .series-label {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .series-dots { display: flex; gap: 8px; align-items: center; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--rule); }
+  .dot.active { background: var(--crimson); width: 10px; height: 10px; }
+
+  /* Header */
+  .essay-header { margin-bottom: 64px; text-align: center; }
+
+  .part-label {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--crimson);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 28px;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 20px;
+  }
+
+  h1 em { font-style: italic; color: var(--crimson); }
+
+  .subtitle {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--muted);
+    margin-bottom: 40px;
+  }
+
+  .header-rule {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 40px;
+  }
+
+  .header-rule::before, .header-rule::after {
+    content: '';
+    flex: 1;
+    max-width: 80px;
+    height: 1px;
+    background: var(--gold-light);
+  }
+
+  .header-ornament { color: var(--crimson); font-size: 1.1rem; }
+
+  /* Intro */
+  .intro { font-size: 1.15rem; line-height: 1.9; margin-bottom: 48px; color: var(--ink); }
+  .intro p + p { margin-top: 1.4em; }
+
+  /* Drop cap */
+  .drop-cap::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.5em;
+    font-weight: 300;
+    line-height: 0.75;
+    float: left;
+    margin-right: 8px;
+    margin-top: 6px;
+    color: var(--crimson);
+  }
+
+  /* Section headers */
+  h2 {
+    font-family: 'Cinzel', serif;
+    font-weight: 400;
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 64px 0 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  h2::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
+
+  h2.crimson-head { color: var(--crimson); }
+  h2.navy-head    { color: var(--navy); }
+  h2.olive-head   { color: var(--olive); }
+
+  /* Dispensation pill */
+  .disp-pill {
+    display: inline-block;
+    font-family: 'Cinzel', serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    margin-bottom: 8px;
+    margin-top: 48px;
+  }
+
+  .disp-pill.ley {
+    background: var(--crimson);
+    color: #fdf0f0;
+    border: 1px solid var(--crimson-light);
+  }
+
+  .disp-pill.gracia {
+    background: var(--navy);
+    color: #eef2f7;
+    border: 1px solid #2a4a7c;
+  }
+
+  /* Paragraphs */
+  p {
+    margin-bottom: 1.5em;
+    font-size: 1rem;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  em { font-style: italic; }
+  strong { font-weight: 600; color: var(--ink); }
+
+  /* Pull quote */
+  .pull-quote {
+    margin: 48px -24px;
+    padding: 36px 48px;
+    background: var(--accent-bg);
+    border-left: 3px solid var(--gold);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+
+  /* Verse block — Ley (crimson bar) */
+  .verse-ley {
+    margin: 36px 0;
+    padding: 26px 32px;
+    background: var(--crimson-tint);
+    border-left: 3px solid var(--crimson);
+  }
+
+  .verse-ley p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--navy);
+    margin-bottom: 0.5em;
+    text-align: left;
+  }
+
+  /* Verse block — Gracia (navy bar) */
+  .verse-grace {
+    margin: 36px 0;
+    padding: 26px 32px;
+    background: var(--navy-tint);
+    border-left: 3px solid var(--navy);
+  }
+
+  .verse-grace p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--navy);
+    margin-bottom: 0.5em;
+    text-align: left;
+  }
+
+  .verse-ref {
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    text-transform: uppercase;
+    display: block;
+    text-align: right;
+    margin-top: 10px;
+  }
+
+  /* Callout */
+  .callout {
+    margin: 36px 0;
+    padding: 24px 32px;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .callout.c-crimson { background: var(--crimson-tint); border-color: #e8b8b8; }
+  .callout.c-navy    { background: var(--navy-tint);    border-color: #b8cce8; }
+  .callout.c-olive   { background: var(--olive-tint);   border-color: #b8d4a8; }
+  .callout.c-gold    { background: var(--accent-bg);    border-color: var(--rule); }
+
+  .callout-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .callout.c-crimson .callout-title { color: var(--crimson); }
+  .callout.c-navy    .callout-title { color: var(--navy); }
+  .callout.c-olive   .callout-title { color: var(--olive); }
+  .callout.c-gold    .callout-title { color: var(--gold); }
+
+  .callout p {
+    font-size: 0.95rem;
+    color: var(--muted);
+    margin-bottom: 0;
+    text-align: left;
+  }
+
+  /* Scripture inline */
+  .scripture { font-style: italic; color: var(--muted); }
+
+  /* Key term */
+  .key-term {
+    display: inline-block;
+    font-family: 'Cinzel', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.13em;
+    color: var(--gold);
+    background: var(--parchment-dark);
+    padding: 2px 9px;
+    border: 1px solid var(--rule);
+    margin: 0 3px;
+    vertical-align: middle;
+  }
+
+  /* Divider */
+  .section-break {
+    text-align: center;
+    margin: 56px 0;
+    color: var(--rule);
+    font-size: 1.2rem;
+    letter-spacing: 0.5em;
+  }
+
+  /* Arc summary */
+  .arc {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    gap: 0;
+    align-items: center;
+    margin: 48px 0;
+    padding: 32px 24px;
+    background: var(--parchment-dark);
+    border: 1px solid var(--rule);
+  }
+
+  .arc-node {
+    text-align: center;
+    padding: 0 8px;
+  }
+
+  .arc-ref {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .arc-desc {
+    font-family: 'EB Garamond', serif;
+    font-size: 0.88rem;
+    font-style: italic;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  .arc-arrow {
+    font-size: 1.2rem;
+    color: var(--rule);
+    padding: 0 4px;
+  }
+
+  /* Footer */
+  .essay-footer {
+    margin-top: 80px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .footer-note {
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-style: italic;
+    line-height: 1.7;
+  }
+
+  .series-footer { margin-top: 48px; display: flex; gap: 16px; flex-wrap: wrap; }
+
+  .series-link {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 10px 18px;
+    border: 1px solid var(--rule);
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .series-link:hover { border-color: var(--gold); color: var(--gold); }
+  .series-link.current { background: var(--parchment-dark); color: var(--crimson); border-color: #e8b8b8; }
+  .arrow { font-size: 0.9em; }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .essay-header { animation: fadeUp 0.8s ease both; }
+  .intro        { animation: fadeUp 0.8s ease 0.15s both; }
+
+  @media (max-width: 600px) {
+    .page { padding: 48px 24px 80px; }
+    .pull-quote  { margin: 36px -12px; padding: 28px 24px; }
+    .verse-ley, .verse-grace { margin: 28px -12px; padding: 22px 20px; }
+    h1 { font-size: 2rem; }
+    .arc { grid-template-columns: 1fr; gap: 12px; }
+    .arc-arrow { transform: rotate(90deg); }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <nav class="series-nav">
+    <span class="series-label">Ensayo Teológico — Naturaleza Pecaminosa &amp; Unión con Dios</span>
+    <div class="series-dots">
+      <div class="dot"></div>
+      <div class="dot active"></div>
+      <div class="dot"></div>
+    </div>
+  </nav>
+
+  <header class="essay-header">
+    <span class="part-label">Ensayo II &nbsp;·&nbsp; Ezequiel 33 &nbsp;·&nbsp; RVR1960</span>
+    <h1>Oír sin <em>Obedecer</em></h1>
+    <p class="subtitle">La naturaleza pecaminosa del hombre frente al llamado a la unión con Dios<br>Bajo la Ley y bajo la Gracia — a la luz de Ezequiel 33</p>
+    <div class="header-rule">
+      <span class="header-ornament">✦</span>
+    </div>
+  </header>
+
+  <!-- INTRODUCCIÓN -->
+  <div class="intro">
+    <p class="drop-cap">El Manual de Comunión y Oración convoca al creyente a algo extraordinario: no meramente hablarle a Dios desde la distancia, sino vivir desde dentro de Cristo —en unión orgánica con Él, como la rama con la vid, como el miembro con el cuerpo—. Es un llamado a orar desde una fusión espiritual donde los deseos del creyente y los de Cristo comienzan a converger. Semejante invitación debería producir en todo oyente una respuesta inmediata, total y transformadora.</p>
+    <p>Sin embargo, la historia bíblica registra una y otra vez el mismo fenómeno perturbador: el ser humano oye, aprecia, incluso se conmueve emocionalmente, y sin embargo no obedece. Esta no es la excepción en la historia de la humanidad; es la regla que la Escritura diagnostica como la expresión más consistente de la naturaleza caída del hombre.</p>
+  </div>
+
+  <div class="verse-ley">
+    <p>Y vendrán a ti como viene el pueblo, y estarán delante de ti como pueblo mío, y oirán tus palabras, y no las pondrán por obra; antes hacen halagos con sus bocas, y el corazón de ellos anda en pos de su avaricia. Y he aquí que tú eres a ellos como cantor de amores, hermoso de voz y que canta bien; y oirán tus palabras, pero no las pondrán por obra.</p>
+    <span class="verse-ref">Ezequiel 33:31-32</span>
+  </div>
+
+  <p>Este texto, pronunciado hacia el final del ministerio del profeta Ezequiel, funciona como un diagnóstico clínico de la condición humana. El pueblo de Israel no es indiferente: asiste, escucha, hasta disfruta. Pero hay una fractura profunda entre el oído y la voluntad, entre la emoción religiosa y la obediencia real. El presente ensayo contrasta este diagnóstico con el llamado del Manual en dos etapas de la historia redentora: la dispensación de la Ley y la dispensación de la Gracia.</p>
+
+  <div class="section-break">· · ·</div>
+
+  <!-- II. BAJO LA LEY -->
+  <div class="disp-pill ley">Dispensación de la Ley</div>
+  <h2 class="crimson-head">I. Bajo la Ley — El Mandato Sin el Poder</h2>
+
+  <p>La dispensación de la Ley representa el intento divino de revelar la voluntad de Dios con máxima claridad externa. En el Sinaí, Dios no susurró; tronó. Las tablas de piedra fueron entregadas con señales de fuego, nube y temblor <span class="scripture">(Éxodo 19:16-18)</span>. Nunca antes una nación había recibido mandatos tan explícitos, tan detallados, tan directamente dados por Dios. Y sin embargo, la misma escena del Sinaí termina con el pueblo bailando alrededor de un becerro de oro mientras Moisés aún estaba en el monte <span class="scripture">(Éxodo 32:1-6)</span>.</p>
+
+  <div class="verse-ley">
+    <p>Y aconteció que cuando oyó el pueblo el estruendo del trueno, y los relámpagos, y el sonido del cuerno, y el monte que humeaba, viéndolo el pueblo, temblaron y se pusieron lejos.</p>
+    <span class="verse-ref">Éxodo 20:18</span>
+  </div>
+
+  <p>El pueblo temió, pero no obedeció. Esa es la tragedia estructural de la Ley: produce temor, incluso admiración religiosa, pero no transforma el corazón. El problema no era la Ley en sí misma —Pablo declara que la Ley es santa, justa y buena <span class="scripture">(Romanos 7:12)</span>—. El problema era el material sobre el que debía escribirse: un corazón de piedra.</p>
+
+  <p>Ezequiel 33 se sitúa precisamente en el colapso de ese sistema. Israel ha visto la gloria de Dios en el templo, ha escuchado generaciones de profetas, ha experimentado milagros que ninguna otra nación conoció. Y aun así, la descripción del versículo 31 es demoledora: sus bocas expresan devoción, pero «el corazón de ellos anda en pos de su avaricia». La brecha entre lo que confiesan y lo que viven es abismal.</p>
+
+  <div class="verse-ley">
+    <p>Porque como rebaño son llevados al Seol; la muerte los pastoreará, y los rectos se enseñorearán de ellos por la mañana; se consumirá su bien parecer, y el Seol será su morada.</p>
+    <span class="verse-ref">Salmo 49:14</span>
+  </div>
+
+  <div class="callout c-crimson">
+    <div class="callout-title">✦ El diagnóstico de la Ley</div>
+    <p>La Ley podía señalar el camino pero no podía dar las piernas para andarlo. Podía revelar el estándar de Dios pero no podía cambiar la orientación fundamental del corazón humano. En términos del Manual: podía hablar de comunión, pero no podía producir la unión. La rama seguía separada del tronco.</p>
+  </div>
+
+  <p>Pero la desobediencia crónica bajo la Ley no solo produjo el fracaso del pueblo; produjo algo aún más aterrador: el silencio de Dios frente a la intercesión misma. El profeta Jeremías, contemporáneo del colapso de Jerusalén, recibió de Dios una orden que detiene el aliento: no ores por este pueblo. No porque Dios hubiera dejado de ser misericordioso, sino porque la brecha entre el oír y el obedecer había alcanzado un punto de saturación moral que hacía inútil cualquier intercesión externa mientras el corazón permaneciera sin transformar.</p>
+
+  <div class="pull-quote">
+    Tú, pues, no ores por este pueblo, ni levantes por ellos clamor ni oración, ni me ruegues; porque no te oiré.
+    <br><br>
+    <span style="font-family:'Cinzel',serif; font-size:0.75rem; letter-spacing:0.15em; color:var(--crimson); font-style:normal;">— Jeremías 7:16</span>
+  </div>
+
+  <p>Este versículo representa el límite absoluto de la dispensación de la Ley: el momento en que la intercesión profética es suspendida por decreto divino. Nótese la gravedad: Dios no le dice a Jeremías que el pueblo no lo escucha a él; le dice que Él mismo no escuchará la oración del profeta por ellos. El canal de la intercesión, que es el corazón mismo del Manual de Comunión y Oración, queda cerrado. ¿Por qué? Porque un sistema basado únicamente en la Ley externa, sin transformación interna, llega inevitablemente a ese muro. Cuando el oído religioso se vuelve crónica y deliberadamente sordo a la obediencia, la oración misma pierde su camino.</p>
+
+  <div class="callout c-crimson">
+    <div class="callout-title">✦ La oración silenciada — el veredicto más severo de la Ley</div>
+    <p>Jeremías 7:16 no es solo un juicio sobre Israel; es el veredicto más severo que la dispensación de la Ley podía pronunciar. El Manual convoca al creyente a «acercarse con denuedo al trono de la gracia» <span class="scripture">(Hebreos 4:16)</span>. Pero Jeremías 7:16 muestra lo que ocurre cuando ese acceso es tomado por concedido sin la correspondiente obediencia: el trono no queda abierto indefinidamente para quien oye como canto pero nunca practica.</p>
+  </div>
+
+  <p>El apóstol Pablo resume este fracaso estructural con precisión quirúrgica: «Lo que era imposible para la ley, por cuanto era débil por la carne, Dios, enviando a su Hijo...» <span class="scripture">(Romanos 8:3)</span>. La debilidad no era del código moral sino del receptor: la carne. Ezequiel mismo, décadas antes de Pablo, había recibido la revelación del remedio necesario, y ese remedio no era más Ley, sino algo radicalmente diferente:</p>
+
+  <div class="verse-ley">
+    <p>Os daré corazón nuevo, y pondré espíritu nuevo dentro de vosotros; y quitaré de vuestra carne el corazón de piedra, y os daré un corazón de carne. Y pondré dentro de vosotros mi Espíritu, y haré que andéis en mis estatutos, y guardéis mis preceptos, y los pongáis por obra.</p>
+    <span class="verse-ref">Ezequiel 36:26-27</span>
+  </div>
+
+  <p>Nótese la lógica divina: no «os daré mejores instrucciones», sino «os daré corazón nuevo». No «os enseñaré mis estatutos con más claridad», sino «pondré mi Espíritu dentro de vosotros». La solución al problema de Ezequiel 33 no era más volumen externo, sino una transformación interna radical. Esa promesa apunta directamente a la siguiente dispensación.</p>
+
+  <div class="section-break">· · ·</div>
+
+  <!-- III. BAJO LA GRACIA -->
+  <div class="disp-pill gracia">Dispensación de la Gracia</div>
+  <h2 class="navy-head">II. Bajo la Gracia — El Poder Sin la Excusa</h2>
+
+  <p>La dispensación de la Gracia inaugura lo que Ezequiel 36 prometió: el Espíritu Santo habitando en el interior del creyente, no como visitante ocasional sino como morador permanente. En Pentecostés, el mismo fuego que en el Sinaí se mantuvo externo y aterrador, descendió sobre el creyente y se posó sobre él <span class="scripture">(Hechos 2:3)</span>. La Ley escrita en tablas de piedra fue reemplazada por la Ley escrita en el corazón <span class="scripture">(2 Corintios 3:3; Hebreos 10:16)</span>.</p>
+
+  <div class="verse-grace">
+    <p>Porque lo que era imposible para la ley, por cuanto era débil por la carne, Dios, enviando a su Hijo en semejanza de carne de pecado y a causa del pecado, condenó al pecado en la carne; para que la justicia de la ley se cumpliese en nosotros, que no andamos conforme a la carne, sino conforme al Espíritu.</p>
+    <span class="verse-ref">Romanos 8:3-4</span>
+  </div>
+
+  <p>Aquí el Manual de Comunión y Oración encuentra su suelo más fértil. Todo su llamado a orar como embajadores de Cristo, a descansar en la autoridad de su sangre, a buscar la gloria del Padre sobre los propios deseos, presupone que el creyente ya ha recibido el Espíritu de Dios que hace posible ese alineamiento. La unión mística que el Manual describe —estar en Cristo como la rama en la vid— es una realidad que solo existe en la dispensación de la Gracia.</p>
+
+  <p>Y sin embargo, el diagnóstico de Ezequiel 33 no desaparece mágicamente con Pentecostés. La naturaleza pecaminosa —lo que Pablo llama la <em>carne</em>— no es erradicada en la conversión; permanece activa en el creyente como una tendencia constante hacia el mismo patrón: escuchar con agrado pero sin transformación real.</p>
+
+  <div class="verse-grace">
+    <p>Porque el deseo de la carne es contra el Espíritu, y el del Espíritu es contra la carne; y éstos se oponen entre sí, para que no hagáis lo que quisiereis.</p>
+    <span class="verse-ref">Gálatas 5:17</span>
+  </div>
+
+  <p>La diferencia decisiva entre la Ley y la Gracia no es que bajo la Gracia el creyente ya no lucha con la carne, sino que bajo la Gracia el creyente ya no está solo en esa lucha. Tiene un Espíritu que intercede, que guía, que convence y que da poder. Tiene una unión con Cristo que no depende de su esfuerzo sino de la obra consumada en la cruz. Pero esa realidad debe ser apropiada activamente, y es precisamente en ese punto donde el patrón de Ezequiel 33 puede reaparecer, ahora dentro de la iglesia:</p>
+
+  <div class="verse-grace">
+    <p>Pero sed hacedores de la palabra, y no tan solamente oidores, engañándoos a vosotros mismos.</p>
+    <span class="verse-ref">Santiago 1:22</span>
+  </div>
+
+  <div class="callout c-navy">
+    <div class="callout-title">✦ El mismo patrón, diferente escenario</div>
+    <p>El creyente bajo la Gracia puede leer el Manual, asentir con su contenido, sentirse conmovido por los versículos, e incluso recomendarlo a otros —y sin embargo no orar, no examinar sus motivos, no cultivar la unión con Cristo—. En ese caso, el Manual se convierte en un canto hermoso que se oye con placer pero que no produce fruto. La dispensación cambia; la tentación permanece.</p>
+  </div>
+
+  <p>El apóstol Santiago, escribiendo específicamente a creyentes bajo la Gracia, describe con precisión este peligro: el oidor que no practica se engaña a sí mismo. No es que no haya escuchado; es que el escuchar sin obedecer produce una ilusión de piedad que es más peligrosa que la ignorancia misma.</p>
+
+  <div class="section-break">· · ·</div>
+
+  <!-- IV. CONTRASTE -->
+  <h2>III. El Contraste — Dónde la Gracia Hace la Diferencia</h2>
+
+  <p>Aunque el patrón de Ezequiel 33 puede reaparecer en cualquier dispensación, existe una diferencia cualitativa fundamental entre el creyente bajo la Ley y el creyente bajo la Gracia. Bajo la Ley, el poder para obedecer era externo o inexistente; la Ley podía acusar pero no auxiliar. Bajo la Gracia, el Espíritu Santo mora en el interior del creyente como una fuente continua de poder transformador.</p>
+
+  <p>El Manual de Comunión y Oración no es un nuevo código legal. No añade obligaciones externas que el creyente debe cumplir por disciplina propia. Es, en su esencia, una invitación a ceder al flujo de vida que ya está presente en el creyente por su unión con Cristo. Donde la Ley decía «haz esto», el Manual dice «permanece en esto». Donde la Ley apuntaba desde fuera, el Espíritu empuja desde dentro.</p>
+
+  <div class="verse-grace">
+    <p>Pero cuando venga el Espíritu de verdad, él os guiará a toda la verdad; porque no hablará por su propia cuenta, sino que hablará todo lo que oyere, y os hará saber las cosas que habrán de venir.</p>
+    <span class="verse-ref">Juan 16:13</span>
+  </div>
+
+  <p>La unión mística con Cristo —la doctrina central que el Manual articula a través de Juan 15:5, 1 Corintios 6:17 y 1 Corintios 12:27— es precisamente la respuesta divina al problema de Ezequiel 33. El pueblo escuchaba el canto del profeta desde fuera; la Gracia coloca la voz de Dios dentro. El pueblo de Israel tenía la Ley tallada en piedra; el creyente en Cristo tiene al Autor de esa Ley habitando en su espíritu.</p>
+
+  <div class="callout c-olive">
+    <div class="callout-title">✦ La diferencia decisiva — de oidores a morada</div>
+    <p>Bajo la Ley, el ser humano era un receptor externo del mensaje de Dios. Bajo la Gracia, el creyente se convierte en morada del Espíritu de Dios <span class="scripture">(1 Corintios 6:19)</span>. La oración, entonces, no es el esfuerzo del hombre por alcanzar a Dios, sino el Espíritu de Dios expresándose a través del hombre que ha aprendido a permanecer en la Vid.</p>
+  </div>
+
+  <div class="section-break">· · ·</div>
+
+  <!-- V. CONCLUSIÓN -->
+  <h2>IV. Conclusión — Del Canto a la Obediencia Viva</h2>
+
+  <p>El arco de este ensayo ha recorrido tres textos que forman una progresión escalofriante. Ezequiel 33:31-32 describe al pueblo que escucha la Palabra «como quien oye un canto» —conmovido, pero sin obedecer—. Jeremías 7:16 revela el destino de ese patrón sostenido: el punto en que Dios mismo cierra el canal de la intercesión, porque un oído que oye sin obedecer ha cerrado también el camino de vuelta. Y Ezequiel 36:26-27 anuncia la única salida posible: no más Ley externa, sino corazón nuevo y Espíritu habitante.</p>
+
+  <!-- Arc visual -->
+  <div class="arc">
+    <div class="arc-node">
+      <span class="arc-ref">Ezequiel 33:31-32</span>
+      <span class="arc-desc">El diagnóstico:<br>oír como canto,<br>sin obedecer</span>
+    </div>
+    <div class="arc-arrow">→</div>
+    <div class="arc-node">
+      <span class="arc-ref">Jeremías 7:16</span>
+      <span class="arc-desc">El destino:<br>la intercesión<br>silenciada</span>
+    </div>
+    <div class="arc-arrow">→</div>
+    <div class="arc-node">
+      <span class="arc-ref">Ezequiel 36:26-27</span>
+      <span class="arc-desc">La salida:<br>corazón nuevo,<br>Espíritu habitante</span>
+    </div>
+  </div>
+
+  <p>Jeremías 7:16 funciona como la advertencia más solemne del ensayo. Si bajo la Gracia el creyente adopta el mismo patrón —leyendo el Manual, asintiendo con sus verdades, conmoviéndose con sus versículos, pero sin orar, sin examinar sus motivos, sin permanecer en la Vid—, no repite el error de Israel bajo la Ley: lo repite con mayor responsabilidad, porque ahora el Espíritu habita en él y la excusa de la debilidad de la carne ha quedado sin fundamento último.</p>
+
+  <p>Pero la dispensación de la Gracia introduce precisamente lo que la Ley nunca pudo ofrecer: el Espíritu Santo que ora en nosotros, que produce en nosotros «así el querer como el hacer» <span class="scripture">(Filipenses 2:13)</span>. La unión con Cristo no es un ideal lejano sino una realidad presente. Lo que Jeremías 7:16 cierra bajo la Ley —el acceso al trono mediante una intercesión externa que no va acompañada de transformación interna—, Hebreos 4:16 lo abre de nuevo bajo la Gracia, pero sobre una base completamente diferente: la sangre de Cristo y la obra del Espíritu.</p>
+
+  <div class="verse-grace">
+    <p>Porque Dios es el que en vosotros produce así el querer como el hacer, por su buena voluntad.</p>
+    <span class="verse-ref">Filipenses 2:13</span>
+  </div>
+
+  <p>El llamado final es el mismo que cierra el mensaje de Ezequiel a Israel y el mismo que articula el Manual de Comunión y Oración: dejar de ser oyentes del canto y convertirse en ramas que permanecen en la Vid. El trono que Jeremías 7:16 vio cerrado puede estar abierto —lo está, por la sangre del Cordero—. Pero esa apertura no es una licencia para el oído sin obediencia; es una invitación a la unión transformadora que hace que el oír y el practicar sean, finalmente, una sola cosa.</p>
+
+  <div class="verse-grace">
+    <p>Yo soy la vid, vosotros los pámpanos; el que permanece en mí, y yo en él, éste lleva mucho fruto; porque separados de mí nada podéis hacer.</p>
+    <span class="verse-ref">Juan 15:5</span>
+  </div>
+
+  <div class="pull-quote">
+    El trono que Jeremías 7:16 vio cerrado puede estar abierto —lo está, por la sangre del Cordero—. Pero esa apertura no es una licencia para el oído sin obediencia; es una invitación a la unión transformadora que hace que el oír y el practicar sean, finalmente, una sola cosa.
+  </div>
+
+  <footer class="essay-footer">
+    <p class="footer-note">Todos los textos bíblicos corresponden a la versión Reina-Valera 1960 (RVR1960). Este ensayo es un complemento teológico al Manual de Comunión y Oración, desarrollado a partir del diagnóstico de Ezequiel 33:31-32 y la sentencia de Jeremías 7:16, bajo la luz de la promesa de Ezequiel 36:26-27.</p>
+
+    <div class="series-footer">
+      <a href="manual-comunion-oracion-rvr1960.html" class="series-link"><span class="arrow">←</span> Manual · Comunión y Oración</a>
+      <span class="series-link current"><span class="arrow">◆</span> Ensayo II · Ezequiel 33</span>
+      <a href="ensayo-1-yeshua.html" class="series-link">Ensayo I · Yeshua <span class="arrow">→</span></a>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
