@@ -397,6 +397,152 @@
     .visita-card { flex-direction: column; gap: 12px; padding: 22px 20px; }
   }
 
+  /* ── VISTA RÁPIDA ── */
+  .vista-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .quick-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .quick-card {
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .quick-card:hover { box-shadow: var(--shadow-lg); }
+  .quick-header {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .quick-nums { display: flex; gap: 6px; flex-shrink: 0; }
+  .qn {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--gold);
+    color: var(--ink);
+    font-size: 11px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .quick-title { flex: 1; font-size: 14px; font-weight: 600; line-height: 1.3; }
+  .quick-title strong { color: var(--gold); }
+  .quick-sub { display: block; font-size: 11px; font-weight: 300; color: rgba(247,245,240,0.5); margin-top: 3px; }
+  .quick-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .quick-body { padding: 18px 20px; }
+  .quick-row { display: flex; gap: 10px; margin-bottom: 10px; font-size: 13.5px; line-height: 1.55; }
+  .qr-label { font-weight: 600; color: var(--ink); min-width: 90px; flex-shrink: 0; font-size: 12px; padding-top: 1px; }
+  .qr-val { color: #3a3630; }
+  .quick-ventaja {
+    margin-top: 14px;
+    padding: 10px 14px;
+    background: var(--gold-light);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 6px 6px 0;
+    font-size: 13px;
+    color: var(--gold-dark);
+    font-weight: 500;
+  }
+
+  /* ── TOGGLE COLAPSABLE ── */
+  .detail-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 22px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s, box-shadow 0.2s;
+  }
+  .detail-toggle:hover { background: #e5dfd5; box-shadow: var(--shadow); }
+  .detail-toggle.open { border-radius: 10px 10px 0 0; background: var(--ink); }
+  .detail-toggle.open .dt-title { color: var(--paper); }
+  .detail-toggle.open .dt-sub { color: rgba(247,245,240,0.5); }
+  .detail-toggle.open .dt-icon { color: var(--gold); }
+  .dt-left { display: flex; align-items: center; gap: 14px; }
+  .dt-icon { font-size: 16px; color: var(--muted); }
+  .dt-title { font-weight: 600; font-size: 14.5px; color: var(--ink); }
+  .dt-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .dt-arrow { font-size: 20px; color: var(--gold); transition: transform 0.3s; line-height: 1; }
+  .dt-arrow.open { transform: rotate(180deg); }
+  .detail-panel {
+    display: none;
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    padding: 24px;
+    background: var(--paper);
+  }
+  .detail-panel .entrada-card { margin-bottom: 20px; }
+  .detail-panel .entrada-card:last-child { margin-bottom: 0; }
+  @media (max-width: 600px) {
+    .quick-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── EXTRA CARDS ── */
+  .extra-card {
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    box-shadow: var(--shadow);
+  }
+  .extra-costos {
+    background: linear-gradient(135deg, #f0faf5 0%, #d9f2e8 100%);
+    border: 1px solid #7ecfaa;
+  }
+  .extra-prueba {
+    background: linear-gradient(135deg, #f5f0ff 0%, #e8daff 100%);
+    border: 1px solid #a78bfa;
+  }
+  .extra-card-icon { font-size: 2rem; flex-shrink: 0; margin-top: 2px; }
+  .extra-card-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+  }
+  .extra-costos .extra-card-title { color: #1a6b4a; }
+  .extra-prueba .extra-card-title { color: #5b21b6; }
+  .extra-card-text {
+    font-size: 14.5px;
+    line-height: 1.75;
+    margin-bottom: 10px;
+  }
+  .extra-costos .extra-card-text { color: #1e4034; }
+  .extra-prueba .extra-card-text { color: #2e1a5e; }
+  .extra-card-text strong { font-weight: 700; }
+  .extra-card-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+  .extra-chip {
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 12.5px;
+    font-weight: 500;
+    background: rgba(255,255,255,0.7);
+  }
+  .extra-costos .extra-chip { color: #1a6b4a; border: 1px solid #7ecfaa; }
+  .extra-prueba .extra-chip { color: #5b21b6; border: 1px solid #a78bfa; }
+  @media (max-width: 520px) {
+    .extra-card { flex-direction: column; gap: 12px; padding: 22px 20px; }
+  }
+
   /* ── CHECKLIST ── */
   .checklist {
     background: var(--white);
@@ -664,177 +810,266 @@
   <div class="container">
     <h2><span class="section-num">03</span> Las 4 Opciones para Comenzar</h2>
 
-    <!-- ENTRADA 1 -->
-    <div class="entrada-card">
-      <div class="entrada-header">
-        <div class="entrada-num">1</div>
-        <div class="entrada-title">
-          Efectivo en Pesos Mexicanos
-          <span class="tipo">MXN · Entrega en persona</span>
+    <!-- ── VISTA RÁPIDA (Opción A) ── -->
+    <div class="vista-label">Vista rápida — elige tu caso</div>
+    <div class="quick-grid">
+
+      <!-- Quick 1+2: Efectivo -->
+      <div class="quick-card">
+        <div class="quick-header">
+          <div class="quick-nums"><span class="qn">1</span><span class="qn">2</span></div>
+          <div class="quick-title">
+            Pagas en <strong>Efectivo</strong>
+            <span class="quick-sub">Entrega en persona · MXN o USD</span>
+          </div>
+          <div class="quick-icon">💵</div>
+        </div>
+        <div class="quick-body">
+          <div class="quick-row"><span class="qr-label">Ideal para</span><span class="qr-val">Quien tiene el dinero en mano y prefiere cerrar la operación cara a cara.</span></div>
+          <div class="quick-row"><span class="qr-label">Cómo funciona</span><span class="qr-val">Coordinas ciudad, hora y punto de encuentro. Entregas el efectivo. Recibes el USDT en tu wallet.</span></div>
+          <div class="quick-row"><span class="qr-label">Ciudades</span><span class="qr-val">Monterrey · Guadalajara · Cancún · Reynosa · Matamoros</span></div>
+          <div class="quick-row"><span class="qr-label">Monedas</span><span class="qr-val">MXN (Opción 1) &nbsp;·&nbsp; USD (Opción 3)</span></div>
+          <div class="quick-row"><span class="qr-label">Tiempo</span><span class="qr-val">Mismo día — coordinar antes de las 12:00 pm</span></div>
+          <div class="quick-ventaja">✦ La forma más directa. Sin bancos, sin esperas de acreditación.</div>
         </div>
       </div>
-      <div class="entrada-body">
-        <div class="info-grid">
-          <div class="info-block">
-            <div class="ib-label">¿Qué entregas?</div>
-            <ul>
-              <li>Efectivo en MXN en ciudad acordada</li>
-              <li>Monterrey, Guadalajara, Cancún, Reynosa o Matamoros</li>
-            </ul>
+
+      <!-- Quick 3+4: Transferencia -->
+      <div class="quick-card">
+        <div class="quick-header">
+          <div class="quick-nums"><span class="qn">3</span><span class="qn">4</span></div>
+          <div class="quick-title">
+            Pagas por <strong>Transferencia</strong>
+            <span class="quick-sub">Operación remota · MXN o USD</span>
           </div>
-          <div class="info-block">
-            <div class="ib-label">¿Qué confirmas al inicio?</div>
-            <ul>
-              <li>Monto exacto en MXN</li>
-              <li>Ciudad y fecha/hora</li>
-              <li>Identificación oficial vigente</li>
-              <li>Wallet address y red (TRC20 / ERC20 / BEP20)</li>
-            </ul>
+          <div class="quick-icon">🏦</div>
+        </div>
+        <div class="quick-body">
+          <div class="quick-row"><span class="qr-label">Ideal para</span><span class="qr-val">Quien prefiere operar desde cualquier punto de México sin necesidad de trasladarse.</span></div>
+          <div class="quick-row"><span class="qr-label">Cómo funciona</span><span class="qr-val">Recibes los datos bancarios, haces la transferencia, envías el comprobante. Recibes el USDT en tu wallet.</span></div>
+          <div class="quick-row"><span class="qr-label">Disponibilidad</span><span class="qr-val">Desde cualquier ciudad de México</span></div>
+          <div class="quick-row"><span class="qr-label">Monedas</span><span class="qr-val">MXN (Opción 2) &nbsp;·&nbsp; USD (Opción 4)</span></div>
+          <div class="quick-row"><span class="qr-label">Tiempo</span><span class="qr-val">MXN: mismo día si acredita antes de 12:00 pm&nbsp;&nbsp;|&nbsp;&nbsp;USD: hasta 24h</span></div>
+          <div class="quick-ventaja">✦ Sin desplazarte. Opera desde donde estés.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── DETALLE COLAPSABLE (Opción B) ── -->
+    <div class="detail-toggle" id="detailToggle" onclick="toggleDetail()">
+      <div class="dt-left">
+        <span class="dt-icon">☰</span>
+        <div>
+          <div class="dt-title">Ver detalle paso a paso de cada opción</div>
+          <div class="dt-sub">Flujo completo · Qué necesitas · Tiempos exactos por opción</div>
+        </div>
+      </div>
+      <div class="dt-arrow" id="dtArrow">▾</div>
+    </div>
+
+    <div class="detail-panel" id="detailPanel">
+
+      <!-- ENTRADA 1 -->
+      <div class="entrada-card">
+        <div class="entrada-header">
+          <div class="entrada-num">1</div>
+          <div class="entrada-title">
+            Efectivo en Pesos Mexicanos
+            <span class="tipo">MXN · Entrega en persona</span>
           </div>
         </div>
-        <div class="steps-title">Flujo de pasos</div>
-        <ol class="steps">
-          <li><span class="step-n">1</span><span class="step-text">Contacta al equipo e indica el monto y la ciudad donde entregarás el efectivo.</span></li>
-          <li><span class="step-n">2</span><span class="step-text">Recibe cotización con el tipo de cambio y el costo total de la operación.</span></li>
-          <li><span class="step-n">3</span><span class="step-text">Proporciona tu wallet address y confirma la red de recepción.</span></li>
-          <li><span class="step-n">4</span><span class="step-text">Se coordina punto de encuentro o canal de entrega en la ciudad acordada.</span></li>
-          <li><span class="step-n">5</span><span class="step-text">Se recibe y valida el efectivo.</span></li>
-          <li><span class="step-n">6</span><span class="step-text">Se envía el USDT a tu wallet y recibes folio + evidencia de transacción.</span></li>
-        </ol>
+        <div class="entrada-body">
+          <div class="info-grid">
+            <div class="info-block">
+              <div class="ib-label">¿Qué entregas?</div>
+              <ul>
+                <li>Efectivo en MXN en ciudad acordada</li>
+                <li>Monterrey, Guadalajara, Cancún, Reynosa o Matamoros</li>
+              </ul>
+            </div>
+            <div class="info-block">
+              <div class="ib-label">¿Qué confirmas al inicio?</div>
+              <ul>
+                <li>Monto exacto en MXN</li>
+                <li>Ciudad y fecha/hora</li>
+                <li>Identificación oficial vigente</li>
+                <li>Wallet address y red (TRC20 / ERC20 / BEP20)</li>
+              </ul>
+            </div>
+          </div>
+          <div class="steps-title">Flujo de pasos</div>
+          <ol class="steps">
+            <li><span class="step-n">1</span><span class="step-text">Contacta al equipo e indica el monto y la ciudad donde entregarás el efectivo.</span></li>
+            <li><span class="step-n">2</span><span class="step-text">Recibe cotización con el tipo de cambio y el costo total de la operación.</span></li>
+            <li><span class="step-n">3</span><span class="step-text">Proporciona tu wallet address y confirma la red de recepción.</span></li>
+            <li><span class="step-n">4</span><span class="step-text">Se coordina punto de encuentro en la ciudad acordada.</span></li>
+            <li><span class="step-n">5</span><span class="step-text">Se recibe y valida el efectivo en MXN.</span></li>
+            <li><span class="step-n">6</span><span class="step-text">Se envía el USDT a tu wallet y recibes folio + evidencia de transacción.</span></li>
+          </ol>
+        </div>
+        <div class="entrada-footer">
+          <div class="footer-item"><span class="fi-label">Tiempo estimado:</span><span class="fi-val">Mismo día (coordinar antes de 12:00 pm)</span></div>
+        </div>
       </div>
-      <div class="entrada-footer">
-        <div class="footer-item"><span class="fi-label">Tiempo estimado:</span><span class="fi-val">Mismo día (coordinar antes de 12:00 pm)</span></div>
-        <div class="cost-badge">Costo total: ____%</div>
+
+      <!-- ENTRADA 2 -->
+      <div class="entrada-card">
+        <div class="entrada-header">
+          <div class="entrada-num">2</div>
+          <div class="entrada-title">
+            Transferencia Bancaria en Pesos Mexicanos
+            <span class="tipo">MXN · Operación remota</span>
+          </div>
+        </div>
+        <div class="entrada-body">
+          <div class="info-grid">
+            <div class="info-block">
+              <div class="ib-label">¿Qué entregas?</div>
+              <ul>
+                <li>Transferencia bancaria en MXN (SPEI) a cuenta indicada</li>
+                <li>Comprobante de transferencia</li>
+              </ul>
+            </div>
+            <div class="info-block">
+              <div class="ib-label">¿Qué confirmas al inicio?</div>
+              <ul>
+                <li>Monto exacto en MXN</li>
+                <li>Nombre del titular de la cuenta de origen</li>
+                <li>Wallet address y red (TRC20 / ERC20 / BEP20)</li>
+              </ul>
+            </div>
+          </div>
+          <div class="steps-title">Flujo de pasos</div>
+          <ol class="steps">
+            <li><span class="step-n">1</span><span class="step-text">Solicita cotización indicando el monto en MXN que deseas convertir.</span></li>
+            <li><span class="step-n">2</span><span class="step-text">Recibe los datos bancarios destino y confirmación del costo.</span></li>
+            <li><span class="step-n">3</span><span class="step-text">Realiza la transferencia SPEI y envía el comprobante.</span></li>
+            <li><span class="step-n">4</span><span class="step-text">Se confirma la acreditación real en cuenta (no solo el comprobante).</span></li>
+            <li><span class="step-n">5</span><span class="step-text">Se verifica tu wallet address y red seleccionada.</span></li>
+            <li><span class="step-n">6</span><span class="step-text">Se ejecuta el envío de USDT y recibes folio + evidencia de transacción.</span></li>
+          </ol>
+        </div>
+        <div class="entrada-footer">
+          <div class="footer-item"><span class="fi-label">Tiempo estimado:</span><span class="fi-val">Mismo día si el SPEI acredita antes de 12:00 pm · Siguiente día hábil si es posterior</span></div>
+        </div>
+      </div>
+
+      <!-- ENTRADA 3 -->
+      <div class="entrada-card">
+        <div class="entrada-header">
+          <div class="entrada-num">3</div>
+          <div class="entrada-title">
+            Efectivo en Dólares Americanos
+            <span class="tipo">USD · Entrega en persona</span>
+          </div>
+        </div>
+        <div class="entrada-body">
+          <div class="info-grid">
+            <div class="info-block">
+              <div class="ib-label">¿Qué entregas?</div>
+              <ul>
+                <li>Efectivo en USD en ciudad acordada</li>
+                <li>Conversión directa a USDT sin pasar por MXN</li>
+              </ul>
+            </div>
+            <div class="info-block">
+              <div class="ib-label">¿Qué confirmas al inicio?</div>
+              <ul>
+                <li>Monto exacto en USD</li>
+                <li>Ciudad y fecha/hora</li>
+                <li>Identificación oficial vigente</li>
+                <li>Wallet address y red (TRC20 / ERC20 / BEP20)</li>
+              </ul>
+            </div>
+          </div>
+          <div class="steps-title">Flujo de pasos</div>
+          <ol class="steps">
+            <li><span class="step-n">1</span><span class="step-text">Contacta al equipo indicando el monto en USD y la ciudad de entrega.</span></li>
+            <li><span class="step-n">2</span><span class="step-text">Recibe cotización del equivalente directo en USDT y el costo de la operación.</span></li>
+            <li><span class="step-n">3</span><span class="step-text">Proporciona tu wallet address y confirma la red de recepción.</span></li>
+            <li><span class="step-n">4</span><span class="step-text">Se coordina el punto de encuentro en la ciudad acordada.</span></li>
+            <li><span class="step-n">5</span><span class="step-text">Se recibe y valida el efectivo en USD (verificación de billetes incluida).</span></li>
+            <li><span class="step-n">6</span><span class="step-text">Se transfiere el USDT a tu wallet y recibes folio + evidencia.</span></li>
+          </ol>
+        </div>
+        <div class="entrada-footer">
+          <div class="footer-item"><span class="fi-label">Tiempo estimado:</span><span class="fi-val">Mismo día (coordinar antes de 12:00 pm)</span></div>
+        </div>
+      </div>
+
+      <!-- ENTRADA 4 -->
+      <div class="entrada-card">
+        <div class="entrada-header">
+          <div class="entrada-num">4</div>
+          <div class="entrada-title">
+            Transferencia Bancaria en Dólares Americanos
+            <span class="tipo">USD · Operación remota</span>
+          </div>
+        </div>
+        <div class="entrada-body">
+          <div class="info-grid">
+            <div class="info-block">
+              <div class="ib-label">¿Qué entregas?</div>
+              <ul>
+                <li>Wire transfer / ACH / SPEI USD a cuenta indicada</li>
+                <li>Confirmación SWIFT o comprobante de envío</li>
+              </ul>
+            </div>
+            <div class="info-block">
+              <div class="ib-label">¿Qué confirmas al inicio?</div>
+              <ul>
+                <li>Monto exacto en USD</li>
+                <li>Nombre del titular de la cuenta de origen</li>
+                <li>Wallet address y red (TRC20 / ERC20 / BEP20)</li>
+              </ul>
+            </div>
+          </div>
+          <div class="steps-title">Flujo de pasos</div>
+          <ol class="steps">
+            <li><span class="step-n">1</span><span class="step-text">Solicita cotización indicando el monto en USD.</span></li>
+            <li><span class="step-n">2</span><span class="step-text">Recibe los datos bancarios internacionales y confirmación del costo.</span></li>
+            <li><span class="step-n">3</span><span class="step-text">Realiza la transferencia en USD y envía el comprobante / confirmación SWIFT.</span></li>
+            <li><span class="step-n">4</span><span class="step-text">Se monitorea la acreditación en cuenta — puede tomar hasta 24h según la ruta bancaria internacional.</span></li>
+            <li><span class="step-n">5</span><span class="step-text">Se verifica tu wallet address y red. Se te notifica el horario de ejecución.</span></li>
+            <li><span class="step-n">6</span><span class="step-text">Se envía el USDT y recibes folio + evidencia completa de operación.</span></li>
+          </ol>
+        </div>
+        <div class="entrada-footer">
+          <div class="footer-item"><span class="fi-label">Tiempo estimado:</span><span class="fi-val">Hasta 24 horas desde la confirmación de acreditación de fondos</span></div>
+        </div>
+      </div>
+
+    </div><!-- /detail-panel -->
+
+    <!-- TARJETA COSTOS -->
+    <div class="extra-card extra-costos">
+      <div class="extra-card-icon">💡</div>
+      <div class="extra-card-body">
+        <div class="extra-card-title">¿Cuánto cuesta el servicio?</div>
+        <p class="extra-card-text">El costo aproximado del servicio es del <strong>7% sobre el monto operado</strong>. Este porcentaje puede variar ligeramente dependiendo de la opción que elijas entre las 4 disponibles —por ejemplo, si pagas en efectivo o por transferencia, y si lo haces en MXN o USD.</p>
+        <p class="extra-card-text">Al momento de cotizar tu operación recibirás el porcentaje exacto aplicable, antes de comprometerte con cualquier monto. Sin sorpresas.</p>
+        <div class="extra-card-chips">
+          <span class="extra-chip">~7% costo aproximado</span>
+          <span class="extra-chip">Varía según la opción elegida</span>
+          <span class="extra-chip">Cotización exacta antes de operar</span>
+        </div>
       </div>
     </div>
 
-    <!-- ENTRADA 2 -->
-    <div class="entrada-card">
-      <div class="entrada-header">
-        <div class="entrada-num">2</div>
-        <div class="entrada-title">
-          Transferencia Bancaria en Pesos Mexicanos
-          <span class="tipo">MXN · Operación remota</span>
+    <!-- TARJETA PRUEBA PILOTO -->
+    <div class="extra-card extra-prueba">
+      <div class="extra-card-icon">🚀</div>
+      <div class="extra-card-body">
+        <div class="extra-card-title">¿Primera vez? Te recomendamos empezar con un monto módico</div>
+        <p class="extra-card-text">Si es tu primera operación con nosotros, la mejor forma de generar confianza —para ambas partes— es hacer una prueba con un monto pequeño. Así podrás vivir el proceso completo de principio a fin: la cotización, la entrega de fondos, la llegada del USDT a tu wallet y el folio de cierre.</p>
+        <p class="extra-card-text">Sin teoría. Con experiencia propia. Una vez que hayas visto cómo funciona con tus propios ojos, escalar a montos mayores es natural y sin fricción.</p>
+        <div class="extra-card-chips">
+          <span class="extra-chip">✓ Conoces el proceso real</span>
+          <span class="extra-chip">✓ Mides los tiempos</span>
+          <span class="extra-chip">✓ Construyes confianza</span>
+          <span class="extra-chip">✓ Sin riesgo mayor</span>
         </div>
-      </div>
-      <div class="entrada-body">
-        <div class="info-grid">
-          <div class="info-block">
-            <div class="ib-label">¿Qué entregas?</div>
-            <ul>
-              <li>Transferencia bancaria en MXN a cuenta indicada</li>
-              <li>Comprobante de transferencia</li>
-            </ul>
-          </div>
-          <div class="info-block">
-            <div class="ib-label">¿Qué confirmas al inicio?</div>
-            <ul>
-              <li>Monto exacto en MXN</li>
-              <li>Nombre del titular de la cuenta de origen</li>
-              <li>Wallet address y red (TRC20 / ERC20 / BEP20)</li>
-            </ul>
-          </div>
-        </div>
-        <div class="steps-title">Flujo de pasos</div>
-        <ol class="steps">
-          <li><span class="step-n">1</span><span class="step-text">Solicita cotización indicando el monto en MXN que deseas convertir.</span></li>
-          <li><span class="step-n">2</span><span class="step-text">Recibe los datos bancarios destino y confirmación del costo total.</span></li>
-          <li><span class="step-n">3</span><span class="step-text">Realiza la transferencia bancaria y envía el comprobante.</span></li>
-          <li><span class="step-n">4</span><span class="step-text">Se valida la recepción de fondos en cuenta.</span></li>
-          <li><span class="step-n">5</span><span class="step-text">Se verifica tu wallet address y la red seleccionada.</span></li>
-          <li><span class="step-n">6</span><span class="step-text">Se ejecuta el envío de USDT y recibes folio + evidencia de transacción.</span></li>
-        </ol>
-      </div>
-      <div class="entrada-footer">
-        <div class="footer-item"><span class="fi-label">Tiempo estimado:</span><span class="fi-val">Mismo día si acredita antes de 12:00 pm</span></div>
-        <div class="cost-badge">Costo total: ____%</div>
-      </div>
-    </div>
-
-    <!-- ENTRADA 3 -->
-    <div class="entrada-card">
-      <div class="entrada-header">
-        <div class="entrada-num">3</div>
-        <div class="entrada-title">
-          Efectivo en Dólares Americanos
-          <span class="tipo">USD · Entrega en persona</span>
-        </div>
-      </div>
-      <div class="entrada-body">
-        <div class="info-grid">
-          <div class="info-block">
-            <div class="ib-label">¿Qué entregas?</div>
-            <ul>
-              <li>Efectivo en USD en ciudad acordada</li>
-              <li>Sin necesidad de convertir a MXN primero</li>
-            </ul>
-          </div>
-          <div class="info-block">
-            <div class="ib-label">¿Qué confirmas al inicio?</div>
-            <ul>
-              <li>Monto exacto en USD</li>
-              <li>Ciudad y fecha/hora</li>
-              <li>Identificación oficial vigente</li>
-              <li>Wallet address y red (TRC20 / ERC20 / BEP20)</li>
-            </ul>
-          </div>
-        </div>
-        <div class="steps-title">Flujo de pasos</div>
-        <ol class="steps">
-          <li><span class="step-n">1</span><span class="step-text">Contacta al equipo indicando el monto en USD y la ciudad de entrega.</span></li>
-          <li><span class="step-n">2</span><span class="step-text">Recibe cotización del equivalente en USDT y el costo total de la operación.</span></li>
-          <li><span class="step-n">3</span><span class="step-text">Proporciona tu wallet address y confirma la red de recepción.</span></li>
-          <li><span class="step-n">4</span><span class="step-text">Se coordina el punto de encuentro o canal de entrega en la ciudad.</span></li>
-          <li><span class="step-n">5</span><span class="step-text">Se recibe y valida el efectivo en USD.</span></li>
-          <li><span class="step-n">6</span><span class="step-text">Se transfiere el USDT a tu wallet y recibes folio + evidencia.</span></li>
-        </ol>
-      </div>
-      <div class="entrada-footer">
-        <div class="footer-item"><span class="fi-label">Tiempo estimado:</span><span class="fi-val">Mismo día (coordinar antes de 12:00 pm)</span></div>
-        <div class="cost-badge">Costo total: ____%</div>
-      </div>
-    </div>
-
-    <!-- ENTRADA 4 -->
-    <div class="entrada-card">
-      <div class="entrada-header">
-        <div class="entrada-num">4</div>
-        <div class="entrada-title">
-          Transferencia Bancaria en Dólares Americanos
-          <span class="tipo">USD · Operación remota</span>
-        </div>
-      </div>
-      <div class="entrada-body">
-        <div class="info-grid">
-          <div class="info-block">
-            <div class="ib-label">¿Qué entregas?</div>
-            <ul>
-              <li>Transferencia en USD (wire / ACH / SPEI USD)</li>
-              <li>Comprobante de transferencia</li>
-            </ul>
-          </div>
-          <div class="info-block">
-            <div class="ib-label">¿Qué confirmas al inicio?</div>
-            <ul>
-              <li>Monto exacto en USD</li>
-              <li>Nombre del titular de la cuenta de origen</li>
-              <li>Wallet address y red (TRC20 / ERC20 / BEP20)</li>
-            </ul>
-          </div>
-        </div>
-        <div class="steps-title">Flujo de pasos</div>
-        <ol class="steps">
-          <li><span class="step-n">1</span><span class="step-text">Solicita cotización indicando el monto en USD.</span></li>
-          <li><span class="step-n">2</span><span class="step-text">Recibe los datos bancarios internacionales y confirmación del costo total.</span></li>
-          <li><span class="step-n">3</span><span class="step-text">Realiza la transferencia en USD y envía el comprobante.</span></li>
-          <li><span class="step-n">4</span><span class="step-text">Se valida la acreditación de fondos (puede incluir período de espera de hasta 24h según la ruta bancaria).</span></li>
-          <li><span class="step-n">5</span><span class="step-text">Se verifica tu wallet address y la red seleccionada.</span></li>
-          <li><span class="step-n">6</span><span class="step-text">Se envía el USDT y recibes folio + evidencia completa de operación.</span></li>
-        </ol>
-      </div>
-      <div class="entrada-footer">
-        <div class="footer-item"><span class="fi-label">Tiempo estimado:</span><span class="fi-val">24 horas desde confirmación de fondos</span></div>
-        <div class="cost-badge">Costo total: ____%</div>
       </div>
     </div>
 
@@ -1033,6 +1268,16 @@
       q.parentElement.classList.toggle('open');
     });
   });
+
+  function toggleDetail() {
+    const panel  = document.getElementById('detailPanel');
+    const toggle = document.getElementById('detailToggle');
+    const arrow  = document.getElementById('dtArrow');
+    const isOpen = panel.style.display === 'block';
+    panel.style.display = isOpen ? 'none' : 'block';
+    toggle.classList.toggle('open', !isOpen);
+    arrow.classList.toggle('open', !isOpen);
+  }
 </script>
 </body>
 </html>
