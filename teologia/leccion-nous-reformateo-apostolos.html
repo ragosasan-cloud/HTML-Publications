@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Nous — El Sistema Operativo del Alma</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f7f3ec;
+    --warm-white: #fdfaf5;
+    --ink: #1c1a17;
+    --brown: #5c4a32;
+    --gold: #b8860b;
+    --gold-light: #d4a017;
+    --green-dark: #2d5a27;
+    --green-mid: #3a7a32;
+    --green-light: #eef6ed;
+    --green-border: #5a9e50;
+    --muted: #7a6a58;
+    --rule: #c8bfaf;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background-color: var(--cream);
+    color: var(--ink);
+    font-family: 'Lora', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.85;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page-wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+  }
+
+  /* ── Header ── */
+  header {
+    text-align: center;
+    padding-bottom: 48px;
+    border-bottom: 2px solid var(--rule);
+    margin-bottom: 56px;
+  }
+
+  .series-label {
+    font-family: 'Lora', serif;
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.6rem, 6vw, 4rem);
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--green-dark);
+  }
+
+  .subtitle {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--muted);
+    margin-top: 14px;
+    margin-bottom: 28px;
+  }
+
+  .gold-rule {
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    margin: 0 auto;
+    border-radius: 2px;
+  }
+
+  /* ── Opening hook ── */
+  .hook {
+    background: var(--warm-white);
+    border-left: 5px solid var(--gold-light);
+    padding: 28px 32px;
+    margin-bottom: 52px;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 2px 2px 14px rgba(0,0,0,0.05);
+  }
+
+  .hook p {
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--brown);
+    line-height: 1.9;
+  }
+
+  /* ── Sections ── */
+  section {
+    margin-bottom: 56px;
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 8px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  h2 .section-num {
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    font-family: 'Lora', serif;
+    font-weight: 400;
+    margin-bottom: 4px;
+  }
+
+  h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-style: italic;
+    color: var(--brown);
+    margin: 28px 0 12px;
+  }
+
+  p { margin-bottom: 18px; }
+
+  /* ── Bible verse boxes ── */
+  .verse-box {
+    background: var(--green-light);
+    border: 1.5px solid var(--green-border);
+    border-left: 6px solid var(--green-dark);
+    border-radius: 0 10px 10px 0;
+    padding: 24px 28px 20px;
+    margin: 28px 0;
+    position: relative;
+  }
+
+  .verse-box::before {
+    content: '❝';
+    font-size: 2.8rem;
+    color: var(--green-border);
+    opacity: 0.4;
+    position: absolute;
+    top: 6px;
+    left: 14px;
+    line-height: 1;
+    font-family: Georgia, serif;
+  }
+
+  .verse-text {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--green-dark);
+    line-height: 1.9;
+    padding-left: 20px;
+  }
+
+  .verse-ref {
+    display: block;
+    margin-top: 10px;
+    font-family: 'Lora', serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-style: normal;
+    letter-spacing: 0.08em;
+    color: var(--green-mid);
+    text-align: right;
+    padding-left: 20px;
+  }
+
+  /* ── Concept spotlight ── */
+  .concept-spotlight {
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: 12px;
+    padding: 36px 36px 32px;
+    margin: 36px 0;
+    text-align: center;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+  }
+
+  .concept-word {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-style: italic;
+    color: var(--gold-light);
+    letter-spacing: 0.04em;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .concept-sub {
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--rule);
+    display: block;
+    margin-bottom: 18px;
+  }
+
+  .concept-body {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #d4cbbd;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .concept-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 20px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 40px;
+    padding: 8px 22px;
+    font-size: 0.9rem;
+    color: var(--gold-light);
+  }
+
+  /* ── Insight callout ── */
+  .insight {
+    background: var(--warm-white);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 26px 30px;
+    margin: 32px 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  }
+
+  .insight-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .insight p {
+    font-size: 1.05rem;
+    color: var(--brown);
+    margin-bottom: 0;
+  }
+
+  /* ── Circuit / flow diagram ── */
+  .circuit {
+    background: var(--warm-white);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 36px 32px;
+    margin: 36px 0;
+  }
+
+  .circuit-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--brown);
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .circuit-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .circuit-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .circuit-line {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    width: 32px;
+  }
+
+  .circuit-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--green-dark);
+    border: 2px solid var(--green-border);
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  .circuit-connector {
+    width: 2px;
+    flex: 1;
+    background: var(--green-border);
+    min-height: 32px;
+    opacity: 0.5;
+  }
+
+  .circuit-step:last-child .circuit-connector {
+    display: none;
+  }
+
+  .circuit-content {
+    padding-bottom: 28px;
+    flex: 1;
+  }
+
+  .circuit-step:last-child .circuit-content {
+    padding-bottom: 0;
+  }
+
+  .circuit-label {
+    font-family: 'Lora', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--green-dark);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .circuit-text {
+    font-size: 0.97rem;
+    color: var(--brown);
+    line-height: 1.7;
+  }
+
+  /* ── Application questions ── */
+  .questions {
+    background: var(--warm-white);
+    border-radius: 10px;
+    padding: 32px 36px;
+    margin-top: 16px;
+    border: 1px solid var(--rule);
+  }
+
+  .questions h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+  }
+
+  .questions ol {
+    padding-left: 22px;
+  }
+
+  .questions ol li {
+    margin-bottom: 14px;
+    font-size: 1rem;
+    color: var(--brown);
+  }
+
+  /* ── Prayer ── */
+  .prayer {
+    background: linear-gradient(135deg, #2d5a27 0%, #3d7a35 100%);
+    color: #eef6ed;
+    border-radius: 12px;
+    padding: 40px 40px 36px;
+    margin-top: 20px;
+    text-align: center;
+    box-shadow: 0 8px 28px rgba(45,90,39,0.25);
+  }
+
+  .prayer-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: #a8d4a0;
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  .prayer p {
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 2;
+    color: #dff0dc;
+    margin-bottom: 0;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  /* ── Closing ── */
+  .closing {
+    text-align: center;
+    margin-top: 64px;
+    padding-top: 40px;
+    border-top: 2px solid var(--rule);
+  }
+
+  .closing p {
+    font-style: italic;
+    color: var(--muted);
+    font-size: 1.05rem;
+    margin-bottom: 0;
+  }
+
+  .closing .final-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-style: italic;
+    color: var(--green-dark);
+    margin-top: 20px;
+    margin-bottom: 0;
+    line-height: 1.6;
+  }
+
+  /* ── Divider ── */
+  .divider {
+    text-align: center;
+    margin: 48px 0 40px;
+    color: var(--rule);
+    letter-spacing: 0.5em;
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 600px) {
+    .page-wrap { padding: 36px 20px 70px; }
+    h1 { font-size: 2.1rem; }
+    .prayer, .concept-spotlight { padding: 28px 22px; }
+    .concept-word { font-size: 2.2rem; }
+    .circuit { padding: 24px 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- ══ HEADER ══ -->
+  <header>
+    <p class="series-label">Lección Bíblica · Serie: El Corazón que Habla</p>
+    <h1>El <em>Nous</em> —<br>El Sistema Operativo del Alma</h1>
+    <p class="subtitle">Por qué cambiar la conducta no es suficiente, y qué hacer al respecto</p>
+    <div class="gold-rule"></div>
+  </header>
+
+  <!-- ══ GANCHO ══ -->
+  <div class="hook">
+    <p>Una bola de golf salió en la dirección equivocada e impactó en el pecho de un misionero. El hombre cayó al suelo. Y cuando se levantó, después de veinte años en el campo misionero, lo que salió de su boca dejó a todos sin palabras.</p>
+    <p style="margin-bottom:0;">La bola no puso eso dentro de él. Solo lo reveló. Pero hoy la pregunta no es qué salió de aquel misionero — sino <em>por qué</em> estaba ahí, y cómo cambia algo tan profundo y tan invisible como lo que guardamos en el centro de nosotros mismos.</p>
+  </div>
+
+  <!-- ══ SECCIÓN 1 ══ -->
+  <section>
+    <h2>
+      <span class="section-num">Parte I</span>
+      El Veredicto de Proverbios: Eres lo que Piensas
+    </h2>
+
+    <p>El libro de Proverbios tiene una de las observaciones más incómodas de toda la Escritura. No habla de lo que haces ni de lo que dices en público — habla de lo que ocurre en lo más privado de ti:</p>
+
+    <div class="verse-box">
+      <p class="verse-text">
+        "Porque cual es su pensamiento en su corazón, tal es él."
+      </p>
+      <span class="verse-ref">— Proverbios 23:7a (RVR 1960)</span>
+    </div>
+
+    <p>En el Antiguo Testamento hebreo, la palabra traducida como "corazón" — <em>lev</em> o <em>levav</em> — no se refiere a las emociones. Se refiere al centro del intelecto, la voluntad y las intenciones. Es el lugar desde donde una persona delibera, decide y actúa. Es lo que hoy llamaríamos el sistema operativo.</p>
+
+    <p>Y el veredicto de Proverbios es claro: <em>tal como funciona ese sistema operativo, tal es la persona</em>. No como se presenta, no como aparece en los momentos de control — sino tal como es en su núcleo más profundo.</p>
+
+    <div class="insight">
+      <span class="insight-label">La lección de la bola de golf</span>
+      <p>La presión no crea lo que hay adentro — solo lo revela. El misionero con veinte años de ministerio no se convirtió en otra persona cuando recibió el golpe. El golpe simplemente quitó el filtro. Lo que salió ya estaba ahí, en el sistema operativo.</p>
+    </div>
+  </section>
+
+  <div class="divider">· · ·</div>
+
+  <!-- ══ SECCIÓN 2 ══ -->
+  <section>
+    <h2>
+      <span class="section-num">Parte II</span>
+      El <em>Nous</em>: La Palabra Griega para ese Centro
+    </h2>
+
+    <p>Cuando el Antiguo Testamento fue traducido al griego, los traductores necesitaron una palabra para capturar ese concepto hebreo del corazón-intelecto. La encontraron en la filosofía griega: <em>nous</em> (νοῦς). En el pensamiento griego, el <em>nous</em> era la facultad más elevada del ser humano — la capacidad de percibir la realidad, discernir la verdad, y orientar la vida.</p>
+
+    <div class="concept-spotlight">
+      <span class="concept-word">Νοῦς</span>
+      <span class="concept-sub">nous · la mente espiritual</span>
+      <p class="concept-body">No es simplemente el cerebro ni la razón lógica. Es el centro espiritual de percepción desde donde el ser humano interpreta la realidad, forma sus valores más profundos y dirige su voluntad. Lo que Proverbios llama "pensamiento en el corazón" es la actividad del <em>nous</em>.</p>
+      <div class="concept-tag">✦ Proverbios 23:7 · Romanos 12:2 · Efesios 4:17–23</div>
+    </div>
+
+    <p>El Nuevo Testamento usa el <em>nous</em> para describir algo que va mucho más allá de la inteligencia académica. Es el lente desde donde toda la experiencia humana es interpretada. Si ese lente está distorsionado, toda la percepción de la realidad lo estará también.</p>
+  </section>
+
+  <div class="divider">· · ·</div>
+
+  <!-- ══ SECCIÓN 3 ══ -->
+  <section>
+    <h2>
+      <span class="section-num">Parte III</span>
+      El Diagnóstico: Un <em>Nous</em> Dañado
+    </h2>
+
+    <p>La teología bíblica no tiene una visión optimista del <em>nous</em> humano en su estado natural. Pablo lo describe con precisión clínica en su carta a los efesios:</p>
+
+    <div class="verse-box">
+      <p class="verse-text">
+        "Esto, pues, digo y requiero en el Señor: que ya no andéis como los otros gentiles, que andan en la vanidad de su mente, teniendo el entendimiento entenebrecido, ajenos de la vida de Dios por la ignorancia que en ellos hay, por la dureza de su corazón."
+      </p>
+      <span class="verse-ref">— Efesios 4:17–18 (RVR 1960)</span>
+    </div>
+
+    <p>Pablo habla de un <em>entendimiento entenebrecido</em> — un <em>nous</em> que ha perdido su capacidad de percibir correctamente. No es que la persona sea ignorante por falta de información. Es que el sistema operativo mismo está corrupto. Y un sistema operativo corrupto produce, inevitablemente, outputs corruptos.</p>
+
+    <p>Eso explica algo que todos hemos experimentado: la frustración de saber perfectamente lo que debería hacerse y sin embargo hacer lo contrario. No es falta de voluntad solamente — es que la fuente desde la que emerge la voluntad está averiada.</p>
+
+    <div class="insight">
+      <span class="insight-label">El diagnóstico correcto</span>
+      <p>Si el <em>nous</em> está distorsionado, el "tal es él" de Proverbios se manifiesta en una vida de patrones destructivos que se repiten sin importar cuánto esfuerzo se invierta en cambiarlos. El problema no es la conducta — es el sistema que genera la conducta.</p>
+    </div>
+  </section>
+
+  <div class="divider">· · ·</div>
+
+  <!-- ══ SECCIÓN 4 ══ -->
+  <section>
+    <h2>
+      <span class="section-num">Parte IV</span>
+      La Solución: No Reforma, Sino Reformateo
+    </h2>
+
+    <p>Y aquí está la clave que lo cambia todo. El evangelio no ofrece una reforma del sistema antiguo — ofrece un sistema nuevo. Primero, la promesa del Antiguo Testamento que anticipa la solución:</p>
+
+    <div class="verse-box">
+      <p class="verse-text">
+        "Os daré corazón nuevo, y pondré espíritu nuevo dentro de vosotros; y quitaré de vuestra carne el corazón de piedra, y os daré un corazón de carne."
+      </p>
+      <span class="verse-ref">— Ezequiel 36:26 (RVR 1960)</span>
+    </div>
+
+    <p>Nótese que Dios no dice "limpiaré el corazón de piedra" ni "repararé el corazón de piedra". Dice que lo <em>quitará</em> y dará uno nuevo. No es un parche — es un trasplante.</p>
+
+    <p>Luego, en el Nuevo Testamento, Pablo describe el proceso continuo que fluye de esa transformación inicial:</p>
+
+    <div class="verse-box">
+      <p class="verse-text">
+        "No os conforméis a este siglo, sino transformaos por medio de la renovación de vuestro entendimiento, para que comprobéis cuál sea la buena voluntad de Dios, agradable y perfecta."
+      </p>
+      <span class="verse-ref">— Romanos 12:2 (RVR 1960)</span>
+    </div>
+
+    <p>La palabra griega para "transformaos" es <em>metamorfóo</em> — metamorfosis. Y la palabra para "renovación" es <em>anakainosis</em>: no una limpieza superficial sino una reconfiguración completa, desde cero. Un <em>reformateo</em> del sistema operativo.</p>
+
+    <div class="concept-spotlight">
+      <span class="concept-word">Ἀνακαίνωσις</span>
+      <span class="concept-sub">anakainosis · renovación completa</span>
+      <p class="concept-body">La palabra implica un proceso de renovación total, no un ajuste parcial. No es actualizar el sistema — es instalar uno diferente. La santificación no es moralismo externo: es el Espíritu Santo reprogramando el <em>nous</em> con la verdad de Dios hasta que los "pensamientos del corazón" sean transformados desde adentro.</p>
+      <div class="concept-tag">✦ Romanos 12:2 · Efesios 4:23 · Colosenses 3:10</div>
+    </div>
+  </section>
+
+  <div class="divider">· · ·</div>
+
+  <!-- ══ SECCIÓN 5 ══ -->
+  <section>
+    <h2>
+      <span class="section-num">Parte V</span>
+      Cómo Opera el Circuito de Transformación
+    </h2>
+
+    <p>Este proceso no es místico ni arbitrario. Pablo lo describe de manera que podemos trazarlo como un circuito cerrado, donde cada elemento depende del anterior y produce el siguiente:</p>
+
+    <div class="circuit">
+      <p class="circuit-title">El Circuito de la Renovación del Nous</p>
+      <div class="circuit-steps">
+        <div class="circuit-step">
+          <div class="circuit-line"><div class="circuit-dot"></div><div class="circuit-connector"></div></div>
+          <div class="circuit-content">
+            <div class="circuit-label">Entrada</div>
+            <div class="circuit-text">La Palabra de Dios y el Espíritu Santo operan en el <em>nous</em> — el intelecto espiritual. Esta es la única fuente de renovación genuina.</div>
+          </div>
+        </div>
+        <div class="circuit-step">
+          <div class="circuit-line"><div class="circuit-dot"></div><div class="circuit-connector"></div></div>
+          <div class="circuit-content">
+            <div class="circuit-label">Proceso</div>
+            <div class="circuit-text">El <em>nous</em> es reformateado (<em>anakainosis</em>), cambiando las creencias más profundas, los valores fundamentales, y los marcos desde los que se interpreta la realidad.</div>
+          </div>
+        </div>
+        <div class="circuit-step">
+          <div class="circuit-line"><div class="circuit-dot"></div><div class="circuit-connector"></div></div>
+          <div class="circuit-content">
+            <div class="circuit-label">Estado interno</div>
+            <div class="circuit-text">Se generan nuevos "pensamientos en el corazón" (Proverbios 23:7). El sistema operativo produce ahora outputs diferentes porque la programación es diferente.</div>
+          </div>
+        </div>
+        <div class="circuit-step">
+          <div class="circuit-line"><div class="circuit-dot"></div></div>
+          <div class="circuit-content">
+            <div class="circuit-label">Resultado externo</div>
+            <div class="circuit-text">El "tal es él" se manifiesta en conducta santa, carácter transformado y una vida consagrada — no por esfuerzo moral, sino como fruto natural de un sistema renovado.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p>Lo que antes salía bajo presión —lo que reveló la bola de golf— es reemplazado no suprimiendo la respuesta sino cambiando la fuente de donde emerge. No se tapa el síntoma; se trata la causa raíz.</p>
+
+    <div class="verse-box">
+      <p class="verse-text">
+        "Y renovaos en el espíritu de vuestra mente, y vestíos del nuevo hombre, creado según Dios en la justicia y santidad de la verdad."
+      </p>
+      <span class="verse-ref">— Efesios 4:23–24 (RVR 1960)</span>
+    </div>
+  </section>
+
+  <div class="divider">· · ·</div>
+
+  <!-- ══ SECCIÓN 6 ══ -->
+  <section>
+    <h2>
+      <span class="section-num">Parte VI</span>
+      Del <em>Nous</em> Renovado al <em>Apostolos</em> Enviado
+    </h2>
+
+    <p>Pero hay una pregunta que queda en el aire: ¿para qué? ¿Para qué fue diseñada esta transformación del <em>nous</em>? La respuesta está en una palabra que los trabajadores de los muelles del puerto de Atenas usaban en el año 450 antes de Cristo para describir un tipo específico de embarcación.</p>
+
+    <div class="concept-spotlight">
+      <span class="concept-word">Ἀπόστολος</span>
+      <span class="concept-sub">apostolos · el enviado</span>
+      <p class="concept-body">No era el nombre del barco ni su categoría. Era una descripción de su <em>condición</em>: había sido cargado, se le había asignado un destino, había sido autorizado para transportar bienes en nombre de otro. El cargo no era suyo. El destino no lo había elegido. La autoridad era derivada.</p>
+      <div class="concept-tag">✦ Juan 20:21 · Mateo 28:19–20 · Hechos 1:8</div>
+    </div>
+
+    <p>Jesús tomó esa palabra de los muelles y la colocó sobre sus discípulos. Y después de la resurrección, con las puertas cerradas con llave y el miedo todavía fresco, pronunció la frase que conecta todo:</p>
+
+    <div class="verse-box">
+      <p class="verse-text">
+        "Como el Padre me envió, así también yo os envío."
+      </p>
+      <span class="verse-ref">— Juan 20:21 (RVR 1960)</span>
+    </div>
+
+    <p>El <em>nous</em> no se renueva para producir mejores cristianos que viven vidas más tranquilas. Se renueva para ensamblar un <em>apostolos</em> con la naturaleza adecuada para llevar un cargo que no le pertenece, hacia un destino que no eligió, con una autoridad que no es propia.</p>
+
+    <h3>El barco no fabrica su propio cargo</h3>
+
+    <p>Muchas personas se abstienen de cualquier forma de misión porque sienten que no tienen suficiente — suficiente fe, suficiente santidad, suficiente coherencia. Pero la lógica del <em>apostolos</em> deshace ese argumento: el barco no necesita haber fabricado el grano para transportarlo. Necesita estar disponible para ser cargado.</p>
+
+    <p>Y la transformación del <em>nous</em> es precisamente lo que produce esa disponibilidad — un corazón lo suficientemente renovado como para no poner su propio contenido donde debería ir el cargo de otro.</p>
+
+    <div class="verse-box">
+      <p class="verse-text">
+        "Por lo demás, hermanos, todo lo que es verdadero, todo lo honesto, todo lo justo, todo lo puro, todo lo amable, todo lo que es de buen nombre; si hay virtud alguna, si algo digno de alabanza, en esto pensad."
+      </p>
+      <span class="verse-ref">— Filipenses 4:8 (RVR 1960)</span>
+    </div>
+
+    <p>Lo que voluntariamente alimentamos en el <em>nous</em> hoy es lo que saldrá involuntariamente bajo presión mañana — y también lo que el barco llevará a su destino.</p>
+  </section>
+
+  <div class="divider">· · ·</div>
+
+  <!-- ══ SECCIÓN 7 ══ -->
+  <section>
+    <h2>
+      <span class="section-num">Parte VII</span>
+      La Gran Cadena: Rescate, Transformación, Envío
+    </h2>
+
+    <p>Los tres conceptos que hemos explorado forman una cadena ininterrumpida que tiene una sola dirección:</p>
+
+    <div class="insight">
+      <span class="insight-label">La cadena completa</span>
+      <p><strong>Ezequiel 36:26</strong> — Dios quita el corazón de piedra y da uno nuevo: el <em>nous</em> recibe un trasplante. <strong>Romanos 12:2</strong> — ese <em>nous</em> nuevo es renovado continuamente por la Palabra y el Espíritu: el sistema operativo es reprogramado. <strong>Juan 20:21</strong> — el portador de ese <em>nous</em> renovado es cargado, apuntado y enviado como <em>apostolos</em>: el barco deja el muelle.</p>
+    </div>
+
+    <p>El rescate no fue el destino — fue la preparación para el envío. La renovación del <em>nous</em> no es el final del proceso — es la producción del tipo de ser que puede cumplir la misión. La santificación no está produciendo un cristiano más sofisticado para su propio beneficio espiritual. Está ensamblando un <em>apostolos</em> con la naturaleza adecuada para llevar el cargo correcto al destino correcto.</p>
+
+    <div class="verse-box">
+      <p class="verse-text">
+        "Por tanto, id y haced discípulos a todas las naciones, bautizándolos en el nombre del Padre, y del Hijo, y del Espíritu Santo; enseñándoles que guarden todas las cosas que os he mandado; y he aquí yo estoy con vosotros todos los días, hasta el fin del mundo."
+      </p>
+      <span class="verse-ref">— Mateo 28:19–20 (RVR 1960)</span>
+    </div>
+  </section>
+
+  <div class="divider">· · ·</div>
+
+  <!-- ══ PREGUNTAS ══ -->
+  <section>
+    <h2>
+      <span class="section-num">Parte VIII</span>
+      Preguntas para Reflexión y Discusión
+    </h2>
+
+    <div class="questions">
+      <h3>Para meditación personal o grupo pequeño</h3>
+      <ol>
+        <li>¿En qué área de tu vida has intentado cambiar la conducta sin cambiar el sistema que la genera? ¿Cuál ha sido el resultado?</li>
+        <li>La renovación del <em>nous</em> depende de lo que alimentamos: ¿qué estás introduciendo habitualmente en tu mente? ¿Qué produce eso bajo presión?</li>
+        <li>¿Cómo cambia la comprensión del <em>nous</em> tu manera de ver la santificación? ¿La ves más como esfuerzo moral o como cooperación con la obra del Espíritu?</li>
+        <li>El <em>apostolos</em> no fabrica su propio cargo — lo recibe. ¿Qué excusas has usado para no ser enviado? ¿Cómo responde a esas excusas la lógica del barco que no necesita fabricar el grano?</li>
+        <li>Si el "tal es él" de Proverbios 23:7 describe lo que realmente eres en lo más profundo, ¿qué revela la presión de tu vida cotidiana sobre el estado actual de tu <em>nous</em>?</li>
+      </ol>
+    </div>
+  </section>
+
+  <div class="divider">· · ·</div>
+
+  <!-- ══ ORACIÓN ══ -->
+  <section>
+    <h2>
+      <span class="section-num">Cierre</span>
+      Oración de Entrega y Disponibilidad
+    </h2>
+
+    <div class="prayer">
+      <span class="prayer-label">✦ Oremos juntos ✦</span>
+      <p>
+        Señor, hoy reconocemos que el problema<br>
+        nunca fue solamente la conducta.<br>
+        Fue el sistema desde el que emerge la conducta.<br>
+        El <em>nous</em> entenebrecido,<br>
+        el corazón de piedra que no podíamos cambiar solos.<br><br>
+        Gracias por la promesa de Ezequiel:<br>
+        quitaste el corazón de piedra<br>
+        y pusiste uno nuevo.<br>
+        Ahora haz lo que solo Tú puedes hacer:<br>
+        renueva nuestro entendimiento,<br>
+        reprograma lo que pensamos en lo profundo,<br>
+        transforma el "tal es él" desde adentro.<br><br>
+        Y cuando ese <em>nous</em> esté listo,<br>
+        cárganos con lo que no se origina en nosotros.<br>
+        Apúntanos hacia donde Tú decidas.<br>
+        Y danos la valentía de dejar el muelle.<br><br>
+        Que seamos <em>apostoloi</em> —<br>
+        enviados, no retenidos.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══ CIERRE ══ -->
+  <div class="closing">
+    <p>La bola de golf reveló lo que había en el sistema operativo. La buena noticia es que ese sistema puede ser reformateado.</p>
+    <p class="final-quote">"Como el Padre me envió, así también yo os envío."</p>
+    <p style="margin-top:28px; font-size:0.9rem; letter-spacing:0.08em;">— Proverbios 23:7 · Ezequiel 36:26 · Romanos 12:2 · Juan 20:21</p>
+  </div>
+
+</div>
+</body>
+</html>
