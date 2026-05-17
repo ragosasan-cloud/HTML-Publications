@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>La Gramática del Dueto — Allelon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink:          #1a1612;
+      --ink-soft:     #3d342b;
+      --ink-faint:    #7a6e64;
+      --parchment:    #f7f2eb;
+      --warm-mid:     #e8dfd0;
+      --accent:       #8b4513;
+      --accent-light: #c4773a;
+      --rule:         #c9b99a;
+      --greek-bg:     #f0e8db;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: 18px; scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--parchment);
+      color: var(--ink);
+      font-family: 'EB Garamond', Georgia, serif;
+      line-height: 1.85;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── HEADER ── */
+    header {
+      text-align: center;
+      padding: 5rem 2rem 3.5rem;
+      border-bottom: 1px solid var(--rule);
+      background: linear-gradient(180deg, #efe8dc 0%, var(--parchment) 100%);
+    }
+
+    .series-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      color: var(--ink-faint);
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+
+    .essay-number {
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 2.2rem;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2.6rem, 6vw, 4.2rem);
+      line-height: 1.15;
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .subtitle {
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--ink-soft);
+      margin-top: 0.8rem;
+    }
+
+    .ornament {
+      color: var(--accent-light);
+      font-size: 1.1rem;
+      margin: 2rem auto 0;
+      letter-spacing: 0.4em;
+      display: block;
+    }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    .opening {
+      font-size: 1.12rem;
+      line-height: 1.9;
+      color: var(--ink-soft);
+      margin-bottom: 2.5rem;
+    }
+
+    .opening::first-letter {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4rem;
+      font-weight: 600;
+      line-height: 0.8;
+      float: left;
+      margin-right: 0.1em;
+      margin-top: 0.1em;
+      color: var(--accent);
+    }
+
+    .divider {
+      text-align: center;
+      color: var(--ink-faint);
+      letter-spacing: 0.5em;
+      font-size: 0.75rem;
+      margin: 3rem 0;
+    }
+
+    h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 3.5rem 0 1.2rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    p {
+      margin-bottom: 1.4rem;
+      font-size: 1rem;
+      color: var(--ink-soft);
+    }
+
+    em     { font-style: italic; }
+    strong { font-weight: 600; color: var(--ink); }
+
+    .greek {
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: 1.08em;
+      color: var(--accent);
+    }
+
+    /* ── SCRIPTURE BLOCK ── */
+    .scripture {
+      border-left: 3px solid var(--accent-light);
+      padding: 1rem 1.5rem;
+      margin: 2rem 0;
+      background-color: var(--greek-bg);
+      border-radius: 0 4px 4px 0;
+    }
+
+    .scripture p {
+      font-style: italic;
+      font-size: 1.02rem;
+      line-height: 1.75;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+
+    .scripture .ref {
+      font-size: 0.82rem;
+      font-style: normal;
+      color: var(--ink-faint);
+      letter-spacing: 0.05em;
+      margin-top: 0.5rem;
+      margin-bottom: 0;
+    }
+
+    /* ── VERSE GRID ── */
+    .verse-grid {
+      margin: 2.5rem 0;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .verse-row {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      border-bottom: 1px solid var(--warm-mid);
+    }
+
+    .verse-row:last-child { border-bottom: none; }
+
+    .verse-ref {
+      background: var(--greek-bg);
+      padding: 1rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .verse-body {
+      padding: 0.9rem 1.2rem;
+      background: var(--parchment);
+    }
+
+    .verse-body p {
+      font-style: italic;
+      font-size: 0.95rem;
+      margin-bottom: 0.25rem;
+      color: var(--ink);
+    }
+
+    .verse-body .gk {
+      font-size: 0.78rem;
+      color: var(--accent-light);
+      font-style: normal;
+      margin-bottom: 0;
+    }
+
+    /* ── CASE TABLE ── */
+    .case-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      font-size: 0.92rem;
+    }
+
+    .case-table thead tr {
+      background: var(--ink);
+      color: var(--parchment);
+    }
+
+    .case-table thead th {
+      font-family: 'Cinzel', serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.75rem 1rem;
+      text-align: left;
+      font-weight: 400;
+    }
+
+    .case-table tbody tr { border-bottom: 1px solid var(--warm-mid); }
+    .case-table tbody tr:last-child { border-bottom: none; }
+
+    .case-table tbody td {
+      padding: 0.75rem 1rem;
+      color: var(--ink-soft);
+      background: var(--parchment);
+    }
+
+    .case-table tbody td:first-child {
+      font-style: italic;
+      color: var(--accent);
+      font-size: 1rem;
+    }
+
+    /* ── PULL QUOTE ── */
+    .pull-quote {
+      text-align: center;
+      padding: 2.5rem 1rem;
+      margin: 3rem 0;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .pull-quote p {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.5rem;
+      line-height: 1.5;
+      color: var(--ink);
+      margin-bottom: 0;
+    }
+
+    /* ── CHAIN ── */
+    .chain {
+      margin: 2rem 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chain-item {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      border-bottom: 1px solid var(--warm-mid);
+      padding: 1rem 0;
+    }
+
+    .chain-item:last-child { border-bottom: none; }
+
+    .chain-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      text-transform: uppercase;
+      padding-top: 0.1rem;
+    }
+
+    .chain-text {
+      font-size: 0.97rem;
+      color: var(--ink-soft);
+      line-height: 1.7;
+    }
+
+    /* ── EPÍLOGO ── */
+    .epilogue {
+      background: var(--ink);
+      color: var(--parchment);
+      padding: 3rem 2.5rem;
+      margin: 4rem 0 2rem;
+      border-radius: 2px;
+    }
+
+    .epilogue h2 {
+      color: var(--accent-light);
+      border-bottom-color: #3d342b;
+      margin-top: 0;
+    }
+
+    .epilogue p { color: #c9b99a; }
+
+    .word-trio {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      margin: 1.5rem 0;
+    }
+
+    .word-line {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 1rem;
+      align-items: baseline;
+    }
+
+    .word-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.25rem;
+      color: var(--accent-light);
+    }
+
+    .word-desc {
+      font-size: 0.9rem;
+      color: #c9b99a;
+      line-height: 1.6;
+    }
+
+    .final-question {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-style: italic;
+      text-align: center;
+      color: var(--parchment);
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid #3d342b;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2.5rem 2rem;
+      border-top: 1px solid var(--rule);
+      font-size: 0.82rem;
+      color: var(--ink-faint);
+      letter-spacing: 0.06em;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    footer a:hover { text-decoration: underline; }
+
+    .footnote {
+      font-size: 0.8rem;
+      color: var(--ink-faint);
+      font-style: italic;
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--warm-mid);
+      line-height: 1.7;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2.2rem; }
+      .verse-row { grid-template-columns: 1fr; }
+      .verse-ref { padding-bottom: 0.2rem; }
+      .chain-item { grid-template-columns: 1fr; gap: 0.3rem; }
+      .word-line { grid-template-columns: 1fr; gap: 0.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <p class="series-label">El Nombre que lo Dice Todo — Teología del Vocabulario</p>
+  <p class="essay-number">Ensayo IV · Allelon</p>
+  <h1>La Gramática<br>del <em>Dueto</em></h1>
+  <p class="subtitle">La palabra que el griego construyó para dos, y que el cristianismo moderno intentó obedecer solo</p>
+  <span class="ornament">✦</span>
+</header>
+
+<main>
+
+  <p class="opening">Existe una forma de fallar en la fe que no se parece en nada al fracaso. Se parece al esfuerzo. Se parece a la disciplina. Se parece a años de lectura bíblica, oración matutina y asistencia fiel. Y sin embargo, en algún martes silencioso, la persona que ha estado haciendo todo eso se sienta con el café frío y se da cuenta de que no puede nombrar a una sola persona cuya carga esté cargando. Ni una sola persona que esté cargando la suya.</p>
+
+  <p>El diagnóstico preciso no es de fe débil ni de disciplina insuficiente. Es un problema matemático. Hay aproximadamente sesenta mandamientos en el Nuevo Testamento que requieren otro ser humano para poder obedecerse. Y el cristianismo moderno ha intentado, sistemáticamente, obedecerlos en solitario.</p>
+
+  <div class="divider">· · ·</div>
+
+  <h2>I. Ἀλλήλων — La Palabra que No Puede Existir Sola</h2>
+
+  <p>En el centro de esos sesenta mandamientos vive una sola palabra griega. Aparece aproximadamente cien veces en el Nuevo Testamento. La palabra es <span class="greek">ἀλλήλων</span> — <em>allélōn</em>, o en su forma acusativa más frecuente <span class="greek">ἀλλήλους</span> — <em>allélous</em>.</p>
+
+  <p>En español la traducimos como <em>"los unos a los otros"</em> o <em>"unos con otros"</em>, porque sencillamente no tenemos una sola palabra para el concepto. El griego sí. La construyó tomando la raíz <span class="greek">ἄλλος</span> (<em>állos</em>: otro) y doblándola sobre sí misma — el equivalente gramatical de lanzar una pelota que tiene que regresar a alguien.</p>
+
+  <p>Los lingüistas llaman a esto un <strong>pronombre recíproco</strong>. Y la reciprocidad no es adorno retórico — es condición de existencia. La palabra, por su propia construcción, requiere al menos dos personas en el cuarto. No se puede hacer <span class="greek">ἀλλήλους</span> solo. Es imposible por definición gramatical.</p>
+
+  <div class="pull-quote">
+    <p>"Por construcción, el pronombre recíproco no puede existir con menos de dos personas en la sala. La palabra misma requiere dos."</p>
+  </div>
+
+  <div class="divider">· · ·</div>
+
+  <h2>II. Cien Apariciones. Sesenta Mandamientos.</h2>
+
+  <p>De las aproximadamente cien apariciones de esta familia de palabras en el Nuevo Testamento, alrededor de sesenta son mandamientos directos. Dieciséis de ellas son variaciones del mismo imperativo: <em>amaos unos a otros</em>. Jesús lo pronuncia tres veces solo en Juan 13 — la noche antes de la cruz. Pablo, Pedro y Juan lo repiten a través de sus cartas como si ninguno pudiera darlo por suficientemente dicho.</p>
+
+  <p>Las otras cuarenta y cuatro instancias describen cómo se ve ese amor cuando desciende a lo concreto:</p>
+
+  <div class="verse-grid">
+
+    <div class="verse-row">
+      <div class="verse-ref">Juan 13:34</div>
+      <div class="verse-body">
+        <p>"Un mandamiento nuevo os doy: Que <strong>os améis unos a otros</strong>; como yo os he amado, que también <strong>os améis unos a otros</strong>."</p>
+        <p class="gk">ἀλλήλους — allélous · acusativo</p>
+      </div>
+    </div>
+
+    <div class="verse-row">
+      <div class="verse-ref">Romanos 12:10</div>
+      <div class="verse-body">
+        <p>"<strong>Amaos los unos a los otros</strong> con amor fraternal; en cuanto a honra, <strong>prefiriéndoos los unos a los otros</strong>."</p>
+        <p class="gk">ἀλλήλους — allélous · acusativo (dos veces)</p>
+      </div>
+    </div>
+
+    <div class="verse-row">
+      <div class="verse-ref">Romanos 15:7</div>
+      <div class="verse-body">
+        <p>"Por tanto, <strong>recibíos los unos a los otros</strong>, como también Cristo nos recibió, para gloria de Dios."</p>
+        <p class="gk">ἀλλήλους — allélous · acusativo</p>
+      </div>
+    </div>
+
+    <div class="verse-row">
+      <div class="verse-ref">Gálatas 6:2</div>
+      <div class="verse-body">
+        <p>"<strong>Sobrellevad los unos las cargas de los otros</strong>, y cumplid así la ley de Cristo."</p>
+        <p class="gk">ἀλλήλων — allélōn · genitivo</p>
+      </div>
+    </div>
+
+    <div class="verse-row">
+      <div class="verse-ref">Efesios 4:32</div>
+      <div class="verse-body">
+        <p>"Antes sed benignos <strong>unos con otros</strong>, misericordiosos, <strong>perdonándoos unos a otros</strong>, como Dios también os perdonó a vosotros en Cristo."</p>
+        <p class="gk">ἀλλήλους — allélous · ἑαυτοῖς — heautoîs · dativo reflexivo</p>
+      </div>
+    </div>
+
+    <div class="verse-row">
+      <div class="verse-ref">Colosenses 3:13</div>
+      <div class="verse-body">
+        <p>"<strong>Soportándoos unos a otros</strong>, y <strong>perdonándoos unos a otros</strong> si alguno tuviere queja contra otro."</p>
+        <p class="gk">ἀλλήλων — allélōn · ἑαυτοῖς — heautoîs · dativo reflexivo</p>
+      </div>
+    </div>
+
+    <div class="verse-row">
+      <div class="verse-ref">1 Tes. 5:11</div>
+      <div class="verse-body">
+        <p>"Por lo cual, <strong>animaos unos a otros</strong>, y <strong>edificaos unos a otros</strong>, así como lo hacéis."</p>
+        <p class="gk">ἀλλήλους — allélous · acusativo (dos veces)</p>
+      </div>
+    </div>
+
+    <div class="verse-row">
+      <div class="verse-ref">Hebreos 10:24</div>
+      <div class="verse-body">
+        <p>"Y <strong>considerémonos unos a otros</strong> para estimularnos al amor y a las buenas obras."</p>
+        <p class="gk">ἀλλήλους — allélous · acusativo</p>
+      </div>
+    </div>
+
+    <div class="verse-row">
+      <div class="verse-ref">Santiago 5:16</div>
+      <div class="verse-body">
+        <p>"<strong>Confesaos vuestras ofensas unos a otros</strong>, y <strong>orad unos por otros</strong>, para que seáis sanados."</p>
+        <p class="gk">ἀλλήλοις — allélois · dativo · ἀλλήλων — allélōn · genitivo</p>
+      </div>
+    </div>
+
+    <div class="verse-row">
+      <div class="verse-ref">1 Pedro 4:9</div>
+      <div class="verse-body">
+        <p>"<strong>Hospedaos los unos a los otros</strong> sin murmuraciones."</p>
+        <p class="gk">ἀλλήλους — allélous · acusativo</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="divider">· · ·</div>
+
+  <h2>III. Lo que Transpira Solo: Los Casos Gramaticales</h2>
+
+  <p>La palabra griega no es rígida. Se flexiona según su función en cada oración, y esa flexión no es cosmética — revela algo sobre la naturaleza específica de cada mandamiento.</p>
+
+  <table class="case-table">
+    <thead>
+      <tr>
+        <th>Forma griega</th>
+        <th>Caso</th>
+        <th>Función</th>
+        <th>Ejemplo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>ἀλλήλους</td>
+        <td>Acusativo</td>
+        <td>Objeto directo de la acción</td>
+        <td>Amaos, animaos, recibíos</td>
+      </tr>
+      <tr>
+        <td>ἀλλήλων</td>
+        <td>Genitivo</td>
+        <td>Posesión o relación ("de los otros")</td>
+        <td>Las cargas <em>de los otros</em></td>
+      </tr>
+      <tr>
+        <td>ἀλλήλοις</td>
+        <td>Dativo</td>
+        <td>Objeto indirecto ("a / para los otros")</td>
+        <td>Confesaos <em>a</em> los otros</td>
+      </tr>
+      <tr>
+        <td>ἑαυτοῖς</td>
+        <td>Dativo reflexivo</td>
+        <td>Acción que vuelve sobre los mismos sujetos</td>
+        <td>Ef. 4:32 · Col. 3:13</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Merece detenerse en el último caso. En Efesios 4:32 y Colosenses 3:13, Pablo no usa <span class="greek">ἀλλήλοις</span> sino <span class="greek">ἑαυτοῖς</span>, el pronombre reflexivo recíproco. La diferencia no es trivial. <span class="greek">ἀλλήλοις</span> describe dos entidades separadas actuando la una hacia la otra. <span class="greek">ἑαυτοῖς</span> describe una sola entidad corporativa actuando sobre sí misma. Pablo en esos versículos no dice <em>perdónense el uno al otro como si fueran individuos distintos</em>. Dice algo más cercano a <em>perdónense dentro de la misma identidad</em>. El cuerpo perdonándose a sí mismo. La distinción no es menor — es toda la eclesiología en un solo pronombre.</p>
+
+  <div class="divider">· · ·</div>
+
+  <h2>IV. El Truco que las Traducciones Modernas Nos Jugaron</h2>
+
+  <p>Hay una complicación adicional que hace este problema más profundo. El griego distingue con precisión entre el <em>tú</em> singular y el <em>vosotros</em> plural. El inglés moderno perdió esa distinción hace siglos. El español la conserva en teoría, pero en gran parte del mundo hispano también ha cedido al uso coloquial.</p>
+
+  <p>El resultado es que durante siglos de cristianismo moderno, versículos escritos a comunidades enteras han sido leídos como instrucciones individuales. <em>Mi tiempo devocional. Mi relación personal con Jesús. Mi caminar cristiano.</em> La fe privatizada nació en parte de un error de lectura. Pablo escribía cartas a iglesias — cuerpos colectivos — no a individuos practicando solos en su habitación.</p>
+
+  <p>La fe personal es real y es bíblica. Uno se encuentra con Dios en lo íntimo y en lo propio. Pero esa reunión personal siempre fue diseñada para llevarte de regreso a un cuarto lleno de otras personas que también lo están encontrando. Lo personal fue diseñado para financiar lo comunal — nunca para reemplazarlo. La gramática de la vida cristiana siempre fue plural.</p>
+
+  <div class="pull-quote">
+    <p>"Hemos construido una fe que no requiere a otra persona, y luego nos preguntamos por qué se siente frágil. Falta la otra voz del dueto."</p>
+  </div>
+
+  <div class="divider">· · ·</div>
+
+  <h2>V. El Piso y el Techo de Ἀλλήλων</h2>
+
+  <p>El <em>techo</em> de <span class="greek">ἀλλήλων</span> es la iglesia primitiva del libro de Hechos: creyentes que vendieron posesiones, que juntaron recursos, que vivían en una proximidad radical y sostenida. Eso está en la Biblia. Ocurrió. Pero ese techo no es el piso.</p>
+
+  <p>El <em>piso</em> es considerablemente más accesible:</p>
+
+  <div class="scripture">
+    <p>Una persona real. Con nombre. Con número de teléfono guardado. Alguien que te conoce de verdad, que te llama la atención con gentileza cuando lo necesitas, y a quien tú puedes hacer lo mismo. Alguien que carga algo contigo. Alguien que te permite cargar algo con ellos.</p>
+    <p class="ref">— El mínimo estructural de la vida en comunidad</p>
+  </div>
+
+  <p>Con una sola persona así, se está obedeciendo la gramática. Con cero personas así, el dueto sigue siendo un solo instrumento tocando en silencio. Y la música, por su propia estructura, no puede funcionar de esa manera.</p>
+
+  <div class="divider">· · ·</div>
+
+  <h2>VI. La Cadena que No Se Ha Roto</h2>
+
+  <div class="chain">
+    <div class="chain-item">
+      <div class="chain-label">Juan 13</div>
+      <div class="chain-text">Jesús pronuncia el mandamiento tres veces en una sola noche — la noche antes de la cruz. La urgencia del momento no lo distrajo de la necesidad de repetirlo.</div>
+    </div>
+    <div class="chain-item">
+      <div class="chain-label">Las Epístolas</div>
+      <div class="chain-text">Pablo, Pedro, Juan, Santiago, el autor de Hebreos — cada uno alcanza la misma palabra para describir cómo se ve la fe cuando es real y no es solitaria.</div>
+    </div>
+    <div class="chain-item">
+      <div class="chain-label">La Iglesia Primitiva</div>
+      <div class="chain-text">El patrón se vuelve estructural. El <span class="greek">ἀλλήλων</span> no es aspiración poética sino descripción de cómo funciona el cuerpo cuando funciona bien.</div>
+    </div>
+    <div class="chain-item">
+      <div class="chain-label">Veinte Siglos</div>
+      <div class="chain-text">La cadena llega hasta la persona que en algún momento te puso en contacto con este mensaje. Cada eslabón fue alguien que obedeció la gramática recíproca.</div>
+    </div>
+    <div class="chain-item">
+      <div class="chain-label">Hoy</div>
+      <div class="chain-text">El mandamiento no ha cambiado. La gramática sigue requiriendo dos. El texto sigue esperando que el dueto empiece.</div>
+    </div>
+  </div>
+
+  <div class="divider">· · ·</div>
+
+  <div class="epilogue">
+    <h2>Epílogo: Las Cuatro Palabras de Esta Serie</h2>
+
+    <div class="word-trio">
+      <div class="word-line">
+        <div class="word-name">Yeshua</div>
+        <div class="word-desc">El rescate que viene de afuera porque desde adentro ya no hay recursos.</div>
+      </div>
+      <div class="word-line">
+        <div class="word-name">Metamorphoō</div>
+        <div class="word-desc">La transformación que ocurre en voz pasiva, desde la disolución hacia una naturaleza nueva.</div>
+      </div>
+      <div class="word-line">
+        <div class="word-name">Apostolos</div>
+        <div class="word-desc">El cargado, el apuntado, el enviado — con cargo ajeno, destino asignado, autoridad derivada.</div>
+      </div>
+      <div class="word-line">
+        <div class="word-name">Ἀλλήλων</div>
+        <div class="word-desc">El pronombre que no puede existir solo. La gramática que requiere dos. El dueto que el Nuevo Testamento repite cien veces porque Dios no diseñó a nadie para tocarlo solo.</div>
+      </div>
+    </div>
+
+    <p>Las cuatro palabras cuentan una historia con dirección. Dios rescata a alguien que no puede rescatarse solo. Ese alguien entra en una transformación que no puede producir por esfuerzo propio. Esa transformación lo ensambla para ser enviado. Y ese enviado descubre que la misión nunca fue solitaria — que la gramática misma de la fe siempre requirió al menos dos.</p>
+
+    <div class="final-question">¿Quién es la otra persona?</div>
+  </div>
+
+  <p class="footnote">
+    Basado en el estudio de ἀλλήλων (G240) y sus formas flexionadas en el Nuevo Testamento griego. Versículos citados en la versión Reina Valera 1960. Análisis gramatical de los casos acusativo, genitivo, dativo y dativo reflexivo en los mandamientos recíprocos del NT, con atención especial al uso de ἑαυτοῖς en Efesios 4:32 y Colosenses 3:13. Cuarto ensayo de la serie <em>"El Nombre que lo Dice Todo."</em>
+  </p>
+
+</main>
+
+<footer>
+  <a href="ensayo-1-yeshua.html">← I · Yeshua</a>
+  &nbsp;·&nbsp;
+  <a href="ensayo-2-metamorfosis.html">← II · Metamorphoō</a>
+  &nbsp;·&nbsp;
+  <a href="ensayo-3-apostolado.html">← III · Apostolos</a>
+  &nbsp; ◆ &nbsp;
+  IV · Ἀλλήλων
+</footer>
+
+</body>
+</html>
