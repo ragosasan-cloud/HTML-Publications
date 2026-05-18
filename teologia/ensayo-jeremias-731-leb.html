@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jeremías 7:31 — Ni Subió en Mi Corazón</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1208;
+    --gold: #8b6914;
+    --gold-light: #c9a84c;
+    --parchment: #faf6ef;
+    --parchment-dark: #f0e8d8;
+    --rule: #d4b896;
+    --muted: #6b5c44;
+    --accent-bg: #f5ede0;
+    --crimson: #7b1f1f;
+    --crimson-light: #a83232;
+    --crimson-tint: #fdf0f0;
+    --navy: #1a335c;
+    --navy-tint: #eef2f7;
+    --olive: #3d522a;
+    --olive-tint: #f0f7ee;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--parchment);
+    color: var(--ink);
+    font-family: 'EB Garamond', 'Cormorant Garamond', Georgia, serif;
+    font-size: 20px;
+    line-height: 1.85;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(180,150,100,0.04) 28px, rgba(180,150,100,0.04) 29px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 80px 48px 120px;
+  }
+
+  /* ── SERIES NAV ── */
+  .series-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 64px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .series-label {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .series-dots { display: flex; gap: 8px; align-items: center; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--rule); }
+  .dot.active { background: var(--gold); }
+
+  /* ── HEADER ── */
+  .essay-header { margin-bottom: 64px; }
+
+  .essay-label {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', 'EB Garamond', serif;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+  }
+
+  h1 em { font-style: italic; color: var(--gold); }
+
+  .subtitle {
+    font-size: 1.15rem;
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 32px;
+    line-height: 1.5;
+  }
+
+  .header-rule {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .header-rule::before, .header-rule::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+  .header-rule span {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--gold-light);
+  }
+
+  .lede {
+    font-size: 1.1rem;
+    color: var(--muted);
+    font-style: italic;
+    line-height: 1.7;
+    border-left: 2px solid var(--gold-light);
+    padding-left: 20px;
+  }
+
+  /* ── SECTION BREAKS ── */
+  .section-break {
+    text-align: center;
+    margin: 52px 0;
+    color: var(--rule);
+    letter-spacing: 0.5em;
+    font-size: 0.85rem;
+  }
+
+  /* ── HEADINGS ── */
+  .section-num {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 12px;
+    margin-top: 52px;
+  }
+
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--ink);
+    margin-bottom: 24px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--rule);
+  }
+  h2 strong { font-style: normal; font-weight: 600; }
+
+  p { margin-bottom: 1.2em; }
+
+  /* ── VERSE BLOCK ── */
+  .verse-block {
+    background: var(--accent-bg);
+    border-left: 3px solid var(--gold);
+    padding: 28px 32px;
+    margin: 36px 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .verse-block p {
+    font-style: italic;
+    font-size: 1.08rem;
+    color: var(--ink);
+    margin-bottom: 12px;
+    line-height: 1.7;
+  }
+  .verse-ref {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    color: var(--muted);
+    text-transform: uppercase;
+    display: block;
+  }
+
+  /* ── HEBREW DISPLAY ── */
+  .hebrew-center {
+    text-align: center;
+    margin: 40px 0;
+    padding: 36px 32px;
+    background: #1a1208;
+    border-radius: 6px;
+  }
+  .hebrew-main {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    direction: rtl;
+    display: block;
+    margin-bottom: 12px;
+    color: #d4a84c;
+    line-height: 1.6;
+    letter-spacing: 0.06em;
+  }
+  .hebrew-translit {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: #c9b48a;
+    letter-spacing: 0.08em;
+  }
+
+  /* ── GRAMMAR TABLE ── */
+  .grammar-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 32px 0;
+    font-size: 0.93rem;
+  }
+  .grammar-table thead tr { background: #1a1208; }
+  .grammar-table thead th {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--gold-light);
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+  .grammar-table tbody tr { border-bottom: 1px solid var(--rule); }
+  .grammar-table tbody tr:nth-child(even) { background: var(--parchment-dark); }
+  .grammar-table td { padding: 14px 16px; vertical-align: top; line-height: 1.5; }
+  .grammar-table td:first-child {
+    font-size: 1.25em;
+    direction: rtl;
+    color: var(--ink);
+    font-weight: 600;
+    font-family: 'EB Garamond', serif;
+    white-space: nowrap;
+  }
+  .grammar-table td:nth-child(2) { font-style: italic; color: var(--muted); white-space: nowrap; }
+  .grammar-table td:nth-child(3) { font-weight: 600; color: var(--ink); }
+  .grammar-table td:last-child { color: var(--muted); font-size: 0.9rem; }
+
+  /* ── PULL QUOTE ── */
+  .pull-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--ink);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 28px 0;
+    margin: 40px 0;
+    text-align: center;
+    line-height: 1.55;
+  }
+
+  /* ── CALLOUT BOXES ── */
+  .callout {
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 24px 28px;
+    margin: 32px 0;
+    background: var(--accent-bg);
+  }
+  .callout-title {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display: block;
+  }
+  .callout p { margin-bottom: 0.6em; }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout.c-crimson { border-color: var(--crimson); background: var(--crimson-tint); }
+  .callout.c-crimson .callout-title { color: var(--crimson-light); }
+  .callout.c-navy { border-color: var(--navy); background: var(--navy-tint); }
+  .callout.c-navy .callout-title { color: var(--navy); }
+  .callout.c-olive { border-color: var(--olive); background: var(--olive-tint); }
+  .callout.c-olive .callout-title { color: var(--olive); }
+
+  /* ── ARC GRID ── */
+  .arc-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 36px 0;
+  }
+  .arc-node {
+    background: var(--parchment-dark);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 18px 14px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .arc-ref {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+    text-transform: uppercase;
+    display: block;
+  }
+  .arc-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+  .arc-desc {
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-style: italic;
+    line-height: 1.4;
+  }
+
+  /* ── FOOTER ── */
+  .essay-footer {
+    margin-top: 80px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+  }
+  .footer-note {
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: 32px;
+  }
+  .series-footer {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .series-link {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .series-link:hover { color: var(--gold); }
+  .series-link.current { color: var(--gold); }
+  .arrow { margin: 0 4px; }
+  .series-sep { color: var(--rule); font-size: 0.7rem; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .page { padding: 48px 24px 80px; }
+    .arc-grid { grid-template-columns: 1fr 1fr; }
+    .series-nav { flex-direction: column; gap: 12px; }
+    .grammar-table { font-size: 0.82rem; }
+    .grammar-table td { padding: 10px 10px; }
+    .hebrew-main { font-size: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- SERIES NAV -->
+  <nav class="series-nav">
+    <span class="series-label">Ensayo Teológico · Serie Jeremías 7</span>
+    <div class="series-dots">
+      <div class="dot active"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+  </nav>
+
+  <!-- HEADER -->
+  <header class="essay-header">
+    <span class="essay-label">Jeremías 7:31 · Reina-Valera 1960</span>
+    <h1>«Ni subió en <em>mi corazón</em>»</h1>
+    <p class="subtitle">El לֵב de Dios y el לֵב del hombre:<br>una distancia que solo la Gracia puede cerrar</p>
+    <div class="header-rule"><span>✦</span></div>
+    <p class="lede">Hay versículos que funcionan como diagnósticos. No narran un evento — revelan una condición. Jeremías 7:31 es uno de ellos. En cuatro palabras hebreas describe algo que va mucho más allá de una práctica abominable: revela la distancia máxima que puede existir entre el לֵב humano y el לֵב de Dios.</p>
+  </header>
+
+  <!-- ═══════════════ I. EL VERSÍCULO ═══════════════ -->
+  <span class="section-num">I</span>
+  <h2><strong>El Versículo</strong> · Jeremías 7:31</h2>
+
+  <p>Jeremías 7 es uno de los capítulos más severos de toda la profecía bíblica. En él, Dios dirige a Su pueblo una acusación frontal desde las puertas del templo: el lugar de adoración se ha convertido en una cubierta de impunidad moral. Pero dentro de ese capítulo hay un versículo que lleva la acusación hasta una profundidad que raramente se examina.</p>
+
+  <div class="verse-block">
+    <p>«Y han edificado los lugares altos de Tofet, que está en el valle del hijo de Hinom, para quemar al fuego a sus hijos y a sus hijas, cosa que yo no les mandé, ni subió en mi corazón.»</p>
+    <span class="verse-ref">Jeremías 7:31 · RVR1960</span>
+  </div>
+
+  <p>Tofet era un lugar de sacrificio en el valle de Hinom, al sur de Jerusalén. Ahí, bajo los ritos de adoración a Moloc, Israel quemaba a sus propios hijos. Lo que estremece no es solo la práctica en sí — es la naturaleza de la negación de Dios. No dice únicamente: <em>«Yo no lo ordené.»</em> Dice algo mucho más radical: <em>«Ni siquiera llegó a ser un pensamiento mío.»</em></p>
+
+  <p>Esa última frase — <em>«ni subió en mi corazón»</em> — contiene una de las declaraciones más absolutas que el hebreo bíblico puede formular. Para comprenderla es necesario entrar en el idioma.</p>
+
+  <!-- ═══════════════ II. LA FRASE EN HEBREO ═══════════════ -->
+  <span class="section-num">II</span>
+  <h2><strong>La Frase Clave</strong> en Hebreo</h2>
+
+  <div class="hebrew-center">
+    <span class="hebrew-main">וְלֹא עָלְתָה עַל־לִבִּי</span>
+    <span class="hebrew-translit">wə-lōʾ ʿālətāh ʿal-libbî</span>
+  </div>
+
+  <p>Tres elementos gramaticales forman esta negación. Cada uno añade una capa de significado:</p>
+
+  <table class="grammar-table">
+    <thead>
+      <tr>
+        <th>Hebreo</th>
+        <th>Transliteración</th>
+        <th>Traducción</th>
+        <th>Función</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>וְלֹא</td>
+        <td>wə-lōʾ</td>
+        <td>«y no»</td>
+        <td>Negación absoluta del hebreo: no un «todavía no», no un «en ciertas condiciones no» — sino una negación completa, sin matices ni excepciones.</td>
+      </tr>
+      <tr>
+        <td>עָלְתָה עַל</td>
+        <td>ʿālətāh ʿal</td>
+        <td>«subió sobre»</td>
+        <td>Expresión idiomática del hebreo bíblico (Is 65:17; Jr 3:16; Ez 38:10): llegar a ser objeto de pensamiento consciente y deliberado. La imagen es la de una idea que asciende hasta la mente y toma forma como intención.</td>
+      </tr>
+      <tr>
+        <td>לִבִּי</td>
+        <td>libbî</td>
+        <td>«mi corazón»</td>
+        <td>לֵב (lēb) con sufijo posesivo. En hebreo: la sede de la razón, la voluntad, el propósito deliberado y la conciencia moral — la mente deliberante de Dios.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout c-navy">
+    <span class="callout-title">✦ El לֵב hebreo — no el corazón occidental</span>
+    <p>El sustantivo לֵב (lēb) no corresponde al concepto occidental de corazón como sede de las emociones. En el pensamiento hebreo, el לֵב es la sede de la razón y el entendimiento, la voluntad e intención, el propósito deliberado, y la conciencia moral. Es esencialmente la <em>mente deliberante</em>: el lugar donde se piensa, se decide, se forma el propósito consciente.</p>
+    <p>Cuando la Escritura habla del לֵב de Dios, habla de Sus intenciones eternas.</p>
+  </div>
+
+  <div class="pull-quote">
+    «Esto jamás ascendió hasta mi mente deliberante. Nunca tomó forma en mi voluntad consciente. Jamás fue concebido en mis propósitos eternos.»
+  </div>
+
+  <p>No es una prohibición. No es una advertencia. Es una declaración ontológica: el dios que recibía los sacrificios de Tofet jamás existió en el לֵב de Yahweh. Israel había construido, con devoción extrema y costo máximo, una deidad completamente ajena al pensamiento divino — y oraba hacia ella.</p>
+
+  <div class="callout c-crimson">
+    <span class="callout-title">✦ Una escala de distancia moral</span>
+    <p>Hay cosas que Dios <em>permite</em> sin ordenar. Hay cosas que Dios no <em>ordena</em>. Y hay algo más severo aún: cosas que jamás ascendieron como pensamiento a Su mente. El sacrificio de niños en Tofet no estaba en el segundo nivel ni en el tercero. Estaba fuera de toda la escala.</p>
+  </div>
+
+  <!-- ═══════════════ III. EL ARCO ═══════════════ -->
+  <span class="section-num">III</span>
+  <h2><strong>El Arco</strong> · De Jeremías 7:31 a Juan 14:13</h2>
+
+  <p>Jeremías 7:31 no es un versículo aislado. Es la pieza que revela la raíz de un problema que recorre toda la historia de la revelación bíblica, y que encuentra su única solución en el Nuevo Testamento. Los siguientes seis textos forman un arco completo que ninguno de ellos puede completar solo.</p>
+
+  <div class="arc-grid">
+    <div class="arc-node">
+      <span class="arc-ref">Ezequiel 33:31-32</span>
+      <span class="arc-title">El patrón</span>
+      <span class="arc-desc">El pueblo oye, se conmueve y no cambia. El profeta aplaudido como artista.</span>
+    </div>
+    <div class="arc-node">
+      <span class="arc-ref">Jeremías 7:31</span>
+      <span class="arc-title">La raíz</span>
+      <span class="arc-desc">El לֵב humano adora con máxima devoción hacia un dios ajeno al pensamiento divino.</span>
+    </div>
+    <div class="arc-node">
+      <span class="arc-ref">Jeremías 7:16</span>
+      <span class="arc-title">La consecuencia</span>
+      <span class="arc-desc">El canal de la oración cerrado por decreto. La intercesión suspendida.</span>
+    </div>
+    <div class="arc-node">
+      <span class="arc-ref">Ezequiel 36:26-27</span>
+      <span class="arc-title">La promesa</span>
+      <span class="arc-desc">Un trasplante de לֵב. El corazón de piedra quitado. El Espíritu habitando adentro.</span>
+    </div>
+    <div class="arc-node">
+      <span class="arc-ref">Juan 15:5 + Ro 8:26</span>
+      <span class="arc-title">El cumplimiento</span>
+      <span class="arc-desc">La rama en la Vid. El Espíritu que intercede con gemidos indecibles desde adentro.</span>
+    </div>
+    <div class="arc-node">
+      <span class="arc-ref">Juan 14:13</span>
+      <span class="arc-title">El propósito</span>
+      <span class="arc-desc">Toda oración orientada hacia la gloria del Padre — lo que el לֵב de Dios siempre quiso.</span>
+    </div>
+  </div>
+
+  <!-- 1. Ezequiel 33 -->
+  <div class="section-break">· · ·</div>
+  <h2><em>1 · Ezequiel 33:31-32</em> — El patrón</h2>
+
+  <div class="verse-block">
+    <p>«Y vendrán a ti como viene el pueblo, y estarán delante de ti como pueblo mío, y oirán tus palabras, y no las pondrán por obra; antes hacen halagos con sus bocas, y el corazón de ellos anda en pos de su avaricia. Y he aquí que tú eres a ellos como cantor de amores, hermoso de voz y que canta bien; y oirán tus palabras, pero no las pondrán por obra.»</p>
+    <span class="verse-ref">Ezequiel 33:31-32 · RVR1960</span>
+  </div>
+
+  <p>El pueblo viene. Escucha. Se conmueve. Y no cambia. El profeta no es ignorado — es aplaudido como artista. El diagnóstico: es posible disfrutar profundamente de la verdad de Dios sin ser transformado por ella.</p>
+
+  <!-- 2. Jeremías 7:31 en el arco -->
+  <div class="section-break">· · ·</div>
+  <h2><em>2 · Jeremías 7:31</em> — La raíz</h2>
+
+  <p>Más profundo que el patrón de Ezequiel 33 está su raíz: un לֵב humano que ha perdido contacto con el לֵב de Dios. No solo oye sin obedecer — adora en dirección completamente equivocada. Con máxima devoción. Con sacrificio extremo. Hacia un destinatario que jamás existió en la mente divina.</p>
+
+  <div class="callout">
+    <span class="callout-title">✦ La tragedia de la devoción mal orientada</span>
+    <p>El culto en Tofet no era indiferente ni frío. Era ardiente. Los que llevaban a sus hijos al fuego estaban <em>convencidos</em>. El horror no estaba en la frialdad religiosa — estaba en la certeza religiosa apuntando al lugar equivocado.</p>
+    <p>Cuando el לֵב humano pierde contacto con el לֵב de Dios, la devoción no desaparece. Se redirige. Y la energía religiosa sin anclaje en la revelación puede producir los actos más terribles de la historia.</p>
+  </div>
+
+  <!-- 3. Jeremías 7:16 -->
+  <div class="section-break">· · ·</div>
+  <h2><em>3 · Jeremías 7:16</em> — La consecuencia</h2>
+
+  <div class="verse-block">
+    <p>«Tú, pues, no ores por este pueblo, ni levantes por ellos clamor ni oración, ni me ruegues; porque no te oiré.»</p>
+    <span class="verse-ref">Jeremías 7:16 · RVR1960</span>
+  </div>
+
+  <p>Cuando el לֵב humano se desconecta crónicamente del לֵב de Dios, el canal de la oración queda cerrado por decreto divino. Dios mismo suspende la intercesión profética. Este es el límite absoluto al que conduce el patrón de Ezequiel 33 sostenido en el tiempo — y la razón más profunda de ese cierre se encuentra en el versículo 31.</p>
+
+  <!-- 4. Ezequiel 36 -->
+  <div class="section-break">· · ·</div>
+  <h2><em>4 · Ezequiel 36:26-27</em> — La promesa</h2>
+
+  <div class="verse-block">
+    <p>«Os daré corazón nuevo, y pondré espíritu nuevo dentro de vosotros; y quitaré de vuestra carne el corazón de piedra, y os daré un corazón de carne. Y pondré dentro de vosotros mi Espíritu, y haré que andéis en mis estatutos, y guardéis mis preceptos, y los pongáis por obra.»</p>
+    <span class="verse-ref">Ezequiel 36:26-27 · RVR1960</span>
+  </div>
+
+  <p>La solución opera exactamente en el mismo nivel que el problema: el לֵב. No un código externo más refinado — un trasplante. El corazón de piedra, el לֵב desconectado, es quitado. En su lugar: un corazón de carne en el que el propio Espíritu de Dios habitará.</p>
+
+  <p>Lo que causó el patrón es un לֵב que oía desde afuera. La solución es un לֵב que conoce desde adentro.</p>
+
+  <!-- 5. Juan 15:5 + Romanos 8:26 -->
+  <div class="section-break">· · ·</div>
+  <h2><em>5 · Juan 15:5 + Romanos 8:26</em> — El cumplimiento</h2>
+
+  <div class="verse-block">
+    <p>«Yo soy la vid, vosotros los pámpanos; el que permanece en mí, y yo en él, éste lleva mucho fruto; porque separados de mí nada podéis hacer.»</p>
+    <span class="verse-ref">Juan 15:5 · RVR1960</span>
+  </div>
+
+  <div class="verse-block">
+    <p>«Y de igual manera el Espíritu nos ayuda en nuestra debilidad; pues qué hemos de pedir como conviene, no lo sabemos, pero el Espíritu mismo intercede por nosotros con gemidos indecibles.»</p>
+    <span class="verse-ref">Romanos 8:26 · RVR1960</span>
+  </div>
+
+  <p>La promesa de Ezequiel 36 se cumple en la unión con Cristo. La rama no tiene una <em>relación</em> con el tronco — es parte de él, la misma savia, el mismo organismo. El creyente unido a la Vid no adora en dirección equivocada porque su לֵב ha sido fusionado con el לֵב de Cristo. Y cuando no sabe cómo orar, el Espíritu intercede desde adentro — desde el conocimiento perfecto del לֵב del Padre.</p>
+
+  <div class="callout c-olive">
+    <span class="callout-title">✦ La inversión de Tofet</span>
+    <p>En Tofet, el hombre ofrecía lo más costoso que tenía para apaciguar a un dios que jamás existió en el לֵב de Yahweh. En la oración del Espíritu, es Dios mismo quien ora <em>a través</em> del creyente — hacia el Padre, en alineación perfecta con Su propio לֵב. La dirección se ha invertido completamente.</p>
+  </div>
+
+  <!-- 6. Juan 14:13 -->
+  <div class="section-break">· · ·</div>
+  <h2><em>6 · Juan 14:13</em> — El propósito</h2>
+
+  <div class="verse-block">
+    <p>«Y todo lo que pidiereis al Padre en mi nombre, lo haré, para que el Padre sea glorificado en el Hijo.»</p>
+    <span class="verse-ref">Juan 14:13 · RVR1960</span>
+  </div>
+
+  <p>Israel en Tofet ofrecía lo más costoso que tenía — hacia un dios que jamás existió en el לֵב de Yahweh, con un propósito que era, en el fondo, apaciguar para obtener. Juan 14:13 invierte toda esa lógica: la oración genuina no nace del לֵב desconectado buscando sus fines. Nace del Espíritu que ora a través del creyente unido a la Vid, orientado hacia la gloria del Padre — que es exactamente lo que el לֵב de Dios siempre quiso.</p>
+
+  <div class="pull-quote">
+    De la desconexión del לֵב &nbsp;→&nbsp; a la unión donde el לֵב de Dios late dentro del creyente &nbsp;→&nbsp; para que toda oración fluya hacia Su gloria.
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="essay-footer">
+    <p class="footer-note">Todos los textos bíblicos corresponden a la versión Reina-Valera 1960 (RVR1960). El análisis hebreo de וְלֹא עָלְתָה עַל־לִבִּי sigue el uso idiomático de עָלָה עַל documentado en Isaías 65:17, Jeremías 3:16 y Ezequiel 38:10. El concepto de לֵב como mente deliberante corresponde al uso del término en la tradición lexicográfica hebraica (BDB; HALOT). Este ensayo forma parte de la serie sobre Jeremías 7 y sus arcos teológicos hacia el Nuevo Testamento.</p>
+    <div class="series-footer">
+      <a href="ensayo-ezequiel33-naturaleza-pecaminosa-vs-union.html" class="series-link"><span class="arrow">←</span> Ensayo · Ezequiel 33</a>
+      <span class="series-sep">·</span>
+      <span class="series-link current"><span class="arrow">◆</span> Jeremías 7:31 · El לֵב</span>
+      <span class="series-sep">·</span>
+      <a href="ensayo-1-yeshua.html" class="series-link">Ensayo I · Yeshua <span class="arrow">→</span></a>
+    </div>
+  </footer>
+
+</div><!-- /.page -->
+</body>
+</html>
