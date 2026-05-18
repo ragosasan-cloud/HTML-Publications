@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jesús en el Antiguo Testamento — El Hilo de Oro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Cinzel:wght@400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --cream:      #faf6ef;
+      --parchment:  #f2ead9;
+      --ink:        #1c1710;
+      --brown-deep: #3b2a14;
+      --brown-mid:  #7a5230;
+      --gold:       #b5862a;
+      --gold-light: #d4a84b;
+      --red-seal:   #8b2020;
+      --text:       #2d2318;
+      --muted:      #7a6a52;
+      --rule:       #c9b48a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--cream);
+      color: var(--text);
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: clamp(17px, 2vw, 20px);
+      line-height: 1.78;
+      background-image:
+        radial-gradient(ellipse at 10% 10%, rgba(181,134,42,.06) 0%, transparent 55%),
+        radial-gradient(ellipse at 90% 90%, rgba(139,32,32,.04) 0%, transparent 55%);
+    }
+
+    /* ── HEADER ─────────────────────────────────────── */
+    header {
+      background-color: var(--brown-deep);
+      color: var(--parchment);
+      text-align: center;
+      padding: 3.5rem 2rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(255,255,255,.03) 28px, rgba(255,255,255,.03) 29px),
+        repeating-linear-gradient(90deg, transparent, transparent 28px, rgba(255,255,255,.03) 28px, rgba(255,255,255,.03) 29px);
+      pointer-events: none;
+    }
+
+    .serie-label {
+      font-family: 'Cinzel', serif;
+      font-size: .75rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 1.4rem;
+      opacity: .9;
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      line-height: 1.18;
+      color: #fff;
+      margin-bottom: .5rem;
+    }
+    header h1 em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .header-subtitle {
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: 1.15rem;
+      color: rgba(242,234,217,.75);
+      margin-top: .9rem;
+      margin-bottom: 0;
+    }
+
+    .header-ornament {
+      color: var(--gold);
+      font-size: 1.6rem;
+      margin: 1.4rem 0 .4rem;
+      letter-spacing: .4em;
+    }
+
+    /* ── WRAPPER ─────────────────────────────────────── */
+    .wrapper {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 3.5rem 2rem 5rem;
+    }
+
+    /* ── INTRO BLOCK ─────────────────────────────────── */
+    .intro {
+      border-left: 3px solid var(--gold);
+      padding-left: 1.5rem;
+      margin: 2.5rem 0 3rem;
+      font-style: italic;
+      font-size: 1.08em;
+      color: var(--brown-mid);
+      line-height: 1.9;
+    }
+
+    /* ── TESTIMONY BOX ───────────────────────────────── */
+    .testimony-box {
+      background-color: var(--parchment);
+      border: 1px solid var(--rule);
+      border-top: 4px solid var(--gold);
+      border-radius: 3px;
+      padding: 2rem 2.2rem;
+      margin: 2.5rem 0 3rem;
+      position: relative;
+    }
+    .testimony-box::before {
+      content: '\201C';
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem;
+      color: var(--gold-light);
+      opacity: .35;
+      position: absolute;
+      top: .2rem; left: .9rem;
+      line-height: 1;
+      pointer-events: none;
+    }
+    .testimony-box p {
+      font-size: .97em;
+      line-height: 1.85;
+      color: var(--brown-deep);
+      position: relative;
+      z-index: 1;
+    }
+    .testimony-attrib {
+      font-family: 'Cinzel', serif;
+      font-size: .7rem;
+      letter-spacing: .18em;
+      color: var(--muted);
+      text-align: right;
+      margin-top: 1rem;
+    }
+
+    /* ── SECTION HEADERS ─────────────────────────────── */
+    .part-marker {
+      font-family: 'Cinzel', serif;
+      font-size: .68rem;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: .35rem;
+      margin-top: 4rem;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      font-size: clamp(1.35rem, 3vw, 1.75rem);
+      line-height: 1.25;
+      color: var(--brown-deep);
+      margin-bottom: 1.1rem;
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: .5rem;
+    }
+
+    h3 {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 1.18rem;
+      color: var(--brown-mid);
+      margin: 2rem 0 .6rem;
+    }
+
+    p { margin-bottom: 1.15rem; }
+
+    /* ── VERSE BLOCKS ────────────────────────────────── */
+    .verse {
+      background: linear-gradient(to right, rgba(181,134,42,.07), transparent 80%);
+      border-left: 3px solid var(--gold);
+      padding: .9rem 1.3rem .9rem 1.4rem;
+      margin: 1.8rem 0;
+      border-radius: 0 3px 3px 0;
+    }
+    .verse p {
+      font-style: italic;
+      font-size: .97em;
+      color: var(--brown-deep);
+      margin-bottom: .3rem;
+    }
+    .verse cite {
+      font-family: 'Cinzel', serif;
+      font-style: normal;
+      font-size: .7rem;
+      letter-spacing: .15em;
+      color: var(--gold);
+      display: block;
+    }
+
+    /* ── CALLOUT / HIGHLIGHT BOX ─────────────────────── */
+    .callout {
+      background-color: var(--brown-deep);
+      color: #fff;
+      border-radius: 3px;
+      padding: 1.5rem 1.8rem;
+      margin: 2.2rem 0;
+    }
+    .callout-label {
+      font-family: 'Cinzel', serif;
+      font-size: .65rem;
+      letter-spacing: .24em;
+      color: var(--gold-light);
+      display: block;
+      margin-bottom: .5rem;
+    }
+    .callout p {
+      margin: 0;
+      font-size: .98em;
+      line-height: 1.75;
+      color: rgba(242,234,217,.9);
+    }
+
+    /* ── PASSAGE GRID ────────────────────────────────── */
+    .passage-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.2rem;
+      margin: 2rem 0;
+    }
+    .passage-card {
+      border: 1px solid var(--rule);
+      border-top: 3px solid var(--gold);
+      background: var(--parchment);
+      padding: 1.2rem 1.3rem;
+      border-radius: 0 0 3px 3px;
+    }
+    .passage-card .ref {
+      font-family: 'Cinzel', serif;
+      font-size: .7rem;
+      letter-spacing: .18em;
+      color: var(--gold);
+      display: block;
+      margin-bottom: .4rem;
+    }
+    .passage-card .title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--brown-deep);
+      margin-bottom: .4rem;
+    }
+    .passage-card p {
+      font-size: .88em;
+      color: var(--muted);
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    /* ── CROSS MARKER ────────────────────────────────── */
+    .cross-marker {
+      text-align: center;
+      color: var(--gold);
+      font-size: 1.3rem;
+      letter-spacing: .5em;
+      margin: 3rem 0;
+      opacity: .65;
+    }
+
+    /* ── REFLECTION QUESTIONS ────────────────────────── */
+    .reflection {
+      background: var(--parchment);
+      border: 1px solid var(--rule);
+      padding: 1.8rem 2rem;
+      border-radius: 3px;
+      margin: 2rem 0;
+    }
+    .reflection h3 {
+      font-style: normal;
+      font-weight: 600;
+      color: var(--brown-deep);
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      font-family: 'Cinzel', serif;
+      letter-spacing: .1em;
+    }
+    .reflection ol {
+      padding-left: 1.4rem;
+    }
+    .reflection ol li {
+      font-size: .96em;
+      margin-bottom: .8rem;
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ── PRAYER ──────────────────────────────────────── */
+    .prayer-box {
+      background-color: var(--brown-deep);
+      color: var(--parchment);
+      padding: 2.5rem 2.2rem;
+      margin: 3rem 0 1rem;
+      border-radius: 3px;
+      text-align: center;
+      position: relative;
+    }
+    .prayer-box::before {
+      content: '✦';
+      display: block;
+      font-size: 1.2rem;
+      color: var(--gold-light);
+      margin-bottom: 1rem;
+      letter-spacing: .4em;
+    }
+    .prayer-label {
+      font-family: 'Cinzel', serif;
+      font-size: .68rem;
+      letter-spacing: .28em;
+      color: var(--gold-light);
+      display: block;
+      margin-bottom: 1.4rem;
+    }
+    .prayer-text {
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: 1.08em;
+      line-height: 2;
+      color: rgba(242,234,217,.9);
+    }
+    .prayer-text p { margin: 0; }
+
+    /* ── FOOTER ──────────────────────────────────────── */
+    footer {
+      background-color: var(--brown-deep);
+      color: rgba(242,234,217,.55);
+      text-align: center;
+      padding: 2rem 1rem;
+      font-family: 'Cinzel', serif;
+      font-size: .65rem;
+      letter-spacing: .2em;
+      line-height: 2;
+    }
+    footer strong { color: var(--gold-light); }
+
+    /* ── DIVIDER ─────────────────────────────────────── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin: 3rem 0;
+      opacity: .6;
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 540px) {
+      .wrapper { padding: 2.2rem 1.2rem 4rem; }
+      .testimony-box { padding: 1.5rem 1.4rem; }
+      .callout { padding: 1.2rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════ HEADER ═══════════════════ -->
+<header>
+  <p class="serie-label">Lección Bíblica · Serie: Las Escrituras Hablan de Él</p>
+  <h1>El <em>Hilo de Oro</em><br>en el Antiguo Testamento</h1>
+  <p class="header-subtitle">Cómo cada libro del Antiguo Testamento apunta a Jesucristo, nuestro Mesías</p>
+  <div class="header-ornament">· · ✦ · ·</div>
+</header>
+
+<!-- ═══════════════════ BODY ═══════════════════ -->
+<div class="wrapper">
+
+  <!-- INTRO -->
+  <div class="intro">
+    Un hombre judío, criado en la sinagoga durante cincuenta años, tomó un día su propia Biblia hebrea —su Tanaj— para refutar a los cristianos. Lo que encontró en cambio lo dejó llorando. No había visto a Jesús en el Nuevo Testamento. Lo vio en el Antiguo.
+  </div>
+
+  <p>
+    Esta historia no es un caso aislado. Es la confirmación de algo que los propios apóstoles proclamaban: <em>las Escrituras que Israel tenía desde siempre hablaban de Cristo desde el principio.</em> Jesús mismo lo declaró abiertamente a sus discípulos:
+  </p>
+
+  <div class="verse">
+    <p>"Y comenzando desde Moisés, y siguiendo por todos los profetas, les declaraba en todas las Escrituras lo que de él decían."</p>
+    <cite>Lucas 24:27 · RVR 1960</cite>
+  </div>
+
+  <div class="verse">
+    <p>"Escudriñad las Escrituras; porque a vosotros os parece que en ellas tenéis la vida eterna; y ellas son las que dan testimonio de mí."</p>
+    <cite>Juan 5:39 · RVR 1960</cite>
+  </div>
+
+  <!-- TESTIMONY -->
+  <div class="testimony-box">
+    <p>
+      "Comencé a leer el Salmo 22 desde mi lado de la Biblia. Estaba seguro. Y mientras leía, mis ojos se llenaron de lágrimas porque podía verlo colgando en un madero. Y no esperaba verlo ahí. Nunca había leído el Salmo 22 en mi vida.
+      <br><br>
+      Luego fui a Isaías 53, que tampoco había leído jamás. Y ahora las lágrimas corrían de mis ojos, porque no solo podía verlo, sino que podía entender por qué estaba en ese madero. Él fue castigado por nosotros. Nuestros pecados fueron puestos sobre Él, y fue quebrantado en nuestro lugar.
+      <br><br>
+      Y simplemente lloré y lloré y lloré. ¿Cómo era posible que, teniendo cincuenta años y habiendo ido a la sinagoga toda mi vida, nunca hubiéramos leído el Salmo 22 ni Isaías 53?"
+    </p>
+    <p class="testimony-attrib">— Testimonio de un judío que encontró al Mesías en el Antiguo Testamento</p>
+  </div>
+
+  <!-- ────────────────────────────────────────── -->
+  <div class="cross-marker">· · ✦ · ·</div>
+
+  <!-- PARTE I -->
+  <span class="part-marker">Parte I</span>
+  <h2>¿Está Jesús Realmente en el Antiguo Testamento?</h2>
+
+  <p>
+    Para muchos, el Antiguo Testamento parece un libro distinto —lleno de leyes, genealogías y batallas que poco tienen que ver con Jesucristo. Sin embargo, esa lectura pierde el hilo conductor más poderoso de toda la Escritura: <strong>el Antiguo Testamento es Cristo presentado en promesa, tipo y profecía.</strong>
+  </p>
+
+  <p>
+    El apóstol Pablo lo afirma con claridad cuando escribe a los corintios sobre Israel en el desierto:
+  </p>
+
+  <div class="verse">
+    <p>"Y todos bebieron la misma bebida espiritual; porque bebían de la roca espiritual que los seguía, y la roca era Cristo."</p>
+    <cite>1 Corintios 10:4 · RVR 1960</cite>
+  </div>
+
+  <p>
+    Cristo no comenzó en Belén. Su obra y su presencia atraviesan toda la historia de la redención desde la primera página de la Biblia. Conocer el Antiguo Testamento con ojos espirituales es encontrar a Jesús en cada vuelta del camino.
+  </p>
+
+  <div class="callout">
+    <span class="callout-label">Principio Central</span>
+    <p>El Antiguo Testamento no es un libro que fue reemplazado por el Nuevo. Es el mismo evangelio contado por adelantado: primero en sombra y figura, luego en cumplimiento glorioso en la persona de Jesucristo.</p>
+  </div>
+
+  <div class="cross-marker">· · ✦ · ·</div>
+
+  <!-- PARTE II -->
+  <span class="part-marker">Parte II</span>
+  <h2>Desde el Génesis: El Primer Evangelio</h2>
+
+  <p>
+    Apenas tres capítulos después de la creación, cuando el pecado había entrado al mundo y todo parecía perdido, Dios pronunció la primera promesa del Redentor. Los teólogos la llaman el <em>proto-evangelio</em>: el primer evangelio.
+  </p>
+
+  <div class="verse">
+    <p>"Y pondré enemistad entre ti y la mujer, y entre tu simiente y la simiente suya; ésta te herirá en la cabeza, y tú le herirás en el calcañar."</p>
+    <cite>Génesis 3:15 · RVR 1960</cite>
+  </div>
+
+  <p>
+    Una simiente de mujer heriría la cabeza de la serpiente —sufriría, pero vencería. Desde ese instante en el huerto, el hilo de oro comienza a tejerse a lo largo de toda la revelación bíblica.
+  </p>
+
+  <h3>Abraham y el cordero en el monte Moriah</h3>
+
+  <p>
+    Siglos después, Abraham subió al monte con su hijo Isaac para ofrecer el sacrificio que Dios le había pedido. Isaac cargaba la leña sobre sus propios hombros —imagen del Hijo cargando la cruz. Y en el momento más oscuro, Abraham pronunció unas palabras proféticas sin saberlo:
+  </p>
+
+  <div class="verse">
+    <p>"Dios se proveerá de cordero para el holocausto, hijo mío."</p>
+    <cite>Génesis 22:8 · RVR 1960</cite>
+  </div>
+
+  <p>
+    El carnero que apareció trabado por los cuernos era solo una sombra. El verdadero Cordero que Dios proveería —atrapado por la corona de espinas, ofrecido en el Calvario— era Jesucristo. Juan el Bautista lo señalaría con el dedo siglos más tarde: <em>"He aquí el Cordero de Dios, que quita el pecado del mundo"</em> (Juan 1:29).
+  </p>
+
+  <div class="cross-marker">· · ✦ · ·</div>
+
+  <!-- PARTE III -->
+  <span class="part-marker">Parte III</span>
+  <h2>La Ley y el Tabernáculo: Todo Apunta a Cristo</h2>
+
+  <p>
+    Cuando Dios dio la Ley a Moisés en el Sinaí y le instruyó en los detalles del Tabernáculo —el altar, el propiciatorio, el candelabro, las ofrendas— no estaba dando rituales arbitrarios. Estaba trazando un retrato del Mesías venidero.
+  </p>
+
+  <div class="verse">
+    <p>"Porque la ley, teniendo la sombra de los bienes venideros, no la imagen misma de las cosas, nunca puede, por los mismos sacrificios que se ofrecen continuamente cada año, hacer perfectos a los que se acercan."</p>
+    <cite>Hebreos 10:1 · RVR 1960</cite>
+  </div>
+
+  <p>
+    El sistema de sacrificios era una película en blanco y negro del evangelio a todo color. Cada cordero inmolado decía: <em>la muerte de este animal apunta a Alguien más.</em> Cada sumo sacerdote que entraba una vez al año al Lugar Santísimo con sangre ajena decía: <em>vendrá uno que entrará de una vez por todas con su propia sangre.</em>
+  </p>
+
+  <div class="callout">
+    <span class="callout-label">Cristo, nuestro Sumo Sacerdote</span>
+    <p>Hebreos 9:11–12 lo declara con precisión: Cristo entró en el santuario celestial "no por medio de sangre de machos cabríos ni de becerros, sino por su propia sangre, habiendo obtenido eterna redención." Todo el sistema levítico era el tráiler; la Cruz fue la película.</p>
+  </div>
+
+  <div class="cross-marker">· · ✦ · ·</div>
+
+  <!-- PARTE IV -->
+  <span class="part-marker">Parte IV</span>
+  <h2>Los Salmos: La Voz del Mesías Sufriente</h2>
+
+  <p>
+    El Salmo 22 fue el pasaje que hizo llorar a aquel hombre judío. Y no es difícil entender por qué. Este salmo, escrito por David mil años antes de la crucifixión, describe con un detalle sobrenatural los sufrimientos de Cristo en la cruz.
+  </p>
+
+  <div class="verse">
+    <p>"Dios mío, Dios mío, ¿por qué me has desamparado? [...] Todos los que me ven me escarnecen; estiran la boca, menean la cabeza [...] Horadaron mis manos y mis pies. [...] Repartieron entre sí mis vestidos, y sobre mi ropa echaron suertes."</p>
+    <cite>Salmo 22:1, 7, 16, 18 · RVR 1960</cite>
+  </div>
+
+  <p>
+    Estas son exactamente las palabras que Jesús gritó desde la cruz (Mateo 27:46), los gestos de los soldados que lo miraban (Mateo 27:39), y el detalle de los dados que los soldados echaron por su túnica (Juan 19:24). David no profetizó esto como si fuera su propia historia —era la historia del Mesías, narrada con siglos de anticipación.
+  </p>
+
+  <div class="cross-marker">· · ✦ · ·</div>
+
+  <!-- PARTE V -->
+  <span class="part-marker">Parte V</span>
+  <h2>Isaías 53: El Siervo Sufriente</h2>
+
+  <p>
+    Si el Salmo 22 fue lo que hizo llorar al hombre judío al ver a Cristo en la cruz, Isaías 53 fue lo que le explicó <em>por qué</em>. Este capítulo, escrito alrededor del año 700 a.C., es una de las profecías más asombrosas de toda la Escritura.
+  </p>
+
+  <div class="verse">
+    <p>"Ciertamente llevó él nuestras enfermedades, y sufrió nuestros dolores... Mas él herido fue por nuestras rebeliones, molido por nuestros pecados; el castigo de nuestra paz fue sobre él, y por su llaga fuimos nosotros curados. Todos nosotros nos descarriamos como ovejas, cada cual se apartó por su camino; mas Jehová cargó en él el pecado de todos nosotros."</p>
+    <cite>Isaías 53:4–6 · RVR 1960</cite>
+  </div>
+
+  <p>
+    La sustitución penal —Él cargando lo que era nuestro, nosotros recibiendo lo que era suyo— no es una doctrina inventada por teólogos medievales. Está en Isaías. Está en el corazón del Antiguo Testamento. El hombre judío que lloró al leer este pasaje no estaba descubriendo una doctrina cristiana. Estaba descubriendo lo que su propia Escritura había dicho siempre.
+  </p>
+
+  <div class="callout">
+    <span class="callout-label">El testigo más poderoso</span>
+    <p>El texto de Isaías 53 era tan incómodo para algunos intérpretes judíos del siglo II en adelante que el capítulo comenzó a omitirse en las lecturas litúrgicas de la sinagoga. Hoy, un judío que lee Isaías 53 por primera vez suele hacer la misma pregunta: "¿Esto está en mi Biblia?"</p>
+  </div>
+
+  <div class="cross-marker">· · ✦ · ·</div>
+
+  <!-- PARTE VI -->
+  <span class="part-marker">Parte VI</span>
+  <h2>Jeremías 31 y el Nuevo Pacto</h2>
+
+  <p>
+    El hombre del testimonio nos lleva también a Jeremías 31. Él había sido criado creyendo que el Nuevo Pacto era "para los gentiles." Lo que encontró al leer su propia Biblia lo dejó asombrado.
+  </p>
+
+  <div class="verse">
+    <p>"He aquí que vienen días, dice Jehová, en los cuales haré nuevo pacto con la casa de Israel y con la casa de Judá. No como el pacto que hice con sus padres [...] daré mi ley en su mente, y la escribiré en su corazón; y yo seré a ellos por Dios, y ellos me serán por pueblo."</p>
+    <cite>Jeremías 31:31–33 · RVR 1960</cite>
+  </div>
+
+  <p>
+    Este Nuevo Pacto no está prometido a los romanos ni a los griegos. Está prometido específicamente <em>a la casa de Israel y a la casa de Judá.</em> Y Jesús, en la noche de la última cena, tomó la copa y dijo: <em>"Esta copa es el nuevo pacto en mi sangre"</em> (Lucas 22:20). Él era el cumplimiento de lo que Jeremías había anunciado seiscientos años antes.
+  </p>
+
+  <div class="cross-marker">· · ✦ · ·</div>
+
+  <!-- PARTE VII -->
+  <span class="part-marker">Parte VII</span>
+  <h2>Daniel 9: El Tiempo del Mesías</h2>
+
+  <p>
+    El cuarto pasaje que mencionó el hombre judío en su testimonio es quizás el más matemáticamente preciso de toda la profecía bíblica: Daniel 9. La profecía de las setenta semanas establece un cómputo de tiempo para la llegada y la "eliminación" del Mesías.
+  </p>
+
+  <div class="verse">
+    <p>"Y después de las sesenta y dos semanas se quitará la vida al Mesías, mas no por sí [...] Y el pueblo de un príncipe que ha de venir destruirá la ciudad y el santuario."</p>
+    <cite>Daniel 9:26 · RVR 1960</cite>
+  </div>
+
+  <p>
+    La lógica que el hombre judío siguió es impecable: Él sabía que Jerusalén y el templo fueron destruidos en el año 70 d.C. por Tito, general romano e hijo del emperador Vespasiano —un príncipe. Y el texto dice que eso ocurriría <em>después de que el Mesías fuera quitado.</em> Por lo tanto, el Mesías tenía que haber venido y sido rechazado <em>antes del año 70.</em> Solo hay un candidato que cumple esa condición: Jesús de Nazaret.
+  </p>
+
+  <div class="cross-marker">· · ✦ · ·</div>
+
+  <!-- PARTE VIII -->
+  <span class="part-marker">Parte VIII</span>
+  <h2>Un Mapa del Hilo de Oro a lo Largo del A.T.</h2>
+
+  <p>
+    Estos cuatro pasajes son solo el comienzo. El Antiguo Testamento entero está entretejido con profecías, tipos y sombras que apuntan a Cristo. A continuación, algunos de los más significativos:
+  </p>
+
+  <div class="passage-grid">
+
+    <div class="passage-card">
+      <span class="ref">Génesis 3:15</span>
+      <div class="title">La simiente de la mujer</div>
+      <p>Primera promesa del Redentor. Él herirá la cabeza de la serpiente, aunque sea herido en el proceso.</p>
+    </div>
+
+    <div class="passage-card">
+      <span class="ref">Génesis 22:8</span>
+      <div class="title">El Cordero provisto</div>
+      <p>Isaac sobre el altar, la leña sobre sus hombros —imagen del Hijo llevando la cruz al Calvario.</p>
+    </div>
+
+    <div class="passage-card">
+      <span class="ref">Éxodo 12</span>
+      <div class="title">La Pascua</div>
+      <p>La sangre del cordero en los postes de la puerta protegía de la muerte. "Cristo, nuestra Pascua, ya fue sacrificado" (1 Co 5:7).</p>
+    </div>
+
+    <div class="passage-card">
+      <span class="ref">Números 21:8–9</span>
+      <div class="title">La serpiente de bronce</div>
+      <p>Jesús mismo lo explicó: "Como Moisés levantó la serpiente en el desierto, así es necesario que el Hijo del Hombre sea levantado" (Jn 3:14).</p>
+    </div>
+
+    <div class="passage-card">
+      <span class="ref">Salmo 22</span>
+      <div class="title">El crucificado abandonado</div>
+      <p>Descripción profética de la crucifixión: abandono, escarnio, manos y pies horadados, ropa repartida.</p>
+    </div>
+
+    <div class="passage-card">
+      <span class="ref">Salmo 110:1</span>
+      <div class="title">El Señor al Señor</div>
+      <p>"Jehová dijo a mi Señor: Siéntate a mi diestra." Jesús mismo citó este versículo para señalar su naturaleza divina (Mt 22:44).</p>
+    </div>
+
+    <div class="passage-card">
+      <span class="ref">Isaías 7:14</span>
+      <div class="title">La virgen y el Emanuel</div>
+      <p>"He aquí que la virgen concebirá, y dará a luz un hijo, y llamará su nombre Emanuel." Cumplido en Mateo 1:23.</p>
+    </div>
+
+    <div class="passage-card">
+      <span class="ref">Isaías 53</span>
+      <div class="title">El Siervo Sufriente</div>
+      <p>Herido por nuestras rebeliones, molido por nuestros pecados. La descripción más detallada de la expiación sustitutoria.</p>
+    </div>
+
+    <div class="passage-card">
+      <span class="ref">Miqueas 5:2</span>
+      <div class="title">Nacido en Belén</div>
+      <p>"Pero tú, Belén Efrata... de ti me saldrá el que será Señor en Israel; y sus salidas son desde el principio, desde los días de la eternidad."</p>
+    </div>
+
+    <div class="passage-card">
+      <span class="ref">Zacarías 9:9</span>
+      <div class="title">El Rey sobre un asno</div>
+      <p>"He aquí tu rey vendrá a ti, justo y salvador, humilde, y cabalgando sobre un asno." Cumplido en la entrada triunfal a Jerusalén.</p>
+    </div>
+
+    <div class="passage-card">
+      <span class="ref">Zacarías 11:12–13</span>
+      <div class="title">Treinta piezas de plata</div>
+      <p>El precio exacto de la traición de Judas, arrojadas al alfarero, profetizado con quinientos años de anticipación.</p>
+    </div>
+
+    <div class="passage-card">
+      <span class="ref">Daniel 9:26</span>
+      <div class="title">El tiempo del Mesías</div>
+      <p>El Mesías sería "quitado" antes de la destrucción de Jerusalén en el año 70 d.C. Solo Jesús cumple este marco temporal.</p>
+    </div>
+
+  </div>
+
+  <div class="cross-marker">· · ✦ · ·</div>
+
+  <!-- PARTE IX -->
+  <span class="part-marker">Parte IX</span>
+  <h2>¿Por Qué Importa Esto Hoy?</h2>
+
+  <p>
+    La historia del hombre judío que lloró al leer su propia Biblia nos enseña algo profundo: la Palabra de Dios tiene poder por sí misma. No necesita manipulación. No necesita apologética complicada. Cuando el corazón se acerca con honestidad a las Escrituras, el Espíritu Santo hace su obra.
+  </p>
+
+  <p>
+    Pero también nos lanza un desafío a nosotros, los creyentes. Si alguien que había ido a la sinagoga toda su vida nunca había leído el Salmo 22 ni Isaías 53, ¿cuántos creyentes conocen a Cristo solo en el Nuevo Testamento, y se han perdido la profundidad del retrato que el Antiguo Testamento pinta de Él?
+  </p>
+
+  <div class="callout">
+    <span class="callout-label">El Cristo del Antiguo Testamento</span>
+    <p>Conocer a Jesús solo en el Nuevo Testamento es como ver un cuadro sin marco. El Antiguo Testamento es el contexto que da profundidad, peso y maravilla al Cristo que conocemos. Cada página del Génesis al Malaquías enriquece nuestra comprensión de quién es Él y qué hizo por nosotros.</p>
+  </div>
+
+  <div class="cross-marker">· · ✦ · ·</div>
+
+  <!-- PREGUNTAS -->
+  <span class="part-marker">Para la Reflexión</span>
+  <h2>Preguntas de Estudio y Discusión</h2>
+
+  <div class="reflection">
+    <h3>Para meditación personal o grupo pequeño</h3>
+    <ol>
+      <li>¿Cuándo fue la última vez que leíste el Antiguo Testamento con la intención específica de encontrar a Cristo? ¿Qué encontraste?</li>
+      <li>El hombre del testimonio lloró al leer Isaías 53 por primera vez a los cincuenta años. ¿Qué impide a muchos —judíos o no— leer pasajes como este con ojos abiertos?</li>
+      <li>¿Cómo cambia tu comprensión del sacrificio de Cristo el hecho de que Dios lo planeó desde Génesis 3:15 y lo fue revelando progresivamente durante siglos?</li>
+      <li>Escoge uno de los pasajes del "Mapa del Hilo de Oro" que más te impacte. Léelo esta semana en su contexto completo y comparte lo que descubres.</li>
+      <li>¿Cómo podrías usar estos pasajes del Antiguo Testamento para compartir el evangelio con alguien que no conoce a Cristo?</li>
+    </ol>
+  </div>
+
+  <div class="cross-marker">· · ✦ · ·</div>
+
+  <!-- PRAYER -->
+  <div class="prayer-box">
+    <span class="prayer-label">✦ Oración de Cierre ✦</span>
+    <div class="prayer-text">
+      <p>
+        Señor Jesucristo,<br>
+        hoy abrimos tu Palabra con ojos nuevos.<br>
+        Queremos verte donde siempre estuviste:<br>
+        en el huerto con Adán,<br>
+        en el monte con Abraham,<br>
+        en el Éxodo con Moisés,<br>
+        en los Salmos con David,<br>
+        en los labios de Isaías y Jeremías.<br><br>
+        Perdona nuestra ignorancia.<br>
+        Abre nuestros ojos para ver el hilo de oro<br>
+        que atraviesa cada página de las Escrituras<br>
+        y que lleva, siempre, hasta Ti.<br><br>
+        Y que al verte más claramente,<br>
+        te amemos más profundamente<br>
+        y te sigamos más fielmente.<br><br>
+        Amén.
+      </p>
+    </div>
+  </div>
+
+</div><!-- /.wrapper -->
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer>
+  <strong>El Hilo de Oro en el Antiguo Testamento</strong><br>
+  Serie: Las Escrituras Hablan de Él · Lección Bíblica<br><br>
+  Génesis 3:15 · Isaías 53 · Salmo 22 · Jeremías 31:31 · Daniel 9:26<br>
+  "Y comenzando desde Moisés, y siguiendo por todos los profetas, les declaraba en todas las Escrituras lo que de él decían." — Lucas 24:27
+</footer>
+
+</body>
+</html>
