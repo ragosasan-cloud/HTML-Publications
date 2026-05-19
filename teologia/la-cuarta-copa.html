@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Cuarta Copa — La Pascua Consumada en la Cruz</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:          #faf8f4;
+    --surface:     #ffffff;
+    --surface-2:   #f4f0e8;
+    --border:      #e2d9c8;
+    --text:        #1a1510;
+    --text-muted:  #7a6e5f;
+    --accent:      #8b1a1a;
+    --gold:        #c9a84c;
+    --gold-soft:   #e8d49a;
+    --shadow:      0 2px 16px rgba(0,0,0,0.07);
+    --shadow-deep: 0 8px 32px rgba(0,0,0,0.12);
+    --radius:      10px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:          #100e0b;
+      --surface:     #1a1612;
+      --surface-2:   #221e18;
+      --border:      #38322a;
+      --text:        #ede8df;
+      --text-muted:  #9a8e7e;
+      --accent:      #c94040;
+      --gold:        #d4aa5a;
+      --gold-soft:   #4a3e20;
+      --shadow:      0 2px 16px rgba(0,0,0,0.35);
+      --shadow-deep: 0 8px 32px rgba(0,0,0,0.5);
+    }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { font-size: 18px; scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'EB Garamond', 'Libre Baskerville', Georgia, serif;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HEADER ── */
+  .page-header {
+    text-align: center;
+    padding: 72px 24px 56px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(201,168,76,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .header-eyebrow {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  .header-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(2.4rem, 6vw, 3.8rem);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.15;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+
+  .header-title em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .header-subtitle {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-bottom: 32px;
+    letter-spacing: 0.02em;
+  }
+
+  .header-references {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .ref-badge {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 4px 12px;
+  }
+
+  /* ── MAIN LAYOUT ── */
+  .page-body {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 64px 24px 80px;
+  }
+
+  /* ── PROSE ── */
+  .essay-section {
+    margin-bottom: 56px;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--accent);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-title .numeral {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 0.9rem;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  p {
+    margin-bottom: 1.3em;
+    font-size: 1rem;
+    color: var(--text);
+  }
+
+  /* ── LAS CUATRO COPAS — TABLE ── */
+  .cups-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin: 36px 0;
+  }
+
+  .cup-card {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    align-items: start;
+    gap: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cup-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--cup-color, var(--gold));
+    border-radius: 2px 0 0 2px;
+  }
+
+  .cup-card:hover { box-shadow: var(--shadow-deep); }
+
+  .cup-card.cup-4 {
+    --cup-color: var(--accent);
+    background: var(--surface-2);
+    border-color: color-mix(in srgb, var(--accent) 20%, var(--border));
+  }
+
+  .cup-number {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--cup-color, var(--gold));
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .cup-content {}
+
+  .cup-name {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+
+  .cup-promise {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 0.92rem;
+    font-style: italic;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+
+  .cup-note {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .cup-card.cup-4 .cup-name {
+    color: var(--accent);
+  }
+
+  /* ── VERSE BLOCK ── */
+  .verse-block {
+    background: var(--surface);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 22px 28px;
+    margin: 32px 0;
+    box-shadow: var(--shadow);
+  }
+
+  .verse-text {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    line-height: 1.75;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+
+  .verse-ref {
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 600;
+  }
+
+  /* ── HYSSOP CALLOUT ── */
+  .callout {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin: 36px 0;
+    position: relative;
+  }
+
+  .callout-label {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+
+  .callout p {
+    font-size: 0.97rem;
+    color: var(--text);
+    margin-bottom: 0;
+  }
+
+  /* ── THE CLIMAX CARD ── */
+  .climax-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 40px 36px;
+    margin: 48px 0;
+    text-align: center;
+    box-shadow: var(--shadow-deep);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .climax-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 50% at 50% 100%, rgba(201,168,76,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .climax-greek {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 2.8rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--accent);
+    line-height: 1.1;
+    margin-bottom: 12px;
+    letter-spacing: 0.02em;
+  }
+
+  .climax-transliteration {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1rem;
+    color: var(--text-muted);
+    letter-spacing: 0.15em;
+    margin-bottom: 20px;
+  }
+
+  .climax-body {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 1.05rem;
+    color: var(--text);
+    line-height: 1.8;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* ── DIVIDER ── */
+  .ornament {
+    text-align: center;
+    color: var(--gold);
+    font-size: 1.1rem;
+    letter-spacing: 0.5em;
+    margin: 48px 0;
+    opacity: 0.6;
+  }
+
+  /* ── FOOTER ── */
+  .essay-footer {
+    border-top: 1px solid var(--border);
+    padding-top: 40px;
+    margin-top: 64px;
+  }
+
+  .footer-note {
+    font-size: 0.83rem;
+    color: var(--text-muted);
+    font-style: italic;
+    line-height: 1.7;
+    margin-bottom: 28px;
+  }
+
+  .series-footer {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .series-link {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 0.88rem;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 5px 14px;
+    transition: all 0.2s;
+  }
+
+  .series-link:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .series-link.current {
+    color: var(--accent);
+    border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+  }
+
+  .arrow { opacity: 0.6; margin-left: 4px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    html { font-size: 16px; }
+    .page-header { padding: 48px 20px 40px; }
+    .page-body { padding: 48px 20px 64px; }
+    .climax-greek { font-size: 2.2rem; }
+    .cup-card { grid-template-columns: 40px 1fr; padding: 16px 18px; }
+    .cup-number { width: 40px; height: 40px; font-size: 1.1rem; }
+    .callout, .climax-card { padding: 24px 20px; }
+    .verse-block { padding: 18px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header class="page-header">
+  <div class="header-eyebrow">Ensayo · Pascua &amp; Cumplimiento</div>
+  <h1 class="header-title">La <em>Cuarta Copa</em></h1>
+  <p class="header-subtitle">La Pascua consumada en la cruz</p>
+  <div class="header-references">
+    <span class="ref-badge">Mateo 26</span>
+    <span class="ref-badge">Juan 19</span>
+    <span class="ref-badge">Éxodo 12</span>
+    <span class="ref-badge">RVR1960</span>
+  </div>
+</header>
+
+<!-- ── BODY ── -->
+<main class="page-body">
+
+  <!-- I. CONTEXTO -->
+  <section class="essay-section">
+    <h2 class="section-title">
+      <span class="numeral">I</span>
+      La Última Cena no era solo una cena
+    </h2>
+
+    <p>
+      La noche en que Jesús fue entregado, él y sus discípulos no estaban sentados simplemente a cenar. Estaban ejecutando un ritual de más de mil años: la cena de Pascua, el <em>Séder</em> hebreo. No era una comida informal. Era una liturgia viva, estructurada punto por punto, donde cada gesto, cada copa y cada palabra tenía un nombre y un propósito teológico preciso.
+    </p>
+
+    <p>
+      Jesús y sus discípulos lo sabían. Lo habían practicado desde la infancia. Por eso cualquier desviación del protocolo no pasaba desapercibida. Y en esa noche, Jesús hizo algo que ningún judío hacía: dejó la cena sin terminar. Se levantó y salió dejando la cuarta copa sobre la mesa.
+    </p>
+  </section>
+
+  <div class="ornament">· · ·</div>
+
+  <!-- II. LAS CUATRO COPAS -->
+  <section class="essay-section">
+    <h2 class="section-title">
+      <span class="numeral">II</span>
+      Las cuatro copas de la Pascua
+    </h2>
+
+    <p>
+      La cena pascual ordenaba cuatro copas de vino, cada una tomada en un momento determinado y asociada a una de las cuatro promesas de liberación que Dios pronunció en Éxodo 6:6–7. Sin la cuarta copa, la Pascua quedaba abierta, inconclusa, suspendida.
+    </p>
+
+    <div class="cups-grid">
+      <div class="cup-card" style="--cup-color: #7a9a4a;">
+        <div class="cup-number">I</div>
+        <div class="cup-content">
+          <div class="cup-name">Copa de Santificación</div>
+          <div class="cup-promise">«Os sacaré de debajo de las tareas de Egipto»</div>
+          <div class="cup-note">Inaugura la cena. Marca la separación del pueblo para Dios.</div>
+        </div>
+      </div>
+
+      <div class="cup-card" style="--cup-color: #4a7a9a;">
+        <div class="cup-number">II</div>
+        <div class="cup-content">
+          <div class="cup-name">Copa de Liberación</div>
+          <div class="cup-promise">«Os libraré de su servidumbre»</div>
+          <div class="cup-note">Acompaña el relato del éxodo. El pueblo recuerda lo que Dios hizo.</div>
+        </div>
+      </div>
+
+      <div class="cup-card" style="--cup-color: #9a7a4a;">
+        <div class="cup-number">III</div>
+        <div class="cup-content">
+          <div class="cup-name">Copa de Redención</div>
+          <div class="cup-promise">«Os redimiré con brazo extendido»</div>
+          <div class="cup-note">Es la copa que Jesús tomó y la identificó con su sangre del nuevo pacto (Mt. 26:27–28).</div>
+        </div>
+      </div>
+
+      <div class="cup-card cup-4">
+        <div class="cup-number">IV</div>
+        <div class="cup-content">
+          <div class="cup-name">Copa de Restauración</div>
+          <div class="cup-promise">«Os tomaré por mi pueblo y seré vuestro Dios»</div>
+          <div class="cup-note">La copa que cierra y completa la Pascua. Sin ella, la cena queda abierta. Jesús deliberadamente no la bebió aquella noche.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="verse-block">
+      <p class="verse-text">
+        «Y os tomaré por mi pueblo y seré vuestro Dios; y vosotros sabréis que yo soy Jehová vuestro Dios, que os sacó de debajo de las tareas pesadas de Egipto.»
+      </p>
+      <span class="verse-ref">Éxodo 6:7 · RVR1960</span>
+    </div>
+  </section>
+
+  <div class="ornament">· · ·</div>
+
+  <!-- III. EL JARDÍN -->
+  <section class="essay-section">
+    <h2 class="section-title">
+      <span class="numeral">III</span>
+      La copa en Getsemaní
+    </h2>
+
+    <p>
+      Al terminar la tercera copa, Mateo 26:30 dice que salieron al Monte de los Olivos. La cuarta copa quedó sobre la mesa. Jesús llegó a Getsemaní y comenzó a orar. Lo que pidió no fue un escape abstracto del sufrimiento: fue una copa.
+    </p>
+
+    <div class="verse-block">
+      <p class="verse-text">
+        «Padre mío, si es posible, pase de mí esta copa; pero no sea como yo quiero, sino como tú.»
+      </p>
+      <span class="verse-ref">Mateo 26:39 · RVR1960</span>
+    </div>
+
+    <p>
+      La dimensión simbólica está clara: esa copa representa el juicio de Dios sobre el pecado, la ira que él cargaría en lugar nuestro. Pero hay también una dimensión litúrgica que no debe pasarse por alto. Jesús sabía con exactitud qué copa había dejado pendiente. Getsemaní no fue solo un jardín de angustia; fue también el lugar donde Jesús reconoció que debía completar la Pascua. La pregunta era si estaba dispuesto a hacerlo de la manera que el Padre había ordenado.
+    </p>
+  </section>
+
+  <div class="ornament">· · ·</div>
+
+  <!-- IV. LA CRUZ -->
+  <section class="essay-section">
+    <h2 class="section-title">
+      <span class="numeral">IV</span>
+      «Tengo sed» — Juan 19
+    </h2>
+
+    <p>
+      Crucificado, después de horas en la cruz, Jesús pronuncia estas dos palabras: «Tengo sed» (Juan 19:28). El evangelista nos dice que lo hizo «para que la Escritura se cumpliese». No es el grito de alguien que ha perdido el control de la situación. Es un acto deliberado y consciente.
+    </p>
+
+    <p>
+      Un soldado empapa una esponja en vino agrio, la coloca en una rama de hisopo y se la levanta. Jesús la recibe. Y aquí Juan es excepcionalmente preciso con el detalle botánico, y no es casualidad.
+    </p>
+
+    <div class="callout">
+      <div class="callout-label">El hisopo — conexión con la primera Pascua</div>
+      <p>
+        En la primera Pascua de Egipto, Moisés ordenó a los israelitas tomar un manojo de hisopo, mojarlo en la sangre del cordero y untarla sobre los postes de la puerta (Éxodo 12:22). El hisopo era el instrumento que aplicaba la sangre del cordero pascual. Mil cuatrocientos años después, esa misma planta es la que lleva la última copa —el vino agrio— hasta los labios del Cordero definitivo. Juan no escribe esto como un dato etnobotánico: lo escribe como teología.
+      </p>
+    </div>
+
+    <div class="verse-block">
+      <p class="verse-text">
+        «Y estaba allí una vasija llena de vinagre; entonces ellos empaparon en vinagre una esponja, y poniéndola en un hisopo, se la acercaron a la boca.»
+      </p>
+      <span class="verse-ref">Juan 19:29 · RVR1960</span>
+    </div>
+
+    <p>
+      Jesús recibe la copa. La bebe. Y entonces dice tres palabras que en griego son apenas una: <em>Τετέλεσται</em>.
+    </p>
+  </section>
+
+  <div class="ornament">· · ·</div>
+
+  <!-- V. CONSUMADO ES -->
+  <section class="essay-section">
+    <h2 class="section-title">
+      <span class="numeral">V</span>
+      «Consumado es» — Lo que realmente dijo
+    </h2>
+
+    <div class="climax-card">
+      <div class="climax-greek">Τετέλεσται</div>
+      <div class="climax-transliteration">Tetelestai</div>
+      <p class="climax-body">
+        No es simplemente «se acabó». Es la voz pasiva perfecta del verbo <em>τελέω</em>: «ha sido llevado a su perfección completa y permanece así». Es el término que los comerciantes estampaban sobre una deuda saldada por completo. Es la declaración de que nada queda pendiente, que la obra está no solo terminada sino cumplida en su plenitud.
+      </p>
+    </div>
+
+    <p>
+      Para un judío del primer siglo que conocía la liturgia pascual, las palabras «consumado es» después de beber la cuarta copa tenían un peso adicional que no podemos ignorar: la Pascua ha sido completada. Lo que el pueblo de Israel había estado celebrando durante catorce siglos —la liberación, la redención, la promesa «os tomaré por mi pueblo»— acababa de ser ejecutado en su versión definitiva.
+    </p>
+
+    <p>
+      Jesús no murió simplemente después de pronunciar esas palabras. Jesús, dice el texto, «inclinó la cabeza y entregó el espíritu» (Juan 19:30). La entrega fue voluntaria. Bebió la copa. Declaró la obra completa. Y entonces se fue.
+    </p>
+  </section>
+
+  <div class="ornament">· · ·</div>
+
+  <!-- VI. EL CORDERO -->
+  <section class="essay-section">
+    <h2 class="section-title">
+      <span class="numeral">VI</span>
+      Él es el Cordero Pascual
+    </h2>
+
+    <p>
+      La coherencia de este cuadro no es accidental ni forzada. Es la columna vertebral de toda la teología del Nuevo Testamento. Pablo lo declara sin rodeos: «porque nuestra pascua, que es Cristo, ya fue sacrificada por nosotros» (1 Corintios 5:7). Juan el Bautista lo había señalado desde el comienzo: «He aquí el Cordero de Dios, que quita el pecado del mundo» (Juan 1:29).
+    </p>
+
+    <p>
+      El cordero pascual en Egipto tenía que ser sin defecto. Tenía que ser sacrificado a la hora señalada. Su sangre debía ser aplicada con hisopo. Ninguno de sus huesos podía ser quebrado (Éxodo 12:46). Juan registra que los soldados no quebraron los huesos de Jesús porque ya había muerto (Juan 19:33), y añade: «Estas cosas sucedieron para que se cumpliese la Escritura» (v. 36).
+    </p>
+
+    <p>
+      Cada detalle converge. La Pascua que comenzó en Egipto con sangre de cordero, hisopo y una promesa —«os tomaré por mi pueblo»— encontró su cumplimiento en Jerusalén, en una cruz, con un hombre que se negó a beber la cuarta copa hasta que llegó el momento en que el hisopo se la trajo, y que entonces la bebió, y dijo que estaba hecho, y lo estaba.
+    </p>
+
+    <div class="verse-block">
+      <p class="verse-text">
+        «Cuando Jesús hubo tomado el vinagre, dijo: Consumado es. Y habiendo inclinado la cabeza, entregó el espíritu.»
+      </p>
+      <span class="verse-ref">Juan 19:30 · RVR1960</span>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="essay-footer">
+    <p class="footer-note">
+      Todos los textos bíblicos corresponden a la versión Reina-Valera 1960 (RVR1960). El análisis de las cuatro copas del Séder pascual y su relación con la narrativa de la pasión se apoya en Mateo 26, Juan 19, y el trasfondo litúrgico de Éxodo 6:6–7 y Éxodo 12. La palabra griega <em>Tetelestai</em> (Juan 19:30) pertenece al vocabulario comercial del primer siglo para una deuda completamente saldada.
+    </p>
+    <div class="series-footer">
+      <span class="series-link current"><span class="arrow">◆</span> La Cuarta Copa</span>
+      <a href="ensayo-1-yeshua.html" class="series-link">Ensayo I · Yeshua <span class="arrow">→</span></a>
+      <a href="manual-comunion-oracion-rvr1960.html" class="series-link">Manual · Comunión y Oración <span class="arrow">→</span></a>
+    </div>
+  </footer>
+
+</main>
+
+</body>
+</html>
