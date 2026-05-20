@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yir'ah — El Asombro ante el Santo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --gold:      #b8973a;
+      --gold-lt:   #d4b86a;
+      --ink:       #1a1710;
+      --ink-soft:  #3b3829;
+      --parchment: #faf7f0;
+      --cream:     #f3ede0;
+      --rule:      #d6cbb0;
+      --accent:    #5c3d1e;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--parchment);
+      color: var(--ink);
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 19px;
+      line-height: 1.85;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      text-align: center;
+      padding: 3.5rem 1.5rem 1.5rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .site-header .series-label {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      text-align: center;
+      padding: 4rem 1.5rem 3rem;
+      border-bottom: 1px solid var(--rule);
+      background: linear-gradient(180deg, var(--cream) 0%, var(--parchment) 100%);
+    }
+    .hero .hebrew-word {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(4.5rem, 14vw, 8rem);
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      line-height: 1;
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+    .hero .transliteration {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1.5rem, 5vw, 2.2rem);
+      color: var(--gold);
+      display: block;
+      margin-bottom: 1.2rem;
+    }
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(1.8rem, 6vw, 2.8rem);
+      color: var(--ink-soft);
+      line-height: 1.2;
+      margin-bottom: 1.8rem;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--ink);
+      font-weight: 400;
+    }
+    .hero .hook {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1.1rem, 3.5vw, 1.35rem);
+      color: var(--ink-soft);
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ── MAIN CONTAINER ── */
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ── SECTIONS ── */
+    .lesson-section {
+      padding: 3.5rem 0 2.5rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .lesson-section:last-of-type { border-bottom: none; }
+
+    .section-number {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: clamp(1.6rem, 5vw, 2.1rem);
+      color: var(--ink);
+      line-height: 1.25;
+      margin-bottom: 1.8rem;
+    }
+
+    /* ── BODY TEXT ── */
+    p {
+      margin-bottom: 1.3rem;
+      font-size: 1rem;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    /* ── WORD CARD ── */
+    .word-card {
+      background: var(--cream);
+      border: 1px solid var(--rule);
+      border-left: 4px solid var(--gold);
+      border-radius: 2px;
+      padding: 2rem 1.8rem;
+      margin: 2.5rem 0;
+      text-align: center;
+    }
+    .word-card .heb {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 9vw, 4rem);
+      font-weight: 300;
+      color: var(--ink);
+      display: block;
+      line-height: 1.2;
+      margin-bottom: 0.3rem;
+    }
+    .word-card .translit {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.25rem;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 1rem;
+    }
+    .word-card table {
+      width: 100%;
+      max-width: 380px;
+      margin: 0 auto;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      text-align: left;
+    }
+    .word-card table td {
+      padding: 0.3rem 0.6rem;
+      vertical-align: top;
+    }
+    .word-card table td:first-child {
+      color: #8a7a5a;
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      padding-right: 1rem;
+    }
+    .word-card table tr + tr td {
+      border-top: 1px solid var(--rule);
+    }
+
+    /* ── ROOT BOX ── */
+    .root-box {
+      background: var(--ink);
+      color: var(--parchment);
+      border-radius: 2px;
+      padding: 2rem 1.8rem;
+      margin: 2.5rem 0;
+    }
+    .root-box .root-heb {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 7vw, 3rem);
+      font-weight: 300;
+      display: block;
+      color: var(--gold-lt);
+      margin-bottom: 0.3rem;
+      text-align: center;
+    }
+    .root-box .root-label {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      text-align: center;
+      margin-bottom: 1.2rem;
+    }
+    .root-box p {
+      font-size: 0.92rem;
+      color: #d6cbb0;
+      line-height: 1.75;
+      margin-bottom: 0.8rem;
+    }
+    .root-box p:last-child { margin-bottom: 0; }
+    .root-box strong { color: var(--parchment); }
+
+    /* ── CALLOUT / KEY BOX ── */
+    .callout {
+      border: 1px solid var(--gold);
+      border-radius: 2px;
+      padding: 1.5rem 1.8rem;
+      margin: 2.5rem 0;
+      position: relative;
+    }
+    .callout::before {
+      content: '✦';
+      position: absolute;
+      top: -0.75rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--parchment);
+      padding: 0 0.5rem;
+      color: var(--gold);
+      font-size: 0.85rem;
+    }
+    .callout-title {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 0.7rem;
+    }
+    .callout p {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--ink-soft);
+      margin-bottom: 0;
+      line-height: 1.7;
+    }
+
+    /* ── SCRIPTURE ── */
+    .scripture-block {
+      margin: 2rem 0;
+      padding: 1.5rem 1.8rem;
+      border-left: 3px solid var(--gold);
+      background: var(--cream);
+    }
+    .scripture-block blockquote {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 3.5vw, 1.2rem);
+      color: var(--ink);
+      line-height: 1.65;
+      margin-bottom: 0.6rem;
+    }
+    .scripture-block cite {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      font-style: normal;
+    }
+
+    /* ── SUBSECTION HEADING ── */
+    h3.sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: var(--ink);
+      margin: 2.2rem 0 0.8rem;
+      letter-spacing: 0.01em;
+    }
+    h3.sub::before {
+      content: '— ';
+      color: var(--gold);
+    }
+
+    /* ── COMPARISON TABLE ── */
+    .comparison {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      font-size: 0.9rem;
+    }
+    .comparison th {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding: 0.6rem 0.8rem;
+      border-bottom: 2px solid var(--gold);
+      text-align: left;
+    }
+    .comparison td {
+      padding: 0.75rem 0.8rem;
+      border-bottom: 1px solid var(--rule);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    .comparison td:first-child {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--ink);
+    }
+    .comparison tr:last-child td { border-bottom: none; }
+    .comparison tr:nth-child(even) td { background: var(--cream); }
+
+    /* ── DIVIDER ── */
+    .divider {
+      text-align: center;
+      color: var(--gold);
+      font-size: 0.75rem;
+      letter-spacing: 0.4em;
+      padding: 2rem 0;
+      user-select: none;
+    }
+
+    /* ── NUMBERED LIST ── */
+    ol.lesson-list {
+      list-style: none;
+      counter-reset: lesson-counter;
+      margin: 1.5rem 0;
+      padding: 0;
+    }
+    ol.lesson-list li {
+      counter-increment: lesson-counter;
+      position: relative;
+      padding-left: 2.5rem;
+      margin-bottom: 1.2rem;
+      font-size: 1rem;
+    }
+    ol.lesson-list li::before {
+      content: counter(lesson-counter);
+      position: absolute;
+      left: 0;
+      top: 0.1rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--gold);
+      width: 1.8rem;
+      text-align: right;
+    }
+
+    /* ── PRAYER SECTION ── */
+    .prayer {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 3.5rem 2rem;
+      text-align: center;
+      margin-top: 1rem;
+    }
+    .prayer .prayer-label {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 1.5rem;
+    }
+    .prayer .prayer-star {
+      color: var(--gold);
+      font-size: 0.9rem;
+      letter-spacing: 0.4em;
+      display: block;
+      margin-bottom: 1.5rem;
+    }
+    .prayer p {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1.05rem, 3.5vw, 1.25rem);
+      line-height: 2;
+      color: #d6cbb0;
+      max-width: 480px;
+      margin: 0 auto 0;
+    }
+    .prayer p strong {
+      color: var(--parchment);
+      font-style: normal;
+      font-weight: 400;
+    }
+
+    /* ── CLOSING QUOTE ── */
+    .closing-quote {
+      text-align: center;
+      padding: 3.5rem 1.5rem;
+      border-top: 1px solid var(--rule);
+    }
+    .closing-quote q {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1.2rem, 4.5vw, 1.6rem);
+      color: var(--ink);
+      line-height: 1.5;
+      display: block;
+      quotes: '\201C' '\201D';
+    }
+    .closing-quote q::before { content: open-quote; color: var(--gold); }
+    .closing-quote q::after  { content: close-quote; color: var(--gold); }
+    .closing-quote .attribution {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 1rem;
+      display: block;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2rem 1.5rem 3rem;
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #a89878;
+      border-top: 1px solid var(--rule);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 480px) {
+      body { font-size: 17px; }
+      .word-card, .root-box, .callout, .scripture-block { padding: 1.3rem 1.2rem; }
+      .hero { padding: 3rem 1.2rem 2.5rem; }
+      .lesson-section { padding: 2.5rem 0 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <p class="series-label">Lección Bíblica &nbsp;·&nbsp; Serie: Las Palabras que el Idioma Original Guarda</p>
+  </header>
+
+  <!-- HERO -->
+  <div class="hero">
+    <span class="hebrew-word">יִרְאָה</span>
+    <span class="transliteration">Yir'āh</span>
+    <h1>El Asombro ante el <em>Santo</em></h1>
+    <p class="hook">Cuando el español dice "temor", algo se pierde en la traducción. El hebreo guardó algo mucho más grande.</p>
+  </div>
+
+  <!-- INTRO -->
+  <div class="container">
+
+    <section class="lesson-section">
+      <span class="section-number">Parte I</span>
+      <h2 class="section-title">El Problema con la Palabra "Temor"</h2>
+
+      <p>Cuando leemos <em>"Servid a Jehová con temor"</em> (Salmo 2:11), algo ocurre en el interior del lector moderno. La palabra <strong>temor</strong> evoca sirenas, oscuridad, peligro. Es la misma palabra que usamos cuando decimos que tememos a un depredador, a una enfermedad, a la muerte. El cuerpo reacciona antes de que la mente pueda razonar.</p>
+
+      <p>Y sin embargo, el salmista no está describiendo un huir despavorido. Está describiendo una <em>postura del alma</em> ante la presencia del Dios viviente — el mismo Dios que es llamado Pastor, Refugio, Torre fuerte, Padre.</p>
+
+      <p>¿Cómo puede ser eso "temor"?</p>
+
+      <p>La respuesta está en el hebreo. El traductor tuvo que elegir una sola palabra en español, y eligió "temor". Pero la palabra original <strong>יִרְאָה</strong> (yir'āh) contiene un universo semántico que ninguna sola palabra castellana puede capturar por completo.</p>
+
+      <div class="callout">
+        <span class="callout-title">Punto de partida</span>
+        <p>El "temor de Jehová" no es lo que sientes cuando huyes. Es lo que sientes cuando te detienes, sin palabras, ante algo tan grande, tan bueno y tan real que todo lo demás pierde peso.</p>
+      </div>
+    </section>
+
+    <div class="divider">· · ·</div>
+
+    <!-- PARTE II: LA PALABRA -->
+    <section class="lesson-section">
+      <span class="section-number">Parte II</span>
+      <h2 class="section-title">La Palabra Original: יִרְאָה</h2>
+
+      <div class="word-card">
+        <span class="heb">יִרְאָה</span>
+        <span class="translit">yir'āh</span>
+        <table>
+          <tr><td>Texto</td><td>temor, (Salmo 2:11)</td></tr>
+          <tr><td>Raíz verbal</td><td>יָרֵא (yārē') — temer, reverenciar, asombrarse</td></tr>
+          <tr><td>Morfología</td><td>Sustantivo, femenino, singular, absoluto</td></tr>
+          <tr><td>Strong's</td><td>H3374</td></tr>
+          <tr><td>Glosa literal</td><td>temor reverente, asombro sagrado</td></tr>
+        </table>
+      </div>
+
+      <p>La palabra יִרְאָה es un sustantivo derivado de la raíz verbal <strong>יָרֵא (yārē')</strong>. Esta raíz es una de las palabras más ricas y complejas del vocabulario hebreo. En distintos contextos puede significar:</p>
+
+      <ol class="lesson-list">
+        <li>
+          <strong>Terror ante el peligro</strong> — la reacción instintiva ante una amenaza real. Los marineros de Jonás experimentaron exactamente esto cuando la tormenta amenazó con hundirlos:
+          <div class="scripture-block" style="margin-top:0.8rem;">
+            <blockquote>"Y los marineros tuvieron miedo, y cada uno clamaba a su dios; y echaron al mar los enseres que había en el barco, para descargarlos de ellos. Pero Jonás había bajado al interior del barco, y se había echado a dormir."</blockquote>
+            <cite>— Jonás 1:5 (RVR 1960)</cite>
+          </div>
+          <p style="margin-top:0.6rem; font-size:0.95rem; color:var(--ink-soft);">Este es el yir'āh del que huye. No es el que la Biblia celebra, pero sí comparte la misma raíz — el reconocimiento de algo más grande que uno mismo.</p>
+        </li>
+        <li>
+          <strong>Reverencia y respeto profundo</strong> — el honor que se debe a quien tiene autoridad legítima sobre nuestra vida. La Torá lo establece dentro de la familia misma:
+          <div class="scripture-block" style="margin-top:0.8rem;">
+            <blockquote>"Cada uno temerá a su madre y a su padre, y mis días de reposo guardaréis. Yo Jehová vuestro Dios."</blockquote>
+            <cite>— Levítico 19:3 (RVR 1960)</cite>
+          </div>
+          <p style="margin-top:0.6rem; font-size:0.95rem; color:var(--ink-soft);">Aquí yir'āh no es terror — es la postura del que reconoce que no es el centro del universo, y vive en consecuencia. Dios lo coloca junto al guardar el sábado: ambos son actos de reconocimiento de quién tiene la última palabra.</p>
+        </li>
+        <li>
+          <strong>Asombro sagrado</strong> — la respuesta involuntaria de quien se encuentra cara a cara con lo divino. Jacob despierta de su sueño y no puede procesar lo que acaba de ver:
+          <div class="scripture-block" style="margin-top:0.8rem;">
+            <blockquote>"Y despertó Jacob de su sueño, y dijo: Ciertamente Jehová está en este lugar, y yo no lo sabía. Y tuvo miedo, y dijo: ¡Cuán terrible es este lugar! No es otra cosa que casa de Dios, y puerta del cielo."</blockquote>
+            <cite>— Génesis 28:16–17 (RVR 1960)</cite>
+          </div>
+          <p style="margin-top:0.6rem; font-size:0.95rem; color:var(--ink-soft);">Jacob no huye. El "miedo" lo hace <em>nombrar</em> el lugar como la casa de Dios. El mismo versículo que contiene el temor contiene la adoración. Eso es yir'āh en su forma más pura: el asombro que consagra.</p>
+        </li>
+        <li>
+          <strong>Confianza paradójica</strong> — el tipo de yir'āh que, lejos de alejar, acerca a Dios y libera del pecado. Moisés lo dice de la manera más sorprendente posible, usando la misma raíz dos veces seguidas:
+          <div class="scripture-block" style="margin-top:0.8rem;">
+            <blockquote>"No temáis; porque Dios ha venido para probaros, y para que su temor esté delante de vosotros, para que no pequéis."</blockquote>
+            <cite>— Éxodo 20:20 (RVR 1960)</cite>
+          </div>
+          <p style="margin-top:0.6rem; font-size:0.95rem; color:var(--ink-soft);"><em>"No temáis... para que su temor esté en vosotros."</em> Moisés distingue dos yir'āh en el mismo aliento: el terror que paraliza, y el asombro reverente que libera de la esclavitud del pecado. El segundo es el antídoto del primero.</p>
+        </li>
+      </ol>
+
+      <p>El contexto siempre determina cuál de estos matices está en juego. Y cuando <strong>יִרְאָה</strong> aparece junto al nombre de Dios — como en "el temor de Jehová" — los textos revelan consistentemente que no se trata del miedo del esclavo, sino del asombro del hijo.</p>
+    </section>
+
+    <div class="divider">· · ·</div>
+
+    <!-- PARTE III: LA RAÍZ -->
+    <section class="lesson-section">
+      <span class="section-number">Parte III</span>
+      <h2 class="section-title">La Raíz que lo Revela Todo</h2>
+
+      <div class="root-box">
+        <span class="root-heb">יָרֵא</span>
+        <span class="root-label">Raíz: Yārē' — el verbo que lo origina</span>
+        <p>En hebreo bíblico, las palabras no son átomos aislados. Nacen de raíces consonánticas de tres letras — las llamadas raíces trilíteras — que portan un campo semántico entero. Todas las palabras derivadas de esa raíz comparten un núcleo de significado.</p>
+        <p>La raíz <strong>יָרֵא</strong> (yod-resh-alef) abarca un espectro que va desde el terror más visceral hasta la adoración más elevada. Lo que estas dos experiencias tienen en común es revelador: <strong>ambas reconocen que algo es infinitamente más grande que tú.</strong></p>
+        <p>El miedo ante el peligro y el asombro ante la gloria son, en el hebreo, variaciones del mismo movimiento interior: el reconocimiento de la pequeñez propia ante algo que desborda toda capacidad humana de control.</p>
+      </div>
+
+      <p>Esta es precisamente la razón por la que la misma palabra puede describir tanto el pánico del fugitivo como la adoración del profeta. No es ambigüedad — es profundidad. El idioma hebreo reconoce que hay algo en la naturaleza de Dios que produce en el ser humano una respuesta que ninguna emoción humana ordinaria puede contener.</p>
+
+      <div class="callout">
+        <span class="callout-title">La distinción fundamental</span>
+        <p>Hay un <em>yir'āh</em> que aleja — el temor del que huye porque sabe que ha hecho mal. Y hay un <em>yir'āh</em> que acerca — el asombro del que se detiene porque ha vislumbrado algo demasiado hermoso para ignorar. La Biblia celebra el segundo.</p>
+      </div>
+    </section>
+
+    <div class="divider">· · ·</div>
+
+    <!-- PARTE IV: EN LAS ESCRITURAS -->
+    <section class="lesson-section">
+      <span class="section-number">Parte IV</span>
+      <h2 class="section-title">Yir'āh a lo Largo de las Escrituras</h2>
+
+      <h3 class="sub">Génesis 28 — Jacob despierta temblando de asombro</h3>
+
+      <p>Una de las primeras apariciones de la raíz יָרֵא en su sentido sagrado ocurre cuando Jacob despierta después de su encuentro nocturno con Dios:</p>
+
+      <div class="scripture-block">
+        <blockquote>"Y despertó Jacob de su sueño, y dijo: Ciertamente Jehová está en este lugar, y yo no lo sabía. Y tuvo miedo, y dijo: ¡Cuán terrible es este lugar! No es otra cosa que casa de Dios, y puerta del cielo."</blockquote>
+        <cite>— Génesis 28:16–17 (RVR 1960)</cite>
+      </div>
+
+      <p>Jacob no corre. No huye. Se detiene. El "miedo" que siente no lo aleja del lugar — lo hace nombrar ese suelo como <em>la casa de Dios</em>. El mismo versículo que contiene el "temor" es el versículo que contiene la adoración. Eso es <strong>yir'āh</strong> en su sentido más claro: el asombro que consagra.</p>
+
+      <h3 class="sub">Éxodo 20 — El texto más paradójico del Antiguo Testamento</h3>
+
+      <p>Después de que Dios habla desde el Sinaí entre truenos y relámpagos, el pueblo tiembla y se aparta. Moisés les responde con una frase que parece contradecirse a sí misma:</p>
+
+      <div class="scripture-block">
+        <blockquote>"No temáis; porque Dios ha venido para probaros, y para que su temor esté delante de vosotros, para que no pequéis."</blockquote>
+        <cite>— Éxodo 20:20 (RVR 1960)</cite>
+      </div>
+
+      <p>Moisés usa la misma raíz dos veces en el mismo versículo: <em>"No temáis... para que su temor esté delante de vosotros."</em> ¿Cómo puede ser esto? Porque está distinguiendo entre dos tipos de yir'āh: el terror que paraliza y el asombro reverente que libera de la esclavitud del pecado. <strong>El segundo es el antídoto del primero.</strong></p>
+
+      <h3 class="sub">Proverbios 9 — El comienzo de toda sabiduría</h3>
+
+      <div class="scripture-block">
+        <blockquote>"El temor de Jehová es el principio de la sabiduría, y el conocimiento del Santísimo es la inteligencia."</blockquote>
+        <cite>— Proverbios 9:10 (RVR 1960)</cite>
+      </div>
+
+      <p>Si yir'āh fuera simplemente terror, este versículo diría que la sabiduría comienza con el miedo. Pero en contexto, lo que Proverbios describe repetidamente es un estilo de vida: el de quien vive reconociendo la realidad de Dios en cada decisión. No es un momento de pánico — es una <em>orientación permanente del alma</em>.</p>
+
+      <h3 class="sub">Salmo 2:11 — El texto que dio origen a esta lección</h3>
+
+      <div class="scripture-block">
+        <blockquote>"Servid a Jehová con temor, y alegraos con temblor."</blockquote>
+        <cite>— Salmo 2:11 (RVR 1960)</cite>
+      </div>
+
+      <p>Aquí está la tensión más hermosa del texto: <em>servid con temor</em> y al mismo tiempo <em>alegraos</em>. En español, temor y alegría parecen opuestos. En hebreo, son compañeros naturales. El que ha vislumbrado la grandeza de Dios no solo tiembla — también se regocija, porque ese Dios inmenso no es un enemigo, sino el Rey que ofrece refugio a todos los que vienen a Él.</p>
+    </section>
+
+    <div class="divider">· · ·</div>
+
+    <!-- PARTE V: LOS DOS TEMORES -->
+    <section class="lesson-section">
+      <span class="section-number">Parte V</span>
+      <h2 class="section-title">Los Dos Temores: Una Tabla para Distinguirlos</h2>
+
+      <p>La confusión entre estos dos tipos de yir'āh ha impedido a muchos creyentes experimentar la plenitud de su relación con Dios. Uno los aleja; el otro los acerca. Uno esclaviza; el otro libera.</p>
+
+      <table class="comparison">
+        <thead>
+          <tr>
+            <th>Terror servil</th>
+            <th>Asombro reverente (Yir'āh)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Nace de la culpa y la distancia</td>
+            <td>Nace del encuentro y el conocimiento</td>
+          </tr>
+          <tr>
+            <td>Produce huida</td>
+            <td>Produce acercamiento</td>
+          </tr>
+          <tr>
+            <td>Ve a Dios como amenaza</td>
+            <td>Ve a Dios como maravilla</td>
+          </tr>
+          <tr>
+            <td>Obedece por miedo al castigo</td>
+            <td>Obedece por amor a quien es Santo</td>
+          </tr>
+          <tr>
+            <td>Convive con el pecado (Adán se esconde)</td>
+            <td>Aleja del pecado (Éxodo 20:20)</td>
+          </tr>
+          <tr>
+            <td>Paraliza la oración</td>
+            <td>Alimenta la adoración</td>
+          </tr>
+          <tr>
+            <td>Es incompatible con la alegría</td>
+            <td>Coexiste con el gozo (Salmo 2:11)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout">
+        <span class="callout-title">La paradoja del asombro</span>
+        <p>El yir'āh que la Biblia celebra es el único temor que cura todos los demás. Quien se llena del asombro de Dios deja de tener miedo de todo lo demás, porque ha encontrado la única realidad que es más grande que cualquier amenaza.</p>
+      </div>
+    </section>
+
+    <div class="divider">· · ·</div>
+
+    <!-- PARTE VI: CONOCER AL REY -->
+    <section class="lesson-section">
+      <span class="section-number">Parte VI</span>
+      <h2 class="section-title">Conocer al Rey de Reyes Produce Asombro, No Espanto</h2>
+
+      <p>El Salmo 2 no comienza con un Dios distante y amenazante. Comienza con una escena política: los reyes de la tierra se rebelan contra el Señor y su Ungido. Y Dios responde — no con terror indiscriminado, sino con una oferta:</p>
+
+      <div class="scripture-block">
+        <blockquote>"Honrad al Hijo, para que no se enoje, y perezcáis en el camino; pues se inflama de pronto su ira. Bienaventurados todos los que en él confían."</blockquote>
+        <cite>— Salmo 2:12 (RVR 1960)</cite>
+      </div>
+
+      <p>El mismo salmo que contiene "servid a Jehová con temor" cierra con la palabra <strong>bienaventurados</strong> — dichosos, felices, llenos de vida — dirigida a quienes confían en Él. El Rey de Reyes no es presentado como una fuerza de destrucción arbitraria. Es presentado como aquel en quien refugiarse produce bienaventuranza.</p>
+
+      <p>Nuestro Señor es simultáneamente:</p>
+
+      <ol class="lesson-list">
+        <li><strong>Rey de Reyes</strong> — cuya autoridad no tiene límite ni fin. Eso produce asombro.</li>
+        <li><strong>El Ungido</strong> (Mesías, Cristo) — enviado con propósito redentor. Eso produce esperanza.</li>
+        <li><strong>Salvador</strong> — que tomó sobre sí lo que nosotros merecíamos. Eso produce gratitud.</li>
+        <li><strong>Sumo Sacerdote</strong> — que intercede continuamente por los suyos. Eso produce descanso.</li>
+        <li><strong>Pastor</strong> — que conoce a sus ovejas por nombre. Eso produce confianza.</li>
+      </ol>
+
+      <p>Ninguno de estos títulos es causa de terror en el sentido de huir despavorido. Todos son causa de <em>yir'āh</em>: el asombro profundo de quien reconoce que está frente al único ser en el universo que es, al mismo tiempo, infinitamente poderoso e infinitamente bueno.</p>
+
+      <div class="callout">
+        <span class="callout-title">Lo que el hebreo nos devuelve</span>
+        <p>Conocer a Dios más profundamente no disminuye el yir'āh — lo aumenta. Pero lo transforma. Lo que comienza como el temblor del extraño ante la santidad se convierte, con el tiempo, en el asombro permanente del hijo que nunca deja de maravillarse de su Padre.</p>
+      </div>
+    </section>
+
+    <div class="divider">· · ·</div>
+
+    <!-- PARTE VII: PRÁCTICA -->
+    <section class="lesson-section">
+      <span class="section-number">Parte VII</span>
+      <h2 class="section-title">Cómo Cultivar Yir'āh en la Vida Cotidiana</h2>
+
+      <p>El yir'āh auténtico no se fabrica ni se fuerza. Pero hay prácticas que abren el alma a ese asombro que el hebreo describe:</p>
+
+      <h3 class="sub">Contemplar quién es Dios antes de pedirle algo</h3>
+      <p>La mayoría de nuestras oraciones comienzan en nuestras necesidades. El yir'āh comienza en la naturaleza de Dios. Antes de presentar tu lista, dedica tiempo a mirar quién está escuchando. El asombro viene del conocimiento, no de la urgencia.</p>
+
+      <h3 class="sub">Leer la Escritura preguntando "¿quién es este?"</h3>
+      <p>En lugar de leer para extraer principios o aplicaciones, intenta leer para ver al Dios que habla. Cada página es un retrato parcial de alguien. El yir'āh crece cuando el retrato se va llenando de detalles.</p>
+
+      <h3 class="sub">Cultivar el silencio</h3>
+      <p>El asombro requiere pausa. En una cultura que llena cada segundo de ruido, el yir'āh encuentra poco espacio para crecer. El Salmo 46:10 lo dice con precisión: <em>"Estad quietos, y conoced que yo soy Dios."</em> El conocimiento que produce yir'āh requiere quietud.</p>
+
+      <h3 class="sub">Dejar que la creación te recuerde</h3>
+      <p>El firmamento, el mar, la semilla que se convierte en árbol — todo habla de la misma magnitud que las Escrituras describen. Los Salmos están llenos de personas que encontraron yir'āh mirando el cielo estrellado (Salmo 8) o las olas del océano (Salmo 93). La creación es un maestro constante.</p>
+    </section>
+
+    <div class="divider">· · ·</div>
+
+    <!-- PARTE VIII: PREGUNTAS -->
+    <section class="lesson-section">
+      <span class="section-number">Parte VIII</span>
+      <h2 class="section-title">Preguntas para Reflexión y Discusión</h2>
+
+      <p>Para meditación personal o grupo pequeño:</p>
+
+      <ol class="lesson-list">
+        <li>Cuando escuchas la frase "el temor de Dios", ¿qué imágenes o emociones aparecen primero? ¿De dónde crees que vienen esas asociaciones?</li>
+        <li>¿Puedes recordar un momento en tu vida donde sentiste algo parecido al yir'āh — ese asombro que te detuvo, que te hizo pequeño sin hacerte sentir destruido?</li>
+        <li>¿En qué se diferencia tu relación con Dios cuando la bases en el terror servil versus cuando la bases en el asombro reverente? ¿Cuál produce más fruto?</li>
+        <li>El texto dice que el yir'āh verdadero aleja del pecado (Éxodo 20:20) — no porque tengamos miedo del castigo, sino porque hemos visto quién es Dios. ¿Cómo cambia eso tu motivación para la obediencia?</li>
+        <li>¿Qué título de Dios — Rey de Reyes, Sumo Sacerdote, Pastor, Salvador — te produce hoy más asombro? ¿Por qué ese en particular?</li>
+      </ol>
+    </section>
+
+  </div><!-- /container -->
+
+  <!-- ORACIÓN -->
+  <div class="prayer">
+    <span class="prayer-label">Cierre</span>
+    <span class="prayer-star">✦ Oremos juntos ✦</span>
+    <p>
+      Señor,<br>
+      hemos vivido demasiado tiempo<br>
+      con una imagen pequeña de Ti.<br><br>
+
+      Hemos confundido el asombro con el espanto,<br>
+      y hemos huido de tu presencia<br>
+      cuando debíamos correr hacia ella.<br><br>
+
+      <strong>Danos yir'āh.</strong><br><br>
+
+      No el temblor del esclavo que no conoce a su amo,<br>
+      sino el asombro del hijo que mira al Padre<br>
+      y no puede encontrar palabras suficientes.<br><br>
+
+      Que conocerte más<br>
+      no nos haga más pequeños —<br>
+      sino más libres.<br><br>
+
+      Porque tú eres Rey de Reyes,<br>
+      y también eres nuestro hogar.
+    </p>
+  </div>
+
+  <!-- CLOSING QUOTE -->
+  <div class="closing-quote">
+    <q>El que más teme a Dios no es el que más tiembla — es el que más se maravilla.</q>
+    <span class="attribution">Basado en Salmo 2:11 · יִרְאָה · H3374</span>
+  </div>
+
+  <footer>
+    Serie: Las Palabras que el Idioma Original Guarda &nbsp;·&nbsp; Salmo 2:11 &nbsp;·&nbsp; Reina Valera Revisada 1960
+  </footer>
+
+</body>
+</html>
