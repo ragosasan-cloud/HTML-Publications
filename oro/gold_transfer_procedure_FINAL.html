@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gold Transfer Procedure – ORO Project</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #A07820;
+    --gold-dark: #7A5C10;
+    --gold-bg: #FDF8EE;
+    --ink: #1A1A1A;
+    --ink-soft: #3D3D3D;
+    --ink-muted: #666666;
+    --border: #D4B86A;
+    --accent-bg: #FBF3DC;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--gold-bg);
+    color: var(--ink);
+    font-family: 'Cormorant Garamond', serif;
+    min-height: 100vh;
+    padding: 60px 40px;
+  }
+
+  .container { max-width: 820px; margin: 0 auto; }
+
+  .lang-toggle {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+    border: 1px solid var(--border);
+    width: fit-content;
+    margin: 0 auto 50px;
+    overflow: hidden;
+  }
+
+  .lang-btn {
+    padding: 11px 40px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    background: transparent;
+    color: var(--ink-muted);
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.25s;
+  }
+
+  .lang-btn.active {
+    background: var(--gold);
+    color: #FFFFFF;
+  }
+
+  .lang-btn:hover:not(.active) {
+    background: var(--accent-bg);
+    color: var(--gold-dark);
+  }
+
+  .lang-section { display: none; }
+  .lang-section.active { display: block; }
+
+  .header {
+    text-align: center;
+    margin-bottom: 60px;
+    padding-bottom: 40px;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .project-tag {
+    font-size: 11px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 18px;
+    display: block;
+    font-weight: 600;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(30px, 5vw, 50px);
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+
+  h1 span { color: var(--gold-dark); }
+
+  .subtitle {
+    font-size: 16px;
+    color: var(--ink-muted);
+    letter-spacing: 0.5px;
+  }
+
+  .summary-block {
+    background: var(--accent-bg);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold);
+    padding: 28px 32px;
+    margin-bottom: 50px;
+  }
+
+  .summary-block h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 12px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 14px;
+    font-weight: 700;
+  }
+
+  .summary-block p {
+    font-size: 17px;
+    line-height: 1.8;
+    color: var(--ink-soft);
+  }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-weight: 700;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .steps { list-style: none; margin-bottom: 50px; }
+
+  .step {
+    display: flex;
+    gap: 24px;
+    padding: 22px 0;
+    border-bottom: 1px solid #E8D9A8;
+  }
+
+  .step:last-child { border-bottom: none; }
+
+  .step-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--border);
+    line-height: 1;
+    min-width: 44px;
+    padding-top: 2px;
+  }
+
+  .step-content { flex: 1; }
+
+  .step-content strong {
+    color: var(--ink);
+    font-weight: 700;
+    font-size: 17px;
+    display: block;
+    margin-bottom: 5px;
+    font-family: 'Playfair Display', serif;
+  }
+
+  .step-content p {
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--ink-soft);
+  }
+
+  .footer-note {
+    background: var(--accent-bg);
+    border: 1px solid var(--border);
+    padding: 22px 28px;
+    text-align: center;
+  }
+
+  .footer-note p {
+    font-size: 16px;
+    color: var(--ink-soft);
+    font-style: italic;
+    line-height: 1.7;
+  }
+
+  .footer-note strong {
+    color: var(--gold-dark);
+    font-style: normal;
+    font-weight: 700;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="switchLang('en', this)">English</button>
+    <button class="lang-btn" onclick="switchLang('es', this)">Español</button>
+  </div>
+
+  <!-- ENGLISH -->
+  <div class="lang-section active" id="lang-en">
+
+    <div class="header">
+      <span class="project-tag">ORO Project — Confidential</span>
+      <h1>Secure Gold Transfer<br><span>Procedure</span></h1>
+      <p class="subtitle">Ferrari Custody — No Title Change Until Payment Confirmed</p>
+    </div>
+
+    <div class="summary-block">
+      <h2>Executive Summary</h2>
+      <p>This procedure governs the secure physical transfer of gold dore between a seller in West Africa and a buyer whose funds originate in Hong Kong. Ferrari Group acts as neutral conditional custodian. Title never passes to the buyer until payment is fully confirmed in the seller's bank. All parties undergo KYC/AML compliance. A legally executed SPA, conditional Power of Attorney, and commission schedule are delivered to the African bank prior to execution. The MT103 triggers title transfer and commission distribution on the same day funds are received.</p>
+    </div>
+
+    <div class="section-label">Procedure — 9 Steps</div>
+
+    <ol class="steps">
+      <li class="step">
+        <span class="step-num">01</span>
+        <div class="step-content">
+          <strong>SPA Execution</strong>
+          <p>Both parties sign the Sales Purchase Agreement with legal opinion from a commodity trade lawyer in a recognized jurisdiction.</p>
+        </div>
+      </li>
+      <li class="step">
+        <span class="step-num">02</span>
+        <div class="step-content">
+          <strong>KYC / AML Package</strong>
+          <p>Buyer and seller complete full KYC/AML documentation — identification, source of funds, mine origin documentation, and export permits.</p>
+        </div>
+      </li>
+      <li class="step">
+        <span class="step-num">03</span>
+        <div class="step-content">
+          <strong>Documents Delivered to African Bank</strong>
+          <p>The African bank receives the SPA and the commission schedule prior to any movement of funds or gold. The bank is authorized to execute the commission schedule on the same day funds are received in favor of the seller.</p>
+        </div>
+      </li>
+      <li class="step">
+        <span class="step-num">04</span>
+        <div class="step-content">
+          <strong>Gold Delivered to Ferrari</strong>
+          <p>Seller delivers the gold to Ferrari at the agreed pickup location. Title remains in seller's name.</p>
+        </div>
+      </li>
+      <li class="step">
+        <span class="step-num">05</span>
+        <div class="step-content">
+          <strong>Conditional Power of Attorney</strong>
+          <p>Seller grants Ferrari a conditional Power of Attorney, authorizing title transfer solely upon written confirmation of payment received. POA is null and void if payment is not confirmed.</p>
+        </div>
+      </li>
+      <li class="step">
+        <span class="step-num">06</span>
+        <div class="step-content">
+          <strong>Custody Receipt & Assay</strong>
+          <p>Ferrari issues a custody receipt confirming weight, purity, and quantity against the seller's assay certificate.</p>
+        </div>
+      </li>
+      <li class="step">
+        <span class="step-num">07</span>
+        <div class="step-content">
+          <strong>MT103 — Funds Transferred</strong>
+          <p>Buyer's Hong Kong bank executes the MT103 — funds transferred directly to the seller's African bank via the agreed intermediary.</p>
+        </div>
+      </li>
+      <li class="step">
+        <span class="step-num">08</span>
+        <div class="step-content">
+          <strong>Payment Confirmed — Commission Executed</strong>
+          <p>Upon confirmation of funds received, the African bank executes the commission schedule on the same day. Title transfers to the buyer and export is authorized.</p>
+        </div>
+      </li>
+      <li class="step">
+        <span class="step-num">09</span>
+        <div class="step-content">
+          <strong>Delivery</strong>
+          <p>Ferrari exports and physically delivers the gold to the buyer at the agreed destination.</p>
+        </div>
+      </li>
+    </ol>
+
+    <div class="footer-note">
+      <p><strong>Core Principle:</strong> Title never changes hands without confirmed payment. The African bank holds both the contract and commission schedule and executes both the moment funds arrive. The money always comes first.</p>
+    </div>
+
+  </div>
+
+  <!-- ESPAÑOL -->
+  <div class="lang-section" id="lang-es">
+
+    <div class="header">
+      <span class="project-tag">Proyecto ORO — Confidencial</span>
+      <h1>Procedimiento de<br><span>Transferencia Segura de Oro</span></h1>
+      <p class="subtitle">Custodia Ferrari — Sin Cambio de Título Hasta Confirmar el Pago</p>
+    </div>
+
+    <div class="summary-block">
+      <h2>Resumen Ejecutivo</h2>
+      <p>Este procedimiento regula la transferencia física segura de oro dore entre un vendedor en África Occidental y un comprador cuyos fondos se originan en Hong Kong. Ferrari Group actúa como custodio neutral y condicional. El título nunca pasa al comprador hasta que el pago esté completamente confirmado en el banco del vendedor. Todas las partes completan el cumplimiento KYC/AML. El SPA, el Poder Notarial condicional y el calendario de comisiones se entregan al banco africano antes de la ejecución. El MT103 activa la transferencia del título y la distribución de comisiones el mismo día en que se reciben los fondos.</p>
+    </div>
+
+    <div class="section-label">Procedimiento — 9 Pasos</div>
+
+    <ol class="steps">
+      <li class="step">
+        <span class="step-num">01</span>
+        <div class="step-content">
+          <strong>Firma del SPA</strong>
+          <p>Ambas partes firman el Contrato de Compraventa con opinión legal de un abogado especializado en commodities en jurisdicción reconocida.</p>
+        </div>
+      </li>
+      <li class="step">
+        <span class="step-num">02</span>
+        <div class="step-content">
+          <strong>Paquete KYC / AML</strong>
+          <p>Vendedor y comprador completan la documentación KYC/AML completa — identificación, origen de fondos, documentación de la mina y permisos de exportación.</p>
+        </div>
+      </li>
+      <li class="step">
+        <span class="step-num">03</span>
+        <div class="step-content">
+          <strong>Documentos Entregados al Banco Africano</strong>
+          <p>El banco africano recibe el SPA y el calendario de comisiones antes de cualquier movimiento de fondos u oro. El banco queda autorizado a ejecutar el calendario de comisiones el mismo día en que se reciban los fondos a favor del vendedor.</p>
+        </div>
+      </li>
+      <li class="step">
+        <span class="step-num">04</span>
+        <div class="step-content">
+          <strong>Entrega del Oro a Ferrari</strong>
+          <p>El vendedor entrega el oro a Ferrari en el lugar de recogida acordado. El título permanece a nombre del vendedor.</p>
+        </div>
+      </li>
+      <li class="step">
+        <span class="step-num">05</span>
+        <div class="step-content">
+          <strong>Poder Notarial Condicional</strong>
+          <p>El vendedor otorga a Ferrari un Poder Notarial condicional, autorizando la transferencia del título únicamente tras confirmación escrita de pago recibido. El poder es nulo si el pago no se confirma.</p>
+        </div>
+      </li>
+      <li class="step">
+        <span class="step-num">06</span>
+        <div class="step-content">
+          <strong>Recibo de Custodia y Ensayo</strong>
+          <p>Ferrari emite un recibo de custodia confirmando peso, pureza y cantidad contra el certificado de ensayo del vendedor.</p>
+        </div>
+      </li>
+      <li class="step">
+        <span class="step-num">07</span>
+        <div class="step-content">
+          <strong>MT103 — Fondos Transferidos</strong>
+          <p>El banco del comprador en Hong Kong ejecuta el MT103 — fondos transferidos directamente al banco africano del vendedor a través del intermediario acordado.</p>
+        </div>
+      </li>
+      <li class="step">
+        <span class="step-num">08</span>
+        <div class="step-content">
+          <strong>Pago Confirmado — Comisiones Ejecutadas</strong>
+          <p>Al confirmarse la recepción de los fondos, el banco africano ejecuta el calendario de comisiones el mismo día. El título se transfiere al comprador y se autoriza la exportación.</p>
+        </div>
+      </li>
+      <li class="step">
+        <span class="step-num">09</span>
+        <div class="step-content">
+          <strong>Entrega</strong>
+          <p>Ferrari exporta y entrega físicamente el oro al comprador en el destino acordado.</p>
+        </div>
+      </li>
+    </ol>
+
+    <div class="footer-note">
+      <p><strong>Principio Central:</strong> El título jamás cambia de manos sin pago confirmado. El banco africano recibe el contrato y el calendario de comisiones y los ejecuta en el momento en que lleguen los fondos. El dinero siempre llega primero.</p>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  function switchLang(lang, btn) {
+    document.querySelectorAll('.lang-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('lang-' + lang).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
+</body>
+</html>
