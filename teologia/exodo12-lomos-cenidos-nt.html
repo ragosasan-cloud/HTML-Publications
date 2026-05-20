@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Éxodo 12 y el Nuevo Testamento — Los Lomos Ceñidos</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:          #faf8f4;
+    --surface:     #ffffff;
+    --surface-2:   #f4f0e8;
+    --border:      #e2d9c8;
+    --text:        #1a1510;
+    --text-muted:  #7a6e5f;
+    --accent:      #8b1a1a;
+    --gold:        #c9a84c;
+    --gold-soft:   #e8d49a;
+    --blue-parch:  #e8eef4;
+    --shadow:      0 2px 16px rgba(0,0,0,0.07);
+    --shadow-deep: 0 8px 32px rgba(0,0,0,0.12);
+    --radius:      10px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:          #100e0b;
+      --surface:     #1a1612;
+      --surface-2:   #221e18;
+      --border:      #38322a;
+      --text:        #ede8df;
+      --text-muted:  #9a8e7e;
+      --accent:      #c94040;
+      --gold:        #d4aa5a;
+      --gold-soft:   #4a3e20;
+      --blue-parch:  #1a2030;
+      --shadow:      0 2px 16px rgba(0,0,0,0.35);
+      --shadow-deep: 0 8px 32px rgba(0,0,0,0.5);
+    }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 18px; scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'EB Garamond', 'Libre Baskerville', Georgia, serif;
+    line-height: 1.85;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HEADER ── */
+  .page-header {
+    text-align: center;
+    padding: 72px 24px 56px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .page-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 28px,
+        color-mix(in srgb, var(--gold) 8%, transparent) 28px,
+        color-mix(in srgb, var(--gold) 8%, transparent) 29px
+      );
+    pointer-events: none;
+  }
+  .header-eyebrow {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.1s;
+  }
+  .header-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(2rem, 6vw, 3.4rem);
+    font-weight: 300;
+    line-height: 1.18;
+    color: var(--text);
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.25s;
+  }
+  .header-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .header-subtitle {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    font-style: italic;
+    max-width: 520px;
+    margin: 0 auto;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.4s;
+  }
+  .header-rule {
+    width: 64px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 28px auto 0;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.55s;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── MAIN ── */
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 56px 24px 80px;
+  }
+
+  /* ── INTRO ── */
+  .intro-text {
+    font-size: 1.12rem;
+    line-height: 1.9;
+    color: var(--text);
+    margin-bottom: 40px;
+  }
+  .intro-text::first-letter {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 4.2rem;
+    font-weight: 300;
+    line-height: 0.78;
+    float: left;
+    margin: 6px 10px 0 0;
+    color: var(--accent);
+  }
+
+  /* ── VERSE ROOT ── */
+  .verse-root {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin: 0 0 48px;
+    box-shadow: var(--shadow);
+  }
+  .verse-root-label {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .verse-root-text {
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--text);
+    line-height: 1.75;
+  }
+  .verse-root-ref {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── SECTION HEADING ── */
+  .section-intro {
+    font-size: 0.88rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 32px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ── PARALLEL CARDS ── */
+  .parallels {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin-bottom: 56px;
+  }
+
+  .parallel-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+  }
+  .parallel-card:hover {
+    box-shadow: var(--shadow-deep);
+    transform: translateY(-2px);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 22px 28px 18px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface-2);
+  }
+  .card-number {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 2.4rem;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    min-width: 36px;
+  }
+  .card-meta {
+    flex: 1;
+  }
+  .card-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.25;
+  }
+  .card-ref {
+    font-size: 0.78rem;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    margin-top: 3px;
+  }
+
+  .card-body {
+    padding: 24px 28px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .card-description {
+    font-size: 0.97rem;
+    color: var(--text-muted);
+    font-style: italic;
+    line-height: 1.7;
+  }
+
+  .verse-block {
+    background: var(--blue-parch);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    padding: 18px 22px;
+  }
+  .verse-block-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .verse-block-text {
+    font-size: 1rem;
+    font-style: italic;
+    line-height: 1.72;
+    color: var(--text);
+  }
+
+  .parallel-block {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 18px 22px;
+  }
+  .parallel-block-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .parallel-block-text {
+    font-size: 0.97rem;
+    line-height: 1.75;
+    color: var(--text);
+  }
+
+  /* ── BREAK ── */
+  .brk {
+    text-align: center;
+    color: var(--gold);
+    letter-spacing: 0.4em;
+    font-size: 0.85rem;
+    margin: 40px 0;
+  }
+
+  /* ── PULL QUOTE ── */
+  .pull-quote {
+    border-left: 4px solid var(--gold);
+    padding: 20px 28px;
+    margin: 40px 0;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.35rem;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* ── CLOSE VERSE ── */
+  .close-verse {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 32px 36px;
+    margin: 48px 0 0;
+    text-align: center;
+    box-shadow: var(--shadow);
+  }
+  .close-verse p {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.25rem;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.65;
+    color: var(--text);
+    margin-bottom: 14px;
+  }
+  .close-ref {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+  }
+
+  /* ── INVITATION ── */
+  .invitation {
+    margin: 48px 0 0;
+    padding: 28px 32px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 0.97rem;
+    color: var(--text-muted);
+    font-style: italic;
+    line-height: 1.75;
+  }
+
+  /* ── FOOTNOTES ── */
+  .footnotes {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+  .footnotes-title {
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+  .footnote-item {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+  .footnote-num {
+    color: var(--gold);
+    min-width: 16px;
+    font-weight: 600;
+  }
+  .footnote-link {
+    color: var(--text-muted);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    word-break: break-all;
+  }
+  .footnote-link:hover { color: var(--accent); }
+
+  /* ── FOOTER ── */
+  .essay-footer {
+    margin-top: 64px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    text-align: center;
+  }
+  .footer-note {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+    max-width: 520px;
+  }
+  .series-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    justify-content: center;
+    align-items: center;
+  }
+  .series-link {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: color 0.2s;
+  }
+  .series-link:hover { color: var(--accent); }
+  .series-link.current { color: var(--gold); font-weight: 600; }
+  .arrow { margin: 0 2px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 560px) {
+    .card-header { padding: 18px 20px 14px; }
+    .card-body   { padding: 18px 20px 22px; }
+    .verse-root  { padding: 20px 20px; }
+    main         { padding: 40px 16px 64px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="page-header">
+  <p class="header-eyebrow">Éxodo 12 · Paralelos en el Nuevo Testamento</p>
+  <h1 class="header-title">
+    <em>Lomos ceñidos:</em><br>
+    preparación espiritual ante Dios
+  </h1>
+  <p class="header-subtitle">
+    Del mandato físico de la Pascua a la actitud permanente del creyente
+  </p>
+  <div class="header-rule"></div>
+</header>
+
+<!-- MAIN -->
+<main>
+
+  <!-- INTRO -->
+  <p class="intro-text">
+    El principal paralelismo de Éxodo 12 en el Nuevo Testamento es la preparación espiritual y la vigilancia ante la salvación o el juicio inminente de Dios. No se trata de una metáfora decorativa: es la misma postura corporal, el mismo verbo, la misma urgencia — trasladada del umbral de Egipto al umbral de la eternidad.
+  </p>
+
+  <!-- VERSÍCULO RAÍZ -->
+  <div class="verse-root">
+    <p class="verse-root-label">El texto fundacional — Éxodo 12:11</p>
+    <p class="verse-root-text">
+      "Y lo comeréis así: ceñidos vuestros lomos, vuestro calzado en vuestros pies, y vuestro báculo en vuestra mano; y lo comeréis apresuradamente; es la Pascua de Jehová."
+    </p>
+    <span class="verse-root-ref">Éxodo 12:11 · RVR1960</span>
+  </div>
+
+  <p class="section-intro">Tres ejemplos en el Nuevo Testamento que repiten exactamente esta idea</p>
+
+  <!-- PARALLEL CARDS -->
+  <div class="parallels">
+
+    <!-- 1. LUCAS -->
+    <div class="parallel-card">
+      <div class="card-header">
+        <span class="card-number">I</span>
+        <div class="card-meta">
+          <h2 class="card-title">La parábola de los siervos vigilantes</h2>
+          <p class="card-ref">Lucas 12:35–36</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-description">
+          Jesús utiliza la misma metáfora cultural y física de Éxodo para exigir preparación espiritual ante su regreso.
+        </p>
+        <div class="verse-block">
+          <p class="verse-block-label">El pasaje</p>
+          <p class="verse-block-text">
+            "Estén ceñidos vuestros lomos, y vuestras lámparas encendidas; y vosotros sed semejantes a hombres que aguardan a que su señor regrese de las bodas..."
+          </p>
+        </div>
+        <div class="parallel-block">
+          <p class="parallel-block-label">El paralelismo</p>
+          <p class="parallel-block-text">
+            En Éxodo se ceñían los lomos —recogerse la túnica larga en el cinturón— para huir de la esclavitud de Egipto. En el Evangelio, el creyente se ciñe espiritualmente para estar listo cuando el Señor llame. El gesto físico deviene postura interior permanente. <sup style="color:var(--gold)">[1, 2]</sup>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. EFESIOS -->
+    <div class="parallel-card">
+      <div class="card-header">
+        <span class="card-number">II</span>
+        <div class="card-meta">
+          <h2 class="card-title">La armadura de Dios</h2>
+          <p class="card-ref">Efesios 6:14</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-description">
+          El apóstol Pablo detalla cómo debe vestirse un cristiano para la batalla espiritual diaria, iniciando con la misma acción de Éxodo.
+        </p>
+        <div class="verse-block">
+          <p class="verse-block-label">El pasaje</p>
+          <p class="verse-block-text">
+            "Estad, pues, firmes, ceñidos vuestros lomos con la verdad, y vestidos con la coraza de justicia..."
+          </p>
+        </div>
+        <div class="parallel-block">
+          <p class="parallel-block-label">El paralelismo</p>
+          <p class="parallel-block-text">
+            La preparación para la marcha en el desierto se transforma en el Nuevo Testamento en una preparación para la resistencia espiritual. La verdad es el cinturón que sujeta y da movilidad al cristiano — exactamente como el cinto daba movilidad al israelita en su huida. <sup style="color:var(--gold)">[3]</sup>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. 1 PEDRO -->
+    <div class="parallel-card">
+      <div class="card-header">
+        <span class="card-number">III</span>
+        <div class="card-meta">
+          <h2 class="card-title">La mente sobria y preparada</h2>
+          <p class="card-ref">1 Pedro 1:13</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-description">
+          Pedro conecta directamente la actitud de Éxodo con la mentalidad que debe tener la iglesia mientras espera la gracia final.
+        </p>
+        <div class="verse-block">
+          <p class="verse-block-label">El pasaje</p>
+          <p class="verse-block-text">
+            "Por tanto, ceñid los lomos de vuestro entendimiento, sed sobrios, y esperad por completo en la gracia que se os traerá cuando Jesucristo sea manifestado."
+          </p>
+        </div>
+        <div class="parallel-block">
+          <p class="parallel-block-label">El paralelismo</p>
+          <p class="parallel-block-text">
+            El mandato físico de Éxodo 12 se espiritualiza por completo. Ya no se amarran las ropas de tela, sino que se preparan los pensamientos y la mente para caminar sin distracciones hacia la tierra prometida celestial. <sup style="color:var(--gold)">[4]</sup>
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /.parallels -->
+
+  <div class="brk">· · ·</div>
+
+  <div class="pull-quote">
+    El gesto que un pueblo hizo una vez en la noche de su liberación, el Nuevo Testamento lo convierte en la postura permanente del que vive en espera de su Señor.
+  </div>
+
+  <!-- VERSÍCULO DE CIERRE -->
+  <div class="close-verse">
+    <p>
+      "Velad, pues, porque no sabéis a qué hora ha de venir vuestro Señor."
+    </p>
+    <span class="close-ref">Mateo 24:42 · RVR1960 — El llamado que une Éxodo y Evangelio</span>
+  </div>
+
+  <!-- INVITACIÓN PARA CONTINUAR -->
+  <div class="invitation">
+    Si deseas profundizar, podemos explorar el paralelismo del Cordero Pascual —cómo cada detalle de Éxodo 12 encuentra su cumplimiento en Cristo— o analizar cómo la cena de la Pascua se conecta con la Santa Cena en el Nuevo Testamento.
+  </div>
+
+  <!-- NOTAS AL PIE -->
+  <div class="footnotes">
+    <p class="footnotes-title">Referencias</p>
+    <div class="footnote-item">
+      <span class="footnote-num">[1]</span>
+      <a class="footnote-link" href="https://www.facebook.com/magdalaespanol/posts/reflexi%C3%B3n-del-d%C3%ADa-me-estoy-preparando-a-tu-llegadalucas-12-35-38-est%C3%A9n-listos-co/1247078974126958/" target="_blank">facebook.com — Magdala en Español · Lucas 12:35–38</a>
+    </div>
+    <div class="footnote-item">
+      <span class="footnote-num">[2]</span>
+      <a class="footnote-link" href="https://www.biblegateway.com/passage/?search=Lucas%209-12&version=NTV;RVR1960" target="_blank">biblegateway.com — Lucas 9–12 · NTV / RVR1960</a>
+    </div>
+    <div class="footnote-item">
+      <span class="footnote-num">[3]</span>
+      <a class="footnote-link" href="https://lifeword.org/spanish/inside/?id=5335&title=La-Armadura-De-Dios---Parte-4" target="_blank">lifeword.org — La Armadura de Dios, Parte 4</a>
+    </div>
+    <div class="footnote-item">
+      <span class="footnote-num">[4]</span>
+      <a class="footnote-link" href="https://ministerioriosdevida.org/predicas/jesucristo-es-la-fuente-de-mi-esperanza-viva/" target="_blank">ministerioriosdevida.org — Jesucristo es la fuente de mi esperanza viva</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="essay-footer">
+    <p class="footer-note">
+      Todos los textos bíblicos corresponden a la Reina-Valera 1960 (RVR1960). El análisis de los paralelos entre Éxodo 12:11 y el Nuevo Testamento se apoya en Lucas 12:35–36, Efesios 6:14 y 1 Pedro 1:13 como textos primarios.
+    </p>
+    <div class="series-footer">
+      <span class="series-link current"><span class="arrow">◆</span> Éxodo 12 · Lomos ceñidos</span>
+      <a href="la-cuarta-copa.html" class="series-link">La Cuarta Copa <span class="arrow">→</span></a>
+      <a href="manual-comunion-oracion-rvr1960.html" class="series-link">Manual · Comunión y Oración <span class="arrow">→</span></a>
+    </div>
+  </footer>
+
+</main>
+</body>
+</html>
