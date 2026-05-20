@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Oración que Permanece — Devocional Diario</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1208;
+    --gold: #8b6914;
+    --gold-light: #c9a84c;
+    --parchment: #faf6ef;
+    --parchment-dark: #f0e8d8;
+    --rule: #d4b896;
+    --muted: #6b5c44;
+    --accent-bg: #f5ede0;
+    --navy: #1a335c;
+    --navy-tint: #eef2f7;
+    --olive-tint: #f0f7ee;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--parchment);
+    color: var(--ink);
+    font-family: 'EB Garamond', 'Cormorant Garamond', Georgia, serif;
+    font-size: 19px;
+    line-height: 1.8;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(180,150,100,0.04) 28px, rgba(180,150,100,0.04) 29px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 56px 40px 80px;
+  }
+
+  /* ── Top bar ── */
+  .top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 48px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .top-label {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .top-ref {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  /* ── Header ── */
+  .head {
+    text-align: center;
+    margin-bottom: 44px;
+    animation: fadeUp 0.7s ease both;
+  }
+
+  .head-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    color: var(--gold);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 18px;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(1.9rem, 4.5vw, 2.7rem);
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+
+  h1 em { font-style: italic; color: var(--gold); }
+
+  .head-sub {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--muted);
+  }
+
+  .ornament-rule {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    justify-content: center;
+    margin-top: 28px;
+  }
+
+  .ornament-rule::before, .ornament-rule::after {
+    content: '';
+    flex: 1;
+    max-width: 60px;
+    height: 1px;
+    background: var(--gold-light);
+  }
+
+  .orn { color: var(--gold); font-size: 1rem; }
+
+  /* ── Anchor verse ── */
+  .anchor {
+    margin: 0 0 36px;
+    padding: 24px 28px;
+    background: var(--navy-tint);
+    border-left: 3px solid var(--navy);
+    animation: fadeUp 0.7s ease 0.1s both;
+  }
+
+  .anchor p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--navy);
+    line-height: 1.65;
+    margin-bottom: 10px;
+  }
+
+  .anchor-ref {
+    font-family: 'Cinzel', serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    text-transform: uppercase;
+    display: block;
+    text-align: right;
+  }
+
+  /* ── Section break ── */
+  .brk {
+    text-align: center;
+    margin: 32px 0;
+    color: var(--rule);
+    font-size: 1rem;
+    letter-spacing: 0.5em;
+  }
+
+  /* ── Section label ── */
+  .sec-label {
+    font-family: 'Cinzel', serif;
+    font-weight: 400;
+    font-size: 0.75rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 36px 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
+
+  /* ── Body text ── */
+  p {
+    font-size: 0.98rem;
+    margin-bottom: 1.2em;
+    text-align: justify;
+    hyphens: auto;
+    color: var(--ink);
+  }
+
+  em { font-style: italic; }
+  strong { font-weight: 600; }
+
+  /* ── Pull quote (J.N.D.) ── */
+  .pull {
+    margin: 28px -8px;
+    padding: 26px 32px;
+    background: var(--accent-bg);
+    border-left: 3px solid var(--gold);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.08rem;
+    font-style: italic;
+    line-height: 1.65;
+    color: var(--ink);
+  }
+
+  .pull-attr {
+    display: block;
+    margin-top: 12px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+    font-style: normal;
+    text-align: right;
+  }
+
+  /* ── Three pillars ── */
+  .pillars {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin: 20px 0 28px;
+  }
+
+  .pillar {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 14px 18px;
+    background: var(--parchment-dark);
+    border: 1px solid var(--rule);
+  }
+
+  .pillar-num {
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    color: var(--gold);
+    min-width: 22px;
+    padding-top: 2px;
+    letter-spacing: 0.1em;
+  }
+
+  .pillar-body { flex: 1; }
+
+  .pillar-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .pillar-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.55;
+    margin: 0;
+    text-align: left;
+  }
+
+  /* ── Daily steps ── */
+  .steps { list-style: none; margin: 16px 0 24px; padding: 0; }
+
+  .steps li {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 12px 0;
+    border-bottom: 0.5px dotted var(--rule);
+    font-size: 0.92rem;
+    color: var(--muted);
+  }
+
+  .steps li:last-child { border-bottom: none; }
+
+  .step-n {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    color: var(--gold);
+    min-width: 20px;
+    margin-top: 3px;
+  }
+
+  .step-txt strong {
+    display: block;
+    font-family: 'Cinzel', serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+
+  /* ── Closing verse ── */
+  .close-verse {
+    margin: 32px 0 0;
+    padding: 22px 26px;
+    background: var(--olive-tint);
+    border-left: 3px solid #5a7a3a;
+  }
+
+  .close-verse p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.08rem;
+    font-style: italic;
+    color: var(--navy);
+    margin-bottom: 8px;
+    text-align: left;
+  }
+
+  .close-ref {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.16em;
+    color: var(--gold);
+    text-transform: uppercase;
+    display: block;
+    text-align: right;
+  }
+
+  /* ── Exam questions ── */
+  .exam {
+    margin: 20px 0;
+    padding: 18px 22px;
+    border: 1px solid var(--rule);
+    background: var(--parchment-dark);
+  }
+
+  .exam-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .exam-title::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
+
+  .exam ol {
+    padding-left: 1.2em;
+    margin: 0;
+  }
+
+  .exam ol li {
+    font-size: 0.9rem;
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 6px;
+    line-height: 1.5;
+  }
+
+  /* ── Footer ── */
+  .foot {
+    margin-top: 52px;
+    padding-top: 20px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .foot-note {
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  .foot-links { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .foot-link {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 7px 14px;
+    border: 1px solid var(--rule);
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .foot-link:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ── Animation ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 560px) {
+    .page { padding: 40px 22px 64px; }
+    .pull { margin: 24px -10px; padding: 22px 20px; }
+    h1 { font-size: 1.9rem; }
+    .pillars { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Top bar -->
+  <div class="top-bar">
+    <span class="top-label">Devocional Diario · Oración</span>
+    <span class="top-ref">1 Jn 5:14-15 &nbsp;·&nbsp; Jn 15:7</span>
+  </div>
+
+  <!-- Header -->
+  <div class="head">
+    <span class="head-eyebrow">IGV 5–19 &nbsp;·&nbsp; Práctica de Oración</span>
+    <h1>La Oración que <em>Permanece</em></h1>
+    <p class="head-sub">Una guía para alinear tu oración con la voluntad de Dios, cada día</p>
+    <div class="ornament-rule"><span class="orn">✦</span></div>
+  </div>
+
+  <!-- Anchor verse -->
+  <div class="anchor">
+    <p>Y esta es la confianza que tenemos en él, que si pedimos alguna cosa conforme a su voluntad, él nos oye. Y si sabemos que él nos oye en cualquiera cosa que pidamos, sabemos que tenemos las peticiones que le hayamos hecho.</p>
+    <span class="anchor-ref">1 Juan 5:14-15</span>
+  </div>
+
+  <!-- Fundamento -->
+  <div class="sec-label">El fundamento</div>
+
+  <p>Para que oremos de acuerdo a la voluntad de Dios, debemos primero <em>conocer</em> Su voluntad; y no solamente eso — Su voluntad debe convertirse en nuestra voluntad. La oración no es negociación con un Dios distante. Es el compañerismo de una <strong>íntima unión viva</strong>: la rama que permanece en la Vid y pide desde adentro, no desde lejos.</p>
+
+  <div class="anchor" style="border-left-color: var(--gold); background: var(--accent-bg);">
+    <p>Si permanecéis en mí, y mis palabras permanecen en vosotros, pedid todo lo que queréis, y os será hecho.</p>
+    <span class="anchor-ref">Juan 15:7</span>
+  </div>
+
+  <p>Como con todo lo de la vida cristiana, la oración debe ser llevada en dependencia del Espíritu Santo. Él es conocido como <em>«el Espíritu de gracia y de oración»</em> <span style="font-family:'Cinzel',serif;font-size:0.72rem;color:var(--gold);">(Zacarías 12:10)</span>. Él no es un complemento a nuestra oración; es su fuente misma.</p>
+
+  <div class="brk">· · ·</div>
+
+  <!-- Los tres pilares -->
+  <div class="sec-label">Los tres pilares</div>
+
+  <div class="pillars">
+    <div class="pillar">
+      <span class="pillar-num">I</span>
+      <div class="pillar-body">
+        <span class="pillar-title">Embajadores — Discernir antes de pedir</span>
+        <p class="pillar-desc">No oramos lo que se nos ocurre; escuchamos primero. El embajador recibe instrucciones del Rey. Lee la Escritura, espera al Espíritu, <em>luego</em> habla.</p>
+      </div>
+    </div>
+    <div class="pillar">
+      <span class="pillar-num">II</span>
+      <div class="pillar-body">
+        <span class="pillar-title">Autoridad — La sangre de Cristo, no méritos propios</span>
+        <p class="pillar-desc">Nos acercamos al trono con denuedo no porque seamos dignos, sino porque Él lo es. Toda la autoridad descansa en su victoria en la cruz.</p>
+      </div>
+    </div>
+    <div class="pillar">
+      <span class="pillar-num">III</span>
+      <div class="pillar-body">
+        <span class="pillar-title">Gloria — Purificar el motivo</span>
+        <p class="pillar-desc">«Hágase tu voluntad» no cancela la petición; la purifica. Buscamos que el Padre sea glorificado en la respuesta, no solo que nosotros seamos complacidos.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="brk">· · ·</div>
+
+  <!-- J.N.D. quotes -->
+  <div class="sec-label">Sobre la certidumbre en la oración</div>
+
+  <div class="pull">
+    Si pido cualquier cosa de Dios, y recibo su respuesta, entonces me siento seguro, con la convicción de que estoy en el camino de Su voluntad; estoy feliz y contento. Si encuentro cierta dificultad esto no me detiene: es solamente un obstáculo que la fe tiene que remontar.
+    <span class="pull-attr">— J.N.D.</span>
+  </div>
+
+  <div class="pull">
+    Pero si no tengo esta certidumbre antes de empezar, estoy en indecisión. Puede ser una prueba a mi fe, o puede ser que no debería hacer lo que estoy haciendo. Debería entonces asegurarme de que estoy haciendo Su voluntad <em>antes</em> de comenzar a actuar.
+    <span class="pull-attr">— J.N.D.</span>
+  </div>
+
+  <p style="font-size:0.9rem; color:var(--muted); font-style:italic; text-align:center; margin-top:4px;">Todo lo que fluye del alma debe estar consciente del lugar en el que está, en el Cristo levantado. Él puede entonces confiarnos el conocimiento de Su voluntad.</p>
+
+  <div class="brk">· · ·</div>
+
+  <!-- Guía diaria -->
+  <div class="sec-label">Tu práctica hoy — 5 pasos</div>
+
+  <ul class="steps">
+    <li>
+      <span class="step-n">I</span>
+      <div class="step-txt">
+        <strong>Prepárate — Silencia y reconoce</strong>
+        Cierra la puerta. Guarda silencio. Declara: «Padre, vengo por la sangre de Cristo, no por mis méritos.»
+      </div>
+    </li>
+    <li>
+      <span class="step-n">II</span>
+      <div class="step-txt">
+        <strong>Adora — Antes de pedir</strong>
+        Nombra atributos de Dios. Agradece con especificidad. No avances hasta que tu corazón esté orientado hacia Él, no hacia tu lista.
+      </div>
+    </li>
+    <li>
+      <span class="step-n">III</span>
+      <div class="step-txt">
+        <strong>Escucha — Lee, espera, anota</strong>
+        Abre la Escritura. Espera en silencio. Pregunta: «Espíritu Santo, ¿cómo quieres que ore hoy?» Escribe lo que recibas.
+      </div>
+    </li>
+    <li>
+      <span class="step-n">IV</span>
+      <div class="step-txt">
+        <strong>Pide — Con fe y rendición</strong>
+        Sé específico. Examina el motivo de cada petición. Cierra con: «Que Tú seas glorificado en la respuesta.»
+      </div>
+    </li>
+    <li>
+      <span class="step-n">V</span>
+      <div class="step-txt">
+        <strong>Declara y agradece — Antes de ver</strong>
+        «Señor, creo que me has oído.» Registra la petición. Cuando la respuesta llegue, celébrala.
+      </div>
+    </li>
+  </ul>
+
+  <!-- Examen de motivos -->
+  <div class="exam">
+    <div class="exam-title">✦ Examen de motivos — Pilar III</div>
+    <ol>
+      <li>¿Por qué quiero esto realmente?</li>
+      <li>¿Cómo glorificaría a Dios si Él lo concediera?</li>
+      <li>¿Estaría en paz si Su respuesta fuera diferente a la que espero?</li>
+      <li>¿Estoy pidiendo para crecer en unión con Cristo, o solo para aliviar una incomodidad?</li>
+    </ol>
+  </div>
+
+  <div class="brk">· · ·</div>
+
+  <!-- Verse de cierre -->
+  <div class="close-verse">
+    <p>Yo soy la vid, vosotros los pámpanos; el que permanece en mí, y yo en él, éste lleva mucho fruto; porque separados de mí nada podéis hacer.</p>
+    <span class="close-ref">Juan 15:5 — El fundamento de toda oración que permanece</span>
+  </div>
+
+  <!-- Footer -->
+  <footer class="foot">
+    <span class="foot-note">RVR1960 · Complemento de IGV 5–19</span>
+    <div class="foot-links">
+      <a href="manual-comunion-oracion-rvr1960.html" class="foot-link">← Manual completo</a>
+      <a href="ensayo-ezequiel33-naturaleza-pecaminosa-vs-union.html" class="foot-link">Ensayo · Ez 33 →</a>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
