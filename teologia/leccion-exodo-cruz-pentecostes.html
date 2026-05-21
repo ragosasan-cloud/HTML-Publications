@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Éxodo, Cruz y Pentecostés — Lección Bíblica</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IM+Fell+English:ital@0;1&family=Noto+Serif+Hebrew:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0d0b07;
+      --surface:   #faf6ef;
+      --ink:       #1a1108;
+      --sepia:     #6b4f2e;
+      --gold:      #b8872a;
+      --gold-lt:   #d4a84b;
+      --ember:     #7d2a0a;
+      --muted:     #8a7660;
+      --rule:      rgba(184,135,42,0.3);
+      --ff-display: 'Playfair Display', Georgia, serif;
+      --ff-body:    'Crimson Pro', Georgia, serif;
+      --ff-quote:   'IM Fell English', Georgia, serif;
+      --ff-heb:     'Noto Serif Hebrew', serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      font-family: var(--ff-body);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 5rem 2rem 6rem;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 55%, rgba(184,135,42,0.13) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 50% 10%, rgba(125,42,10,0.2) 0%, transparent 60%),
+        var(--bg);
+      overflow: hidden;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23g)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .hero-series {
+      position: relative;
+      font-family: var(--ff-body);
+      font-weight: 300;
+      font-style: italic;
+      font-size: 0.78rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 2.2rem;
+    }
+    .hero-hebrew {
+      position: relative;
+      font-family: var(--ff-heb);
+      font-size: clamp(3rem, 9vw, 5.8rem);
+      color: rgba(212,168,75,0.15);
+      letter-spacing: 0.05em;
+      line-height: 1;
+      margin-bottom: 0.3rem;
+      user-select: none;
+    }
+    .hero-translit {
+      position: relative;
+      font-family: var(--ff-display);
+      font-style: italic;
+      font-size: clamp(0.9rem, 2.2vw, 1.3rem);
+      color: var(--gold-lt);
+      letter-spacing: 0.12em;
+      margin-bottom: 2rem;
+    }
+    .hero h1 {
+      position: relative;
+      font-family: var(--ff-display);
+      font-size: clamp(2.4rem, 6vw, 4.5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      color: #f5eddf;
+      max-width: 820px;
+      text-shadow: 0 2px 40px rgba(184,135,42,0.2);
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gold-lt);
+    }
+    .hero-sub {
+      position: relative;
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      font-weight: 300;
+      line-height: 1.8;
+      color: rgba(245,237,223,0.55);
+      max-width: 540px;
+      margin-bottom: 2.8rem;
+    }
+    .hero-ref {
+      position: relative;
+      display: inline-block;
+      border: 1px solid rgba(184,135,42,0.4);
+      padding: 0.45rem 1.4rem;
+      font-family: var(--ff-body);
+      font-style: italic;
+      font-size: 0.88rem;
+      color: var(--gold);
+      letter-spacing: 0.07em;
+    }
+    .scroll-down {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(245,237,223,0.25);
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+    }
+    .scroll-down::after {
+      content: '';
+      width: 1px; height: 44px;
+      background: linear-gradient(to bottom, rgba(184,135,42,0.6), transparent);
+      animation: pulse-line 2.2s ease-in-out infinite;
+    }
+    @keyframes pulse-line {
+      0%,100% { opacity: 0.3; transform: scaleY(1); }
+      50%      { opacity: 1;   transform: scaleY(1.08); }
+    }
+
+    /* ── PÁGINA ── */
+    .page {
+      position: relative;
+      background: var(--surface);
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 5.5rem 5.5rem 5rem;
+      box-shadow:
+        0 -8px 50px rgba(0,0,0,0.55),
+        0 40px 80px rgba(0,0,0,0.4);
+      border-top: 2.5px solid var(--gold);
+    }
+    .page::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to right, rgba(107,79,46,0.1) 0%, transparent 6%, transparent 94%, rgba(107,79,46,0.1) 100%),
+        linear-gradient(to bottom, transparent 92%, rgba(107,79,46,0.07) 100%);
+      pointer-events: none;
+    }
+
+    /* ── PARTES ── */
+    .part {
+      margin-bottom: 4rem;
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .part.visible { opacity: 1; transform: none; }
+
+    .part-label {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-family: var(--ff-body);
+      font-weight: 400;
+      margin-bottom: 0.7rem;
+    }
+    .part-label::before {
+      content: '';
+      flex: 0 0 28px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.5;
+    }
+
+    h2 {
+      font-family: var(--ff-display);
+      font-size: clamp(1.5rem, 3.5vw, 2.1rem);
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.2;
+      margin-bottom: 1.2rem;
+    }
+    h3 {
+      font-family: var(--ff-quote);
+      font-size: 1.05rem;
+      color: var(--ember);
+      margin: 1.8rem 0 0.6rem;
+    }
+    p {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: #28180a;
+      font-weight: 300;
+      margin-bottom: 1rem;
+    }
+    strong { font-weight: 600; color: var(--ember); }
+    em     { font-style: italic; }
+
+    /* ── VERSÍCULO ── */
+    .scripture {
+      position: relative;
+      margin: 2rem 0;
+      padding: 2rem 2.2rem 2rem 3.8rem;
+      background: linear-gradient(135deg, rgba(184,135,42,0.07), rgba(184,135,42,0.02));
+      border-left: 2.5px solid var(--gold);
+    }
+    .scripture::before {
+      content: '\201C';
+      position: absolute;
+      left: 0.75rem; top: 0.6rem;
+      font-family: var(--ff-display);
+      font-size: 4.5rem;
+      line-height: 1;
+      color: var(--gold);
+      opacity: 0.3;
+    }
+    .scripture p {
+      font-family: var(--ff-quote);
+      font-style: italic;
+      font-size: 1.08rem;
+      line-height: 1.75;
+      color: var(--ink);
+      margin: 0;
+    }
+    .scripture-ref {
+      display: block;
+      margin-top: 0.8rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── DARK BOX ── */
+    .dark-box {
+      position: relative;
+      background: var(--bg);
+      margin: 2.8rem -2.5rem;
+      padding: 3rem 3.5rem;
+      overflow: hidden;
+    }
+    .dark-box::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 25% 50%, rgba(184,135,42,0.12) 0%, transparent 65%);
+    }
+    .dark-box .db-label {
+      font-size: 0.63rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.7rem;
+      position: relative;
+    }
+    .dark-box h2 { position: relative; color: #f5eddf; }
+    .dark-box p  { position: relative; color: rgba(245,237,223,0.72); font-size: 1rem; }
+
+    /* ── CALLOUT ── */
+    .callout {
+      border: 1px solid rgba(184,135,42,0.3);
+      padding: 1.5rem 2rem;
+      margin: 2rem 0;
+      text-align: center;
+    }
+    .callout p {
+      font-family: var(--ff-display);
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--ember);
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    /* ── TABLA ── */
+    .table-wrap { overflow-x: auto; margin: 1.5rem 0; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.93rem;
+      font-family: var(--ff-body);
+    }
+    thead tr { background: var(--ink); color: #f5eddf; }
+    thead th {
+      padding: 0.7rem 1rem;
+      text-align: left;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+    }
+    tbody tr { border-bottom: 1px solid rgba(107,79,46,0.18); }
+    tbody tr:nth-child(even) { background: rgba(184,135,42,0.04); }
+    tbody td {
+      padding: 0.75rem 1rem;
+      color: #28180a;
+      line-height: 1.55;
+      vertical-align: top;
+    }
+    tbody td:first-child {
+      font-weight: 600;
+      color: var(--ember);
+      white-space: nowrap;
+    }
+
+    /* ── LISTA NUMERADA ── */
+    .item-list { list-style: none; margin: 1.5rem 0; }
+    .item-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 0.9rem 0;
+      border-bottom: 1px solid rgba(107,79,46,0.14);
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #28180a;
+    }
+    .item-list li:last-child { border-bottom: none; }
+    .item-num {
+      flex: 0 0 28px;
+      height: 28px;
+      background: var(--gold);
+      color: var(--ink);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.72rem;
+      font-weight: 600;
+      margin-top: 0.15rem;
+      font-family: var(--ff-body);
+    }
+
+    /* ── PREGUNTAS ── */
+    .questions {
+      background: rgba(184,135,42,0.05);
+      border: 1px solid rgba(184,135,42,0.2);
+      padding: 2.2rem 2.5rem;
+      margin: 2rem 0;
+    }
+    .questions h3 { margin-top: 0; margin-bottom: 1rem; }
+    .questions ol { padding-left: 1.3rem; }
+    .questions ol li {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: #28180a;
+      font-weight: 300;
+      margin-bottom: 0.8rem;
+    }
+
+    /* ── ORACIÓN ── */
+    .prayer {
+      margin-top: 3rem;
+      border-top: 1px solid var(--rule);
+      padding-top: 2.5rem;
+      text-align: center;
+    }
+    .prayer-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .prayer p {
+      font-family: var(--ff-quote);
+      font-style: italic;
+      font-size: 1.08rem;
+      line-height: 2;
+      color: #28180a;
+      max-width: 500px;
+      margin: 0 auto 0.4rem;
+    }
+    .prayer strong {
+      font-family: var(--ff-display);
+      font-size: 1.15rem;
+      display: block;
+      margin: 1rem 0;
+      color: var(--ember);
+    }
+
+    /* ── DIVISOR ── */
+    .rule {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 3rem 0;
+      color: var(--gold);
+      opacity: 0.45;
+    }
+    .rule::before, .rule::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--gold);
+    }
+    .rule-sym { font-size: 0.9rem; }
+
+    /* ── CITA FINAL ── */
+    .page-footer-quote {
+      margin-top: 3.5rem;
+      border-top: 1px solid var(--rule);
+      padding-top: 1.8rem;
+      text-align: center;
+    }
+    .page-footer-quote p {
+      font-family: var(--ff-display);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--sepia);
+      line-height: 1.6;
+    }
+    .page-footer-quote span {
+      display: block;
+      margin-top: 0.5rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg);
+      text-align: center;
+      padding: 2.8rem 2rem;
+      color: rgba(245,237,223,0.22);
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-family: var(--ff-body);
+    }
+
+    @media (max-width: 680px) {
+      .page { padding: 3rem 1.8rem 3.5rem; }
+      .dark-box { margin: 2.5rem -0.3rem; padding: 2.2rem 1.8rem; }
+      .questions { padding: 1.8rem 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════ HERO ══════ -->
+  <section class="hero">
+    <p class="hero-series">Lección Bíblica · Vida en la Era de la Gracia</p>
+    <div class="hero-hebrew" aria-hidden="true">וְשָׁפַכְתִּי רוּחַ חֵן</div>
+    <div class="hero-translit">Ve-shafaktí rúaj jén — «Derramaré espíritu de gracia»</div>
+    <h1>Éxodo, Cruz<br/>y <em>Pentecostés</em></h1>
+    <p class="hero-sub">
+      Tres eventos que parecen separados por siglos son en realidad
+      un solo movimiento de Dios — y los tres aplican en un día ordinario
+      de la era de la gracia.
+    </p>
+    <div class="hero-ref">Zacarías 12:10 · Éxodo 12 · Juan 19 · Hechos 2</div>
+    <div class="scroll-down">Continúa</div>
+  </section>
+
+  <!-- ══════ PÁGINA ══════ -->
+  <article class="page">
+
+    <!-- PARTE I · LA PROFECÍA QUE LO CONTIENE TODO -->
+    <div class="part">
+      <div class="part-label">Parte I</div>
+      <h2>Un versículo que mira en tres direcciones</h2>
+      <p>
+        Zacarías profetizó alrededor del 520 a.C., durante el período del retorno
+        del exilio babilónico. Israel ha vuelto a su tierra, el templo se está
+        reconstruyendo, y en ese contexto de restauración parcial Dios pronuncia
+        algo que ninguno de sus oyentes podía comprender del todo:
+      </p>
+
+      <div class="scripture">
+        <p>
+          «Y derramaré sobre la casa de David, y sobre los moradores de Jerusalén,
+          espíritu de gracia y de oración; y mirarán a mí, a quien traspasaron,
+          y llorarán como se llora por hijo unigénito, afligiéndose por él
+          como quien se aflige por el primogénito.»
+        </p>
+        <span class="scripture-ref">Zacarías 12:10 · RVR60</span>
+      </div>
+
+      <p>
+        En un solo versículo, Zacarías superpone tres realidades distintas:
+        <strong>la última plaga del Éxodo</strong>, la <strong>Cruz</strong>
+        donde Dios mismo sería traspasado, y el <strong>derramamiento del Espíritu</strong>
+        que hace posible que la humanidad vea y reciba lo que ocurrió.
+        No son tres temas — son tres capas del mismo acto redentor.
+      </p>
+
+      <div class="callout">
+        <p>Zacarías no predijo tres eventos.<br/>
+        Predijo un solo movimiento de Dios visto desde tres ángulos.</p>
+      </div>
+    </div>
+
+    <div class="rule"><span class="rule-sym">· · ·</span></div>
+
+    <!-- PARTE II · ÉXODO -->
+    <div class="part">
+      <div class="part-label">Parte II</div>
+
+      <div class="dark-box">
+        <div class="db-label">Primera capa — El Éxodo</div>
+        <h2>La sangre en el dintel: protección sin transformación interna</h2>
+        <p>
+          El luto por el primogénito en Zacarías 12:10 no es una metáfora genérica de dolor.
+          Es la imagen más cargada de toda la memoria colectiva de Israel:
+          la décima plaga, la noche en que la muerte pasó por Egipto.
+        </p>
+      </div>
+
+      <div class="scripture">
+        <p>
+          «Y la sangre os será por señal en las casas donde vosotros estéis;
+          y veré la sangre y pasaré de vosotros, y no habrá en vosotros plaga
+          de mortandad cuando hiera la tierra de Egipto.»
+        </p>
+        <span class="scripture-ref">Éxodo 12:13 · RVR60</span>
+      </div>
+
+      <p>
+        Aquí está el detalle que Zacarías aprovechará siglos después:
+        en Egipto la sangre del cordero <strong>no cambiaba al que estaba adentro</strong>.
+        Cambiaba lo que ocurría en la puerta. El israelita detrás del dintel
+        podía estar aterrado, incrédulo, dormido — la protección no dependía
+        de su estado interior sino de la sangre aplicada.
+      </p>
+      <p>
+        Zacarías usa esa imagen para apuntar hacia algo que ocurrirá en Jerusalén:
+        un luto por un primogénito — pero esta vez el que muere no es el hijo del faraón.
+        Es el Hijo de Dios. Y la sangre ya no estará en el dintel de una casa —
+        estará aplicada a la conciencia del creyente.
+      </p>
+
+      <h3>Cómo aplica en un día cotidiano</h3>
+      <p>
+        Hebreos 9:14 lo dice con precisión: la sangre de Cristo
+        <em>«limpiará vuestras conciencias de obras muertas.»</em>
+        Eso significa que el creyente en la era de la gracia no comienza cada día
+        negociando su posición ante Dios. <strong>La protección no se renueva
+        con el comportamiento de ayer.</strong> El día arranca desde ese lugar,
+        no hacia él. La diferencia entre empezar el día desde una cobertura establecida
+        o hacia una aprobación por conseguir cambia absolutamente la postura
+        desde la que se enfrenta cualquier cosa.
+      </p>
+    </div>
+
+    <div class="rule"><span class="rule-sym">· · ·</span></div>
+
+    <!-- PARTE III · LA CRUZ -->
+    <div class="part">
+      <div class="part-label">Parte III</div>
+      <h2>«A mí, a quien traspasaron»: Dios en la cruz</h2>
+      <p>
+        La frase más asombrosa del versículo de Zacarías no es el derramamiento del Espíritu
+        ni la referencia al primogénito. Es su sujeto gramatical.
+        El que habla en ese versículo es <strong>Dios mismo</strong> —
+        y Dios dice que va a ser traspasado.
+      </p>
+
+      <div class="scripture">
+        <p>
+          «Y mirarán a mí, a quien traspasaron.»
+        </p>
+        <span class="scripture-ref">Zacarías 12:10b · RVR60</span>
+      </div>
+
+      <p>
+        Juan no deja lugar a dudas sobre a qué momento apunta esta profecía.
+        Cuando el soldado romano clava la lanza en el costado de Jesús ya muerto,
+        el evangelista cita Zacarías directamente:
+      </p>
+
+      <div class="scripture">
+        <p>
+          «Y el que lo vio da testimonio, y su testimonio es verdadero;
+          y él sabe que dice verdad, para que vosotros también creáis.
+          Porque estas cosas sucedieron para que se cumpliese la Escritura:
+          No será quebrado hueso suyo. Y también otra Escritura dice:
+          Mirarán al que traspasaron.»
+        </p>
+        <span class="scripture-ref">Juan 19:35–37 · RVR60</span>
+      </div>
+
+      <p>
+        Lo que la Cruz añade al Éxodo es decisivo: en Egipto la sangre protegía la puerta,
+        pero el costo de esa sangre era invisible para el israelita —
+        un cordero anónimo, una noche, una promesa.
+        En el Calvario el costo se vuelve visible, personal, inapelable.
+        <strong>El que pagó tiene nombre. Tiene cicatrices. Puede ser visto.</strong>
+      </p>
+      <p>
+        Zacarías dice que cuando lo vean, llorarán como se llora por un hijo unigénito.
+        No llorarán de miedo — llorarán de reconocimiento. Como quien finalmente entiende
+        lo que costó algo que ya recibió. Ese reconocimiento es lo que la Cruz
+        activa en el alma cuando el creyente se detiene a conectar
+        su circunstancia concreta de hoy con lo que ya fue resuelto allí.
+      </p>
+
+      <h3>Cómo aplica en un día cotidiano</h3>
+      <p>
+        El día se vive diferente cuando la persona sabe que lo más caro
+        ya fue pagado, y que nada de lo que enfrenta hoy tiene la capacidad
+        de revertir eso. No como afirmación religiosa que se repite mecánicamente,
+        sino como orientación de la mirada: <em>mirar al que fue traspasado</em>
+        es el acto que reubica cualquier problema dentro de sus proporciones correctas.
+      </p>
+    </div>
+
+    <div class="rule"><span class="rule-sym">· · ·</span></div>
+
+    <!-- PARTE IV · PENTECOSTÉS -->
+    <div class="part">
+      <div class="part-label">Parte IV</div>
+
+      <div class="dark-box">
+        <div class="db-label">Tercera capa — Pentecostés</div>
+        <h2>«Derramaré espíritu de gracia»: lo que hace posible ver</h2>
+        <p>
+          Hay una pregunta que el versículo de Zacarías deja implícita:
+          ¿cómo va a poder Israel — o cualquier ser humano — mirar a Dios traspasado
+          y entender lo que está viendo? La respuesta está en la primera línea
+          del mismo versículo: <em>«Y derramaré... espíritu de gracia y de oración.»</em>
+          El derramamiento precede a la visión.
+        </p>
+      </div>
+
+      <div class="scripture">
+        <p>
+          «Y de repente vino del cielo un estruendo como de un viento recio que soplaba,
+          el cual llenó toda la casa donde estaban sentados; y se les aparecieron lenguas
+          repartidas, como de fuego, asentándose sobre cada uno de ellos.
+          Y fueron todos llenos del Espíritu Santo.»
+        </p>
+        <span class="scripture-ref">Hechos 2:2–4a · RVR60</span>
+      </div>
+
+      <p>
+        Lo que Pentecostés inaugura no es un recurso disponible en momentos de crisis.
+        Es una presencia continua que hace que la sangre del Éxodo y la Cruz del Calvario
+        sean inteligibles en el momento ordinario, en el día común,
+        sin que tenga que ocurrir nada extraordinario para que sean reales.
+      </p>
+      <p>
+        Pablo lo describe en términos que conectan directamente con Zacarías:
+      </p>
+
+      <div class="scripture">
+        <p>
+          «Y de igual manera el Espíritu nos ayuda en nuestra debilidad;
+          pues qué hemos de pedir como conviene, no lo sabemos,
+          pero el Espíritu mismo intercede por nosotros con gemidos indecibles.»
+        </p>
+        <span class="scripture-ref">Romanos 8:26 · RVR60</span>
+      </div>
+
+      <p>
+        Zacarías lo llamó <em>«espíritu de gracia y de oración»</em>.
+        Pablo lo llama el que intercede cuando el creyente no sabe cómo hacerlo.
+        Son el mismo Espíritu describiendo el mismo ministerio desde dos orillas del tiempo.
+      </p>
+
+      <h3>Cómo aplica en un día cotidiano</h3>
+      <p>
+        El día cotidiano en la era de la gracia es uno donde esa intercesión
+        ya está ocurriendo, independientemente de si la persona lo está
+        <strong>asimilando</strong>. El Espíritu no espera a que el creyente
+        se sienta espiritualmente apto para comenzar a interceder.
+        Ya intercede. La práctica cotidiana no genera esa presencia —
+        la reconoce, se orienta hacia ella, y vive desde ahí.
+      </p>
+    </div>
+
+    <div class="rule"><span class="rule-sym">· · ·</span></div>
+
+    <!-- PARTE V · LOS TRES JUNTOS -->
+    <div class="part">
+      <div class="part-label">Parte V</div>
+      <h2>Los tres juntos: la pregunta que cada día hace sin palabras</h2>
+      <p>
+        Cada día ordinario en la era de la gracia plantea implícitamente
+        la misma pregunta: <em>¿desde dónde vivo esto?</em>
+        Los tres movimientos que Zacarías comprimió en un versículo
+        son la respuesta completa.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Evento</th>
+              <th>Lo que establece</th>
+              <th>Cómo responde al día</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Éxodo — la sangre</td>
+              <td>Una cobertura que no depende del estado interior del creyente</td>
+              <td>El día empieza desde una posición ya establecida, no hacia una aprobación por conseguir</td>
+            </tr>
+            <tr>
+              <td>Cruz — el traspasado</td>
+              <td>El costo del rescate se vuelve visible y personal</td>
+              <td>Nada de lo que ocurre hoy puede revertir lo que ya fue pagado allí</td>
+            </tr>
+            <tr>
+              <td>Pentecostés — el derramamiento</td>
+              <td>La presencia continua que hace inteligibles las otras dos</td>
+              <td>La intercesión ya está ocurriendo, independientemente de si se está asimilando</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        El creyente no produce ninguna de las tres.
+        La sangre ya fue aplicada. El costo ya fue pagado. El Espíritu ya fue enviado.
+        Lo que cambia en la vida cotidiana no es la realidad de esas tres cosas —
+        es la postura desde la que la persona las enfrenta:
+        <strong>recibiéndolas, o ignorándolas</strong>.
+      </p>
+
+      <div class="callout">
+        <p>Éxodo dice: desde una puerta que ya fue cubierta.<br/>
+        La Cruz dice: desde un costo que ya fue pagado.<br/>
+        Pentecostés dice: con una presencia que ya fue enviada.</p>
+      </div>
+    </div>
+
+    <div class="rule"><span class="rule-sym">· · ·</span></div>
+
+    <!-- PARTE VI · LA SUPERPOSICIÓN TIPOLÓGICA -->
+    <div class="part">
+      <div class="part-label">Parte VI</div>
+      <h2>Por qué Zacarías pudo ver todo esto en un solo versículo</h2>
+      <p>
+        No es accidental que Zacarías superponiera estas tres realidades.
+        En la tradición profética hebrea, los eventos del pasado no son simplemente historia —
+        son <em>tipos</em>: patrones que Dios establece en un momento
+        para que sirvan de clave interpretativa de lo que vendrá.
+      </p>
+
+      <ul class="item-list">
+        <li>
+          <span class="item-num">1</span>
+          <span>
+            El <strong>cordero pascual del Éxodo</strong> era un tipo del Mesías:
+            sin hueso quebrado (Éxodo 12:46 → Juan 19:36), sangre derramada
+            que cubre a los que están bajo su protección.
+          </span>
+        </li>
+        <li>
+          <span class="item-num">2</span>
+          <span>
+            El <strong>luto por el primogénito</strong> — la plaga que liberó a Israel —
+            se convierte en el marco emocional para entender la Cruz:
+            el Primogénito de toda creación muere, y esa muerte
+            es la que libera a la humanidad.
+          </span>
+        </li>
+        <li>
+          <span class="item-num">3</span>
+          <span>
+            El <strong>espíritu de gracia y de oración</strong> es el cumplimiento
+            de la promesa de Joel 2:28 — el derramamiento sobre toda carne —
+            que Pedro identifica en Hechos 2:16 como el evento del Pentecostés.
+          </span>
+        </li>
+      </ul>
+
+      <p>
+        Zacarías no inventó estas conexiones. Las leyó en la estructura de lo que
+        Dios había estado haciendo desde Egipto. Y al leerlas, las proyectó hacia adelante
+        con una precisión que solo podía venir de haberlas entendido
+        como partes de un mismo movimiento.
+      </p>
+    </div>
+
+    <div class="rule"><span class="rule-sym">· · ·</span></div>
+
+    <!-- PARTE VII · PREGUNTAS -->
+    <div class="part">
+      <div class="part-label">Parte VII</div>
+      <div class="questions">
+        <h3>Preguntas para reflexión y discusión</h3>
+        <ol>
+          <li>En tu vida cotidiana, ¿empiezas el día desde una cobertura ya establecida o hacia una aprobación por conseguir? ¿Cómo se nota esa diferencia en la práctica?</li>
+          <li>Zacarías dice que cuando vean al traspasado, llorarán — no de miedo sino de reconocimiento. ¿Cuándo fue la última vez que la Cruz te produjo ese tipo de respuesta?</li>
+          <li>¿Cuál de los tres — Éxodo, Cruz o Pentecostés — te resulta más difícil de hacer real en un día ordinario? ¿Por qué?</li>
+          <li>Romanos 8:26 dice que el Espíritu intercede incluso cuando el creyente no sabe cómo orar. ¿Cambia algo en tu práctica de oración saber que la intercesión ya está ocurriendo antes de que abras la boca?</li>
+          <li>Si los tres eventos son un solo movimiento de Dios, ¿qué significa recibirlos como unidad y no por partes?</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- ORACIÓN DE CIERRE -->
+    <div class="prayer part">
+      <p class="prayer-label">✦ Oremos juntos ✦</p>
+      <p>Señor,<br/>
+      nos has dado tres maneras de decir la misma cosa:<br/>
+      que Tú resolviste lo que nosotros no podíamos resolver.</p>
+      <p>La sangre antes de que amaneciéramos.<br/>
+      La Cruz antes de que entendiéramos.<br/>
+      El Espíritu antes de que supiéramos pedir.</p>
+      <strong>Enséñanos a vivir desde lo que ya es,<br/>
+      no hacia lo que todavía no tenemos.</strong>
+      <p>Y cuando no sepamos cómo orientarnos,<br/>
+      que el mismo Espíritu que intercede con gemidos<br/>
+      nos recuerde en qué dirección mirar.</p>
+      <p>Al que fue traspasado.<br/>
+      Al que cubrió la puerta.<br/>
+      Al que fue derramado sobre toda carne.</p>
+    </div>
+
+    <!-- CITA FINAL -->
+    <div class="page-footer-quote">
+      <p>«El creyente no produce la cobertura, no pagó el costo, no envió al Espíritu.<br/>
+      Solo recibe lo que ya ocurrió — y eso lo cambia todo.»</p>
+      <span>Zacarías 12:10 · Éxodo 12 · Juan 19:37 · Hechos 2 · Romanos 8:26</span>
+    </div>
+
+  </article>
+
+  <footer>
+    Serie: Vida en la Era de la Gracia · Zacarías 12:10 · Reina-Valera 1960
+  </footer>
+
+  <script>
+    const parts = document.querySelectorAll('.part');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    parts.forEach(p => io.observe(p));
+  </script>
+</body>
+</html>
