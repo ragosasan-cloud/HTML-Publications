@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Letter of Intent — Gold Doré | Carta de Intención — Oro Doré</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:   #1A3A5C;
+  --blue:   #2E6096;
+  --gold:   #C9A84C;
+  --dgold:  #B8860B;
+  --lblue:  #EEF3F8;
+  --lgrey:  #F5F5F5;
+  --cream:  #F9F5EC;
+  --red:    #AA0000;
+  --grey:   #CCCCCC;
+  --ink:    #1C1C1C;
+  --muted:  #555;
+  --page:   #FAFAF7;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body {
+  background: var(--page);
+  color: var(--ink);
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 1rem;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* LANGUAGE TOGGLE */
+.lang-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 10px 24px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+}
+.lang-bar span {
+  font-family: 'EB Garamond', serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-right: 16px;
+}
+.lang-toggle {
+  display: flex;
+  border: 1.5px solid var(--gold);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.lang-btn {
+  padding: 5px 22px;
+  font-family: 'EB Garamond', serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  background: transparent;
+  color: rgba(255,255,255,0.6);
+}
+.lang-btn.active {
+  background: var(--gold);
+  color: var(--navy);
+  font-weight: 600;
+}
+.lang-btn:hover:not(.active) { background: rgba(201,168,76,0.15); color: #fff; }
+
+/* PAGE WRAPPER */
+.page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 56px 64px 80px;
+  background: #fff;
+  box-shadow: 0 0 60px rgba(26,58,92,0.08);
+  min-height: 100vh;
+}
+@media (max-width: 700px) { .page { padding: 32px 24px 60px; } }
+
+/* TITLE BLOCK */
+.title-block { text-align: center; margin-bottom: 0; }
+.doc-label {
+  font-family: 'EB Garamond', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 18px;
+  display: block;
+}
+.doc-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.15;
+  margin-bottom: 10px;
+}
+.doc-subtitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--blue);
+  margin-bottom: 12px;
+}
+.doc-meta {
+  font-size: 0.88rem;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  margin-bottom: 0;
+}
+.gold-rule {
+  border: none;
+  border-top: 2px solid var(--gold);
+  margin: 22px 0 14px;
+}
+.grey-rule {
+  border: none;
+  border-top: 1px solid var(--grey);
+  margin: 28px 0;
+}
+.confidential {
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--red);
+  font-weight: 600;
+  text-align: center;
+  font-family: 'EB Garamond', serif;
+  margin-bottom: 32px;
+}
+
+/* META LINES */
+.meta-lines { margin: 20px 0 28px; }
+.meta-line {
+  font-size: 0.92rem;
+  color: var(--muted);
+  margin-bottom: 4px;
+  font-style: italic;
+}
+.meta-line strong { font-style: normal; color: var(--ink); font-weight: 500; }
+
+/* PREAMBLE */
+.preamble { margin-bottom: 28px; }
+.preamble p { margin-bottom: 14px; font-size: 1rem; }
+.core-principle {
+  border-left: 3px solid var(--gold);
+  padding: 12px 20px;
+  background: var(--cream);
+  margin: 18px 0;
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--navy);
+}
+
+/* SECTIONS */
+.section { margin-bottom: 32px; }
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.18rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 14px;
+  padding-bottom: 6px;
+  border-bottom: 1.5px solid var(--gold);
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.section-num {
+  font-size: 0.78rem;
+  font-family: 'EB Garamond', serif;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* TABLES */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 18px;
+  font-size: 0.94rem;
+}
+th {
+  background: var(--navy);
+  color: #fff;
+  font-family: 'EB Garamond', serif;
+  font-weight: 600;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 9px 14px;
+  text-align: left;
+}
+td { padding: 9px 14px; border: 1px solid var(--grey); vertical-align: top; }
+tr:nth-child(even) td { background: var(--lgrey); }
+tr:nth-child(odd) td { background: #fff; }
+td.label { background: var(--lblue) !important; font-weight: 600; width: 38%; color: var(--navy); }
+td.party-label { background: var(--lblue) !important; font-weight: 700; width: 18%; color: var(--navy); white-space: nowrap; }
+td.fill { font-size: 0.9rem; color: var(--muted); }
+.fill-line { border-bottom: 1px solid #bbb; min-height: 22px; margin-bottom: 6px; font-size: 0.9rem; color: #888; }
+
+/* LISTS */
+ul, ol { padding-left: 1.5rem; margin-bottom: 12px; }
+li { margin-bottom: 6px; font-size: 0.97rem; }
+li strong { color: var(--navy); }
+ol { list-style-type: lower-alpha; }
+
+/* SIGNATURE BLOCK */
+.sig-section { margin-top: 32px; }
+.sig-party { margin-bottom: 36px; }
+.sig-party-label {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.sig-table { width: 100%; border-collapse: collapse; }
+.sig-table td { padding: 8px 0; vertical-align: bottom; }
+.sig-label { font-size: 0.85rem; color: var(--muted); width: 28%; padding-right: 16px; white-space: nowrap; }
+.sig-line { border-bottom: 1px solid var(--ink); width: 72%; }
+
+/* FOOTER */
+.doc-footer {
+  text-align: center;
+  margin-top: 40px;
+  padding-top: 18px;
+  font-size: 0.78rem;
+  font-style: italic;
+  color: #888;
+  letter-spacing: 0.06em;
+}
+
+/* LANG VISIBILITY */
+.en, .es { display: block; }
+body.lang-es .en { display: none; }
+body.lang-en .es { display: none; }
+span.en, span.es { display: inline; }
+body.lang-es span.en { display: none; }
+body.lang-en span.es { display: none; }
+</style>
+</head>
+<body class="lang-en">
+
+<!-- LANGUAGE TOGGLE -->
+<div class="lang-bar">
+  <span>Language / Idioma</span>
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('en')">English</button>
+    <button class="lang-btn" onclick="setLang('es')">Español</button>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- TITLE BLOCK -->
+  <div class="title-block">
+    <span class="doc-label en">ORO Project · Gold Doré Transaction</span>
+    <span class="doc-label es">Proyecto ORO · Transacción de Oro Doré</span>
+
+    <h1 class="doc-title en">Letter of Intent</h1>
+    <h1 class="doc-title es">Carta de Intención</h1>
+
+    <p class="doc-subtitle en">Gold Doré Purchase — Spot Transaction</p>
+    <p class="doc-subtitle es">Compra de Oro Doré — Transacción al Contado</p>
+
+    <p class="doc-meta en">Mali (West Africa) → Hong Kong &nbsp;|&nbsp; LBMA — 15% Net &nbsp;|&nbsp; 96%+ Purity &nbsp;|&nbsp; 250 KG Spot</p>
+    <p class="doc-meta es">Mali (África Occidental) → Hong Kong &nbsp;|&nbsp; LBMA — 15% Neto &nbsp;|&nbsp; Pureza 96%+ &nbsp;|&nbsp; 250 KG al Contado</p>
+
+    <hr class="gold-rule">
+    <p class="confidential en">Confidential — For Authorized Parties Only</p>
+    <p class="confidential es">Confidencial — Solo para Partes Autorizadas</p>
+  </div>
+
+  <!-- META LINES -->
+  <div class="meta-lines">
+    <p class="meta-line en"><strong>Date:</strong> ________________________</p>
+    <p class="meta-line es"><strong>Fecha:</strong> ________________________</p>
+    <p class="meta-line en"><strong>Transaction Reference:</strong> ORO Project — Gold Doré Spot Transaction</p>
+    <p class="meta-line es"><strong>Referencia de Transacción:</strong> Proyecto ORO — Transacción al Contado de Oro Doré</p>
+    <p class="meta-line en"><strong>Document Version:</strong> Final — Execution Copy</p>
+    <p class="meta-line es"><strong>Versión del Documento:</strong> Final — Copia de Ejecución</p>
+  </div>
+
+  <!-- PREAMBLE -->
+  <div class="preamble">
+    <p class="en">This Letter of Intent ("LOI") is issued by the Buyer identified below to express the Buyer's firm intention to acquire 250 kilograms of Gold Doré Bars from the Seller identified below, on the terms and subject to the procedure set out in this document. This LOI reflects the agreed framework of the ORO Project and shall govern the conduct of both parties until a formal Sale and Purchase Agreement ("SPA") is executed.</p>
+    <p class="es">Esta Carta de Intención ("CDI") es emitida por el Comprador identificado a continuación para expresar su firme intención de adquirir 250 kilogramos de Barras de Oro Doré del Vendedor identificado a continuación, bajo los términos y sujeto al procedimiento establecido en este documento. Esta CDI refleja el marco acordado del Proyecto ORO y regirá la conducta de ambas partes hasta que se ejecute un Contrato de Compraventa ("CCV") formal.</p>
+
+    <div class="core-principle">
+      <span class="en">"Title never changes hands without confirmed payment. The money always comes first."</span>
+      <span class="es">"La titularidad nunca cambia de manos sin pago confirmado. El dinero siempre va primero."</span>
+    </div>
+
+    <p class="en">Every term of this LOI enforces that principle without exception.</p>
+    <p class="es">Cada término de esta CDI hace cumplir ese principio sin excepción.</p>
+  </div>
+
+  <hr class="gold-rule">
+
+  <!-- SECTION 1: PARTIES -->
+  <div class="section">
+    <h2 class="section-title">
+      <span class="section-num">01</span>
+      <span class="en">Parties to the Transaction</span>
+      <span class="es">Partes de la Transacción</span>
+    </h2>
+    <table>
+      <tr>
+        <td class="party-label"><span class="en">BUYER</span><span class="es">COMPRADOR</span></td>
+        <td>
+          <div class="fill-line"><span class="en">Full Legal Name: _________________________________</span><span class="es">Nombre Legal Completo: _________________________________</span></div>
+          <div class="fill-line"><span class="en">Country of Incorporation: _________________________</span><span class="es">País de Constitución: _________________________</span></div>
+          <div class="fill-line"><span class="en">Authorized Signatory: ____________________________</span><span class="es">Firmante Autorizado: ____________________________</span></div>
+          <div class="fill-line"><span class="en">Address: ________________________________________</span><span class="es">Dirección: ________________________________________</span></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="party-label"><span class="en">SELLER</span><span class="es">VENDEDOR</span></td>
+        <td>
+          <div class="fill-line"><span class="en">Full Legal Name: _________________________________</span><span class="es">Nombre Legal Completo: _________________________________</span></div>
+          <div class="fill-line"><span class="en">Country of Incorporation: Mali, West Africa</span><span class="es">País de Constitución: Mali, África Occidental</span></div>
+          <div class="fill-line"><span class="en">Authorized Signatory: ____________________________</span><span class="es">Firmante Autorizado: ____________________________</span></div>
+          <div class="fill-line"><span class="en">Address: Bamako, Mali</span><span class="es">Dirección: Bamako, Mali</span></div>
+        </td>
+      </tr>
+    </table>
+    <p class="en"><strong>Ferrari Group — Neutral Conditional Custodian:</strong> The neutral conditional custodian appointed by both parties to receive, hold, and release the gold in accordance with the procedure set out in this LOI. Ferrari Group acts as a physical custody and conditional title transfer agent. Ferrari Group is not a financial escrow and does not hold funds.</p>
+    <p class="es"><strong>Ferrari Group — Custodio Neutral Condicional:</strong> El custodio neutral condicional designado por ambas partes para recibir, mantener y liberar el oro de acuerdo con el procedimiento establecido en esta CDI. Ferrari Group actúa como agente de custodia física y transferencia condicional de titularidad. Ferrari Group no es un depósito en garantía financiero y no retiene fondos.</p>
+  </div>
+
+  <hr class="grey-rule">
+
+  <!-- SECTION 2: COMMODITY -->
+  <div class="section">
+    <h2 class="section-title">
+      <span class="section-num">02</span>
+      <span class="en">Commodity</span>
+      <span class="es">Mercancía</span>
+    </h2>
+    <ul>
+      <li class="en"><strong>Commodity:</strong> Gold Doré Bars (Au)</li>
+      <li class="es"><strong>Mercancía:</strong> Barras de Oro Doré (Au)</li>
+      <li class="en"><strong>Minimum Purity:</strong> 96%+, minimum 22 carats</li>
+      <li class="es"><strong>Pureza Mínima:</strong> 96%+, mínimo 22 quilates</li>
+      <li class="en"><strong>Assay Basis:</strong> Seller's assay certificate, confirmed by Ferrari Group custody receipt at Step 06</li>
+      <li class="es"><strong>Base de Ensayo:</strong> Certificado de ensayo del Vendedor, confirmado por el recibo de custodia de Ferrari Group en el Paso 06</li>
+      <li class="en"><strong>Origin:</strong> West Africa (Bamako, Mali)</li>
+      <li class="es"><strong>Origen:</strong> África Occidental (Bamako, Mali)</li>
+    </ul>
+  </div>
+
+  <hr class="grey-rule">
+
+  <!-- SECTION 3: QUANTITY -->
+  <div class="section">
+    <h2 class="section-title">
+      <span class="section-num">03</span>
+      <span class="en">Quantity</span>
+      <span class="es">Cantidad</span>
+    </h2>
+    <ul>
+      <li class="en"><strong>Initial Spot Quantity:</strong> 250 kilograms</li>
+      <li class="es"><strong>Cantidad Inicial al Contado:</strong> 250 kilogramos</li>
+      <li class="en"><strong>Follow-Up Spots:</strong> Quantity and frequency to be agreed by the parties and incorporated into the SPA</li>
+      <li class="es"><strong>Operaciones Posteriores:</strong> Cantidad y frecuencia a acordar por las partes e incorporar en el CCV</li>
+      <li class="en"><strong>Tolerance:</strong> Weight and purity variance terms to be defined in the SPA</li>
+      <li class="es"><strong>Tolerancia:</strong> Los términos de variación de peso y pureza se definirán en el CCV</li>
+    </ul>
+  </div>
+
+  <hr class="grey-rule">
+
+  <!-- SECTION 4: PRICE -->
+  <div class="section">
+    <h2 class="section-title">
+      <span class="section-num">04</span>
+      <span class="en">Price &amp; Commission Structure</span>
+      <span class="es">Estructura de Precio y Comisión</span>
+    </h2>
+    <p class="en" style="margin-bottom:14px;">The transaction price is based on the London Bullion Market Association (LBMA) Gold Price at the time of transaction, subject to the discount and commission structure set out below.</p>
+    <p class="es" style="margin-bottom:14px;">El precio de la transacción se basa en el Precio del Oro de la London Bullion Market Association (LBMA) en el momento de la transacción, sujeto a la estructura de descuento y comisión establecida a continuación.</p>
+    <table>
+      <thead>
+        <tr>
+          <th><span class="en">Price Component</span><span class="es">Componente de Precio</span></th>
+          <th><span class="en">Rate</span><span class="es">Tasa</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="label"><span class="en">LBMA Spot Price</span><span class="es">Precio Spot LBMA</span></td><td><span class="en">Reference benchmark (at time of transaction)</span><span class="es">Referencia de mercado (al momento de la transacción)</span></td></tr>
+        <tr><td class="label"><span class="en">Gross Discount</span><span class="es">Descuento Bruto</span></td><td>18% <span class="en">below LBMA</span><span class="es">por debajo del LBMA</span></td></tr>
+        <tr><td class="label"><span class="en">Total Commission</span><span class="es">Comisión Total</span></td><td>3% (<span class="en">distributed by African bank same day</span><span class="es">distribuida por el banco africano el mismo día</span>)</td></tr>
+        <tr><td class="label"><span class="en">Net Price to Buyer</span><span class="es">Precio Neto al Comprador</span></td><td>15% <span class="en">below LBMA</span><span class="es">por debajo del LBMA</span></td></tr>
+      </tbody>
+    </table>
+    <p class="en" style="margin-bottom:8px;"><strong>Commission Distribution (3% total, executed by the African bank on the same day funds are confirmed received):</strong></p>
+    <p class="es" style="margin-bottom:8px;"><strong>Distribución de Comisión (3% total, ejecutada por el banco africano el mismo día que se confirma la recepción de fondos):</strong></p>
+    <ul>
+      <li class="en"><strong>Buyer's Representative:</strong> 1%</li>
+      <li class="es"><strong>Representante del Comprador:</strong> 1%</li>
+      <li class="en"><strong>Brazil Group &amp; Rafael:</strong> 1%</li>
+      <li class="es"><strong>Grupo Brasil y Rafael:</strong> 1%</li>
+      <li class="en"><strong>Seller's Mandate &amp; Group:</strong> 1%</li>
+      <li class="es"><strong>Mandato y Grupo del Vendedor:</strong> 1%</li>
+    </ul>
+    <p class="en">Commission execution is automatic. The African bank is authorized in advance and no manual trigger from any party is required.</p>
+    <p class="es">La ejecución de la comisión es automática. El banco africano está autorizado con antelación y no se requiere activación manual de ninguna parte.</p>
+  </div>
+
+  <hr class="grey-rule">
+
+  <!-- SECTION 5: PROCEDURE -->
+  <div class="section">
+    <h2 class="section-title">
+      <span class="section-num">05</span>
+      <span class="en">Transaction Procedure</span>
+      <span class="es">Procedimiento de Transacción</span>
+    </h2>
+    <p class="en" style="margin-bottom:14px;">The parties agree to execute the transaction in the following nine steps, in strict sequence. No variation to this sequence is permitted.</p>
+    <p class="es" style="margin-bottom:14px;">Las partes acuerdan ejecutar la transacción en los siguientes nueve pasos, en estricta secuencia. No se permite ninguna variación de esta secuencia.</p>
+    <ol>
+      <li class="en"><strong>SPA Execution:</strong> Both parties sign the Sale and Purchase Agreement at an agreed location.</li>
+      <li class="es"><strong>Ejecución del CCV:</strong> Ambas partes firman el Contrato de Compraventa en un lugar acordado.</li>
+      <li class="en"><strong>KYC / AML Package:</strong> Buyer and Seller complete full KYC/AML documentation — including government-issued identification, corporate registration, beneficial ownership declaration, source of funds documentation (Buyer), Hong Kong bank authorization (Buyer), mine origin documentation and export permits (Seller).</li>
+      <li class="es"><strong>Paquete KYC / AML:</strong> El Comprador y el Vendedor completan la documentación KYC/AML completa — incluyendo identificación emitida por el gobierno, registro corporativo, declaración de titularidad beneficiosa, documentación de origen de fondos (Comprador), autorización bancaria de Hong Kong (Comprador), documentación de origen minero y permisos de exportación (Vendedor).</li>
+      <li class="en"><strong>Documents Delivered to African Bank:</strong> The African bank receives the executed SPA and the commission schedule prior to any movement of funds or gold. The bank is authorized in advance to execute the commission schedule on the same day funds are confirmed received in the Seller's account.</li>
+      <li class="es"><strong>Documentos Entregados al Banco Africano:</strong> El banco africano recibe el CCV ejecutado y el calendario de comisiones antes de cualquier movimiento de fondos u oro. El banco está autorizado con antelación para ejecutar el calendario de comisiones el mismo día que se confirme la recepción de fondos en la cuenta del Vendedor.</li>
+      <li class="en"><strong>Gold Delivered to Ferrari:</strong> Seller delivers the gold physically to Ferrari Group at the agreed pickup location in Mali. Title remains in the Seller's name throughout this step.</li>
+      <li class="es"><strong>Oro Entregado a Ferrari:</strong> El Vendedor entrega el oro físicamente a Ferrari Group en el lugar de recogida acordado en Mali. La titularidad permanece a nombre del Vendedor durante todo este paso.</li>
+      <li class="en"><strong>Conditional Power of Attorney:</strong> Seller grants Ferrari Group a Conditional Power of Attorney — null and void if payment is not confirmed. The POA authorizes Ferrari Group to transfer title to the Buyer solely upon written confirmation of payment received in the Seller's African bank via MT103.</li>
+      <li class="es"><strong>Poder Notarial Condicional:</strong> El Vendedor otorga a Ferrari Group un Poder Notarial Condicional — nulo y sin efecto si el pago no se confirma. El poder autoriza a Ferrari Group a transferir la titularidad al Comprador únicamente mediante confirmación escrita del pago recibido en el banco africano del Vendedor vía MT103.</li>
+      <li class="en"><strong>Custody Receipt &amp; Assay:</strong> Ferrari Group issues a custody receipt confirming weight, purity, and quantity against the Seller's assay certificate. The custody receipt references the conditional POA and its release condition.</li>
+      <li class="es"><strong>Recibo de Custodia y Ensayo:</strong> Ferrari Group emite un recibo de custodia confirmando peso, pureza y cantidad contra el certificado de ensayo del Vendedor. El recibo de custodia hace referencia al Poder Notarial Condicional y su condición de liberación.</li>
+      <li class="en"><strong>MT103 — Funds Transferred:</strong> The Buyer's Hong Kong bank executes the MT103 wire transfer of funds directly to the Seller's African bank via the agreed intermediary. The MT103 instruction alone does not trigger title transfer.</li>
+      <li class="es"><strong>MT103 — Fondos Transferidos:</strong> El banco de Hong Kong del Comprador ejecuta la transferencia bancaria MT103 de fondos directamente al banco africano del Vendedor a través del intermediario acordado. La instrucción MT103 por sí sola no activa la transferencia de titularidad.</li>
+      <li class="en"><strong>Payment Confirmed → Commission Executed:</strong> Upon written confirmation by the African bank that funds have been received, the African bank executes the commission schedule on the same day. Ferrari Group exercises the conditional POA — title transfers to the Buyer. Export is authorized.</li>
+      <li class="es"><strong>Pago Confirmado → Comisión Ejecutada:</strong> Tras la confirmación escrita del banco africano de que se han recibido los fondos, el banco africano ejecuta el calendario de comisiones el mismo día. Ferrari Group ejerce el Poder Notarial Condicional — la titularidad se transfiere al Comprador. Se autoriza la exportación.</li>
+      <li class="en"><strong>Delivery:</strong> Ferrari Group exports and physically delivers the gold to the Buyer at the agreed destination. The Buyer is the unencumbered legal owner.</li>
+      <li class="es"><strong>Entrega:</strong> Ferrari Group exporta y entrega físicamente el oro al Comprador en el destino acordado. El Comprador es el propietario legal sin gravámenes.</li>
+    </ol>
+  </div>
+
+  <hr class="grey-rule">
+
+  <!-- SECTION 6: TITLE -->
+  <div class="section">
+    <h2 class="section-title">
+      <span class="section-num">06</span>
+      <span class="en">Ownership and Title</span>
+      <span class="es">Propiedad y Titularidad</span>
+    </h2>
+    <p class="en" style="margin-bottom:10px;">Legal title to the gold remains in the Seller's name from the moment of delivery to Ferrari Group through the full duration of custody. Title does <strong>not</strong> transfer at delivery of the gold to Ferrari Group, at the granting of the conditional POA, at the issuance of the custody receipt, or at the execution of the MT103 instruction.</p>
+    <p class="es" style="margin-bottom:10px;">La titularidad legal del oro permanece a nombre del Vendedor desde el momento de la entrega a Ferrari Group durante toda la duración de la custodia. La titularidad <strong>no</strong> se transfiere en la entrega del oro a Ferrari Group, en el otorgamiento del Poder Notarial Condicional, en la emisión del recibo de custodia, ni en la ejecución de la instrucción MT103.</p>
+    <p class="en">Title transfers <strong>only</strong> when: (i) the African bank has issued written confirmation of receipt of funds; (ii) Ferrari Group has received that written confirmation; and (iii) Ferrari Group has exercised the conditional POA. These three events are simultaneous and constitute the single title transfer moment.</p>
+    <p class="es">La titularidad se transfiere <strong>únicamente</strong> cuando: (i) el banco africano ha emitido confirmación escrita de recepción de fondos; (ii) Ferrari Group ha recibido esa confirmación escrita; y (iii) Ferrari Group ha ejercido el Poder Notarial Condicional. Estos tres eventos son simultáneos y constituyen el único momento de transferencia de titularidad.</p>
+  </div>
+
+  <hr class="grey-rule">
+
+  <!-- SECTION 7: DOCUMENTATION -->
+  <div class="section">
+    <h2 class="section-title">
+      <span class="section-num">07</span>
+      <span class="en">Required Documentation</span>
+      <span class="es">Documentación Requerida</span>
+    </h2>
+    <p class="en" style="margin-bottom:10px;">Upon title transfer, the following export documentation package shall accompany the gold:</p>
+    <p class="es" style="margin-bottom:10px;">Tras la transferencia de titularidad, el siguiente paquete de documentación de exportación acompañará al oro:</p>
+    <ul>
+      <li class="en">Certificate of Origin</li><li class="es">Certificado de Origen</li>
+      <li class="en">Certificate of Ownership (in the Buyer's name upon title transfer)</li><li class="es">Certificado de Propiedad (a nombre del Comprador tras la transferencia de titularidad)</li>
+      <li class="en">Assay Certificate</li><li class="es">Certificado de Ensayo</li>
+      <li class="en">Commercial Invoice</li><li class="es">Factura Comercial</li>
+      <li class="en">Export Permit (Mali)</li><li class="es">Permiso de Exportación (Mali)</li>
+      <li class="en">Airway Bill (AWB)</li><li class="es">Conocimiento de Embarque Aéreo (AWB)</li>
+      <li class="en">Insurance Certificate</li><li class="es">Certificado de Seguro</li>
+      <li class="en">Declaration of Non-Criminal Origin</li><li class="es">Declaración de Origen No Criminal</li>
+    </ul>
+  </div>
+
+  <hr class="grey-rule">
+
+  <!-- SECTION 8: DUE DILIGENCE -->
+  <div class="section">
+    <h2 class="section-title">
+      <span class="section-num">08</span>
+      <span class="en">Due Diligence</span>
+      <span class="es">Debida Diligencia</span>
+    </h2>
+    <p class="en">Both parties confirm that they have conducted, or will conduct prior to SPA execution, full KYC/AML due diligence on the other party and on all intermediaries named in this transaction. Both parties confirm that the source of funds (Buyer) and the source of the gold (Seller) are lawful and documentable.</p>
+    <p class="es">Ambas partes confirman que han realizado, o realizarán antes de la ejecución del CCV, la debida diligencia KYC/AML completa sobre la otra parte y sobre todos los intermediarios nombrados en esta transacción. Ambas partes confirman que el origen de los fondos (Comprador) y el origen del oro (Vendedor) son lícitos y documentables.</p>
+  </div>
+
+  <hr class="grey-rule">
+
+  <!-- SECTION 9: NON-BINDING -->
+  <div class="section">
+    <h2 class="section-title">
+      <span class="section-num">09</span>
+      <span class="en">Non-Binding Nature</span>
+      <span class="es">Naturaleza No Vinculante</span>
+    </h2>
+    <p class="en">This Letter of Intent is not legally binding in respect of the commercial transaction described herein. It expresses the firm intention of the Buyer to proceed to SPA execution on the terms stated. The core procedure, the title transfer logic, and the commission framework set out herein shall be reproduced exactly in the SPA.</p>
+    <p class="es">Esta Carta de Intención no es jurídicamente vinculante respecto a la transacción comercial aquí descrita. Expresa la firme intención del Comprador de proceder a la ejecución del CCV en los términos indicados. El procedimiento central, la lógica de transferencia de titularidad y el marco de comisiones aquí establecidos se reproducirán exactamente en el CCV.</p>
+  </div>
+
+  <hr class="grey-rule">
+
+  <!-- SECTION 10: GOVERNING PRINCIPLES -->
+  <div class="section">
+    <h2 class="section-title">
+      <span class="section-num">10</span>
+      <span class="en">Governing Principles</span>
+      <span class="es">Principios Rectores</span>
+    </h2>
+    <p class="en">This LOI and the SPA to follow are governed by the principle that title never changes hands without confirmed payment. Ferrari Group's authority as neutral conditional custodian is strictly limited to the actions described herein. No variation to the title transfer trigger, the payment instrument, or the commission schedule shall be valid unless agreed in writing by all parties.</p>
+    <p class="es">Esta CDI y el CCV que le siga se rigen por el principio de que la titularidad nunca cambia de manos sin pago confirmado. La autoridad de Ferrari Group como custodio neutral condicional está estrictamente limitada a las acciones aquí descritas. Ninguna variación del activador de transferencia de titularidad, el instrumento de pago o el calendario de comisiones será válida a menos que todas las partes la acuerden por escrito.</p>
+  </div>
+
+  <hr class="grey-rule">
+
+  <!-- CLOSING -->
+  <p class="en" style="margin-bottom:28px;">The Buyer signs this Letter of Intent to confirm its firm intention to proceed to Sale and Purchase Agreement execution on the terms stated herein and to authorize the commencement of KYC/AML documentation exchange.</p>
+  <p class="es" style="margin-bottom:28px;">El Comprador firma esta Carta de Intención para confirmar su firme intención de proceder a la ejecución del Contrato de Compraventa en los términos aquí indicados y para autorizar el inicio del intercambio de documentación KYC/AML.</p>
+
+  <hr class="grey-rule">
+
+  <!-- SIGNATURES -->
+  <div class="sig-section">
+    <div class="sig-party">
+      <p class="sig-party-label en">For and on Behalf of the Buyer:</p>
+      <p class="sig-party-label es">Por y en Nombre del Comprador:</p>
+      <table class="sig-table">
+        <tr><td class="sig-label"><span class="en">Authorized Signatory</span><span class="es">Firmante Autorizado</span></td><td class="sig-line">&nbsp;</td></tr>
+        <tr><td class="sig-label"><span class="en">Name (Print)</span><span class="es">Nombre (Imprenta)</span></td><td class="sig-line">&nbsp;</td></tr>
+        <tr><td class="sig-label"><span class="en">Title</span><span class="es">Cargo</span></td><td class="sig-line">&nbsp;</td></tr>
+        <tr><td class="sig-label"><span class="en">Company</span><span class="es">Empresa</span></td><td class="sig-line">&nbsp;</td></tr>
+        <tr><td class="sig-label"><span class="en">Date</span><span class="es">Fecha</span></td><td class="sig-line">&nbsp;</td></tr>
+        <tr><td class="sig-label"><span class="en">Corporate Email</span><span class="es">Correo Corporativo</span></td><td class="sig-line">&nbsp;</td></tr>
+      </table>
+    </div>
+    <div class="sig-party">
+      <p class="sig-party-label en">For and on Behalf of the Seller:</p>
+      <p class="sig-party-label es">Por y en Nombre del Vendedor:</p>
+      <table class="sig-table">
+        <tr><td class="sig-label"><span class="en">Authorized Signatory</span><span class="es">Firmante Autorizado</span></td><td class="sig-line">&nbsp;</td></tr>
+        <tr><td class="sig-label"><span class="en">Name (Print)</span><span class="es">Nombre (Imprenta)</span></td><td class="sig-line">&nbsp;</td></tr>
+        <tr><td class="sig-label"><span class="en">Title</span><span class="es">Cargo</span></td><td class="sig-line">&nbsp;</td></tr>
+        <tr><td class="sig-label"><span class="en">Company</span><span class="es">Empresa</span></td><td class="sig-line">&nbsp;</td></tr>
+        <tr><td class="sig-label"><span class="en">Date</span><span class="es">Fecha</span></td><td class="sig-line">&nbsp;</td></tr>
+        <tr><td class="sig-label"><span class="en">Corporate Email</span><span class="es">Correo Corporativo</span></td><td class="sig-line">&nbsp;</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <hr class="gold-rule">
+  <div class="doc-footer">
+    <p class="en">Confidential — Prepared for Authorized Transaction Parties Only</p>
+    <p class="es">Confidencial — Preparado Exclusivamente para Partes Autorizadas de la Transacción</p>
+    <p style="margin-top:6px;">Gold Doré LOI — ORO Project — Mali to Hong Kong — May 2026</p>
+  </div>
+
+</div>
+
+<script>
+function setLang(l) {
+  document.body.classList.remove('lang-en','lang-es');
+  document.body.classList.add('lang-'+l);
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.lang-btn[onclick="setLang(\''+l+'\')"]').classList.add('active');
+  document.documentElement.lang = l;
+}
+</script>
+</body>
+</html>
