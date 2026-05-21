@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>html-publisher — Workflow Automation</title>
+<style>
+  :root {
+    --bg: #1e1e2e;
+    --bg-canvas: #2a2a3a;
+    --node-bg: #2d3038;
+    --node-border: #3a3d48;
+    --text: #e4e4e7;
+    --text-muted: #9ca3af;
+    --line: #4b5563;
+    --accent: #ff6d5a;
+    --true: #2ec27e;
+    --false: #ff5d5d;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    min-height: 100vh;
+    padding-bottom: 40px;
+  }
+
+  /* Top bar — n8n-style */
+  .topbar {
+    background: #181820;
+    border-bottom: 1px solid #2a2a35;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 0.85rem;
+  }
+  .topbar .brand {
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .topbar .sep { color: #444; }
+  .topbar .workflow-name { color: var(--text); }
+  .topbar .badge {
+    background: var(--true);
+    color: #fff;
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+  }
+  .topbar .right {
+    margin-left: auto;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+  }
+
+  .header-meta {
+    max-width: 1500px;
+    margin: 24px auto 16px;
+    padding: 0 24px;
+  }
+  .header-meta h1 {
+    font-size: 1.35rem;
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+  .header-meta p {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    max-width: 900px;
+  }
+
+  /* Canvas */
+  .canvas-wrap {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 24px;
+    overflow-x: auto;
+  }
+  .canvas {
+    position: relative;
+    width: 1500px;
+    height: 480px;
+    background-image: radial-gradient(circle, #3a3a48 1px, transparent 1px);
+    background-size: 20px 20px;
+    background-color: var(--bg-canvas);
+    border-radius: 8px;
+    border: 1px solid #2a2a35;
+  }
+
+  .connectors {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  /* Nodes */
+  .node {
+    position: absolute;
+    width: 150px;
+    height: 60px;
+    background: var(--node-bg);
+    border: 1px solid var(--node-border);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding: 6px;
+    gap: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    transition: transform 0.15s, box-shadow 0.15s;
+    z-index: 2;
+  }
+  .node:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.55), 0 0 0 2px var(--accent);
+  }
+  .node .icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    font-weight: 700;
+  }
+  .node .text { flex: 1; min-width: 0; }
+  .node .title {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.2;
+    margin-bottom: 2px;
+  }
+  .node .subtitle {
+    font-size: 0.66rem;
+    color: var(--text-muted);
+    line-height: 1.2;
+    font-family: 'SF Mono', Menlo, monospace;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Icon variants */
+  .icon-trigger { background: #8e6cf5; color: white; }
+  .icon-file { background: #6b7280; color: white; }
+  .icon-github { background: #1f2328; color: white; }
+  .icon-notion { background: #ffffff; color: #000; }
+  .icon-if { background: #ff8c2a; color: white; }
+  .icon-success { background: var(--true); color: white; }
+
+  /* Branch labels */
+  .branch-label {
+    position: absolute;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    background: var(--bg-canvas);
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-family: 'SF Mono', Menlo, monospace;
+  }
+
+  /* Footer with detail steps */
+  .footer {
+    max-width: 1500px;
+    margin: 32px auto 0;
+    padding: 0 24px;
+  }
+  .footer h3 {
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+    color: var(--text);
+    font-weight: 600;
+  }
+  .step-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .step {
+    background: #25252e;
+    border-left: 3px solid var(--line);
+    padding: 10px 14px;
+    border-radius: 4px;
+  }
+  .step .step-num {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+    font-family: 'SF Mono', Menlo, monospace;
+    letter-spacing: 0.04em;
+  }
+  .step .step-title {
+    font-size: 0.88rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .step .step-desc {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+  }
+  .step code {
+    font-family: 'SF Mono', Menlo, monospace;
+    font-size: 0.76rem;
+    background: #0d0d14;
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: #82d8ff;
+  }
+
+  /* Caveat */
+  .caveat {
+    max-width: 1500px;
+    margin: 32px auto 0;
+    padding: 14px 18px;
+    background: #25252e;
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+  .caveat strong { color: var(--accent); }
+
+  @media (max-width: 1024px) {
+    .step-list { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 700px) {
+    .step-list { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="brand">⚡ n8n-like view</span>
+  <span class="sep">|</span>
+  <span class="workflow-name">html-publisher</span>
+  <span class="badge">ACTIVE</span>
+  <span class="right">9 nodes · 2 branches · idempotent</span>
+</div>
+
+<div class="header-meta">
+  <h1>Workflow de automatización — <code style="font-family:'SF Mono',Menlo,monospace;font-size:0.95rem;color:#82d8ff;">publish.py</code></h1>
+  <p>Sube un HTML al repo <code style="background:#0d0d14;padding:1px 6px;border-radius:3px;color:#82d8ff;">ragosasan-cloud/HTML-Publications</code> (GitHub Pages lo sirve) y registra la publicación en una base de datos de Notion. Idempotente: re-ejecutar con el mismo archivo actualiza en vez de duplicar. Con reintentos automáticos ante errores transitorios de Notion.</p>
+</div>
+
+<div class="canvas-wrap">
+<div class="canvas">
+
+  <svg class="connectors" viewBox="0 0 1500 480">
+    <defs>
+      <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#4b5563"/>
+      </marker>
+      <marker id="arrow-true" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#2ec27e"/>
+      </marker>
+      <marker id="arrow-false" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#ff5d5d"/>
+      </marker>
+    </defs>
+
+    <!-- Main horizontal chain: Trigger → Read → GH-GET → GH-PUT → Query → IF -->
+    <path d="M 190 230 C 200 230, 210 230, 220 230" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+    <path d="M 370 230 C 380 230, 390 230, 400 230" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+    <path d="M 550 230 C 560 230, 570 230, 580 230" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+    <path d="M 730 230 C 740 230, 750 230, 760 230" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+    <path d="M 910 230 C 920 230, 930 230, 940 230" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+    <!-- IF branches -->
+    <!-- TRUE (existing row) goes UP to PATCH -->
+    <path d="M 1090 230 C 1115 230, 1115 110, 1140 110" stroke="#2ec27e" stroke-width="2" fill="none" marker-end="url(#arrow-true)"/>
+    <!-- FALSE (no row) goes DOWN to POST -->
+    <path d="M 1090 230 C 1115 230, 1115 350, 1140 350" stroke="#ff5d5d" stroke-width="2" fill="none" marker-end="url(#arrow-false)"/>
+
+    <!-- Converge to Live Link -->
+    <path d="M 1290 110 C 1315 110, 1315 230, 1340 230" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+    <path d="M 1290 350 C 1315 350, 1315 230, 1340 230" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  </svg>
+
+  <!-- Nodes -->
+  <div class="node" style="left:40px;top:200px;" title="Manual Trigger — stdin from printf">
+    <div class="icon icon-trigger">▶</div>
+    <div class="text">
+      <div class="title">Manual Trigger</div>
+      <div class="subtitle">stdin · printf | py</div>
+    </div>
+  </div>
+
+  <div class="node" style="left:220px;top:200px;" title="Read local HTML and base64-encode">
+    <div class="icon icon-file">📄</div>
+    <div class="text">
+      <div class="title">Read HTML File</div>
+      <div class="subtitle">base64 encode</div>
+    </div>
+  </div>
+
+  <div class="node" style="left:400px;top:200px;" title="GitHub: GET /repos/.../contents/{path}">
+    <div class="icon icon-github">⌥</div>
+    <div class="text">
+      <div class="title">GitHub: GET sha</div>
+      <div class="subtitle">/contents/&lt;path&gt;</div>
+    </div>
+  </div>
+
+  <div class="node" style="left:580px;top:200px;" title="GitHub: PUT new content (create or update with sha)">
+    <div class="icon icon-github">⌥</div>
+    <div class="text">
+      <div class="title">GitHub: PUT file</div>
+      <div class="subtitle">commit · sha if exists</div>
+    </div>
+  </div>
+
+  <div class="node" style="left:760px;top:200px;" title="Notion: POST /databases/{id}/query — filter by Name">
+    <div class="icon icon-notion">N</div>
+    <div class="text">
+      <div class="title">Notion: Query DB</div>
+      <div class="subtitle">filter Name = file</div>
+    </div>
+  </div>
+
+  <div class="node" style="left:940px;top:200px;" title="IF: did the query return a row?">
+    <div class="icon icon-if">⑂</div>
+    <div class="text">
+      <div class="title">IF: row exists?</div>
+      <div class="subtitle">results &gt; 0</div>
+    </div>
+  </div>
+
+  <div class="node" style="left:1140px;top:80px;" title="Notion: PATCH /pages/{id}">
+    <div class="icon icon-notion">N</div>
+    <div class="text">
+      <div class="title">Notion: PATCH row</div>
+      <div class="subtitle">update existing</div>
+    </div>
+  </div>
+
+  <div class="node" style="left:1140px;top:320px;" title="Notion: POST /pages — new row">
+    <div class="icon icon-notion">N</div>
+    <div class="text">
+      <div class="title">Notion: POST row</div>
+      <div class="subtitle">create new</div>
+    </div>
+  </div>
+
+  <div class="node" style="left:1340px;top:200px;" title="Print the live link to stdout">
+    <div class="icon icon-success">🔗</div>
+    <div class="text">
+      <div class="title">Output: Live Link</div>
+      <div class="subtitle">github.io URL</div>
+    </div>
+  </div>
+
+  <!-- Branch labels -->
+  <div class="branch-label" style="left:1100px;top:155px;color:#2ec27e;">true</div>
+  <div class="branch-label" style="left:1100px;top:295px;color:#ff5d5d;">false</div>
+
+</div>
+</div>
+
+<div class="footer">
+  <h3>Detalle de cada nodo</h3>
+  <div class="step-list">
+
+    <div class="step" style="border-left-color:#8e6cf5;">
+      <div class="step-num">01 · TRIGGER</div>
+      <div class="step-title">Manual Trigger</div>
+      <div class="step-desc">El usuario invoca <code>printf '...' | python3 publish.py</code>. Tres líneas: filename, folder number (1–6), recipient.</div>
+    </div>
+
+    <div class="step" style="border-left-color:#6b7280;">
+      <div class="step-num">02 · LOCAL FS</div>
+      <div class="step-title">Read HTML File</div>
+      <div class="step-desc">Lee el archivo local con <code>Path.read_bytes()</code> y lo codifica en base64 para la API de GitHub.</div>
+    </div>
+
+    <div class="step" style="border-left-color:#1f2328;background:#2a2a3a;">
+      <div class="step-num">03 · GITHUB API</div>
+      <div class="step-title">GET sha (¿existe?)</div>
+      <div class="step-desc">Consulta <code>/repos/{owner}/{repo}/contents/{folder}/{file}</code>. Si responde 200, captura el <code>sha</code>.</div>
+    </div>
+
+    <div class="step" style="border-left-color:#1f2328;background:#2a2a3a;">
+      <div class="step-num">04 · GITHUB API</div>
+      <div class="step-title">PUT file</div>
+      <div class="step-desc">Sube el archivo. Si había <code>sha</code>, actualiza; si no, crea. GitHub Pages lo sirve en ~30–60 s.</div>
+    </div>
+
+    <div class="step" style="border-left-color:#ffffff;background:#2a2a3a;">
+      <div class="step-num">05 · NOTION API</div>
+      <div class="step-title">Query Database</div>
+      <div class="step-desc"><code>POST /databases/{id}/query</code> filtrando por <code>Name = filename</code>. Devuelve la fila si existe.</div>
+    </div>
+
+    <div class="step" style="border-left-color:#ff8c2a;">
+      <div class="step-num">06 · BRANCH</div>
+      <div class="step-title">IF row exists?</div>
+      <div class="step-desc">Si la query devuelve resultados → rama <strong style="color:#2ec27e;">true</strong> (update). Si no → rama <strong style="color:#ff5d5d;">false</strong> (create).</div>
+    </div>
+
+    <div class="step" style="border-left-color:#ffffff;background:#2a2a3a;">
+      <div class="step-num">07a · NOTION (TRUE)</div>
+      <div class="step-title">PATCH row</div>
+      <div class="step-desc"><code>PATCH /pages/{id}</code> con las propiedades nuevas. Idempotente: re-publicar el mismo HTML no duplica filas.</div>
+    </div>
+
+    <div class="step" style="border-left-color:#ffffff;background:#2a2a3a;">
+      <div class="step-num">07b · NOTION (FALSE)</div>
+      <div class="step-title">POST row</div>
+      <div class="step-desc"><code>POST /pages</code> con <code>Name</code>, <code>Folder</code>, <code>Recipient</code>, <code>Live Link</code>, <code>Date</code>.</div>
+    </div>
+
+    <div class="step" style="border-left-color:#2ec27e;">
+      <div class="step-num">08 · OUTPUT</div>
+      <div class="step-title">Live Link</div>
+      <div class="step-desc">Imprime <code>https://ragosasan-cloud.github.io/HTML-Publications/&lt;folder&gt;/&lt;file&gt;</code> en stdout.</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="caveat">
+  <strong>Detalles del código real que el diagrama no muestra:</strong> reintentos con backoff exponencial (urllib3 <code>Retry</code>) en GET/PUT/PATCH ante 429/500/502/503/504; función <code>publish_notion()</code> que re-consulta antes de cada reintento para evitar filas duplicadas si un POST falló pero sí persistió; mensaje claro si GitHub publicó pero Notion sigue caído tras todos los intentos (re-ejecutar es idempotente).
+</div>
+
+</body>
+</html>
