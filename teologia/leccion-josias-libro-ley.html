@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>El Libro Hallado — La Reforma de Josías</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IM+Fell+English:ital@0;1&family=Noto+Serif+Hebrew:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <style>
+    /* ─────────────────────────────────────────
+       RESET & TOKENS
+    ───────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0d0b07;
+      --surface:   #faf6ef;
+      --ink:       #1a1108;
+      --sepia:     #6b4f2e;
+      --gold:      #b8872a;
+      --gold-lt:   #d4a84b;
+      --ember:     #7d2a0a;
+      --muted:     #8a7660;
+      --rule:      rgba(184,135,42,0.3);
+      --ff-display: 'Playfair Display', Georgia, serif;
+      --ff-body:    'Crimson Pro', Georgia, serif;
+      --ff-quote:   'IM Fell English', Georgia, serif;
+      --ff-heb:     'Noto Serif Hebrew', serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      font-family: var(--ff-body);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ─────────────────────────────────────────
+       HERO
+    ───────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 5rem 2rem 6rem;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 55%, rgba(184,135,42,0.13) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 50% 10%, rgba(125,42,10,0.2) 0%, transparent 60%),
+        var(--bg);
+      overflow: hidden;
+    }
+
+    /* grain */
+    .hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23g)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .hero-series {
+      position: relative;
+      font-family: var(--ff-body);
+      font-weight: 300;
+      font-style: italic;
+      font-size: 0.78rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 2.2rem;
+    }
+
+    .hero-hebrew {
+      position: relative;
+      font-family: var(--ff-heb);
+      font-size: clamp(3.5rem, 10vw, 6.5rem);
+      color: rgba(212,168,75,0.18);
+      letter-spacing: 0.05em;
+      line-height: 1;
+      margin-bottom: 0.3rem;
+      user-select: none;
+    }
+
+    .hero-translit {
+      position: relative;
+      font-family: var(--ff-display);
+      font-style: italic;
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      color: var(--gold-lt);
+      letter-spacing: 0.12em;
+      margin-bottom: 2rem;
+    }
+
+    .hero h1 {
+      position: relative;
+      font-family: var(--ff-display);
+      font-size: clamp(2.6rem, 6.5vw, 4.8rem);
+      font-weight: 900;
+      line-height: 1.1;
+      color: #f5eddf;
+      max-width: 800px;
+      text-shadow: 0 2px 40px rgba(184,135,42,0.2);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gold-lt);
+    }
+
+    .hero-sub {
+      position: relative;
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      font-weight: 300;
+      line-height: 1.8;
+      color: rgba(245,237,223,0.55);
+      max-width: 520px;
+      margin-bottom: 2.8rem;
+    }
+
+    .hero-ref {
+      position: relative;
+      display: inline-block;
+      border: 1px solid rgba(184,135,42,0.4);
+      padding: 0.45rem 1.4rem;
+      font-family: var(--ff-body);
+      font-style: italic;
+      font-size: 0.88rem;
+      color: var(--gold);
+      letter-spacing: 0.07em;
+    }
+
+    .scroll-down {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(245,237,223,0.25);
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+    }
+    .scroll-down::after {
+      content: '';
+      width: 1px; height: 44px;
+      background: linear-gradient(to bottom, rgba(184,135,42,0.6), transparent);
+      animation: pulse-line 2.2s ease-in-out infinite;
+    }
+    @keyframes pulse-line {
+      0%,100% { opacity: 0.3; transform: scaleY(1); }
+      50%      { opacity: 1;   transform: scaleY(1.08); }
+    }
+
+    /* ─────────────────────────────────────────
+       PARCHMENT PAGE
+    ───────────────────────────────────────── */
+    .page {
+      position: relative;
+      background: var(--surface);
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 5.5rem 5.5rem 5rem;
+      box-shadow:
+        0 -8px 50px rgba(0,0,0,0.55),
+        0 40px 80px rgba(0,0,0,0.4);
+      border-top: 2.5px solid var(--gold);
+    }
+
+    /* aged edges */
+    .page::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to right, rgba(107,79,46,0.1) 0%, transparent 6%, transparent 94%, rgba(107,79,46,0.1) 100%),
+        linear-gradient(to bottom, transparent 92%, rgba(107,79,46,0.07) 100%);
+      pointer-events: none;
+    }
+
+    /* ─────────────────────────────────────────
+       SECTION ANATOMY
+    ───────────────────────────────────────── */
+    .part {
+      margin-bottom: 4rem;
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .part.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .part-label {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-family: var(--ff-body);
+      font-weight: 400;
+      margin-bottom: 0.7rem;
+    }
+    .part-label::before {
+      content: '';
+      flex: 0 0 28px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.5;
+    }
+
+    h2 {
+      font-family: var(--ff-display);
+      font-size: clamp(1.5rem, 3.5vw, 2.1rem);
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.2;
+      margin-bottom: 1.2rem;
+    }
+
+    h3 {
+      font-family: var(--ff-quote);
+      font-size: 1.05rem;
+      color: var(--ember);
+      margin: 1.8rem 0 0.6rem;
+    }
+
+    p {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: #28180a;
+      font-weight: 300;
+      margin-bottom: 1rem;
+    }
+
+    strong { font-weight: 600; color: var(--ember); }
+    em     { font-style: italic; }
+
+    /* ─────────────────────────────────────────
+       SCRIPTURE BLOCK
+    ───────────────────────────────────────── */
+    .scripture {
+      position: relative;
+      margin: 2rem 0;
+      padding: 2rem 2.2rem 2rem 3.8rem;
+      background: linear-gradient(135deg, rgba(184,135,42,0.07), rgba(184,135,42,0.02));
+      border-left: 2.5px solid var(--gold);
+    }
+    .scripture::before {
+      content: '\201C';
+      position: absolute;
+      left: 0.75rem; top: 0.6rem;
+      font-family: var(--ff-display);
+      font-size: 4.5rem;
+      line-height: 1;
+      color: var(--gold);
+      opacity: 0.3;
+    }
+    .scripture p {
+      font-family: var(--ff-quote);
+      font-style: italic;
+      font-size: 1.08rem;
+      line-height: 1.75;
+      color: var(--ink);
+      margin: 0;
+    }
+    .scripture-ref {
+      display: block;
+      margin-top: 0.8rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ─────────────────────────────────────────
+       HIGHLIGHT / DARK BOX
+    ───────────────────────────────────────── */
+    .dark-box {
+      position: relative;
+      background: var(--bg);
+      margin: 2.8rem -2.5rem;
+      padding: 3rem 3.5rem;
+      overflow: hidden;
+    }
+    .dark-box::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 25% 50%, rgba(184,135,42,0.12) 0%, transparent 65%);
+    }
+    .dark-box .db-label {
+      font-size: 0.63rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.7rem;
+      position: relative;
+    }
+    .dark-box h2 {
+      position: relative;
+      color: #f5eddf;
+    }
+    .dark-box p {
+      position: relative;
+      color: rgba(245,237,223,0.72);
+      font-size: 1rem;
+    }
+
+    /* ─────────────────────────────────────────
+       CALLOUT / PULL QUOTE
+    ───────────────────────────────────────── */
+    .callout {
+      border: 1px solid rgba(184,135,42,0.3);
+      padding: 1.5rem 2rem;
+      margin: 2rem 0;
+      text-align: center;
+    }
+    .callout p {
+      font-family: var(--ff-display);
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--ember);
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    /* ─────────────────────────────────────────
+       TABLE
+    ───────────────────────────────────────── */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.93rem;
+      font-family: var(--ff-body);
+    }
+    thead tr {
+      background: var(--ink);
+      color: #f5eddf;
+    }
+    thead th {
+      padding: 0.7rem 1rem;
+      text-align: left;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+    }
+    tbody tr {
+      border-bottom: 1px solid rgba(107,79,46,0.18);
+    }
+    tbody tr:nth-child(even) {
+      background: rgba(184,135,42,0.04);
+    }
+    tbody td {
+      padding: 0.75rem 1rem;
+      color: #28180a;
+      line-height: 1.55;
+      vertical-align: top;
+    }
+    tbody td:first-child {
+      font-weight: 600;
+      color: var(--ember);
+      white-space: nowrap;
+    }
+
+    /* ─────────────────────────────────────────
+       NUMBERED LIST
+    ───────────────────────────────────────── */
+    .reform-list {
+      list-style: none;
+      margin: 1.5rem 0;
+    }
+    .reform-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 0.9rem 0;
+      border-bottom: 1px solid rgba(107,79,46,0.14);
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #28180a;
+    }
+    .reform-list li:last-child { border-bottom: none; }
+    .reform-num {
+      flex: 0 0 28px;
+      height: 28px;
+      background: var(--gold);
+      color: var(--ink);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.72rem;
+      font-weight: 600;
+      margin-top: 0.15rem;
+      font-family: var(--ff-body);
+    }
+
+    /* ─────────────────────────────────────────
+       QUESTIONS
+    ───────────────────────────────────────── */
+    .questions {
+      background: rgba(184,135,42,0.05);
+      border: 1px solid rgba(184,135,42,0.2);
+      padding: 2.2rem 2.5rem;
+      margin: 2rem 0;
+    }
+    .questions h3 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
+    .questions ol {
+      padding-left: 1.3rem;
+    }
+    .questions ol li {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: #28180a;
+      font-weight: 300;
+      margin-bottom: 0.8rem;
+    }
+
+    /* ─────────────────────────────────────────
+       PRAYER / CLOSE
+    ───────────────────────────────────────── */
+    .prayer {
+      margin-top: 3rem;
+      border-top: 1px solid var(--rule);
+      padding-top: 2.5rem;
+      text-align: center;
+    }
+    .prayer-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .prayer p {
+      font-family: var(--ff-quote);
+      font-style: italic;
+      font-size: 1.08rem;
+      line-height: 2;
+      color: #28180a;
+      max-width: 500px;
+      margin: 0 auto 0.4rem;
+    }
+    .prayer strong {
+      font-family: var(--ff-display);
+      font-size: 1.15rem;
+      display: block;
+      margin: 1rem 0;
+      color: var(--ember);
+    }
+
+    /* ─────────────────────────────────────────
+       DIVIDER
+    ───────────────────────────────────────── */
+    .rule {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 3rem 0;
+      color: var(--gold);
+      opacity: 0.45;
+    }
+    .rule::before, .rule::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--gold);
+    }
+    .rule-sym { font-size: 0.9rem; }
+
+    /* ─────────────────────────────────────────
+       FOOTER QUOTE
+    ───────────────────────────────────────── */
+    .page-footer-quote {
+      margin-top: 3.5rem;
+      border-top: 1px solid var(--rule);
+      padding-top: 1.8rem;
+      text-align: center;
+    }
+    .page-footer-quote p {
+      font-family: var(--ff-display);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--sepia);
+      line-height: 1.6;
+    }
+    .page-footer-quote span {
+      display: block;
+      margin-top: 0.5rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ─────────────────────────────────────────
+       SITE FOOTER
+    ───────────────────────────────────────── */
+    footer {
+      background: var(--bg);
+      text-align: center;
+      padding: 2.8rem 2rem;
+      color: rgba(245,237,223,0.22);
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-family: var(--ff-body);
+    }
+
+    /* ─────────────────────────────────────────
+       RESPONSIVE
+    ───────────────────────────────────────── */
+    @media (max-width: 680px) {
+      .page { padding: 3rem 1.8rem 3.5rem; }
+      .dark-box { margin: 2.5rem -0.3rem; padding: 2.2rem 1.8rem; }
+      .questions { padding: 1.8rem 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════
+       HERO
+  ══════════════════════════════════════ -->
+  <section class="hero">
+    <p class="hero-series">Lección Bíblica · Historia y Reforma en el Antiguo Testamento</p>
+    <div class="hero-hebrew" aria-hidden="true">סֵפֶר הַתּוֹרָה</div>
+    <div class="hero-translit">Séfer ha-Torāh</div>
+    <h1>El día que encontraron<br/><em>el Libro Perdido</em></h1>
+    <p class="hero-sub">
+      Cómo el hallazgo de las Escrituras en el templo desató el avivamiento más radical
+      de la historia de Judá, y formó a una generación capaz de resistir a Babilonia.
+    </p>
+    <div class="hero-ref">2 Reyes 22–23 · Josías y el Libro de la Ley</div>
+    <div class="scroll-down">Continúa</div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       PÁGINA
+  ══════════════════════════════════════ -->
+  <article class="page">
+
+    <!-- PARTE I -->
+    <div class="part">
+      <div class="part-label">Parte I</div>
+      <h2>Un reino que había olvidado la Palabra</h2>
+      <p>
+        Para entender la magnitud del hallazgo, primero hay que entender el olvido.
+        Judá llevaba décadas gobernada por reyes que no solo ignoraban la ley de Dios,
+        sino que <strong>activamente la sustituyeron</strong> por cultos paganos.
+        Manasés, abuelo de Josías, llegó a colocar ídolos dentro del templo de Jerusalén.
+        Las Escrituras habían desaparecido de la vida pública de Israel.
+      </p>
+      <p>
+        Josías llega al trono con ocho años. Crece en ese vacío. La ley de Moisés
+        no se leía, no se enseñaba, no se guardaba. Una nación entera había aprendido
+        a vivir como si la Palabra no existiera.
+      </p>
+
+      <div class="callout">
+        <p>No es que Dios hubiera cambiado.<br/>Era que nadie lo estaba leyendo.</p>
+      </div>
+    </div>
+
+    <div class="rule"><span class="rule-sym">· · ·</span></div>
+
+    <!-- PARTE II -->
+    <div class="part">
+      <div class="part-label">Parte II</div>
+
+      <div class="dark-box">
+        <div class="db-label">El momento central de la lección</div>
+        <h2>El hallazgo en el templo</h2>
+        <p>
+          Josías, ya adulto, ordena restaurar el templo que estaba en ruinas.
+          En medio de las obras, el sumo sacerdote Hilcías hace un descubrimiento
+          que nadie esperaba — y que nadie podía dimensionar todavía.
+        </p>
+      </div>
+
+      <div class="scripture">
+        <p>
+          «El sumo sacerdote Hilcías le dijo al secretario Safán:
+          He encontrado el libro de la ley en la casa del Señor.
+          Y Hilcías le dio el libro a Safán, quien lo leyó.»
+        </p>
+        <span class="scripture-ref">2 Reyes 22:8 · NVI</span>
+      </div>
+
+      <p>
+        El texto hebreo usa la expresión <em>séfer ha-torāh</em> — literalmente,
+        "el libro de la instrucción." La mayoría de los estudiosos identifican este rollo
+        con <strong>Deuteronomio</strong>, o al menos con su núcleo central: el documento
+        que contiene el pacto entre Dios e Israel, las bendiciones de la obediencia,
+        las maldiciones de la infidelidad, y el llamado de Moisés a amar a Dios con
+        todo el corazón, el alma y las fuerzas.
+      </p>
+      <p>
+        Ese libro había estado físicamente en el templo. No en manos enemigas,
+        no destruido — <strong>guardado</strong>, olvidado, enterrado bajo el polvo
+        de generaciones de negligencia espiritual.
+      </p>
+    </div>
+
+    <div class="rule"><span class="rule-sym">· · ·</span></div>
+
+    <!-- PARTE III -->
+    <div class="part">
+      <div class="part-label">Parte III</div>
+      <h2>¿Qué era exactamente el Libro de la Ley?</h2>
+      <p>
+        Antes de ver la reacción de Josías, vale la pena entender qué tiene entre manos
+        el secretario Safán cuando lo lee ante el rey.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Elemento</th>
+              <th>Detalle</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Nombre hebreo</td>
+              <td>סֵפֶר הַתּוֹרָה — Séfer ha-Torāh</td>
+            </tr>
+            <tr>
+              <td>Identificación probable</td>
+              <td>Deuteronomio, o el núcleo del Pentateuco mosaico</td>
+            </tr>
+            <tr>
+              <td>Contenido central</td>
+              <td>El pacto de Dios con Israel: bendiciones, maldiciones, shemá, mandamientos</td>
+            </tr>
+            <tr>
+              <td>Lugar del hallazgo</td>
+              <td>Dentro del templo de Jerusalén, durante obras de restauración</td>
+            </tr>
+            <tr>
+              <td>Quién lo encuentra</td>
+              <td>El sumo sacerdote Hilcías</td>
+            </tr>
+            <tr>
+              <td>Tiempo de olvido</td>
+              <td>Al menos durante los reinados de Manasés y Amón (≈ 57 años)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        Este no era un texto menor. Era el documento fundacional del pueblo de Israel:
+        su constitución espiritual, el registro escrito de lo que Dios esperaba de su pueblo
+        y de lo que el pueblo podía esperar de Dios.
+        Que estuviera perdido no era un problema de archivo — era una crisis de identidad nacional.
+      </p>
+    </div>
+
+    <div class="rule"><span class="rule-sym">· · ·</span></div>
+
+    <!-- PARTE IV -->
+    <div class="part">
+      <div class="part-label">Parte IV</div>
+      <h2>La reacción del rey: Josías rasga sus vestiduras</h2>
+      <p>
+        Cuando Safán lee el libro ante el rey, Josías no convoca un comité.
+        No encarga una comisión de teólogos. No relativiza el texto para que no se sienta
+        tan exigente. Su reacción es inmediata, física y visceral.
+      </p>
+
+      <div class="scripture">
+        <p>
+          «Al escuchar el rey las palabras del libro de la ley, se rasgó las vestiduras.
+          Luego les dio esta orden: "Vayan a consultar al Señor por mí,
+          por el pueblo y por todo Judá acerca de lo que dice este libro que se ha encontrado.
+          Grande es la ira del Señor que se ha encendido contra nosotros,
+          porque nuestros antepasados no obedecieron las palabras de este libro."»
+        </p>
+        <span class="scripture-ref">2 Reyes 22:11–13 · NVI</span>
+      </div>
+
+      <p>
+        Rasgarse las vestiduras era el gesto hebreo de duelo más profundo —
+        la misma respuesta de Job ante la tragedia, de los sacerdotes ante la blasfemia.
+        Josías lo hace porque <strong>comprende de golpe la distancia</strong> entre lo que
+        la ley exigía y lo que Israel había estado viviendo.
+      </p>
+      <p>
+        Lo que distingue a Josías no es que sea perfecto — es que cuando la Palabra
+        llega a sus oídos, la recibe con total honestidad. No la minimiza.
+        No la reencuadra. La deja hacer su trabajo en su interior.
+      </p>
+
+      <div class="callout">
+        <p>La primera respuesta correcta ante la Escritura no siempre es la paz.<br/>
+        A veces es la convicción que te hace rasgar algo por dentro.</p>
+      </div>
+    </div>
+
+    <div class="rule"><span class="rule-sym">· · ·</span></div>
+
+    <!-- PARTE V -->
+    <div class="part">
+      <div class="part-label">Parte V</div>
+      <h2>El avivamiento: lo que Josías hizo con el Libro</h2>
+      <p>
+        Lo que sigue en 2 Reyes 23 es uno de los períodos de reforma más radicales
+        que registra el Antiguo Testamento. Josías no guarda el libro como reliquia
+        ni lo reserva para el clero. Lo hace público, lo lee en voz alta, y luego <em>actúa</em>.
+      </p>
+
+      <div class="scripture">
+        <p>
+          «El rey subió al templo del Señor con todos los habitantes de Judá
+          y de Jerusalén, los sacerdotes y los profetas, y toda la población,
+          desde el más pequeño hasta el más grande.
+          Allí les leyó todo el libro del pacto que se había encontrado en el templo.»
+        </p>
+        <span class="scripture-ref">2 Reyes 23:2 · NVI</span>
+      </div>
+
+      <h3>Las reformas concretas de Josías</h3>
+      <ul class="reform-list">
+        <li>
+          <span class="reform-num">1</span>
+          <span>Lee el libro del pacto <strong>públicamente ante todo el pueblo</strong> — nada queda en el círculo íntimo del templo.</span>
+        </li>
+        <li>
+          <span class="reform-num">2</span>
+          <span>Renueva el <strong>pacto con Dios</strong> delante de todo el pueblo, comprometiéndose a obedecer la ley con todo el corazón.</span>
+        </li>
+        <li>
+          <span class="reform-num">3</span>
+          <span>Manda destruir todos los <strong>objetos de culto a Baal, Asera y los astros</strong> que estaban dentro del templo de Dios.</span>
+        </li>
+        <li>
+          <span class="reform-num">4</span>
+          <span>Elimina a los <strong>sacerdotes idólatras</strong> de los lugares altos en toda Judá y sus alrededores.</span>
+        </li>
+        <li>
+          <span class="reform-num">5</span>
+          <span>Profana y destruye el altar en <strong>Bet-el</strong>, el centro del culto del reino del norte, cumpliendo así una profecía de siglos atrás.</span>
+        </li>
+        <li>
+          <span class="reform-num">6</span>
+          <span>Ordena celebrar la <strong>Pascua</strong> — que no se había guardado de esa manera desde los días de los jueces.</span>
+        </li>
+      </ul>
+
+      <div class="scripture">
+        <p>
+          «Ni antes ni después de Josías hubo ningún otro rey que como él se volviera
+          al Señor de todo corazón, con toda el alma y con todas sus fuerzas,
+          siguiendo toda la ley de Moisés.»
+        </p>
+        <span class="scripture-ref">2 Reyes 23:25 · NVI</span>
+      </div>
+    </div>
+
+    <div class="rule"><span class="rule-sym">· · ·</span></div>
+
+    <!-- PARTE VI -->
+    <div class="part">
+      <div class="part-label">Parte VI</div>
+      <h2>Dos tipos de relación con la Escritura</h2>
+      <p>
+        La historia de Josías expone algo que el Antiguo Testamento repite en distintas formas:
+        el problema de Israel no era casi nunca la ausencia de la Palabra,
+        sino la <strong>indiferencia ante ella</strong>.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Relación pasiva con la Escritura</th>
+              <th>Relación activa (modelo Josías)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>El libro existe pero nadie lo lee</td>
+              <td>El libro es leído en voz alta a todos</td>
+            </tr>
+            <tr>
+              <td>La ley se conoce pero no se obedece</td>
+              <td>La ley produce reforma inmediata y concreta</td>
+            </tr>
+            <tr>
+              <td>El texto se suaviza para no incomodar</td>
+              <td>El texto se recibe con honestidad aunque duela</td>
+            </tr>
+            <tr>
+              <td>La respuesta es intelectual, no vital</td>
+              <td>La respuesta es visceral: rasgar, llorar, actuar</td>
+            </tr>
+            <tr>
+              <td>La fe se hereda culturalmente, sin raíces</td>
+              <td>La fe se renueva por pacto personal con Dios</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="rule"><span class="rule-sym">· · ·</span></div>
+
+    <!-- PARTE VII -->
+    <div class="part">
+      <div class="part-label">Parte VII</div>
+      <h2>La generación que bebió del avivamiento</h2>
+      <p>
+        El avivamiento de Josías no fue solo un evento político o religioso.
+        Formó espiritualmente a toda una generación de jóvenes que crecieron
+        escuchando la Palabra leída en público, viendo al rey humillarse,
+        y aprendiendo que es posible volver a Dios sin importar cuánto tiempo se haya vivido de espaldas a Él.
+      </p>
+      <p>
+        Entre esa generación, según la cronología del texto bíblico, estaban cuatro jóvenes
+        de linaje real: <strong>Daniel, Sadrac, Mesac y Abed-nego</strong>.
+        Cuando Nabucodonosor los llevó cautivos a Babilonia años más tarde,
+        llevaron algo que ningún ejército podía confiscar:
+        una columna vertebral espiritual forjada en el avivamiento de Josías.
+      </p>
+      <p>
+        El libro de Daniel lo muestra en acción décadas después del destierro.
+        En medio de su oración vespertina en Babilonia, aparece algo que revela
+        dónde estaba anclada su alma: el ángel Gabriel llega
+        <em>«al tiempo del sacrificio de la tarde»</em> — el horario del templo de Jerusalén,
+        a miles de kilómetros de distancia. Daniel seguía midiendo el tiempo
+        por el calendario de Dios, no por el de Nabucodonosor.
+      </p>
+
+      <div class="scripture">
+        <p>
+          «Mientras yo seguía orando, Gabriel, el hombre que había visto en la visión anterior,
+          llegó a mí en vuelo rápido a eso de la hora del sacrificio de la tarde.
+          Se acercó a mí y me dijo: "Daniel, he venido a darte sabiduría y entendimiento.
+          En el momento en que empezaste a orar, se dio la orden, y ahora vengo a decírtela,
+          porque eres muy apreciado. Por tanto, presta atención al mensaje
+          y entiende la visión."»
+        </p>
+        <span class="scripture-ref">Daniel 9:21–23 · NVI</span>
+      </div>
+
+      <p>
+        La frase «el tiempo del sacrificio de la tarde» no es un detalle literario casual.
+        Es la prueba de que Daniel, exiliado en el corazón del imperio más poderoso del mundo,
+        <strong>todavía estructuraba su vida de oración según el templo que ya no existía</strong>.
+        Eso no se aprende en Babilonia. Se aprende de niño, en Judá,
+        durante un avivamiento que tomó la Palabra en serio.
+      </p>
+
+      <div class="callout">
+        <p>Un avivamiento no solo transforma a los que lo viven.<br/>
+        También equipa a los que vienen después.</p>
+      </div>
+    </div>
+
+    <div class="rule"><span class="rule-sym">· · ·</span></div>
+
+    <!-- PARTE VIII -->
+    <div class="part">
+      <div class="part-label">Parte VIII</div>
+      <div class="questions">
+        <h3>Preguntas para reflexión y discusión</h3>
+        <ol>
+          <li>¿En qué sentido puede "perderse" el libro de la Biblia aun cuando físicamente está en tu casa o en tu teléfono?</li>
+          <li>Josías rasga sus vestiduras al escuchar el libro. ¿Cuándo fue la última vez que la Escritura te produjo una respuesta emocional y no solo intelectual?</li>
+          <li>¿Cuál es la diferencia entre conocer lo que dice la Biblia y dejar que la Biblia cambie algo concreto en tu vida?</li>
+          <li>El avivamiento de Josías formó a Daniel décadas antes de que Daniel necesitara esa fortaleza. ¿A quién estás formando hoy, con o sin darte cuenta?</li>
+          <li>¿Qué cosa concreta en tu vida — una práctica, una actitud, una relación — cambiaría si leyeras la Escritura con la misma honestidad que tuvo Josías?</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- ORACIÓN DE CIERRE -->
+    <div class="prayer part">
+      <p class="prayer-label">✦ Oremos juntos ✦</p>
+      <p>Señor,<br/>
+      cuántas veces hemos tenido el libro en las manos<br/>
+      y no hemos dejado que nos lea Tú a nosotros.</p>
+      <p>Danos la honestidad de Josías:<br/>
+      la que no suaviza el texto,<br/>
+      la que no busca comodidad,<br/>
+      sino que recibe la Palabra<br/>
+      aunque duela, aunque exija, aunque cambie todo.</p>
+      <strong>Devuélvenos el Libro.<br/>Y devuelve el Libro a nosotros.</strong>
+      <p>Que la generación que viene después de nosotros<br/>
+      tenga algo de qué vivir<br/>
+      porque nosotros decidimos volver a Ti hoy.</p>
+    </div>
+
+    <!-- CITA DE CIERRE -->
+    <div class="page-footer-quote">
+      <p>«Una nación no pierde a Dios de golpe. Lo pierde despacio, una generación a la vez.<br/>
+      Y lo recupera de la misma forma: una persona que decide leer, creer y obedecer.»</p>
+      <span>Basado en 2 Reyes 22–23 · סֵפֶר הַתּוֹרָה · Séfer ha-Torāh</span>
+    </div>
+
+  </article>
+
+  <!-- ══════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════ -->
+  <footer>
+    Serie: Historia y Reforma en el Antiguo Testamento · 2 Reyes 22–23 · Nueva Versión Internacional
+  </footer>
+
+  <!-- ══════════════════════════════════════
+       SCROLL REVEAL
+  ══════════════════════════════════════ -->
+  <script>
+    const parts = document.querySelectorAll('.part');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    parts.forEach(p => io.observe(p));
+  </script>
+</body>
+</html>
