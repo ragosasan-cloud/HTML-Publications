@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strategic Title Transfer Plan — Gold Doré | Plan Estratégico de Transferencia de Titularidad</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:   #1A3A5C;
+  --blue:   #2E6096;
+  --gold:   #C9A84C;
+  --dgold:  #B8860B;
+  --lblue:  #EEF3F8;
+  --lgrey:  #F5F5F5;
+  --cream:  #F9F5EC;
+  --red:    #AA0000;
+  --grey:   #CCCCCC;
+  --ink:    #1C1C1C;
+  --muted:  #555;
+  --page:   #FAFAF7;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--page);
+  color: var(--ink);
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 1rem;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+.lang-bar {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--navy);
+  display: flex; align-items: center; justify-content: center; gap: 0;
+  padding: 10px 24px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+}
+.lang-bar span { font-family:'EB Garamond',serif; font-size:0.78rem; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin-right:16px; }
+.lang-toggle { display:flex; border:1.5px solid var(--gold); border-radius:4px; overflow:hidden; }
+.lang-btn { padding:5px 22px; font-family:'EB Garamond',serif; font-size:0.82rem; letter-spacing:0.1em; text-transform:uppercase; border:none; cursor:pointer; transition:background 0.2s,color 0.2s; background:transparent; color:rgba(255,255,255,0.6); }
+.lang-btn.active { background:var(--gold); color:var(--navy); font-weight:600; }
+.lang-btn:hover:not(.active) { background:rgba(201,168,76,0.15); color:#fff; }
+
+.page { max-width:900px; margin:0 auto; padding:56px 64px 80px; background:#fff; box-shadow:0 0 60px rgba(26,58,92,0.08); min-height:100vh; }
+@media (max-width:700px) { .page { padding:32px 24px 60px; } }
+
+.title-block { text-align:center; margin-bottom:0; }
+.doc-label { font-family:'EB Garamond',serif; font-size:0.72rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--blue); margin-bottom:18px; display:block; }
+.doc-title { font-family:'Playfair Display',serif; font-size:2.4rem; font-weight:700; color:var(--navy); line-height:1.15; margin-bottom:10px; }
+.doc-subtitle { font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:600; color:var(--gold); margin-bottom:12px; }
+.doc-meta { font-size:0.88rem; color:var(--muted); letter-spacing:0.04em; margin-bottom:4px; }
+.gold-rule { border:none; border-top:2px solid var(--gold); margin:22px 0 14px; }
+.grey-rule { border:none; border-top:1px solid var(--grey); margin:28px 0; }
+.confidential { font-size:0.78rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--red); font-weight:600; text-align:center; font-family:'EB Garamond',serif; margin-bottom:32px; }
+
+/* PRINCIPLE BLOCK */
+.principle-block {
+  border-left:4px solid var(--gold); padding:16px 22px;
+  background:var(--cream); margin:20px 0;
+  font-style:italic; font-size:1.08rem; color:var(--navy);
+}
+
+/* SECTION HEADINGS */
+.section { margin-bottom:36px; }
+.section-title { font-family:'Playfair Display',serif; font-size:1.22rem; font-weight:700; color:var(--navy); margin-bottom:16px; padding-bottom:7px; border-bottom:1.5px solid var(--gold); display:flex; align-items:baseline; gap:10px; }
+.section-num { font-size:0.78rem; font-family:'EB Garamond',serif; letter-spacing:0.1em; color:var(--gold); font-weight:600; text-transform:uppercase; }
+.phase-heading { font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:700; color:var(--blue); margin:22px 0 8px; }
+.sub-label { font-family:'EB Garamond',serif; font-weight:600; font-size:0.9rem; color:var(--dgold); text-transform:uppercase; letter-spacing:0.08em; margin:14px 0 6px; text-decoration:underline; text-underline-offset:3px; }
+
+/* TABLES */
+table { width:100%; border-collapse:collapse; margin-bottom:18px; font-size:0.93rem; }
+th { background:var(--navy); color:#fff; font-family:'EB Garamond',serif; font-weight:600; font-size:0.82rem; letter-spacing:0.08em; text-transform:uppercase; padding:9px 14px; text-align:left; }
+td { padding:9px 14px; border:1px solid var(--grey); vertical-align:top; }
+tr:nth-child(even) td { background:var(--lgrey); }
+tr:nth-child(odd) td { background:#fff; }
+td.label { background:var(--lblue) !important; font-weight:600; width:36%; color:var(--navy); }
+
+/* PHASE TABLE */
+.phase-overview-table th:first-child { width:48px; text-align:center; }
+.phase-overview-table .ph-num { background:var(--navy) !important; color:var(--gold); font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; text-align:center; }
+.phase-overview-table .ph-name { background:var(--lblue) !important; font-weight:600; color:var(--ink); }
+.phase-overview-table .ph-loc { background:var(--cream) !important; font-style:italic; font-size:0.88rem; }
+.phase-overview-table .ph-resp { background:var(--lgrey) !important; font-size:0.88rem; }
+
+/* RISK TABLE */
+.risk-table td:first-child { font-weight:600; color:var(--navy); width:26%; }
+
+/* TWO-LOCK TABLE */
+.lock-table td:first-child { font-weight:600; color:var(--navy); width:22%; }
+
+/* LISTS */
+ul, ol { padding-left:1.5rem; margin-bottom:12px; }
+li { margin-bottom:6px; font-size:0.96rem; }
+li strong { color:var(--navy); }
+ol.steps { list-style-type:lower-alpha; }
+
+/* FOOTER */
+.doc-footer { text-align:center; margin-top:40px; padding-top:18px; font-size:0.78rem; font-style:italic; color:#888; letter-spacing:0.06em; }
+
+/* LANG */
+.en,.es{display:block} body.lang-es .en{display:none} body.lang-en .es{display:none}
+span.en,span.es{display:inline} body.lang-es span.en{display:none} body.lang-en span.es{display:none}
+</style>
+</head>
+<body class="lang-en">
+
+<div class="lang-bar">
+  <span>Language / Idioma</span>
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('en')">English</button>
+    <button class="lang-btn" onclick="setLang('es')">Español</button>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="title-block">
+    <span class="doc-label en">ORO Project · Gold Doré Transaction</span>
+    <span class="doc-label es">Proyecto ORO · Transacción de Oro Doré</span>
+    <h1 class="doc-title en">Gold Doré Transaction</h1>
+    <h1 class="doc-title es">Transacción de Oro Doré</h1>
+    <p class="doc-subtitle en">Strategic Title Transfer &amp; Protection Plan</p>
+    <p class="doc-subtitle es">Plan Estratégico de Transferencia de Titularidad y Protección</p>
+    <p class="doc-meta en">Title Transfer: Bamako, Mali &nbsp;•&nbsp; Delivery: Agreed Destination</p>
+    <p class="doc-meta es">Transferencia de Titularidad: Bamako, Mali &nbsp;•&nbsp; Entrega: Destino Acordado</p>
+    <p class="doc-meta en">LBMA — 18% Gross &nbsp;|&nbsp; Net 15% &nbsp;|&nbsp; 96%+ Purity &nbsp;|&nbsp; 250 KG Spot</p>
+    <p class="doc-meta es">LBMA — 18% Bruto &nbsp;|&nbsp; 15% Neto &nbsp;|&nbsp; Pureza 96%+ &nbsp;|&nbsp; 250 KG al Contado</p>
+    <hr class="gold-rule">
+    <p class="confidential en">Confidential — For Authorized Parties Only</p>
+    <p class="confidential es">Confidencial — Solo para Partes Autorizadas</p>
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="section">
+    <h2 class="section-title"><span class="section-num">1</span><span class="en">Purpose &amp; Governing Logic</span><span class="es">Propósito y Lógica Rectora</span></h2>
+    <p class="en" style="margin-bottom:12px;">This Strategic Title Transfer &amp; Protection Plan sets out the exact procedure by which 250 kilograms of Gold Doré Bars originating in Mali shall be purchased by the Buyer, transferred in title, and physically delivered. It is the governing procedure document for the ORO Project.</p>
+    <p class="es" style="margin-bottom:12px;">Este Plan Estratégico de Transferencia de Titularidad y Protección establece el procedimiento exacto por el cual 250 kilogramos de Barras de Oro Doré originarias de Mali serán compradas por el Comprador, transferidas en titularidad y entregadas físicamente. Es el documento de procedimiento rector del Proyecto ORO.</p>
+    <ul>
+      <li class="en"><strong>"Title never changes hands without confirmed payment. The money always comes first."</strong></li>
+      <li class="es"><strong>"La titularidad nunca cambia de manos sin pago confirmado. El dinero siempre va primero."</strong></li>
+      <li class="en"><strong>Ferrari Group — neutral conditional custodian:</strong> Holds the gold as physical custody and conditional title transfer agent. Not a financial escrow. Its authority is strictly limited to transferring title upon written confirmation of payment received.</li>
+      <li class="es"><strong>Ferrari Group — custodio neutral condicional:</strong> Mantiene el oro como agente de custodia física y transferencia condicional de titularidad. No es un depósito en garantía financiero. Su autoridad está estrictamente limitada a transferir la titularidad previa confirmación escrita del pago recibido.</li>
+      <li class="en"><strong>Conditional Power of Attorney:</strong> The Seller grants Ferrari Group a Conditional POA — null and void if payment is not confirmed. This is the legal instrument that makes the custody structure operable.</li>
+      <li class="es"><strong>Poder Notarial Condicional:</strong> El Vendedor otorga a Ferrari Group un Poder Notarial Condicional — nulo y sin efecto si el pago no se confirma. Este es el instrumento legal que hace operativa la estructura de custodia.</li>
+      <li class="en"><strong>Single title transfer trigger:</strong> Written confirmation by the African bank that funds have been received in the Seller's account via MT103. No other event transfers title.</li>
+      <li class="es"><strong>Activador único de transferencia de titularidad:</strong> Confirmación escrita del banco africano de que los fondos han sido recibidos en la cuenta del Vendedor vía MT103. Ningún otro evento transfiere la titularidad.</li>
+    </ul>
+    <p class="en" style="margin-top:12px;">This plan describes ten operational phases. Each phase is sequential. No phase may commence until all required elements of the preceding phase are complete and confirmed in writing.</p>
+    <p class="es" style="margin-top:12px;">Este plan describe diez fases operativas. Cada fase es secuencial. Ninguna fase puede comenzar hasta que todos los elementos requeridos de la fase anterior estén completos y confirmados por escrito.</p>
+  </div>
+
+  <hr class="grey-rule">
+
+  <!-- SECTION 2 -->
+  <div class="section">
+    <h2 class="section-title"><span class="section-num">2</span><span class="en">Transaction at a Glance</span><span class="es">Resumen de la Transacción</span></h2>
+    <table>
+      <tbody>
+        <tr><td class="label"><span class="en">Commodity</span><span class="es">Mercancía</span></td><td><span class="en">Gold Doré Bars (Au) — 96%+ purity, 22+ carats</span><span class="es">Barras de Oro Doré (Au) — pureza 96%+, 22+ quilates</span></td></tr>
+        <tr><td class="label"><span class="en">Initial Spot Quantity</span><span class="es">Cantidad Inicial al Contado</span></td><td>250 <span class="en">kilograms</span><span class="es">kilogramos</span></td></tr>
+        <tr><td class="label"><span class="en">Pricing Basis</span><span class="es">Base de Precio</span></td><td><span class="en">LBMA Gold Price at time of transaction</span><span class="es">Precio del Oro LBMA en el momento de la transacción</span></td></tr>
+        <tr><td class="label"><span class="en">Gross Discount</span><span class="es">Descuento Bruto</span></td><td>18% <span class="en">below LBMA</span><span class="es">por debajo del LBMA</span></td></tr>
+        <tr><td class="label"><span class="en">Total Commission</span><span class="es">Comisión Total</span></td><td>3% (<span class="en">Buyer's Representative 1% | Brazil Group &amp; Rafael 1% | Seller's Mandate &amp; Group 1%</span><span class="es">Representante del Comprador 1% | Grupo Brasil y Rafael 1% | Mandato y Grupo del Vendedor 1%</span>)</td></tr>
+        <tr><td class="label"><span class="en">Net Price to Buyer</span><span class="es">Precio Neto al Comprador</span></td><td>15% <span class="en">below LBMA</span><span class="es">por debajo del LBMA</span></td></tr>
+        <tr><td class="label"><span class="en">Seller Location</span><span class="es">Ubicación del Vendedor</span></td><td>Bamako, Mali</td></tr>
+        <tr><td class="label"><span class="en">Buyer Funds Origin</span><span class="es">Origen de Fondos del Comprador</span></td><td>Hong Kong</td></tr>
+        <tr><td class="label"><span class="en">Custodian</span><span class="es">Custodio</span></td><td>Ferrari Group — <span class="en">neutral conditional custodian</span><span class="es">custodio neutral condicional</span></td></tr>
+        <tr><td class="label"><span class="en">Payment Instrument</span><span class="es">Instrumento de Pago</span></td><td>MT103 — SWIFT</td></tr>
+        <tr><td class="label"><span class="en">Title Transfer Location</span><span class="es">Lugar de Transferencia de Titularidad</span></td><td>Mali</td></tr>
+        <tr><td class="label"><span class="en">Title Transfer Trigger</span><span class="es">Activador de Transferencia de Titularidad</span></td><td><span class="en">Written confirmation by the African bank of MT103 receipt in Seller's account</span><span class="es">Confirmación escrita del banco africano de recepción MT103 en la cuenta del Vendedor</span></td></tr>
+        <tr><td class="label"><span class="en">Commission Execution</span><span class="es">Ejecución de Comisión</span></td><td><span class="en">African bank executes commission schedule same day funds are confirmed</span><span class="es">El banco africano ejecuta el calendario de comisiones el mismo día que se confirman los fondos</span></td></tr>
+        <tr><td class="label"><span class="en">Delivery</span><span class="es">Entrega</span></td><td><span class="en">Ferrari Group exports and physically delivers gold to Buyer at agreed destination</span><span class="es">Ferrari Group exporta y entrega físicamente el oro al Comprador en el destino acordado</span></td></tr>
+        <tr><td class="label"><span class="en">HK Import Restrictions</span><span class="es">Restricciones de Importación HK</span></td><td><span class="en">None — Hong Kong imposes no gold import duty or restrictions on properly documented shipments</span><span class="es">Ninguna — Hong Kong no impone aranceles de importación de oro ni restricciones en envíos debidamente documentados</span></td></tr>
+        <tr><td class="label"><span class="en">Governing Principle</span><span class="es">Principio Rector</span></td><td><em><span class="en">"Title never changes hands without confirmed payment. The money always comes first."</span><span class="es">"La titularidad nunca cambia de manos sin pago confirmado. El dinero siempre va primero."</span></em></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="grey-rule">
+
+  <!-- SECTION 3 -->
+  <div class="section">
+    <h2 class="section-title"><span class="section-num">3</span><span class="en">Phase Overview</span><span class="es">Resumen de Fases</span></h2>
+    <table class="phase-overview-table">
+      <thead>
+        <tr>
+          <th style="text-align:center;width:52px;"><span class="en">Ph</span><span class="es">Fase</span></th>
+          <th><span class="en">Milestone</span><span class="es">Hito</span></th>
+          <th><span class="en">Location</span><span class="es">Ubicación</span></th>
+          <th><span class="en">Responsible</span><span class="es">Responsable</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="ph-num">1</td><td class="ph-name"><span class="en">SPA Execution</span><span class="es">Ejecución del CCV</span></td><td class="ph-loc"><span class="en">Agreed Location (TBD)</span><span class="es">Lugar Acordado (por determinar)</span></td><td class="ph-resp"><span class="en">Both Parties</span><span class="es">Ambas Partes</span></td></tr>
+        <tr><td class="ph-num">2</td><td class="ph-name"><span class="en">KYC / AML Package</span><span class="es">Paquete KYC / AML</span></td><td class="ph-loc"><span class="en">Both Jurisdictions</span><span class="es">Ambas Jurisdicciones</span></td><td class="ph-resp"><span class="en">Both Parties</span><span class="es">Ambas Partes</span></td></tr>
+        <tr><td class="ph-num">3</td><td class="ph-name"><span class="en">Documents Delivered to African Bank</span><span class="es">Documentos Entregados al Banco Africano</span></td><td class="ph-loc"><span class="en">Mali / African Bank</span><span class="es">Mali / Banco Africano</span></td><td class="ph-resp"><span class="en">Seller + Ferrari</span><span class="es">Vendedor + Ferrari</span></td></tr>
+        <tr><td class="ph-num">4</td><td class="ph-name"><span class="en">Gold Delivered to Ferrari Group</span><span class="es">Oro Entregado a Ferrari Group</span></td><td class="ph-loc"><span class="en">Agreed Pickup, Mali</span><span class="es">Recogida Acordada, Mali</span></td><td class="ph-resp"><span class="en">Seller → Ferrari</span><span class="es">Vendedor → Ferrari</span></td></tr>
+        <tr><td class="ph-num">5</td><td class="ph-name"><span class="en">Conditional Power of Attorney Granted</span><span class="es">Poder Notarial Condicional Otorgado</span></td><td class="ph-loc">Mali</td><td class="ph-resp"><span class="en">Seller</span><span class="es">Vendedor</span></td></tr>
+        <tr><td class="ph-num">6</td><td class="ph-name"><span class="en">Custody Receipt &amp; Assay Confirmed</span><span class="es">Recibo de Custodia y Ensayo Confirmado</span></td><td class="ph-loc"><span class="en">Ferrari, Mali</span><span class="es">Ferrari, Mali</span></td><td class="ph-resp"><span class="en">Ferrari Group</span><span class="es">Ferrari Group</span></td></tr>
+        <tr><td class="ph-num">7</td><td class="ph-name"><span class="en">MT103 — Funds Transferred</span><span class="es">MT103 — Fondos Transferidos</span></td><td class="ph-loc"><span class="en">Hong Kong (Buyer's Bank)</span><span class="es">Hong Kong (Banco del Comprador)</span></td><td class="ph-resp"><span class="en">Buyer's HK Bank</span><span class="es">Banco HK del Comprador</span></td></tr>
+        <tr><td class="ph-num">8</td><td class="ph-name"><span class="en">Payment Confirmed → Commission Executed → Title Transfers</span><span class="es">Pago Confirmado → Comisión Ejecutada → Titularidad Transferida</span></td><td class="ph-loc"><span class="en">African Bank, Mali</span><span class="es">Banco Africano, Mali</span></td><td class="ph-resp"><span class="en">African Bank + Ferrari</span><span class="es">Banco Africano + Ferrari</span></td></tr>
+        <tr><td class="ph-num">9</td><td class="ph-name"><span class="en">Export Authorized &amp; Gold Dispatched</span><span class="es">Exportación Autorizada y Oro Despachado</span></td><td class="ph-loc">Mali</td><td class="ph-resp"><span class="en">Ferrari Group</span><span class="es">Ferrari Group</span></td></tr>
+        <tr><td class="ph-num">10</td><td class="ph-name"><span class="en">Physical Delivery — Transaction Closed</span><span class="es">Entrega Física — Transacción Cerrada</span></td><td class="ph-loc"><span class="en">Agreed Destination</span><span class="es">Destino Acordado</span></td><td class="ph-resp"><span class="en">Ferrari → Buyer</span><span class="es">Ferrari → Comprador</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="grey-rule">
+
+  <!-- SECTION 4 -->
+  <div class="section">
+    <h2 class="section-title"><span class="section-num">4</span><span class="en">Detailed Phase Narrative</span><span class="es">Narrativa Detallada de Fases</span></h2>
+
+    <!-- Phase 1 -->
+    <p class="phase-heading en">Phase 1 — SPA Execution</p>
+    <p class="phase-heading es">Fase 1 — Ejecución del CCV</p>
+    <p class="sub-label en">What Happens</p><p class="sub-label es">Qué Ocurre</p>
+    <p class="en" style="margin-bottom:10px;">Both parties sign the Sale and Purchase Agreement at a location agreed by the parties. No step in this procedure may proceed until the SPA has been fully executed by authorized signatories of both the Buyer and the Seller.</p>
+    <p class="es" style="margin-bottom:10px;">Ambas partes firman el Contrato de Compraventa en un lugar acordado por las partes. Ningún paso de este procedimiento puede avanzar hasta que el CCV haya sido completamente ejecutado por los firmantes autorizados de ambas partes.</p>
+    <p class="sub-label en">SPA Must Explicitly State</p><p class="sub-label es">El CCV Debe Establecer Explícitamente</p>
+    <ul>
+      <li class="en"><strong>Full identity of both parties:</strong> Buyer (Hong Kong), Seller (Mali)</li>
+      <li class="es"><strong>Identidad completa de ambas partes:</strong> Comprador (Hong Kong), Vendedor (Mali)</li>
+      <li class="en"><strong>Full identity of Ferrari Group:</strong> as neutral conditional custodian, with its exact legal entity name, jurisdiction, and contact details</li>
+      <li class="es"><strong>Identidad completa de Ferrari Group:</strong> como custodio neutral condicional, con su nombre legal exacto, jurisdicción y datos de contacto</li>
+      <li class="en"><strong>Full identity of the African bank:</strong> with account details for MT103 receipt and its authorization to execute the commission schedule</li>
+      <li class="es"><strong>Identidad completa del banco africano:</strong> con datos bancarios para recepción del MT103 y su autorización para ejecutar el calendario de comisiones</li>
+      <li class="en"><strong>Commodity specification:</strong> Gold Doré Bars (Au), 96%+ purity, minimum 22 carats</li>
+      <li class="es"><strong>Especificación de la mercancía:</strong> Barras de Oro Doré (Au), pureza 96%+, mínimo 22 quilates</li>
+      <li class="en"><strong>Commission schedule:</strong> Buyer's Representative 1%, Brazil Group &amp; Rafael 1%, Seller's Mandate &amp; Group 1%</li>
+      <li class="es"><strong>Calendario de comisiones:</strong> Representante del Comprador 1%, Grupo Brasil y Rafael 1%, Mandato y Grupo del Vendedor 1%</li>
+      <li class="en"><strong>MT103 instruction deadline, default and repatriation terms, and governing law</strong></li>
+      <li class="es"><strong>Plazo de instrucción MT103, términos de incumplimiento y repatriación, y ley aplicable</strong></li>
+    </ul>
+    <hr class="grey-rule">
+
+    <!-- Phase 2 -->
+    <p class="phase-heading en">Phase 2 — KYC / AML Package</p>
+    <p class="phase-heading es">Fase 2 — Paquete KYC / AML</p>
+    <p class="sub-label en">Both Parties Must Provide</p><p class="sub-label es">Ambas Partes Deben Proporcionar</p>
+    <ul>
+      <li class="en">Government-issued identification of all authorized signatories</li><li class="es">Identificación emitida por el gobierno de todos los firmantes autorizados</li>
+      <li class="en">Corporate registration documents</li><li class="es">Documentos de registro corporativo</li>
+      <li class="en">Beneficial ownership declaration</li><li class="es">Declaración de titularidad beneficiosa</li>
+    </ul>
+    <p class="sub-label en">Buyer Additionally Provides</p><p class="sub-label es">El Comprador Además Proporciona</p>
+    <ul>
+      <li class="en">Source of funds documentation</li><li class="es">Documentación de origen de fondos</li>
+      <li class="en">Hong Kong bank authorization to execute the MT103</li><li class="es">Autorización bancaria de Hong Kong para ejecutar el MT103</li>
+    </ul>
+    <p class="sub-label en">Seller Additionally Provides</p><p class="sub-label es">El Vendedor Además Proporciona</p>
+    <ul>
+      <li class="en">Mine origin documentation</li><li class="es">Documentación de origen minero</li>
+      <li class="en">Export permits (current and valid)</li><li class="es">Permisos de exportación (vigentes y válidos)</li>
+      <li class="en">Assay certificate (provided to Ferrari Group at Phase 6)</li><li class="es">Certificado de ensayo (entregado a Ferrari Group en la Fase 6)</li>
+    </ul>
+    <hr class="grey-rule">
+
+    <!-- Phase 3 -->
+    <p class="phase-heading en">Phase 3 — Documents Delivered to African Bank</p>
+    <p class="phase-heading es">Fase 3 — Documentos Entregados al Banco Africano</p>
+    <p class="en" style="margin-bottom:8px;">Before any movement of funds or gold, the African bank receives the executed SPA and the signed commission schedule. By receiving these documents, the African bank is authorized and obligated to execute the full commission distribution on the same day funds are confirmed received. No manual trigger from any commission party is required. <strong>The fund confirmation from the African bank is the trigger for title transfer.</strong></p>
+    <p class="es" style="margin-bottom:8px;">Antes de cualquier movimiento de fondos u oro, el banco africano recibe el CCV ejecutado y el calendario de comisiones firmado. Al recibir estos documentos, el banco africano está autorizado y obligado a ejecutar la distribución completa de comisiones el mismo día que se confirme la recepción de fondos. No se requiere activación manual de ninguna parte de la comisión. <strong>La confirmación de fondos del banco africano es el activador de la transferencia de titularidad.</strong></p>
+    <hr class="grey-rule">
+
+    <!-- Phase 4 -->
+    <p class="phase-heading en">Phase 4 — Gold Delivered to Ferrari Group</p>
+    <p class="phase-heading es">Fase 4 — Oro Entregado a Ferrari Group</p>
+    <p class="en" style="margin-bottom:8px;">The Seller physically delivers the gold to Ferrari Group at the agreed pickup location in Mali. <strong>This is a physical handover, not a title transfer.</strong> Legal title remains in the Seller's name until the conditions of the conditional POA are satisfied at Phase 8. Ferrari Group does not acquire any ownership interest in the gold.</p>
+    <p class="es" style="margin-bottom:8px;">El Vendedor entrega físicamente el oro a Ferrari Group en el lugar de recogida acordado en Mali. <strong>Esta es una entrega física, no una transferencia de titularidad.</strong> La titularidad legal permanece a nombre del Vendedor hasta que se cumplan las condiciones del Poder Notarial Condicional en la Fase 8. Ferrari Group no adquiere ningún interés de propiedad sobre el oro.</p>
+    <hr class="grey-rule">
+
+    <!-- Phase 5 -->
+    <p class="phase-heading en">Phase 5 — Conditional Power of Attorney Granted</p>
+    <p class="phase-heading es">Fase 5 — Poder Notarial Condicional Otorgado</p>
+    <p class="sub-label en">The POA Must State</p><p class="sub-label es">El Poder Notarial Debe Establecer</p>
+    <ul>
+      <li class="en">Ferrari Group is authorized to transfer title to the Buyer <strong>only</strong> upon written confirmation of payment received in the Seller's African bank via MT103</li>
+      <li class="es">Ferrari Group está autorizado a transferir la titularidad al Comprador <strong>únicamente</strong> previa confirmación escrita del pago recibido en el banco africano del Vendedor vía MT103</li>
+      <li class="en">The POA is null and void if payment is not confirmed within the agreed timeline (as defined in the SPA)</li>
+      <li class="es">El Poder Notarial es nulo y sin efecto si el pago no se confirma dentro del plazo acordado (según se define en el CCV)</li>
+      <li class="en">The POA does not authorize any other action — Ferrari Group cannot sell, pledge, or encumber the gold</li>
+      <li class="es">El Poder Notarial no autoriza ninguna otra acción — Ferrari Group no puede vender, pignorar ni gravar el oro</li>
+    </ul>
+    <hr class="grey-rule">
+
+    <!-- Phase 6 -->
+    <p class="phase-heading en">Phase 6 — Custody Receipt &amp; Assay Confirmed</p>
+    <p class="phase-heading es">Fase 6 — Recibo de Custodia y Ensayo Confirmado</p>
+    <p class="en" style="margin-bottom:8px;">Ferrari Group issues a formal custody receipt confirming the weight, purity, and quantity of the gold against the Seller's assay certificate. Issuance of the custody receipt starts the clock on the Buyer's MT103 instruction deadline as defined in the SPA.</p>
+    <p class="es" style="margin-bottom:8px;">Ferrari Group emite un recibo de custodia formal confirmando el peso, pureza y cantidad del oro contra el certificado de ensayo del Vendedor. La emisión del recibo de custodia inicia el plazo de instrucción MT103 del Comprador según se define en el CCV.</p>
+
+    <p class="sub-label en">The Two-Lock Structure</p><p class="sub-label es">La Estructura de Doble Candado</p>
+    <table class="lock-table">
+      <thead><tr><th><span class="en">Lock</span><span class="es">Candado</span></th><th><span class="en">Held By</span><span class="es">Retenido Por</span></th><th><span class="en">Released When</span><span class="es">Liberado Cuando</span></th></tr></thead>
+      <tbody>
+        <tr><td><span class="en">Physical Gold</span><span class="es">Oro Físico</span></td><td><span class="en">Seller → Buyer at FOB handover</span><span class="es">Vendedor → Comprador en entrega FOB</span></td><td><span class="en">Loaded at agreed pickup location, Mali</span><span class="es">Cargado en el lugar de recogida acordado, Mali</span></td></tr>
+        <tr><td><span class="en">Title Instrument (POA)</span><span class="es">Instrumento de Titularidad (Poder)</span></td><td><span class="en">Ferrari Group (neutral custodian)</span><span class="es">Ferrari Group (custodio neutral)</span></td><td><span class="en">Written confirmation of MT103 receipt in Seller's African bank</span><span class="es">Confirmación escrita de recepción MT103 en banco africano del Vendedor</span></td></tr>
+        <tr><td><span class="en">Legal Title</span><span class="es">Titularidad Legal</span></td><td><span class="en">Seller — until Ferrari exercises the POA</span><span class="es">Vendedor — hasta que Ferrari ejerza el Poder</span></td><td><span class="en">Buyer — upon Ferrari receiving written payment confirmation</span><span class="es">Comprador — cuando Ferrari recibe confirmación escrita de pago</span></td></tr>
+      </tbody>
+    </table>
+    <hr class="grey-rule">
+
+    <!-- Phase 7 -->
+    <p class="phase-heading en">Phase 7 — MT103 — Funds Transferred</p>
+    <p class="phase-heading es">Fase 7 — MT103 — Fondos Transferidos</p>
+    <p class="en" style="margin-bottom:8px;">The Buyer's Hong Kong bank executes the MT103 wire transfer directly to the Seller's African bank via the agreed intermediary. <strong>The MT103 instruction alone does not trigger title transfer. Only confirmed receipt at the African bank triggers it.</strong></p>
+    <p class="es" style="margin-bottom:8px;">El banco de Hong Kong del Comprador ejecuta la transferencia bancaria MT103 directamente al banco africano del Vendedor a través del intermediario acordado. <strong>La instrucción MT103 por sí sola no activa la transferencia de titularidad. Solo la recepción confirmada en el banco africano la activa.</strong></p>
+    <hr class="grey-rule">
+
+    <!-- Phase 8 -->
+    <p class="phase-heading en">Phase 8 — Payment Confirmed → Commission Executed → Title Transfers</p>
+    <p class="phase-heading es">Fase 8 — Pago Confirmado → Comisión Ejecutada → Titularidad Transferida</p>
+    <p class="sub-label en">The Simultaneous Sequence</p><p class="sub-label es">La Secuencia Simultánea</p>
+    <ol class="steps">
+      <li class="en"><strong>African bank confirms:</strong> Written confirmation that funds have been received in the Seller's account via MT103.</li>
+      <li class="es"><strong>El banco africano confirma:</strong> Confirmación escrita de que los fondos han sido recibidos en la cuenta del Vendedor vía MT103.</li>
+      <li class="en"><strong>Commission executed:</strong> The African bank executes the commission schedule on the same day — Buyer's Representative 1%, Brazil Group &amp; Rafael 1%, Seller's Mandate &amp; Group 1%.</li>
+      <li class="es"><strong>Comisión ejecutada:</strong> El banco africano ejecuta el calendario de comisiones el mismo día — Representante del Comprador 1%, Grupo Brasil y Rafael 1%, Mandato y Grupo del Vendedor 1%.</li>
+      <li class="en"><strong>Ferrari receives confirmation:</strong> Ferrari Group receives written payment confirmation from the African bank.</li>
+      <li class="es"><strong>Ferrari recibe confirmación:</strong> Ferrari Group recibe la confirmación escrita de pago del banco africano.</li>
+      <li class="en"><strong>POA exercised — title transfers:</strong> Ferrari Group exercises the conditional POA. Title transfers to the Buyer. The Seller's interest is fully extinguished.</li>
+      <li class="es"><strong>Poder ejercido — titularidad transferida:</strong> Ferrari Group ejerce el Poder Notarial Condicional. La titularidad se transfiere al Comprador. El interés del Vendedor queda totalmente extinguido.</li>
+      <li class="en"><strong>Export authorized:</strong> Ferrari Group is authorized to proceed with export documentation and physical dispatch.</li>
+      <li class="es"><strong>Exportación autorizada:</strong> Ferrari Group está autorizado a proceder con la documentación de exportación y el despacho físico.</li>
+    </ol>
+    <hr class="grey-rule">
+
+    <!-- Phase 9 -->
+    <p class="phase-heading en">Phase 9 — Export Authorized &amp; Gold Dispatched</p>
+    <p class="phase-heading es">Fase 9 — Exportación Autorizada y Oro Despachado</p>
+    <p class="sub-label en">Export Documentation Package</p><p class="sub-label es">Paquete de Documentación de Exportación</p>
+    <ul>
+      <li class="en">Certificate of Origin</li><li class="es">Certificado de Origen</li>
+      <li class="en">Certificate of Ownership (in the Buyer's name)</li><li class="es">Certificado de Propiedad (a nombre del Comprador)</li>
+      <li class="en">Assay Certificate</li><li class="es">Certificado de Ensayo</li>
+      <li class="en">Commercial Invoice</li><li class="es">Factura Comercial</li>
+      <li class="en">Export Permit (Mali)</li><li class="es">Permiso de Exportación (Mali)</li>
+      <li class="en">Airway Bill (AWB)</li><li class="es">Conocimiento de Embarque Aéreo (AWB)</li>
+      <li class="en">Insurance Certificate</li><li class="es">Certificado de Seguro</li>
+      <li class="en">Declaration of Non-Criminal Origin</li><li class="es">Declaración de Origen No Criminal</li>
+    </ul>
+    <hr class="grey-rule">
+
+    <!-- Phase 10 -->
+    <p class="phase-heading en">Phase 10 — Physical Delivery — Transaction Closed</p>
+    <p class="phase-heading es">Fase 10 — Entrega Física — Transacción Cerrada</p>
+    <p class="en" style="margin-bottom:8px;">Ferrari Group physically delivers the gold to the Buyer at the agreed destination. Upon delivery, the transaction is closed.</p>
+    <p class="es" style="margin-bottom:8px;">Ferrari Group entrega físicamente el oro al Comprador en el destino acordado. Tras la entrega, la transacción se cierra.</p>
+    <ul>
+      <li class="en">Buyer holds legal title — documented, timestamped, Ferrari-confirmed</li><li class="es">El Comprador tiene titularidad legal — documentada, con marca de tiempo, confirmada por Ferrari</li>
+      <li class="en">Seller has received 100% of the payable balance via MT103</li><li class="es">El Vendedor ha recibido el 100% del saldo pagadero vía MT103</li>
+      <li class="en">Commission distribution is complete — executed by the African bank same day funds were confirmed</li><li class="es">La distribución de comisiones está completa — ejecutada por el banco africano el mismo día que se confirmaron los fondos</li>
+      <li class="en">Buyer is the unencumbered legal owner</li><li class="es">El Comprador es el propietario legal sin gravámenes</li>
+      <li class="en">Transaction is closed</li><li class="es">La transacción está cerrada</li>
+    </ul>
+  </div>
+
+  <hr class="grey-rule">
+
+  <!-- SECTION 5: RISK REGISTER -->
+  <div class="section">
+    <h2 class="section-title"><span class="section-num">5</span><span class="en">Risk Register</span><span class="es">Registro de Riesgos</span></h2>
+    <table class="risk-table">
+      <thead>
+        <tr>
+          <th><span class="en">Risk</span><span class="es">Riesgo</span></th>
+          <th><span class="en">Threatens</span><span class="es">Amenaza</span></th>
+          <th><span class="en">Mitigation</span><span class="es">Mitigación</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="en">Payment not confirmed within agreed timeline</span><span class="es">Pago no confirmado dentro del plazo acordado</span></td><td><span class="en">Seller retains title; Buyer's funds in transit</span><span class="es">El Vendedor retiene la titularidad; fondos del Comprador en tránsito</span></td><td><span class="en">POA null-and-void clause activates; SPA default and repatriation terms define remedy</span><span class="es">Se activa la cláusula de nulidad del Poder; los términos de incumplimiento del CCV definen el remedio</span></td></tr>
+        <tr><td><span class="en">MT103 instruction issued but funds not received at African bank</span><span class="es">Instrucción MT103 emitida pero fondos no recibidos en el banco africano</span></td><td><span class="en">Title does not transfer; Buyer has transferred funds without receiving gold</span><span class="es">La titularidad no se transfiere; el Comprador ha transferido fondos sin recibir el oro</span></td><td><span class="en">Title transfer triggered only by written African bank confirmation — not by MT103 instruction alone</span><span class="es">La transferencia de titularidad se activa solo mediante confirmación escrita del banco africano — no por la instrucción MT103 sola</span></td></tr>
+        <tr><td><span class="en">Ferrari attempts to transfer title without payment confirmation</span><span class="es">Ferrari intenta transferir la titularidad sin confirmación de pago</span></td><td><span class="en">Buyer receives gold without paying; Seller is defrauded</span><span class="es">El Comprador recibe el oro sin pagar; el Vendedor es defraudado</span></td><td><span class="en">Conditional POA is null and void absent written payment confirmation</span><span class="es">El Poder Notarial Condicional es nulo y sin efecto sin confirmación escrita de pago</span></td></tr>
+        <tr><td><span class="en">Commission not distributed on schedule</span><span class="es">Comisión no distribuida según el calendario</span></td><td><span class="en">Commission parties unpaid</span><span class="es">Partes de comisión sin pagar</span></td><td><span class="en">Commission schedule delivered to African bank at Phase 3; bank authorized and obligated to execute same day</span><span class="es">Calendario de comisiones entregado al banco africano en la Fase 3; el banco está autorizado y obligado a ejecutar el mismo día</span></td></tr>
+        <tr><td><span class="en">Export delayed in Mali</span><span class="es">Exportación retrasada en Mali</span></td><td><span class="en">Timeline and custody cost risk</span><span class="es">Riesgo de plazo y coste de custodia</span></td><td><span class="en">Export documentation prepared in advance; default timeline in SPA triggers remedy</span><span class="es">Documentación de exportación preparada con antelación; el plazo predeterminado en el CCV activa el remedio</span></td></tr>
+        <tr><td><span class="en">Buyer fails to execute MT103 within agreed timeline</span><span class="es">El Comprador no ejecuta el MT103 dentro del plazo acordado</span></td><td><span class="en">Seller's gold held in custody without payment</span><span class="es">El oro del Vendedor retenido en custodia sin pago</span></td><td><span class="en">SPA defines MT103 deadline from custody receipt issuance; default clause returns gold to Seller</span><span class="es">El CCV define el plazo MT103 desde la emisión del recibo de custodia; la cláusula de incumplimiento devuelve el oro al Vendedor</span></td></tr>
+        <tr><td><span class="en">Dispute over title transfer moment</span><span class="es">Disputa sobre el momento de transferencia de titularidad</span></td><td><span class="en">Competing claims to the gold</span><span class="es">Reclamaciones en competencia sobre el oro</span></td><td><span class="en">Title transfer defined by a single, written, dated African bank confirmation — no ambiguity possible</span><span class="es">La transferencia de titularidad se define por una única confirmación escrita y fechada del banco africano — no es posible ambigüedad</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="grey-rule">
+
+  <!-- SECTION 6: CLOSING -->
+  <div class="section">
+    <h2 class="section-title"><span class="section-num">6</span><span class="en">Closing Principle</span><span class="es">Principio de Cierre</span></h2>
+    <p class="en" style="margin-bottom:14px;">This transaction is structured so that neither party can be defrauded. The Seller cannot lose the gold without receiving payment, because title does not transfer until the African bank confirms fund receipt. The Buyer cannot pay without receiving title, because the conditional POA transfers title automatically upon that same confirmation. Ferrari Group cannot act outside its authority, because the conditional POA is null and void without the trigger.</p>
+    <p class="es" style="margin-bottom:14px;">Esta transacción está estructurada de manera que ninguna parte pueda ser defraudada. El Vendedor no puede perder el oro sin recibir el pago, porque la titularidad no se transfiere hasta que el banco africano confirma la recepción de fondos. El Comprador no puede pagar sin recibir la titularidad, porque el Poder Notarial Condicional transfiere la titularidad automáticamente ante esa misma confirmación. Ferrari Group no puede actuar fuera de su autoridad, porque el Poder Notarial Condicional es nulo y sin efecto sin el activador.</p>
+    <p class="en" style="margin-bottom:14px;">Title transfers in Mali because that is where the gold is held, where the Seller is located, and where the conditional POA is held. The African bank's confirmation is the triggering event because that is the point at which payment is real, irrevocable, and in the Seller's account.</p>
+    <p class="es" style="margin-bottom:14px;">La titularidad se transfiere en Mali porque ahí es donde se encuentra el oro, donde está ubicado el Vendedor y donde se mantiene el Poder Notarial Condicional. La confirmación del banco africano es el evento activador porque ese es el momento en que el pago es real, irrevocable y está en la cuenta del Vendedor.</p>
+    <div class="principle-block">
+      <span class="en">The money comes first. Title follows. Ferrari Group is the bridge. That is the correct structure. Everything in this plan enforces it.</span>
+      <span class="es">El dinero va primero. La titularidad sigue. Ferrari Group es el puente. Esa es la estructura correcta. Todo en este plan la hace cumplir.</span>
+    </div>
+  </div>
+
+  <hr class="gold-rule">
+  <div class="doc-footer">
+    <p class="en">Confidential — Prepared for Authorized Transaction Parties Only</p>
+    <p class="es">Confidencial — Preparado Exclusivamente para Partes Autorizadas de la Transacción</p>
+    <p style="margin-top:6px;">Gold Doré Strategic Transaction Plan — ORO Project — Mali to Hong Kong — May 2026</p>
+  </div>
+
+</div>
+
+<script>
+function setLang(l) {
+  document.body.classList.remove('lang-en','lang-es');
+  document.body.classList.add('lang-'+l);
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.lang-btn[onclick="setLang(\''+l+'\')"]').classList.add('active');
+  document.documentElement.lang = l;
+}
+</script>
+</body>
+</html>
