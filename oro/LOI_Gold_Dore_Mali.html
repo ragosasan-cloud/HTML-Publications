@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Letter of Intent — ORO Project</title>
+<style>
+:root {
+  --navy:       #1A3A5C;
+  --blue:       #2E6096;
+  --gold:       #C9A84C;
+  --dark-gold:  #B8860B;
+  --fill-blue:  #EEF3F8;
+  --fill-cream: #F9F5EC;
+  --fill-grey:  #F5F5F5;
+  --white:      #FFFFFF;
+  --red:        #AA0000;
+  --border:     #CCCCCC;
+  --text-dark:  #444444;
+  --text-mid:   #666666;
+  --text-black: #000000;
+  --header-txt: #FFFFFF;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 11pt;
+  color: var(--text-black);
+  line-height: 1.5;
+  background: #e8e8e8;
+}
+
+body.lang-en .es { display: none; }
+body.lang-es .en { display: none; }
+
+.lang-toggle {
+  position: sticky;
+  top: 0;
+  background: var(--navy);
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 100;
+}
+.lang-toggle span {
+  color: var(--header-txt);
+  font-family: Arial, sans-serif;
+  font-size: 9pt;
+  letter-spacing: 0.05em;
+}
+.lang-btn {
+  background: transparent;
+  border: 1pt solid var(--gold);
+  color: var(--gold);
+  font-family: Arial, sans-serif;
+  font-size: 9pt;
+  padding: 3px 12px;
+  cursor: pointer;
+  border-radius: 2px;
+}
+.lang-btn.active {
+  background: var(--gold);
+  color: var(--navy);
+  font-weight: bold;
+}
+
+.page {
+  width: 8.5in;
+  min-height: 11in;
+  margin: 0.4in auto;
+  padding: 0.875in;
+  background: var(--white);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+}
+
+.title-block { text-align: center; padding-top: 0.25in; }
+.doc-title {
+  font-family: Arial, sans-serif;
+  font-size: 19pt;
+  font-weight: bold;
+  color: var(--navy);
+  margin-bottom: 0.1in;
+}
+.doc-subtitle {
+  font-family: Arial, sans-serif;
+  font-size: 13pt;
+  font-weight: bold;
+  color: var(--blue);
+  margin-bottom: 0.1in;
+}
+.doc-meta {
+  font-family: 'Times New Roman', serif;
+  font-size: 10pt;
+  font-style: italic;
+  color: var(--text-dark);
+  margin-bottom: 0.12in;
+}
+.confidential {
+  font-family: 'Times New Roman', serif;
+  font-size: 9pt;
+  font-weight: bold;
+  color: var(--red);
+  text-align: center;
+  margin-top: 0.1in;
+  margin-bottom: 0.1in;
+}
+
+.gold-rule {
+  border: none;
+  border-bottom: 1pt solid var(--gold);
+  margin-top: 0.222in;
+  margin-bottom: 0.222in;
+}
+.grey-rule {
+  border: none;
+  border-bottom: 1pt solid var(--border);
+  margin-top: 0.222in;
+  margin-bottom: 0.222in;
+}
+
+.h1 {
+  font-family: Arial, sans-serif;
+  font-size: 15pt;
+  font-weight: bold;
+  color: var(--navy);
+  margin-top: 0.417in;
+  margin-bottom: 0.194in;
+}
+.h2 {
+  font-family: Arial, sans-serif;
+  font-size: 12pt;
+  font-weight: bold;
+  color: var(--blue);
+  margin-top: 0.306in;
+  margin-bottom: 0.139in;
+}
+.h3 {
+  font-family: Arial, sans-serif;
+  font-size: 11pt;
+  font-weight: bold;
+  color: var(--dark-gold);
+  text-decoration: underline;
+  margin-top: 0.25in;
+  margin-bottom: 0.111in;
+}
+
+p, .body-para {
+  font-family: 'Times New Roman', serif;
+  font-size: 11pt;
+  margin-top: 0.111in;
+  margin-bottom: 0.111in;
+  text-align: justify;
+}
+
+.core-box {
+  border-left: 3pt solid var(--gold);
+  background: var(--fill-blue);
+  padding: 0.15in 0.2in;
+  margin: 0.2in 0;
+  font-style: italic;
+  font-weight: bold;
+  font-size: 11pt;
+  font-family: 'Times New Roman', serif;
+}
+
+.meta-line {
+  font-family: 'Times New Roman', serif;
+  font-size: 11pt;
+  margin-top: 0.06in;
+  margin-bottom: 0.06in;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin-top: 0.1in;
+  margin-bottom: 0.1in;
+}
+td, th {
+  border: 1pt solid var(--border);
+  padding: 6pt 8pt;
+  font-family: 'Times New Roman', serif;
+  font-size: 11pt;
+  vertical-align: top;
+}
+.tbl-header th {
+  background-color: var(--navy);
+  color: var(--header-txt);
+  font-family: Arial, sans-serif;
+  font-size: 11pt;
+  font-weight: bold;
+  text-align: left;
+}
+
+.tbl-label td:first-child {
+  background-color: var(--fill-blue);
+  font-weight: bold;
+  width: 32%;
+}
+.tbl-label tr:nth-child(odd) td:last-child  { background-color: var(--fill-blue); }
+.tbl-label tr:nth-child(even) td:last-child { background-color: var(--white); }
+
+/* parties: 19/81 */
+.tbl-parties td:first-child {
+  background: var(--fill-blue);
+  font-weight: bold;
+  width: 19%;
+}
+
+/* pricing: 53/47 */
+.tbl-pricing td:first-child { width: 53%; background: var(--fill-blue); font-weight: bold; }
+.tbl-pricing tr:nth-child(odd) td:last-child  { background: var(--fill-blue); }
+.tbl-pricing tr:nth-child(even) td:last-child { background: var(--white); }
+.tbl-pricing .total-row td { background: var(--navy) !important; color: var(--white); font-weight: bold; font-family: Arial, sans-serif; }
+
+/* commission: 50/50 */
+.tbl-comm td:first-child { width: 50%; background: var(--fill-blue); font-weight: bold; }
+.tbl-comm tr:nth-child(odd) td:last-child  { background: var(--fill-blue); }
+.tbl-comm tr:nth-child(even) td:last-child { background: var(--white); }
+.tbl-comm .total-row td { background: var(--navy) !important; color: var(--white); font-weight: bold; font-family: Arial, sans-serif; }
+
+/* signature: 28/72, borderless */
+.tbl-sig td {
+  border: none;
+  padding: 5pt 0;
+}
+.tbl-sig td:first-child { width: 28%; font-weight: bold; }
+.tbl-sig td.sig-line { border-bottom: 1pt solid var(--text-black); }
+
+ul.doc-list {
+  list-style-type: disc;
+  padding-left: 0.5in;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+ul.doc-list li {
+  font-family: 'Times New Roman', serif;
+  font-size: 11pt;
+  margin-top: 0.069in;
+  margin-bottom: 0.069in;
+  text-align: left;
+  padding-left: 0.1in;
+}
+ol.doc-steps {
+  list-style-type: lower-alpha;
+  padding-left: 0.5in;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+ol.doc-steps li {
+  font-family: 'Times New Roman', serif;
+  font-size: 11pt;
+  margin-top: 0.083in;
+  margin-bottom: 0.083in;
+  text-align: left;
+  padding-left: 0.1in;
+}
+
+.sig-header {
+  font-family: 'Times New Roman', serif;
+  font-size: 11pt;
+  font-weight: bold;
+  margin-top: 0.3in;
+  margin-bottom: 0.15in;
+}
+
+.doc-footer {
+  text-align: center;
+  font-family: 'Times New Roman', serif;
+  font-size: 9pt;
+  font-style: italic;
+  color: var(--text-mid);
+  margin-top: 0.167in;
+  margin-bottom: 0.083in;
+}
+
+@media print {
+  body { background: white; }
+  .lang-toggle { display: none; }
+  .page { margin: 0; box-shadow: none; width: 8.5in; padding: 0.875in; }
+}
+</style>
+</head>
+<body class="lang-en">
+
+<div class="lang-toggle">
+  <span>ORO PROJECT</span>
+  <button class="lang-btn active" onclick="setLang('en')">EN</button>
+  <button class="lang-btn" onclick="setLang('es')">ES</button>
+</div>
+
+<div class="page">
+
+  <!-- TITLE BLOCK -->
+  <div class="title-block">
+    <div class="doc-title en">LETTER OF INTENT</div>
+    <div class="doc-title es">CARTA DE INTENCIÓN</div>
+
+    <div class="doc-subtitle en">Gold Doré Purchase — Spot Transaction</div>
+    <div class="doc-subtitle es">Compra de Oro Doré — Transacción al Contado</div>
+
+    <div class="doc-meta en">ORO Project &nbsp;|&nbsp; Mali (West Africa) → Hong Kong &nbsp;|&nbsp; LBMA – 15% Net &nbsp;|&nbsp; 96%+ Purity &nbsp;|&nbsp; 250 KG Spot &nbsp;|&nbsp; FOB Bamako</div>
+    <div class="doc-meta es">Proyecto ORO &nbsp;|&nbsp; Mali (África Occidental) → Hong Kong &nbsp;|&nbsp; LBMA – 15% Neto &nbsp;|&nbsp; Pureza 96%+ &nbsp;|&nbsp; 250 KG al Contado &nbsp;|&nbsp; FOB Bamako</div>
+
+    <div class="gold-rule"></div>
+
+    <div class="confidential en">CONFIDENTIAL — FOR AUTHORIZED PARTIES ONLY</div>
+    <div class="confidential es">CONFIDENCIAL — SOLO PARA PARTES AUTORIZADAS</div>
+  </div>
+
+  <!-- DOCUMENT META -->
+  <p class="meta-line en"><strong>Date:</strong> ________________________</p>
+  <p class="meta-line es"><strong>Fecha:</strong> ________________________</p>
+  <p class="meta-line en"><strong>Transaction Reference:</strong> ORO Project — Gold Doré Spot Transaction</p>
+  <p class="meta-line es"><strong>Referencia de Transacción:</strong> Proyecto ORO — Transacción al Contado de Oro Doré</p>
+  <p class="meta-line en"><strong>Document Version:</strong> Final — Execution Copy</p>
+  <p class="meta-line es"><strong>Versión del Documento:</strong> Final — Copia de Ejecución</p>
+
+  <!-- PREAMBLE -->
+  <p class="en">This Letter of Intent ("LOI") is executed by the Buyer and the Seller identified below to confirm their mutual and firm intention to complete the purchase and sale of 250 kilograms of Gold Doré Bars on the commercial terms set out in this document. This LOI is issued following the Buyer's acceptance of the Commercial Blind Offer and submission of the Corporate Information Sheet. It bridges the Blind Offer and the Soft Corporate Offer and governs the conduct of both parties until the Sale and Purchase Agreement is executed.</p>
+  <p class="es">Esta Carta de Intención ("CDI") es ejecutada por el Comprador y el Vendedor identificados a continuación para confirmar su intención mutua y firme de completar la compraventa de 250 kilogramos de Barras de Oro Doré en los términos comerciales establecidos en este documento. Esta CDI se emite tras la aceptación por parte del Comprador de la Oferta Comercial Ciega y el envío de la Hoja de Información Corporativa. Hace de puente entre la Oferta Ciega y la Oferta Corporativa Blanda, y rige la conducta de ambas partes hasta la ejecución del Contrato de Compraventa.</p>
+
+  <div class="core-box">
+    <span class="en">"Title never changes hands without confirmed payment. The money always comes first."</span>
+    <span class="es">"La titularidad nunca cambia de manos sin pago confirmado. El dinero siempre va primero."</span>
+  </div>
+
+  <p class="en">Every term of this LOI enforces that principle without exception. This LOI is non-binding as to the delivery and payment obligations themselves — those obligations are binding only upon execution of the Sale and Purchase Agreement. This LOI is binding as to the commercial framework, the confidentiality obligations of the NDA, and the commission protections of the IMFPA, all of which continue in full force.</p>
+  <p class="es">Cada término de esta CDI hace cumplir ese principio sin excepción. Esta CDI no es vinculante en cuanto a las obligaciones de entrega y pago en sí mismas — esas obligaciones son vinculantes únicamente tras la ejecución del Contrato de Compraventa. Esta CDI es vinculante en cuanto al marco comercial, las obligaciones de confidencialidad del NDA y las protecciones de comisión del IMFPA, todos los cuales continúan en plena vigencia.</p>
+
+  <div class="gold-rule"></div>
+
+  <!-- SECTION 1 -->
+  <div class="h1 en">1. Parties</div>
+  <div class="h1 es">1. Partes</div>
+
+  <table class="tbl-parties">
+    <tr class="tbl-header">
+      <th class="en">Party</th>
+      <th class="es" style="display:none">Parte</th>
+      <th class="en">Details</th>
+      <th class="es" style="display:none">Detalles</th>
+    </tr>
+    <tr>
+      <td class="en"><strong>Seller</strong></td>
+      <td class="es" style="display:none"><strong>Vendedor</strong></td>
+      <td>
+        <span class="en">Full legal name: ________________________<br>
+        Authorized signatory: ________________________<br>
+        Title: ________________________<br>
+        Country: Mali, West Africa<br>
+        Corporate email: ________________________</span>
+        <span class="es">Nombre legal completo: ________________________<br>
+        Firmante autorizado: ________________________<br>
+        Cargo: ________________________<br>
+        País: Mali, África Occidental<br>
+        Correo corporativo: ________________________</span>
+      </td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Buyer</strong></td>
+      <td class="es" style="display:none"><strong>Comprador</strong></td>
+      <td>
+        <span class="en">Full legal name: ________________________<br>
+        Authorized signatory: ________________________<br>
+        Title: ________________________<br>
+        Country: Hong Kong<br>
+        Corporate email: ________________________</span>
+        <span class="es">Nombre legal completo: ________________________<br>
+        Firmante autorizado: ________________________<br>
+        Cargo: ________________________<br>
+        País: Hong Kong<br>
+        Correo corporativo: ________________________</span>
+      </td>
+    </tr>
+  </table>
+
+  <div class="grey-rule"></div>
+
+  <!-- SECTION 2 -->
+  <div class="h1 en">2. Commodity</div>
+  <div class="h1 es">2. Mercancía</div>
+
+  <ul class="doc-list">
+    <li class="en"><strong>Commodity: </strong>Gold Doré Bars (Au)</li>
+    <li class="es" style="display:none"><strong>Mercancía: </strong>Barras de Oro Doré (Au)</li>
+    <li class="en"><strong>Minimum Purity: </strong>96%+, minimum 22 carats</li>
+    <li class="es" style="display:none"><strong>Pureza Mínima: </strong>96%+, mínimo 22 quilates</li>
+    <li class="en"><strong>Form: </strong>Doré bars — semi-refined gold alloy, as produced from mine</li>
+    <li class="es" style="display:none"><strong>Forma: </strong>Barras Doré — aleación de oro semirefinada, tal como se produce en la mina</li>
+    <li class="en"><strong>Origin: </strong>West Africa — Mali</li>
+    <li class="es" style="display:none"><strong>Origen: </strong>África Occidental — Mali</li>
+  </ul>
+
+  <div class="grey-rule"></div>
+
+  <!-- SECTION 3 -->
+  <div class="h1 en">3. Quantity</div>
+  <div class="h1 es">3. Cantidad</div>
+
+  <p class="en">The initial spot transaction covers <strong>250 kilograms</strong> of Gold Doré Bars. The Seller confirms availability for FOB preparation upon SPA execution. Follow-up spot transactions, rolls, and extensions are governed exclusively by the IMFPA and are outside the scope of this LOI.</p>
+  <p class="es">La transacción al contado inicial cubre <strong>250 kilogramos</strong> de Barras de Oro Doré. El Vendedor confirma disponibilidad para preparación FOB tras la ejecución del CCV. Las transacciones al contado de seguimiento, renovaciones y extensiones son reguladas exclusivamente por el IMFPA y están fuera del alcance de esta CDI.</p>
+
+  <div class="grey-rule"></div>
+
+  <!-- SECTION 4 -->
+  <div class="h1 en">4. Price &amp; Commission Structure</div>
+  <div class="h1 es">4. Precio y Estructura de Comisiones</div>
+
+  <p class="en">The payable price is calculated against the LBMA Gold Price (AM or PM fix) at the time of transaction confirmation, as agreed in the SPA. The net discount of 15% below LBMA is the Buyer's commercial consideration for accepting the Seller's Mali government laboratory assay without independent verification.</p>
+  <p class="es">El precio pagadero se calcula con base en el Precio del Oro LBMA (fijación AM o PM) al momento de la confirmación de la transacción, según lo acordado en el CCV. El descuento neto del 15% por debajo del LBMA es la contraprestación comercial del Comprador por aceptar el ensayo del laboratorio gubernamental de Mali del Vendedor sin verificación independiente.</p>
+
+  <table class="tbl-pricing">
+    <tr class="tbl-header">
+      <th class="en">Component</th>
+      <th class="es" style="display:none">Componente</th>
+      <th class="en">Rate</th>
+      <th class="es" style="display:none">Tasa</th>
+    </tr>
+    <tr>
+      <td class="en">Pricing Basis</td>
+      <td class="es" style="display:none">Base de Precio</td>
+      <td class="en">LBMA Gold Price at time of transaction</td>
+      <td class="es" style="display:none">Precio del Oro LBMA al momento de la transacción</td>
+    </tr>
+    <tr>
+      <td class="en">Gross Discount</td>
+      <td class="es" style="display:none">Descuento Bruto</td>
+      <td>18% below LBMA</td>
+    </tr>
+    <tr>
+      <td class="en">Total Commission (distributed per IMFPA)</td>
+      <td class="es" style="display:none">Comisión Total (distribuida conforme al IMFPA)</td>
+      <td>3%</td>
+    </tr>
+    <tr class="total-row">
+      <td class="en">Net Discount to Buyer</td>
+      <td class="es" style="display:none">Descuento Neto al Comprador</td>
+      <td>15% below LBMA</td>
+    </tr>
+  </table>
+
+  <p class="en">Commission distribution is executed automatically by the Seller's African bank on the same day funds are confirmed received — no manual trigger from any party is required. The commission schedule is irrevocably locked under the IMFPA and distributes as follows:</p>
+  <p class="es">La distribución de comisiones es ejecutada automáticamente por el banco africano del Vendedor el mismo día en que se confirma la recepción de fondos — no se requiere activación manual de ninguna parte. El calendario de comisiones está bloqueado irrevocablemente bajo el IMFPA y se distribuye de la siguiente manera:</p>
+
+  <table class="tbl-comm">
+    <tr class="tbl-header">
+      <th class="en">Party</th>
+      <th class="es" style="display:none">Parte</th>
+      <th class="en">Commission</th>
+      <th class="es" style="display:none">Comisión</th>
+    </tr>
+    <tr>
+      <td class="en">Buyer Representative</td>
+      <td class="es" style="display:none">Representante del Comprador</td>
+      <td>1%</td>
+    </tr>
+    <tr>
+      <td class="en">Brazil Group &amp; Rafael</td>
+      <td class="es" style="display:none">Grupo Brasil y Rafael</td>
+      <td>1%</td>
+    </tr>
+    <tr>
+      <td class="en">Seller's Mandate &amp; Group</td>
+      <td class="es" style="display:none">Mandatario del Vendedor y Grupo</td>
+      <td>1%</td>
+    </tr>
+    <tr class="total-row">
+      <td class="en">TOTAL</td>
+      <td class="es" style="display:none">TOTAL</td>
+      <td>3%</td>
+    </tr>
+  </table>
+
+  <div class="grey-rule"></div>
+
+  <!-- SECTION 5 -->
+  <div class="h1 en">5. Assay Basis</div>
+  <div class="h1 es">5. Base del Ensayo</div>
+
+  <p class="en">There is one assay for this transaction. It is conducted at the government laboratory in Bamako, Mali. It is presented by the Seller as part of the SPA documentation package. The Buyer accepts it as-is as the sole basis for calculation of the payable amount. No second assay, re-assay, or independent verification by the Buyer conditions or delays payment.</p>
+  <p class="es">Existe un único ensayo para esta transacción. Se realiza en el laboratorio gubernamental de Bamako, Mali. Lo presenta el Vendedor como parte del paquete de documentación del CCV. El Comprador lo acepta tal cual como base única para el cálculo del monto pagadero. Ningún segundo ensayo, reensayo o verificación independiente por parte del Comprador condiciona o retrasa el pago.</p>
+
+  <p class="en">The Buyer's commercial consideration for accepting the Seller's assay without independent verification is the 15% net discount below LBMA. If the Seller misrepresents the assay — weight, purity, or any other material characteristic — the Seller bears full and sole liability. Post-delivery quality matters are outside the scope of this transaction and this LOI.</p>
+  <p class="es">La contraprestación comercial del Comprador por aceptar el ensayo del Vendedor sin verificación independiente es el descuento neto del 15% por debajo del LBMA. Si el Vendedor tergiversa el ensayo — peso, pureza u otra característica material — el Vendedor asume responsabilidad plena y exclusiva. Los asuntos de calidad posteriores a la entrega están fuera del alcance de esta transacción y esta CDI.</p>
+
+  <div class="grey-rule"></div>
+
+  <!-- SECTION 6 -->
+  <div class="h1 en">6. Delivery Terms &amp; Payment Mechanics</div>
+  <div class="h1 es">6. Términos de Entrega y Mecánica de Pago</div>
+
+  <table class="tbl-label">
+    <tr>
+      <td class="en"><strong>Delivery Terms</strong></td>
+      <td class="en">FOB — Bamako International Airport, Mali</td>
+      <td class="es" style="display:none"><strong>Términos de Entrega</strong></td>
+      <td class="es" style="display:none">FOB — Aeropuerto Internacional de Bamako, Mali</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Gold Custody</strong></td>
+      <td class="en">Seller retains physical possession until payment is confirmed by the African bank</td>
+      <td class="es" style="display:none"><strong>Custodia del Oro</strong></td>
+      <td class="es" style="display:none">El Vendedor retiene la posesión física hasta que el banco africano confirme el pago</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Payment Instrument</strong></td>
+      <td class="en">MT103 — SWIFT wire from Buyer's Hong Kong bank to Seller's African bank</td>
+      <td class="es" style="display:none"><strong>Instrumento de Pago</strong></td>
+      <td class="es" style="display:none">MT103 — Transferencia SWIFT del banco de Hong Kong del Comprador al banco africano del Vendedor</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Payment Trigger</strong></td>
+      <td class="en">African bank written confirmation of receipt of MT103 funds</td>
+      <td class="es" style="display:none"><strong>Disparador de Pago</strong></td>
+      <td class="es" style="display:none">Confirmación escrita del banco africano de la recepción de fondos MT103</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>FOB Release</strong></td>
+      <td class="en">African bank payment confirmation triggers FOB handover authorization — same day</td>
+      <td class="es" style="display:none"><strong>Liberación FOB</strong></td>
+      <td class="es" style="display:none">La confirmación de pago del banco africano activa la autorización de entrega FOB — el mismo día</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Title Transfer</strong></td>
+      <td class="en">Written confirmation of payment received in the Seller's African bank via MT103 — FOB point, Bamako International Airport</td>
+      <td class="es" style="display:none"><strong>Transferencia de Título</strong></td>
+      <td class="es" style="display:none">Confirmación escrita del pago recibido en el banco africano del Vendedor vía MT103 — punto FOB, Aeropuerto Internacional de Bamako</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Buyer Transport</strong></td>
+      <td class="en">Buyer takes physical custody at FOB point and transports independently</td>
+      <td class="es" style="display:none"><strong>Transporte del Comprador</strong></td>
+      <td class="es" style="display:none">El Comprador toma posesión física en el punto FOB y transporta de forma independiente</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Commission Execution</strong></td>
+      <td class="en">African bank executes commission schedule on the same day funds are confirmed received — automatic, no manual trigger</td>
+      <td class="es" style="display:none"><strong>Ejecución de Comisiones</strong></td>
+      <td class="es" style="display:none">El banco africano ejecuta el calendario de comisiones el mismo día en que se confirma la recepción de fondos — automático, sin activación manual</td>
+    </tr>
+  </table>
+
+  <div class="grey-rule"></div>
+
+  <!-- SECTION 7 -->
+  <div class="h1 en">7. Transaction Procedure</div>
+  <div class="h1 es">7. Procedimiento de la Transacción</div>
+
+  <p class="en">The parties confirm the following procedure as the agreed sequence from this LOI through SPA execution and FOB handover:</p>
+  <p class="es">Las partes confirman el siguiente procedimiento como la secuencia acordada desde esta CDI hasta la ejecución del CCV y la entrega FOB:</p>
+
+  <ol class="doc-steps">
+    <li class="en"><strong>LOI Executed (this document): </strong>Both parties sign — formal commercial intent confirmed. Buyer's CIS already received by Seller's mandate.</li>
+    <li class="es" style="display:none"><strong>CDI Ejecutada (este documento): </strong>Ambas partes firman — intención comercial formal confirmada. El mandatario del Vendedor ya ha recibido el CIS del Comprador.</li>
+    <li class="en"><strong>SCO Produced: </strong>Seller produces the Soft Corporate Offer within 48 hours of CIS receipt — full Seller disclosure: corporate identity, UBO, authorized signatory, mining license, export track record, government assay history, African bank details, and confirmed FOB logistics at Bamako Airport.</li>
+    <li class="es" style="display:none"><strong>SCO Producida: </strong>El Vendedor produce la Oferta Corporativa Blanda dentro de las 48 horas de la recepción del CIS — divulgación completa del Vendedor: identidad corporativa, UBO, firmante autorizado, licencia minera, historial de exportaciones, historial de ensayos gubernamentales, datos del banco africano y logística FOB confirmada en el Aeropuerto de Bamako.</li>
+    <li class="en"><strong>Gap Cure: </strong>Parties review SCO and resolve all remaining open items — documented and incorporated into SPA draft.</li>
+    <li class="es" style="display:none"><strong>Resolución de Brechas: </strong>Las partes revisan la SCO y resuelven todos los asuntos pendientes — documentados e incorporados al borrador del CCV.</li>
+    <li class="en"><strong>KYC / AML Completion: </strong>Both parties complete full KYC/AML documentation as specified in Section 8.</li>
+    <li class="es" style="display:none"><strong>Finalización KYC/AML: </strong>Ambas partes completan la documentación KYC/AML completa según se especifica en la Sección 8.</li>
+    <li class="en"><strong>SPA Executed: </strong>Both parties sign the Sale and Purchase Agreement — the binding instrument.</li>
+    <li class="es" style="display:none"><strong>CCV Ejecutado: </strong>Ambas partes firman el Contrato de Compraventa — el instrumento vinculante.</li>
+    <li class="en"><strong>Documents to African Bank: </strong>African bank receives executed SPA and commission schedule before any movement of funds or gold.</li>
+    <li class="es" style="display:none"><strong>Documentos al Banco Africano: </strong>El banco africano recibe el CCV ejecutado y el calendario de comisiones antes de cualquier movimiento de fondos u oro.</li>
+    <li class="en"><strong>Mali Government Assay Presented: </strong>Seller presents the government laboratory assay report. Buyer accepts as-is. This is the sole assay for this transaction.</li>
+    <li class="es" style="display:none"><strong>Ensayo del Gobierno de Mali Presentado: </strong>El Vendedor presenta el informe de ensayo del laboratorio gubernamental. El Comprador lo acepta tal cual. Este es el único ensayo para esta transacción.</li>
+    <li class="en"><strong>Export Documentation Issued: </strong>Full export documentation package issued by Seller per SPA terms.</li>
+    <li class="es" style="display:none"><strong>Documentación de Exportación Emitida: </strong>Paquete completo de documentación de exportación emitido por el Vendedor conforme a los términos del CCV.</li>
+    <li class="en"><strong>MT103 — Payment: </strong>Buyer's Hong Kong bank executes MT103 — funds transferred to Seller's African bank.</li>
+    <li class="es" style="display:none"><strong>MT103 — Pago: </strong>El banco de Hong Kong del Comprador ejecuta el MT103 — fondos transferidos al banco africano del Vendedor.</li>
+    <li class="en"><strong>Payment Confirmed — FOB Authorized: </strong>African bank confirms receipt of funds. Commission schedule executed same day, automatic, no manual trigger. FOB handover authorized.</li>
+    <li class="es" style="display:none"><strong>Pago Confirmado — FOB Autorizado: </strong>El banco africano confirma la recepción de fondos. Calendario de comisiones ejecutado el mismo día, automático, sin activación manual. Entrega FOB autorizada.</li>
+    <li class="en"><strong>FOB Handover — Title Transfers: </strong>Seller completes FOB handover at Bamako International Airport upon confirmed payment. Title transfers to Buyer. Buyer takes physical custody at FOB point and transports independently.</li>
+    <li class="es" style="display:none"><strong>Entrega FOB — Transferencia de Título: </strong>El Vendedor completa la entrega FOB en el Aeropuerto Internacional de Bamako previa confirmación del pago. El título se transfiere al Comprador. El Comprador toma posesión física en el punto FOB y transporta de forma independiente.</li>
+  </ol>
+
+  <div class="grey-rule"></div>
+
+  <!-- SECTION 8 -->
+  <div class="h1 en">8. KYC / AML Requirements</div>
+  <div class="h1 es">8. Requisitos KYC / AML</div>
+
+  <p class="en">Both parties commit to completing full KYC/AML documentation prior to SPA execution. Failure to complete KYC/AML to the satisfaction of either party within a reasonable agreed timeframe shall constitute grounds for termination of this LOI without penalty.</p>
+  <p class="es">Ambas partes se comprometen a completar la documentación KYC/AML completa antes de la ejecución del CCV. La falta de completar el KYC/AML a satisfacción de cualquiera de las partes dentro de un plazo razonable acordado constituirá motivo de terminación de esta CDI sin penalización.</p>
+
+  <div class="h3 en">Both Parties</div>
+  <div class="h3 es">Ambas Partes</div>
+  <ul class="doc-list">
+    <li class="en">Government-issued identification of authorized signatories</li>
+    <li class="es" style="display:none">Identificación emitida por el gobierno de los firmantes autorizados</li>
+    <li class="en">Corporate registration documents</li>
+    <li class="es" style="display:none">Documentos de registro corporativo</li>
+    <li class="en">Beneficial ownership declaration (UBO)</li>
+    <li class="es" style="display:none">Declaración de propiedad efectiva (UBO)</li>
+  </ul>
+
+  <div class="h3 en">Buyer Additionally</div>
+  <div class="h3 es">Comprador Adicionalmente</div>
+  <ul class="doc-list">
+    <li class="en">Source of funds documentation</li>
+    <li class="es" style="display:none">Documentación del origen de fondos</li>
+    <li class="en">Hong Kong bank authorization to execute MT103</li>
+    <li class="es" style="display:none">Autorización del banco de Hong Kong para ejecutar MT103</li>
+    <li class="en">Confirmation of MT103 capability</li>
+    <li class="es" style="display:none">Confirmación de capacidad MT103</li>
+  </ul>
+
+  <div class="h3 en">Seller Additionally</div>
+  <div class="h3 es">Vendedor Adicionalmente</div>
+  <ul class="doc-list">
+    <li class="en">Mine origin documentation</li>
+    <li class="es" style="display:none">Documentación del origen de la mina</li>
+    <li class="en">Export permits</li>
+    <li class="es" style="display:none">Permisos de exportación</li>
+    <li class="en">Mali government assay report</li>
+    <li class="es" style="display:none">Informe de ensayo del gobierno de Mali</li>
+    <li class="en">Export track record — prior shipments and customs clearance records</li>
+    <li class="es" style="display:none">Historial de exportaciones — registros de envíos anteriores y despacho aduanero</li>
+  </ul>
+
+  <div class="grey-rule"></div>
+
+  <!-- SECTION 9 -->
+  <div class="h1 en">9. Non-Binding Nature &amp; Governing Framework</div>
+  <div class="h1 es">9. Naturaleza No Vinculante y Marco Rector</div>
+
+  <p class="en">This LOI is non-binding as to the delivery and payment obligations of the parties. Those obligations become binding only upon execution of the Sale and Purchase Agreement following completion of the SCO and KYC/AML process. Nothing in this LOI obligates either party to complete the transaction if the SPA is not executed.</p>
+  <p class="es">Esta CDI no es vinculante en cuanto a las obligaciones de entrega y pago de las partes. Esas obligaciones son vinculantes únicamente tras la ejecución del Contrato de Compraventa, una vez completado el proceso de SCO y KYC/AML. Nada en esta CDI obliga a ninguna de las partes a completar la transacción si el CCV no es ejecutado.</p>
+
+  <p class="en">The following instruments remain in full force and are binding upon both parties regardless of whether the SPA is executed: the Non-Disclosure Agreement executed prior to this LOI; and the Irrevocable Master Fee Protection Agreement executed prior to this LOI. The commission structure and non-circumvention obligations of the IMFPA survive indefinitely and govern all follow-up spot transactions, rolls, and extensions in this commercial relationship.</p>
+  <p class="es">Los siguientes instrumentos permanecen en plena vigencia y son vinculantes para ambas partes independientemente de si el CCV es ejecutado: el Acuerdo de No Divulgación ejecutado con anterioridad a esta CDI; y el Acuerdo Irrevocable de Protección de Honorarios Maestros ejecutado con anterioridad a esta CDI. La estructura de comisiones y las obligaciones de no elusión del IMFPA subsisten indefinidamente y rigen todas las transacciones al contado de seguimiento, renovaciones y extensiones en esta relación comercial.</p>
+
+  <div class="grey-rule"></div>
+
+  <!-- SECTION 10 -->
+  <div class="h1 en">10. Governing Principles</div>
+  <div class="h1 es">10. Principios Rectores</div>
+
+  <p class="en">The following principles govern this LOI and every document in the ORO Project without exception:</p>
+  <p class="es">Los siguientes principios rigen esta CDI y cada documento del Proyecto ORO sin excepción:</p>
+
+  <ul class="doc-list">
+    <li class="en">Title never changes hands without confirmed payment. The money always comes first.</li>
+    <li class="es" style="display:none">La titularidad nunca cambia de manos sin pago confirmado. El dinero siempre va primero.</li>
+    <li class="en">The Seller retains physical possession of the gold until the African bank confirms receipt of MT103 funds.</li>
+    <li class="es" style="display:none">El Vendedor retiene la posesión física del oro hasta que el banco africano confirme la recepción de fondos MT103.</li>
+    <li class="en">The MT103 instruction alone does not trigger FOB release or title transfer — only the African bank's written confirmation of receipt does.</li>
+    <li class="es" style="display:none">La instrucción MT103 por sí sola no activa la liberación FOB ni la transferencia de título — solo lo hace la confirmación escrita del banco africano sobre la recepción.</li>
+    <li class="en">There is one assay for this transaction — the Mali government laboratory assay. The Buyer accepts it as-is. No second assay conditions payment.</li>
+    <li class="es" style="display:none">Existe un único ensayo para esta transacción — el ensayo del laboratorio gubernamental de Mali. El Comprador lo acepta tal cual. Ningún segundo ensayo condiciona el pago.</li>
+    <li class="en">The Buyer transports the gold independently after FOB handover. No joint escort. No Seller involvement post-handover.</li>
+    <li class="es" style="display:none">El Comprador transporta el oro de forma independiente tras la entrega FOB. Sin escolta conjunta. Sin participación del Vendedor después de la entrega.</li>
+    <li class="en">The commission schedule is irrevocably locked under the IMFPA and executed automatically by the African bank on the day of payment confirmation.</li>
+    <li class="es" style="display:none">El calendario de comisiones está bloqueado irrevocablemente bajo el IMFPA y es ejecutado automáticamente por el banco africano el día de la confirmación del pago.</li>
+  </ul>
+
+  <div class="grey-rule"></div>
+
+  <!-- CLOSING -->
+  <p class="en">By executing this Letter of Intent, both parties confirm that they have read, understood, and agreed to the commercial framework set out herein, and commit to proceeding in good faith toward execution of the Sale and Purchase Agreement on the terms described. Both parties must have completed their initial KYC/AML representations to the satisfaction of the other party before this LOI is countersigned.</p>
+  <p class="es">Al ejecutar esta Carta de Intención, ambas partes confirman que han leído, comprendido y aceptado el marco comercial establecido en el presente, y se comprometen a proceder de buena fe hacia la ejecución del Contrato de Compraventa en los términos descritos. Ambas partes deben haber completado sus declaraciones iniciales de KYC/AML a satisfacción de la otra parte antes de que esta CDI sea refrendada.</p>
+
+  <!-- SIGNATURES -->
+  <div class="grey-rule"></div>
+
+  <div class="sig-header en">FOR AND ON BEHALF OF THE SELLER:</div>
+  <div class="sig-header es">EN NOMBRE Y REPRESENTACIÓN DEL VENDEDOR:</div>
+
+  <table class="tbl-sig" style="margin-top:0.2in;">
+    <tr><td class="en">Authorized Signatory</td><td class="es" style="display:none">Firmante Autorizado</td><td class="sig-line">&nbsp;</td></tr>
+    <tr><td class="en">Name</td><td class="es" style="display:none">Nombre</td><td class="sig-line">&nbsp;</td></tr>
+    <tr><td class="en">Title</td><td class="es" style="display:none">Cargo</td><td class="sig-line">&nbsp;</td></tr>
+    <tr><td class="en">Company</td><td class="es" style="display:none">Empresa</td><td class="sig-line">&nbsp;</td></tr>
+    <tr><td class="en">Date</td><td class="es" style="display:none">Fecha</td><td class="sig-line">&nbsp;</td></tr>
+    <tr><td class="en">Corporate Email</td><td class="es" style="display:none">Correo Corporativo</td><td class="sig-line">&nbsp;</td></tr>
+  </table>
+
+  <div class="sig-header en" style="margin-top:0.4in;">FOR AND ON BEHALF OF THE BUYER:</div>
+  <div class="sig-header es" style="margin-top:0.4in;">EN NOMBRE Y REPRESENTACIÓN DEL COMPRADOR:</div>
+
+  <table class="tbl-sig" style="margin-top:0.2in;">
+    <tr><td class="en">Authorized Signatory</td><td class="es" style="display:none">Firmante Autorizado</td><td class="sig-line">&nbsp;</td></tr>
+    <tr><td class="en">Name</td><td class="es" style="display:none">Nombre</td><td class="sig-line">&nbsp;</td></tr>
+    <tr><td class="en">Title</td><td class="es" style="display:none">Cargo</td><td class="sig-line">&nbsp;</td></tr>
+    <tr><td class="en">Company</td><td class="es" style="display:none">Empresa</td><td class="sig-line">&nbsp;</td></tr>
+    <tr><td class="en">Date</td><td class="es" style="display:none">Fecha</td><td class="sig-line">&nbsp;</td></tr>
+    <tr><td class="en">Corporate Email</td><td class="es" style="display:none">Correo Corporativo</td><td class="sig-line">&nbsp;</td></tr>
+  </table>
+
+  <div class="gold-rule"></div>
+
+  <div class="doc-footer">
+    <div class="en">CONFIDENTIAL — Prepared for Authorized Transaction Parties Only</div>
+    <div class="es">CONFIDENCIAL — Preparado Exclusivamente para Partes Autorizadas de la Transacción</div>
+    <div class="en">Letter of Intent — ORO Project — Mali to Hong Kong — May 2026</div>
+    <div class="es">Carta de Intención — Proyecto ORO — Mali a Hong Kong — Mayo 2026</div>
+  </div>
+
+</div><!-- end .page -->
+
+<script>
+function setLang(l) {
+  document.body.className = document.body.className.replace(/lang-\w+/, '') + ' lang-' + l;
+  document.querySelectorAll('.lang-btn').forEach(b =>
+    b.classList.toggle('active', b.textContent.toLowerCase() === l)
+  );
+  ['td','th','li'].forEach(tag => {
+    document.querySelectorAll(tag + '.en, ' + tag + '.es').forEach(el => {
+      el.style.display = el.classList.contains(l) ? '' : 'none';
+    });
+  });
+}
+setLang('en');
+</script>
+</body>
+</html>
