@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soft Corporate Offer — ORO Project</title>
+<style>
+:root {
+  --navy:       #1A3A5C;
+  --blue:       #2E6096;
+  --gold:       #C9A84C;
+  --dark-gold:  #B8860B;
+  --fill-blue:  #EEF3F8;
+  --fill-cream: #F9F5EC;
+  --fill-grey:  #F5F5F5;
+  --white:      #FFFFFF;
+  --red:        #AA0000;
+  --border:     #CCCCCC;
+  --text-dark:  #444444;
+  --text-mid:   #666666;
+  --text-black: #000000;
+  --header-txt: #FFFFFF;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 11pt;
+  color: var(--text-black);
+  line-height: 1.5;
+  background: #e8e8e8;
+}
+
+body.lang-en .es { display: none; }
+body.lang-es .en { display: none; }
+
+.lang-toggle {
+  position: sticky;
+  top: 0;
+  background: var(--navy);
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 100;
+}
+.lang-toggle span {
+  color: var(--header-txt);
+  font-family: Arial, sans-serif;
+  font-size: 9pt;
+  letter-spacing: 0.05em;
+}
+.lang-btn {
+  background: transparent;
+  border: 1pt solid var(--gold);
+  color: var(--gold);
+  font-family: Arial, sans-serif;
+  font-size: 9pt;
+  padding: 3px 12px;
+  cursor: pointer;
+  border-radius: 2px;
+}
+.lang-btn.active {
+  background: var(--gold);
+  color: var(--navy);
+  font-weight: bold;
+}
+
+.page {
+  width: 8.5in;
+  min-height: 11in;
+  margin: 0.4in auto;
+  padding: 0.875in;
+  background: var(--white);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+}
+
+.title-block { text-align: center; padding-top: 0.25in; }
+.doc-title {
+  font-family: Arial, sans-serif;
+  font-size: 19pt;
+  font-weight: bold;
+  color: var(--navy);
+  margin-bottom: 0.1in;
+}
+.doc-subtitle {
+  font-family: Arial, sans-serif;
+  font-size: 13pt;
+  font-weight: bold;
+  color: var(--blue);
+  margin-bottom: 0.1in;
+}
+.doc-meta {
+  font-family: 'Times New Roman', serif;
+  font-size: 10pt;
+  font-style: italic;
+  color: var(--text-dark);
+  margin-bottom: 0.12in;
+}
+.confidential {
+  font-family: 'Times New Roman', serif;
+  font-size: 9pt;
+  font-weight: bold;
+  color: var(--red);
+  text-align: center;
+  margin-top: 0.1in;
+  margin-bottom: 0.1in;
+}
+
+.gold-rule {
+  border: none;
+  border-bottom: 1pt solid var(--gold);
+  margin-top: 0.222in;
+  margin-bottom: 0.222in;
+}
+.grey-rule {
+  border: none;
+  border-bottom: 1pt solid var(--border);
+  margin-top: 0.222in;
+  margin-bottom: 0.222in;
+}
+
+.h1 {
+  font-family: Arial, sans-serif;
+  font-size: 15pt;
+  font-weight: bold;
+  color: var(--navy);
+  margin-top: 0.417in;
+  margin-bottom: 0.194in;
+}
+.h2 {
+  font-family: Arial, sans-serif;
+  font-size: 12pt;
+  font-weight: bold;
+  color: var(--blue);
+  margin-top: 0.306in;
+  margin-bottom: 0.139in;
+}
+.h3 {
+  font-family: Arial, sans-serif;
+  font-size: 11pt;
+  font-weight: bold;
+  color: var(--dark-gold);
+  text-decoration: underline;
+  margin-top: 0.25in;
+  margin-bottom: 0.111in;
+}
+
+p, .body-para {
+  font-family: 'Times New Roman', serif;
+  font-size: 11pt;
+  margin-top: 0.111in;
+  margin-bottom: 0.111in;
+  text-align: justify;
+}
+
+.core-box {
+  border-left: 3pt solid var(--gold);
+  background: var(--fill-blue);
+  padding: 0.15in 0.2in;
+  margin: 0.2in 0;
+  font-style: italic;
+  font-weight: bold;
+  font-size: 11pt;
+  font-family: 'Times New Roman', serif;
+}
+
+.open-item-box {
+  border: 1pt solid var(--gold);
+  background: var(--fill-cream);
+  padding: 0.18in 0.22in;
+  margin: 0.18in 0;
+}
+.open-item-box .oi-title {
+  font-family: Arial, sans-serif;
+  font-size: 11pt;
+  font-weight: bold;
+  color: var(--navy);
+  margin-bottom: 0.1in;
+}
+
+.meta-line {
+  font-family: 'Times New Roman', serif;
+  font-size: 11pt;
+  margin-top: 0.06in;
+  margin-bottom: 0.06in;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin-top: 0.1in;
+  margin-bottom: 0.1in;
+}
+td, th {
+  border: 1pt solid var(--border);
+  padding: 6pt 8pt;
+  font-family: 'Times New Roman', serif;
+  font-size: 11pt;
+  vertical-align: top;
+}
+.tbl-header th {
+  background-color: var(--navy);
+  color: var(--header-txt);
+  font-family: Arial, sans-serif;
+  font-size: 11pt;
+  font-weight: bold;
+  text-align: left;
+}
+
+.tbl-label td:first-child {
+  background-color: var(--fill-blue);
+  font-weight: bold;
+  width: 32%;
+}
+.tbl-label tr:nth-child(odd) td:last-child  { background-color: var(--fill-blue); }
+.tbl-label tr:nth-child(even) td:last-child { background-color: var(--white); }
+
+/* wide label for SCO disclosure blocks — 38/62 */
+.tbl-wide td:first-child {
+  background-color: var(--fill-blue);
+  font-weight: bold;
+  width: 38%;
+}
+.tbl-wide tr:nth-child(odd) td:last-child  { background-color: var(--fill-blue); }
+.tbl-wide tr:nth-child(even) td:last-child { background-color: var(--white); }
+
+/* signature: 28/72 borderless */
+.tbl-sig td {
+  border: none;
+  padding: 5pt 0;
+}
+.tbl-sig td:first-child { width: 28%; font-weight: bold; }
+.tbl-sig td.sig-line { border-bottom: 1pt solid var(--text-black); }
+
+ul.doc-list {
+  list-style-type: disc;
+  padding-left: 0.5in;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+ul.doc-list li {
+  font-family: 'Times New Roman', serif;
+  font-size: 11pt;
+  margin-top: 0.069in;
+  margin-bottom: 0.069in;
+  text-align: left;
+  padding-left: 0.1in;
+}
+
+.sig-header {
+  font-family: 'Times New Roman', serif;
+  font-size: 11pt;
+  font-weight: bold;
+  margin-top: 0.3in;
+  margin-bottom: 0.15in;
+}
+
+.doc-footer {
+  text-align: center;
+  font-family: 'Times New Roman', serif;
+  font-size: 9pt;
+  font-style: italic;
+  color: var(--text-mid);
+  margin-top: 0.167in;
+  margin-bottom: 0.083in;
+}
+
+@media print {
+  body { background: white; }
+  .lang-toggle { display: none; }
+  .page { margin: 0; box-shadow: none; width: 8.5in; padding: 0.875in; }
+}
+</style>
+</head>
+<body class="lang-en">
+
+<div class="lang-toggle">
+  <span>ORO PROJECT</span>
+  <button class="lang-btn active" onclick="setLang('en')">EN</button>
+  <button class="lang-btn" onclick="setLang('es')">ES</button>
+</div>
+
+<div class="page">
+
+  <!-- TITLE BLOCK -->
+  <div class="title-block">
+    <div class="doc-title en">SOFT CORPORATE OFFER</div>
+    <div class="doc-title es">OFERTA CORPORATIVA BLANDA</div>
+
+    <div class="doc-subtitle en">Seller Full Disclosure Package — ORO Project</div>
+    <div class="doc-subtitle es">Paquete de Divulgación Completa del Vendedor — Proyecto ORO</div>
+
+    <div class="doc-meta en">Produced within 48 hours of CIS receipt &nbsp;|&nbsp; FOB Bamako &nbsp;|&nbsp; 250 KG Spot &nbsp;|&nbsp; LBMA – 15% Net</div>
+    <div class="doc-meta es">Producida dentro de las 48 horas de la recepción del CIS &nbsp;|&nbsp; FOB Bamako &nbsp;|&nbsp; 250 KG al Contado &nbsp;|&nbsp; LBMA – 15% Neto</div>
+
+    <div class="gold-rule"></div>
+
+    <div class="confidential en">CONFIDENTIAL — FOR AUTHORIZED PARTIES ONLY</div>
+    <div class="confidential es">CONFIDENCIAL — SOLO PARA PARTES AUTORIZADAS</div>
+  </div>
+
+  <!-- SCO META -->
+  <p class="meta-line en"><strong>Date of Issue:</strong> ________________________</p>
+  <p class="meta-line es"><strong>Fecha de Emisión:</strong> ________________________</p>
+  <p class="meta-line en"><strong>Issued by:</strong> Seller — in response to Buyer CIS received ________________________</p>
+  <p class="meta-line es"><strong>Emitida por:</strong> Vendedor — en respuesta al CIS del Comprador recibido ________________________</p>
+  <p class="meta-line en"><strong>Transaction Reference:</strong> ORO Project — Gold Doré Spot Transaction — 250 KG</p>
+  <p class="meta-line es"><strong>Referencia de Transacción:</strong> Proyecto ORO — Transacción al Contado de Oro Doré — 250 KG</p>
+
+  <!-- PREAMBLE -->
+  <p class="en">This Soft Corporate Offer ("SCO") is the Seller's full disclosure package, produced within 48 hours of receipt of the Buyer's Corporate Information Sheet. It discloses the Seller's corporate identity, ownership structure, authorized signatory, mining license, export track record, government assay history, banking details, and confirmed FOB logistics at Bamako International Airport. It is not a traditional offer document — it is a structured data package that enables the Buyer to conduct its due diligence and proceed to SPA negotiation with complete information about the Seller.</p>
+  <p class="es">Esta Oferta Corporativa Blanda ("SCO") es el paquete de divulgación completa del Vendedor, producido dentro de las 48 horas de la recepción de la Hoja de Información Corporativa del Comprador. Divulga la identidad corporativa del Vendedor, su estructura de propiedad, el firmante autorizado, la licencia minera, el historial de exportaciones, el historial de ensayos gubernamentales, los datos bancarios y la logística FOB confirmada en el Aeropuerto Internacional de Bamako. No es un documento de oferta tradicional — es un paquete de datos estructurado que permite al Comprador realizar su diligencia debida y proceder a la negociación del CCV con información completa sobre el Vendedor.</p>
+
+  <div class="core-box">
+    <span class="en">"Title never changes hands without confirmed payment. The money always comes first."</span>
+    <span class="es">"La titularidad nunca cambia de manos sin pago confirmado. El dinero siempre va primero."</span>
+  </div>
+
+  <p class="en">This SCO does not address rolls, extensions, or follow-up spot transactions — those are exclusively governed by the Irrevocable Master Fee Protection Agreement already executed. This SCO does not reference any second assay, Hong Kong refinery assay, or any re-assay condition of any kind. The single assay rule governs this transaction absolutely.</p>
+  <p class="es">Esta SCO no aborda renovaciones, extensiones ni transacciones al contado de seguimiento — esas son gobernadas exclusivamente por el Acuerdo Irrevocable de Protección de Honorarios Maestros ya ejecutado. Esta SCO no hace referencia a ningún segundo ensayo, ensayo de refinería de Hong Kong ni ninguna condición de reensayo de ningún tipo. La regla del ensayo único rige esta transacción de forma absoluta.</p>
+
+  <div class="gold-rule"></div>
+
+  <!-- SECTION 1 -->
+  <div class="h1 en">1. Seller — Corporate Identity</div>
+  <div class="h1 es">1. Vendedor — Identidad Corporativa</div>
+
+  <table class="tbl-wide">
+    <tr>
+      <td class="en"><strong>Full Legal Name</strong></td>
+      <td class="en">________________________</td>
+      <td class="es" style="display:none"><strong>Nombre Legal Completo</strong></td>
+      <td class="es" style="display:none">________________________</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Country of Incorporation</strong></td>
+      <td class="en">Republic of Mali</td>
+      <td class="es" style="display:none"><strong>País de Constitución</strong></td>
+      <td class="es" style="display:none">República de Mali</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Registration Number</strong></td>
+      <td class="en">________________________</td>
+      <td class="es" style="display:none"><strong>Número de Registro</strong></td>
+      <td class="es" style="display:none">________________________</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Registered Address</strong></td>
+      <td class="en">________________________, Bamako, Mali</td>
+      <td class="es" style="display:none"><strong>Domicilio Registrado</strong></td>
+      <td class="es" style="display:none">________________________, Bamako, Mali</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Nature of Business</strong></td>
+      <td class="en">Gold mining, production, and export — West Africa</td>
+      <td class="es" style="display:none"><strong>Naturaleza del Negocio</strong></td>
+      <td class="es" style="display:none">Minería, producción y exportación de oro — África Occidental</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Years in Operation</strong></td>
+      <td class="en">________________________</td>
+      <td class="es" style="display:none"><strong>Años en Operación</strong></td>
+      <td class="es" style="display:none">________________________</td>
+    </tr>
+  </table>
+
+  <div class="grey-rule"></div>
+
+  <!-- SECTION 2 -->
+  <div class="h1 en">2. Beneficial Ownership &amp; Authorized Signatory</div>
+  <div class="h1 es">2. Propiedad Efectiva y Firmante Autorizado</div>
+
+  <div class="h3 en">Ultimate Beneficial Owner (UBO)</div>
+  <div class="h3 es">Propietario Efectivo Final (UBO)</div>
+
+  <table class="tbl-wide">
+    <tr>
+      <td class="en"><strong>Full Name</strong></td>
+      <td class="en">________________________</td>
+      <td class="es" style="display:none"><strong>Nombre Completo</strong></td>
+      <td class="es" style="display:none">________________________</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Nationality</strong></td>
+      <td class="en">________________________</td>
+      <td class="es" style="display:none"><strong>Nacionalidad</strong></td>
+      <td class="es" style="display:none">________________________</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Ownership Percentage</strong></td>
+      <td class="en">________________________%</td>
+      <td class="es" style="display:none"><strong>Porcentaje de Propiedad</strong></td>
+      <td class="es" style="display:none">________________________%</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Government-Issued ID</strong></td>
+      <td class="en">Attached — Document No. ________________________</td>
+      <td class="es" style="display:none"><strong>Identificación Gubernamental</strong></td>
+      <td class="es" style="display:none">Adjunta — No. de Documento ________________________</td>
+    </tr>
+  </table>
+
+  <div class="h3 en">Authorized Signatory for this Transaction</div>
+  <div class="h3 es">Firmante Autorizado para esta Transacción</div>
+
+  <table class="tbl-wide">
+    <tr>
+      <td class="en"><strong>Full Name</strong></td>
+      <td class="en">________________________</td>
+      <td class="es" style="display:none"><strong>Nombre Completo</strong></td>
+      <td class="es" style="display:none">________________________</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Title / Role</strong></td>
+      <td class="en">________________________</td>
+      <td class="es" style="display:none"><strong>Cargo / Rol</strong></td>
+      <td class="es" style="display:none">________________________</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Authority to Sign</strong></td>
+      <td class="en">Board resolution / Power of Attorney attached — Ref. ________________________</td>
+      <td class="es" style="display:none"><strong>Autoridad para Firmar</strong></td>
+      <td class="es" style="display:none">Resolución del Consejo / Poder Notarial adjunto — Ref. ________________________</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Corporate Email</strong></td>
+      <td class="en">________________________</td>
+      <td class="es" style="display:none"><strong>Correo Corporativo</strong></td>
+      <td class="es" style="display:none">________________________</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Direct Telephone</strong></td>
+      <td class="en">________________________</td>
+      <td class="es" style="display:none"><strong>Teléfono Directo</strong></td>
+      <td class="es" style="display:none">________________________</td>
+    </tr>
+  </table>
+
+  <div class="grey-rule"></div>
+
+  <!-- SECTION 3 -->
+  <div class="h1 en">3. Mining License &amp; Legal Standing</div>
+  <div class="h1 es">3. Licencia Minera y Situación Legal</div>
+
+  <table class="tbl-wide">
+    <tr>
+      <td class="en"><strong>Mining License Number</strong></td>
+      <td class="en">________________________</td>
+      <td class="es" style="display:none"><strong>Número de Licencia Minera</strong></td>
+      <td class="es" style="display:none">________________________</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Issuing Authority</strong></td>
+      <td class="en">Ministry of Mines and Geology, Republic of Mali</td>
+      <td class="es" style="display:none"><strong>Autoridad Emisora</strong></td>
+      <td class="es" style="display:none">Ministerio de Minas y Geología, República de Mali</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>License Issue Date</strong></td>
+      <td class="en">________________________</td>
+      <td class="es" style="display:none"><strong>Fecha de Emisión de Licencia</strong></td>
+      <td class="es" style="display:none">________________________</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>License Expiry Date</strong></td>
+      <td class="en">________________________</td>
+      <td class="es" style="display:none"><strong>Fecha de Vencimiento de Licencia</strong></td>
+      <td class="es" style="display:none">________________________</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Mine Location</strong></td>
+      <td class="en">________________________, Mali — GPS coordinates available upon SPA execution</td>
+      <td class="es" style="display:none"><strong>Ubicación de la Mina</strong></td>
+      <td class="es" style="display:none">________________________, Mali — Coordenadas GPS disponibles tras la ejecución del CCV</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Commodity Covered</strong></td>
+      <td class="en">Gold (Au) — Doré production</td>
+      <td class="es" style="display:none"><strong>Materia Prima Cubierta</strong></td>
+      <td class="es" style="display:none">Oro (Au) — Producción de Doré</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Export Authorization</strong></td>
+      <td class="en">Export permit in force — Ref. ________________________ — competent Malian authority</td>
+      <td class="es" style="display:none"><strong>Autorización de Exportación</strong></td>
+      <td class="es" style="display:none">Permiso de exportación vigente — Ref. ________________________ — autoridad maliense competente</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Declaration of Non-Criminal Origin</strong></td>
+      <td class="en">Issued — attached to this SCO</td>
+      <td class="es" style="display:none"><strong>Declaración de Origen No Criminal</strong></td>
+      <td class="es" style="display:none">Emitida — adjunta a esta SCO</td>
+    </tr>
+  </table>
+
+  <div class="grey-rule"></div>
+
+  <!-- SECTION 4 -->
+  <div class="h1 en">4. Export Track Record</div>
+  <div class="h1 es">4. Historial de Exportaciones</div>
+
+  <p class="en">The following is a summary of the Seller's prior export history. Full documentation — including customs clearance records, AWBs, and assay reports — is available for inspection upon request and under the terms of the NDA already executed.</p>
+  <p class="es">A continuación se presenta un resumen del historial de exportaciones previas del Vendedor. La documentación completa — incluyendo registros de despacho aduanero, AWBs e informes de ensayo — está disponible para inspección a solicitud y bajo los términos del NDA ya ejecutado.</p>
+
+  <table>
+    <tr class="tbl-header">
+      <th class="en" style="width:20%;">Date</th>
+      <th class="es" style="display:none;width:20%;">Fecha</th>
+      <th class="en" style="width:20%;">Quantity (KG)</th>
+      <th class="es" style="display:none;width:20%;">Cantidad (KG)</th>
+      <th class="en" style="width:20%;">Purity</th>
+      <th class="es" style="display:none;width:20%;">Pureza</th>
+      <th class="en" style="width:20%;">Destination</th>
+      <th class="es" style="display:none;width:20%;">Destino</th>
+      <th class="en" style="width:20%;">Status</th>
+      <th class="es" style="display:none;width:20%;">Estado</th>
+    </tr>
+    <tr>
+      <td>________________________</td>
+      <td>________________________</td>
+      <td>________________________</td>
+      <td>________________________</td>
+      <td class="en">Cleared</td><td class="es" style="display:none">Despachado</td>
+    </tr>
+    <tr style="background:var(--fill-grey);">
+      <td>________________________</td>
+      <td>________________________</td>
+      <td>________________________</td>
+      <td>________________________</td>
+      <td class="en">Cleared</td><td class="es" style="display:none">Despachado</td>
+    </tr>
+    <tr>
+      <td>________________________</td>
+      <td>________________________</td>
+      <td>________________________</td>
+      <td>________________________</td>
+      <td class="en">Cleared</td><td class="es" style="display:none">Despachado</td>
+    </tr>
+  </table>
+
+  <div class="grey-rule"></div>
+
+  <!-- SECTION 5 -->
+  <div class="h1 en">5. Government Assay History</div>
+  <div class="h1 es">5. Historial de Ensayos Gubernamentales</div>
+
+  <p class="en">All prior shipments have been assayed by the government laboratory in Bamako, Mali. The following table summarizes the assay history for the Seller's most recent export consignments. The Mali government laboratory assay is the sole assay for this transaction — presented by the Seller, accepted by the Buyer as-is, as the basis for payment.</p>
+  <p class="es">Todos los envíos anteriores han sido ensayados por el laboratorio gubernamental de Bamako, Mali. La siguiente tabla resume el historial de ensayos de los envíos de exportación más recientes del Vendedor. El ensayo del laboratorio gubernamental de Mali es el único ensayo para esta transacción — presentado por el Vendedor, aceptado por el Comprador tal cual, como base para el pago.</p>
+
+  <table>
+    <tr class="tbl-header">
+      <th class="en" style="width:25%;">Assay Date</th>
+      <th class="es" style="display:none;width:25%;">Fecha de Ensayo</th>
+      <th class="en" style="width:25%;">Quantity (KG)</th>
+      <th class="es" style="display:none;width:25%;">Cantidad (KG)</th>
+      <th class="en" style="width:25%;">Purity Result</th>
+      <th class="es" style="display:none;width:25%;">Resultado de Pureza</th>
+      <th class="en" style="width:25%;">Report Reference</th>
+      <th class="es" style="display:none;width:25%;">Referencia del Informe</th>
+    </tr>
+    <tr>
+      <td>________________________</td>
+      <td>________________________</td>
+      <td>________________________</td>
+      <td>________________________</td>
+    </tr>
+    <tr style="background:var(--fill-grey);">
+      <td>________________________</td>
+      <td>________________________</td>
+      <td>________________________</td>
+      <td>________________________</td>
+    </tr>
+    <tr>
+      <td>________________________</td>
+      <td>________________________</td>
+      <td>________________________</td>
+      <td>________________________</td>
+    </tr>
+  </table>
+
+  <p class="en">The Mali government assay report for the current 250 KG spot consignment will be presented by the Seller as part of the SPA documentation package, prior to the Buyer's MT103 instruction. The Buyer's acceptance of that assay, as-is and without independent verification, is a condition of this transaction and is the Buyer's commercial consideration for the 15% net discount below LBMA.</p>
+  <p class="es">El informe de ensayo del gobierno de Mali para el lote al contado actual de 250 KG será presentado por el Vendedor como parte del paquete de documentación del CCV, previo a la instrucción MT103 del Comprador. La aceptación de ese ensayo por parte del Comprador, tal cual y sin verificación independiente, es una condición de esta transacción y es la contraprestación comercial del Comprador por el descuento neto del 15% por debajo del LBMA.</p>
+
+  <div class="grey-rule"></div>
+
+  <!-- SECTION 6 -->
+  <div class="h1 en">6. Seller's African Bank Details</div>
+  <div class="h1 es">6. Datos del Banco Africano del Vendedor</div>
+
+  <p class="en">The following banking details will receive the MT103 payment from the Buyer's Hong Kong bank. The African bank is authorized in advance to execute the commission schedule automatically on the same day funds are confirmed received. No manual trigger from any party is required.</p>
+  <p class="es">Los siguientes datos bancarios recibirán el pago MT103 del banco de Hong Kong del Comprador. El banco africano está autorizado de antemano para ejecutar el calendario de comisiones automáticamente el mismo día en que se confirma la recepción de fondos. No se requiere activación manual de ninguna parte.</p>
+
+  <table class="tbl-wide">
+    <tr>
+      <td class="en"><strong>Bank Name</strong></td>
+      <td class="en">________________________</td>
+      <td class="es" style="display:none"><strong>Nombre del Banco</strong></td>
+      <td class="es" style="display:none">________________________</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Bank Address</strong></td>
+      <td class="en">________________________, Bamako, Mali</td>
+      <td class="es" style="display:none"><strong>Dirección del Banco</strong></td>
+      <td class="es" style="display:none">________________________, Bamako, Mali</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>SWIFT / BIC Code</strong></td>
+      <td class="en">________________________</td>
+      <td class="es" style="display:none"><strong>Código SWIFT / BIC</strong></td>
+      <td class="es" style="display:none">________________________</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Correspondent Bank</strong></td>
+      <td class="en">________________________</td>
+      <td class="es" style="display:none"><strong>Banco Corresponsal</strong></td>
+      <td class="es" style="display:none">________________________</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Account Name</strong></td>
+      <td class="en">________________________</td>
+      <td class="es" style="display:none"><strong>Nombre de Cuenta</strong></td>
+      <td class="es" style="display:none">________________________</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Account Number</strong></td>
+      <td class="en">________________________</td>
+      <td class="es" style="display:none"><strong>Número de Cuenta</strong></td>
+      <td class="es" style="display:none">________________________</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>AML Compliance Status</strong></td>
+      <td class="en">Compliant — documentation available for inspection under NDA</td>
+      <td class="es" style="display:none"><strong>Estado de Cumplimiento AML</strong></td>
+      <td class="es" style="display:none">Cumpliente — documentación disponible para inspección bajo NDA</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Commission Schedule Pre-Loaded</strong></td>
+      <td class="en">Yes — African bank will receive executed SPA and full commission schedule before any movement of funds or gold</td>
+      <td class="es" style="display:none"><strong>Calendario de Comisiones Pre-Cargado</strong></td>
+      <td class="es" style="display:none">Sí — el banco africano recibirá el CCV ejecutado y el calendario completo de comisiones antes de cualquier movimiento de fondos u oro</td>
+    </tr>
+  </table>
+
+  <div class="grey-rule"></div>
+
+  <!-- SECTION 7 -->
+  <div class="h1 en">7. FOB Logistics — Bamako International Airport</div>
+  <div class="h1 es">7. Logística FOB — Aeropuerto Internacional de Bamako</div>
+
+  <table class="tbl-wide">
+    <tr>
+      <td class="en"><strong>FOB Point</strong></td>
+      <td class="en">Bamako International Airport (BKO), Mali</td>
+      <td class="es" style="display:none"><strong>Punto FOB</strong></td>
+      <td class="es" style="display:none">Aeropuerto Internacional de Bamako (BKO), Mali</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Freight Agent</strong></td>
+      <td class="en">________________________ — confirmed at Bamako International Airport</td>
+      <td class="es" style="display:none"><strong>Agente de Carga</strong></td>
+      <td class="es" style="display:none">________________________ — confirmado en el Aeropuerto Internacional de Bamako</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Freight Agent Contact</strong></td>
+      <td class="en">________________________</td>
+      <td class="es" style="display:none"><strong>Contacto del Agente de Carga</strong></td>
+      <td class="es" style="display:none">________________________</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Gold Storage (pre-FOB)</strong></td>
+      <td class="en">Seller's licensed facility — Bamako, Mali. Seller retains physical possession until payment confirmed.</td>
+      <td class="es" style="display:none"><strong>Almacenamiento del Oro (pre-FOB)</strong></td>
+      <td class="es" style="display:none">Instalación con licencia del Vendedor — Bamako, Mali. El Vendedor retiene la posesión física hasta que se confirme el pago.</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>FOB Release Trigger</strong></td>
+      <td class="en">African bank written confirmation of receipt of MT103 funds — same day as commission execution</td>
+      <td class="es" style="display:none"><strong>Disparador de Liberación FOB</strong></td>
+      <td class="es" style="display:none">Confirmación escrita del banco africano de la recepción de fondos MT103 — el mismo día que la ejecución de comisiones</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Title Transfer Point</strong></td>
+      <td class="en">FOB point — Bamako International Airport — upon confirmed payment</td>
+      <td class="es" style="display:none"><strong>Punto de Transferencia de Título</strong></td>
+      <td class="es" style="display:none">Punto FOB — Aeropuerto Internacional de Bamako — previa confirmación del pago</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Buyer Transport</strong></td>
+      <td class="en">Buyer takes physical custody at FOB point and transports independently. No Seller involvement post-handover.</td>
+      <td class="es" style="display:none"><strong>Transporte del Comprador</strong></td>
+      <td class="es" style="display:none">El Comprador toma posesión física en el punto FOB y transporta de forma independiente. Sin participación del Vendedor después de la entrega.</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Cargo Insurance</strong></td>
+      <td class="en">Cargo Insurance Certificate issued by Seller — coverage to FOB point. Buyer responsible for insurance post-FOB.</td>
+      <td class="es" style="display:none"><strong>Seguro de Carga</strong></td>
+      <td class="es" style="display:none">Certificado de Seguro de Carga emitido por el Vendedor — cobertura hasta el punto FOB. El Comprador es responsable del seguro después del FOB.</td>
+    </tr>
+  </table>
+
+  <div class="grey-rule"></div>
+
+  <!-- SECTION 8 -->
+  <div class="h1 en">8. Seller KYC / AML Package</div>
+  <div class="h1 es">8. Paquete KYC / AML del Vendedor</div>
+
+  <p class="en">The following KYC/AML documentation is provided by the Seller as part of this SCO or as attachments hereto. All documentation is provided under the confidentiality protections of the NDA already executed by all relevant parties.</p>
+  <p class="es">La siguiente documentación KYC/AML es proporcionada por el Vendedor como parte de esta SCO o como anexos a la misma. Toda la documentación se proporciona bajo las protecciones de confidencialidad del NDA ya ejecutado por todas las partes relevantes.</p>
+
+  <ul class="doc-list">
+    <li class="en"><strong>Government-issued identification of authorized signatory</strong> — attached, Ref. ________________________</li>
+    <li class="es" style="display:none"><strong>Identificación gubernamental del firmante autorizado</strong> — adjunta, Ref. ________________________</li>
+    <li class="en"><strong>Corporate registration documents</strong> — attached, Ref. ________________________</li>
+    <li class="es" style="display:none"><strong>Documentos de registro corporativo</strong> — adjuntos, Ref. ________________________</li>
+    <li class="en"><strong>Beneficial ownership declaration (UBO)</strong> — attached, Ref. ________________________</li>
+    <li class="es" style="display:none"><strong>Declaración de propiedad efectiva (UBO)</strong> — adjunta, Ref. ________________________</li>
+    <li class="en"><strong>Mining license</strong> — attached, Ref. ________________________ (see Section 3)</li>
+    <li class="es" style="display:none"><strong>Licencia minera</strong> — adjunta, Ref. ________________________ (ver Sección 3)</li>
+    <li class="en"><strong>Export permits</strong> — attached, Ref. ________________________</li>
+    <li class="es" style="display:none"><strong>Permisos de exportación</strong> — adjuntos, Ref. ________________________</li>
+    <li class="en"><strong>Mali government assay report</strong> — prior consignments attached; current consignment report to be issued upon SPA execution</li>
+    <li class="es" style="display:none"><strong>Informe de ensayo del gobierno de Mali</strong> — lotes anteriores adjuntos; el informe del lote actual se emitirá tras la ejecución del CCV</li>
+    <li class="en"><strong>Export track record</strong> — customs clearance records attached, Ref. ________________________ (see Section 4)</li>
+    <li class="es" style="display:none"><strong>Historial de exportaciones</strong> — registros de despacho aduanero adjuntos, Ref. ________________________ (ver Sección 4)</li>
+    <li class="en"><strong>Declaration of Non-Criminal Origin</strong> — attached, Ref. ________________________</li>
+    <li class="es" style="display:none"><strong>Declaración de Origen No Criminal</strong> — adjunta, Ref. ________________________</li>
+    <li class="en"><strong>Bank AML compliance documentation</strong> — available for inspection under NDA</li>
+    <li class="es" style="display:none"><strong>Documentación de cumplimiento AML del banco</strong> — disponible para inspección bajo NDA</li>
+  </ul>
+
+  <div class="grey-rule"></div>
+
+  <!-- SECTION 9 -->
+  <div class="h1 en">9. Commercial Terms Confirmed</div>
+  <div class="h1 es">9. Términos Comerciales Confirmados</div>
+
+  <p class="en">The Seller confirms the following commercial terms for the initial 250 KG spot transaction, consistent with the Commercial Blind Offer and the Letter of Intent already exchanged:</p>
+  <p class="es">El Vendedor confirma los siguientes términos comerciales para la transacción inicial al contado de 250 KG, consistentes con la Oferta Comercial Ciega y la Carta de Intención ya intercambiadas:</p>
+
+  <table class="tbl-label">
+    <tr>
+      <td class="en"><strong>Commodity</strong></td>
+      <td class="en">Gold Doré Bars (Au) — 96%+, minimum 22 carats</td>
+      <td class="es" style="display:none"><strong>Mercancía</strong></td>
+      <td class="es" style="display:none">Barras de Oro Doré (Au) — 96%+, mínimo 22 quilates</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Initial Spot Quantity</strong></td>
+      <td class="en">250 kilograms</td>
+      <td class="es" style="display:none"><strong>Cantidad al Contado Inicial</strong></td>
+      <td class="es" style="display:none">250 kilogramos</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Pricing Basis</strong></td>
+      <td class="en">LBMA Gold Price at time of transaction</td>
+      <td class="es" style="display:none"><strong>Base de Precio</strong></td>
+      <td class="es" style="display:none">Precio del Oro LBMA al momento de la transacción</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Gross Discount</strong></td>
+      <td class="en">18% below LBMA</td>
+      <td class="es" style="display:none"><strong>Descuento Bruto</strong></td>
+      <td class="es" style="display:none">18% por debajo del LBMA</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Total Commission</strong></td>
+      <td class="en">3% (per IMFPA — executed prior to this SCO)</td>
+      <td class="es" style="display:none"><strong>Comisión Total</strong></td>
+      <td class="es" style="display:none">3% (conforme al IMFPA — ejecutado con anterioridad a esta SCO)</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Net Discount to Buyer</strong></td>
+      <td class="en">15% below LBMA</td>
+      <td class="es" style="display:none"><strong>Descuento Neto al Comprador</strong></td>
+      <td class="es" style="display:none">15% por debajo del LBMA</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Payment Instrument</strong></td>
+      <td class="en">MT103 — SWIFT wire from Buyer's Hong Kong bank to Seller's African bank</td>
+      <td class="es" style="display:none"><strong>Instrumento de Pago</strong></td>
+      <td class="es" style="display:none">MT103 — Transferencia SWIFT del banco de Hong Kong del Comprador al banco africano del Vendedor</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Assay Basis</strong></td>
+      <td class="en">Mali government laboratory assay — presented by Seller, accepted by Buyer as-is</td>
+      <td class="es" style="display:none"><strong>Base del Ensayo</strong></td>
+      <td class="es" style="display:none">Ensayo del laboratorio gubernamental de Mali — presentado por el Vendedor, aceptado por el Comprador tal cual</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Delivery Terms</strong></td>
+      <td class="en">FOB — Bamako International Airport, Mali</td>
+      <td class="es" style="display:none"><strong>Términos de Entrega</strong></td>
+      <td class="es" style="display:none">FOB — Aeropuerto Internacional de Bamako, Mali</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>MT103 Instruction Deadline</strong></td>
+      <td class="en">TBD — to be agreed in SPA (days from assay presentation)</td>
+      <td class="es" style="display:none"><strong>Plazo para Instrucción MT103</strong></td>
+      <td class="es" style="display:none">Por Definir — a acordar en el CCV (días desde la presentación del ensayo)</td>
+    </tr>
+    <tr>
+      <td class="en"><strong>Export Docs Production Time</strong></td>
+      <td class="en">TBD — to be agreed in SPA</td>
+      <td class="es" style="display:none"><strong>Tiempo de Producción de Docs. de Exportación</strong></td>
+      <td class="es" style="display:none">Por Definir — a acordar en el CCV</td>
+    </tr>
+  </table>
+
+  <div class="grey-rule"></div>
+
+  <!-- SECTION 10 -->
+  <div class="h1 en">10. Open Items for SPA Resolution</div>
+  <div class="h1 es">10. Asuntos Pendientes para Resolución en el CCV</div>
+
+  <p class="en">The following items remain open at the time of SCO production and must be agreed and incorporated into the Sale and Purchase Agreement before execution. This list constitutes the gap cure agenda for the SPA negotiation phase.</p>
+  <p class="es">Los siguientes asuntos permanecen pendientes al momento de la producción de la SCO y deben acordarse e incorporarse al Contrato de Compraventa antes de su ejecución. Esta lista constituye la agenda de resolución de brechas para la fase de negociación del CCV.</p>
+
+  <div class="open-item-box">
+    <div class="oi-title en">Open Items — Gap Cure Agenda</div>
+    <div class="oi-title es">Asuntos Pendientes — Agenda de Resolución de Brechas</div>
+    <ul class="doc-list" style="margin-top:0.1in;">
+      <li class="en">MT103 instruction deadline — number of days from assay presentation within which Buyer must remit</li>
+      <li class="es" style="display:none">Plazo para instrucción MT103 — número de días desde la presentación del ensayo dentro del cual el Comprador debe remitir</li>
+      <li class="en">Export documentation production timeline — allowable days from SPA execution to full package issuance</li>
+      <li class="es" style="display:none">Plazo de producción de documentación de exportación — días permitidos desde la ejecución del CCV hasta la emisión del paquete completo</li>
+      <li class="en">Default and repatriation terms — consequences if payment not confirmed within the agreed MT103 deadline</li>
+      <li class="es" style="display:none">Términos de incumplimiento y repatriación — consecuencias si el pago no se confirma dentro del plazo MT103 acordado</li>
+      <li class="en">SPA governing law and arbitration seat</li>
+      <li class="es" style="display:none">Ley rectora del CCV y sede de arbitraje</li>
+      <li class="en">Governing language (primary) of the SPA</li>
+      <li class="es" style="display:none">Idioma rector (primario) del CCV</li>
+      <li class="en">Freight agent — final confirmation of name and contact at Bamako International Airport</li>
+      <li class="es" style="display:none">Agente de carga — confirmación final del nombre y contacto en el Aeropuerto Internacional de Bamako</li>
+      <li class="en">Buyer KYC/AML completion — confirmation that Buyer's full package has been accepted by Seller</li>
+      <li class="es" style="display:none">Finalización KYC/AML del Comprador — confirmación de que el paquete completo del Comprador ha sido aceptado por el Vendedor</li>
+    </ul>
+  </div>
+
+  <div class="grey-rule"></div>
+
+  <!-- SECTION 11 -->
+  <div class="h1 en">11. Seller Representations &amp; Warranties</div>
+  <div class="h1 es">11. Declaraciones y Garantías del Vendedor</div>
+
+  <p class="en">The Seller, by producing and executing this Soft Corporate Offer, makes the following representations and warranties to the Buyer, which shall be incorporated into and survive execution of the Sale and Purchase Agreement:</p>
+  <p class="es">El Vendedor, al producir y ejecutar esta Oferta Corporativa Blanda, hace las siguientes declaraciones y garantías al Comprador, las cuales serán incorporadas y subsistirán tras la ejecución del Contrato de Compraventa:</p>
+
+  <ul class="doc-list">
+    <li class="en">The Seller is the lawful owner of the gold and has full authority to sell and transfer title.</li>
+    <li class="es" style="display:none">El Vendedor es el propietario legal del oro y tiene plena autoridad para vender y transferir el título.</li>
+    <li class="en">The gold is legally mined under a valid and current mining license issued by the Republic of Mali.</li>
+    <li class="es" style="display:none">El oro es extraído legalmente bajo una licencia minera válida y vigente emitida por la República de Mali.</li>
+    <li class="en">The gold is free and clear of all liens, encumbrances, claims, and third-party interests.</li>
+    <li class="es" style="display:none">El oro está libre y sin cargas, gravámenes, reclamaciones e intereses de terceros.</li>
+    <li class="en">The Mali government laboratory assay, when presented, will accurately reflect the weight and purity of the gold being sold. If the Seller misrepresents the assay in any material respect, the Seller bears full and sole liability.</li>
+    <li class="es" style="display:none">El ensayo del laboratorio gubernamental de Mali, cuando sea presentado, reflejará con precisión el peso y la pureza del oro que se vende. Si el Vendedor tergiversa el ensayo en cualquier aspecto material, el Vendedor asume responsabilidad plena y exclusiva.</li>
+    <li class="en">The Seller has the legal authority to export the gold under current Malian law and holds all required permits.</li>
+    <li class="es" style="display:none">El Vendedor tiene autoridad legal para exportar el oro conforme a la ley maliense vigente y posee todos los permisos requeridos.</li>
+    <li class="en">All corporate, banking, and identification information provided in this SCO is true, accurate, and complete as of the date of issue.</li>
+    <li class="es" style="display:none">Toda la información corporativa, bancaria y de identificación proporcionada en esta SCO es verdadera, exacta y completa a la fecha de emisión.</li>
+  </ul>
+
+  <!-- SIGNATURE -->
+  <div class="grey-rule"></div>
+
+  <p class="en">This Soft Corporate Offer is issued by the Seller and acknowledges the Seller's commitment to proceed in good faith toward execution of the Sale and Purchase Agreement on the terms described herein and in the Letter of Intent already executed.</p>
+  <p class="es">Esta Oferta Corporativa Blanda es emitida por el Vendedor y reconoce el compromiso del Vendedor de proceder de buena fe hacia la ejecución del Contrato de Compraventa en los términos descritos en el presente y en la Carta de Intención ya ejecutada.</p>
+
+  <div class="sig-header en">ISSUED AND EXECUTED BY THE SELLER:</div>
+  <div class="sig-header es">EMITIDA Y EJECUTADA POR EL VENDEDOR:</div>
+
+  <table class="tbl-sig" style="margin-top:0.2in;">
+    <tr><td class="en">Authorized Signatory</td><td class="es" style="display:none">Firmante Autorizado</td><td class="sig-line">&nbsp;</td></tr>
+    <tr><td class="en">Name</td><td class="es" style="display:none">Nombre</td><td class="sig-line">&nbsp;</td></tr>
+    <tr><td class="en">Title</td><td class="es" style="display:none">Cargo</td><td class="sig-line">&nbsp;</td></tr>
+    <tr><td class="en">Company</td><td class="es" style="display:none">Empresa</td><td class="sig-line">&nbsp;</td></tr>
+    <tr><td class="en">Date</td><td class="es" style="display:none">Fecha</td><td class="sig-line">&nbsp;</td></tr>
+    <tr><td class="en">Corporate Email</td><td class="es" style="display:none">Correo Corporativo</td><td class="sig-line">&nbsp;</td></tr>
+  </table>
+
+  <div class="sig-header en" style="margin-top:0.4in;">ACKNOWLEDGED BY THE BUYER:</div>
+  <div class="sig-header es" style="margin-top:0.4in;">RECONOCIDA POR EL COMPRADOR:</div>
+
+  <table class="tbl-sig" style="margin-top:0.2in;">
+    <tr><td class="en">Authorized Signatory</td><td class="es" style="display:none">Firmante Autorizado</td><td class="sig-line">&nbsp;</td></tr>
+    <tr><td class="en">Name</td><td class="es" style="display:none">Nombre</td><td class="sig-line">&nbsp;</td></tr>
+    <tr><td class="en">Title</td><td class="es" style="display:none">Cargo</td><td class="sig-line">&nbsp;</td></tr>
+    <tr><td class="en">Company</td><td class="es" style="display:none">Empresa</td><td class="sig-line">&nbsp;</td></tr>
+    <tr><td class="en">Date</td><td class="es" style="display:none">Fecha</td><td class="sig-line">&nbsp;</td></tr>
+    <tr><td class="en">Corporate Email</td><td class="es" style="display:none">Correo Corporativo</td><td class="sig-line">&nbsp;</td></tr>
+  </table>
+
+  <div class="gold-rule"></div>
+
+  <div class="doc-footer">
+    <div class="en">CONFIDENTIAL — Prepared for Authorized Transaction Parties Only</div>
+    <div class="es">CONFIDENCIAL — Preparado Exclusivamente para Partes Autorizadas de la Transacción</div>
+    <div class="en">Soft Corporate Offer — ORO Project — Mali to Hong Kong — May 2026</div>
+    <div class="es">Oferta Corporativa Blanda — Proyecto ORO — Mali a Hong Kong — Mayo 2026</div>
+  </div>
+
+</div><!-- end .page -->
+
+<script>
+function setLang(l) {
+  document.body.className = document.body.className.replace(/lang-\w+/, '') + ' lang-' + l;
+  document.querySelectorAll('.lang-btn').forEach(b =>
+    b.classList.toggle('active', b.textContent.toLowerCase() === l)
+  );
+  ['td','th','li'].forEach(tag => {
+    document.querySelectorAll(tag + '.en, ' + tag + '.es').forEach(el => {
+      el.style.display = el.classList.contains(l) ? '' : 'none';
+    });
+  });
+}
+setLang('en');
+</script>
+</body>
+</html>
