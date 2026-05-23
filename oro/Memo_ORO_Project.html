@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Internal Memorandum — ORO Project</title>
+<style>
+:root {
+  --navy:       #1A3A5C;
+  --blue:       #2E6096;
+  --gold:       #C9A84C;
+  --dark-gold:  #B8860B;
+  --fill-blue:  #EEF3F8;
+  --fill-cream: #F9F5EC;
+  --fill-grey:  #F5F5F5;
+  --white:      #FFFFFF;
+  --red:        #AA0000;
+  --border:     #CCCCCC;
+  --text-dark:  #444444;
+  --text-mid:   #666666;
+  --text-black: #000000;
+  --header-txt: #FFFFFF;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 11pt;
+  color: var(--text-black);
+  line-height: 1.5;
+  background: #e8e8e8;
+}
+
+body.lang-en .es { display: none; }
+body.lang-es .en { display: none; }
+
+/* LANGUAGE TOGGLE */
+.lang-toggle {
+  position: sticky;
+  top: 0;
+  background: var(--navy);
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 100;
+}
+.lang-toggle span {
+  color: var(--header-txt);
+  font-family: Arial, sans-serif;
+  font-size: 9pt;
+  letter-spacing: 0.05em;
+}
+.lang-btn {
+  background: transparent;
+  border: 1pt solid var(--gold);
+  color: var(--gold);
+  font-family: Arial, sans-serif;
+  font-size: 9pt;
+  padding: 3px 12px;
+  cursor: pointer;
+  border-radius: 2px;
+}
+.lang-btn.active {
+  background: var(--gold);
+  color: var(--navy);
+  font-weight: bold;
+}
+
+/* PAGE */
+.page {
+  width: 8.5in;
+  min-height: 11in;
+  margin: 0.4in auto;
+  padding: 0.875in;
+  background: var(--white);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+}
+
+/* TITLE BLOCK */
+.title-block { text-align: center; padding-top: 0.25in; }
+.doc-title {
+  font-family: Arial, sans-serif;
+  font-size: 19pt;
+  font-weight: bold;
+  color: var(--navy);
+  margin-bottom: 0.1in;
+}
+.doc-subtitle {
+  font-family: Arial, sans-serif;
+  font-size: 13pt;
+  font-weight: bold;
+  color: var(--blue);
+  margin-bottom: 0.1in;
+}
+.doc-meta {
+  font-family: 'Times New Roman', serif;
+  font-size: 10pt;
+  font-style: italic;
+  color: var(--text-dark);
+  margin-bottom: 0.12in;
+}
+.internal-warning {
+  font-family: 'Times New Roman', serif;
+  font-size: 9pt;
+  font-weight: bold;
+  color: var(--red);
+  text-align: center;
+  margin-top: 0.1in;
+  margin-bottom: 0.1in;
+}
+
+/* DIVIDERS */
+.gold-rule {
+  border: none;
+  border-bottom: 1pt solid var(--gold);
+  margin-top: 0.222in;
+  margin-bottom: 0.222in;
+}
+.grey-rule {
+  border: none;
+  border-bottom: 1pt solid var(--border);
+  margin-top: 0.222in;
+  margin-bottom: 0.222in;
+}
+
+/* HEADINGS */
+.h1 {
+  font-family: Arial, sans-serif;
+  font-size: 15pt;
+  font-weight: bold;
+  color: var(--navy);
+  margin-top: 0.417in;
+  margin-bottom: 0.194in;
+}
+.h2 {
+  font-family: Arial, sans-serif;
+  font-size: 12pt;
+  font-weight: bold;
+  color: var(--blue);
+  margin-top: 0.306in;
+  margin-bottom: 0.139in;
+}
+.h3 {
+  font-family: Arial, sans-serif;
+  font-size: 11pt;
+  font-weight: bold;
+  color: var(--dark-gold);
+  text-decoration: underline;
+  margin-top: 0.25in;
+  margin-bottom: 0.111in;
+}
+
+/* BODY */
+p {
+  font-family: 'Times New Roman', serif;
+  font-size: 11pt;
+  margin-top: 0.111in;
+  margin-bottom: 0.111in;
+  text-align: justify;
+}
+
+.meta-line {
+  font-family: 'Times New Roman', serif;
+  font-size: 11pt;
+  margin-top: 0.06in;
+  margin-bottom: 0.06in;
+}
+
+.core-box {
+  border-left: 3pt solid var(--gold);
+  background: var(--fill-blue);
+  padding: 0.15in 0.2in;
+  margin: 0.2in 0;
+  font-style: italic;
+  font-weight: bold;
+  font-size: 11pt;
+  font-family: 'Times New Roman', serif;
+}
+
+.placeholder-box {
+  border: 1.5pt dashed var(--border);
+  background: var(--fill-grey);
+  padding: 0.2in 0.25in;
+  margin: 0.2in 0;
+}
+.placeholder-box .ph-title {
+  font-family: Arial, sans-serif;
+  font-size: 11pt;
+  font-weight: bold;
+  color: var(--text-mid);
+  margin-bottom: 0.08in;
+}
+.placeholder-box .ph-body {
+  font-family: 'Times New Roman', serif;
+  font-size: 10pt;
+  font-style: italic;
+  color: var(--text-mid);
+  margin: 0;
+  text-align: left;
+}
+
+/* TABLES */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin-top: 0.1in;
+  margin-bottom: 0.1in;
+}
+td, th {
+  border: 1pt solid var(--border);
+  padding: 6pt 8pt;
+  font-family: 'Times New Roman', serif;
+  font-size: 11pt;
+  vertical-align: top;
+}
+.tbl-header th {
+  background-color: var(--navy);
+  color: var(--header-txt);
+  font-family: Arial, sans-serif;
+  font-size: 11pt;
+  font-weight: bold;
+  text-align: left;
+}
+.tbl-seq td:first-child {
+  background: var(--navy);
+  color: var(--gold);
+  font-family: Arial, sans-serif;
+  font-size: 13pt;
+  font-weight: bold;
+  text-align: center;
+  width: 8%;
+}
+.tbl-seq td:nth-child(2) {
+  background: var(--fill-blue);
+  font-weight: bold;
+  width: 20%;
+}
+.tbl-seq td:nth-child(3) {
+  width: 52%;
+}
+.tbl-seq td:nth-child(4) {
+  background: var(--fill-cream);
+  font-style: italic;
+  font-size: 10pt;
+  width: 20%;
+}
+.tbl-seq .placeholder-row td {
+  background: var(--fill-grey) !important;
+  color: var(--text-mid);
+  font-style: italic;
+}
+.tbl-seq .placeholder-row td:first-child {
+  background: var(--border) !important;
+  color: var(--white);
+}
+
+/* LISTS */
+ul.doc-list {
+  list-style-type: disc;
+  padding-left: 0.5in;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+ul.doc-list li {
+  font-family: 'Times New Roman', serif;
+  font-size: 11pt;
+  margin-top: 0.069in;
+  margin-bottom: 0.069in;
+  text-align: left;
+  padding-left: 0.1in;
+}
+
+/* DOCUMENT EMBED SECTION */
+.doc-embed-container {
+  margin: 0.3in 0;
+}
+.doc-embed-label {
+  font-family: Arial, sans-serif;
+  font-size: 11pt;
+  font-weight: bold;
+  color: var(--navy);
+  background: var(--fill-blue);
+  border: 1pt solid var(--border);
+  border-bottom: none;
+  padding: 6pt 10pt;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.doc-embed-label a {
+  font-size: 9pt;
+  font-weight: normal;
+  color: var(--blue);
+  text-decoration: none;
+  font-family: 'Times New Roman', serif;
+  font-style: italic;
+}
+.doc-embed-label a:hover { text-decoration: underline; }
+.doc-embed-iframe {
+  width: 100%;
+  height: 820px;
+  border: 1pt solid var(--border);
+  display: block;
+  background: var(--white);
+}
+
+/* FOOTER */
+.doc-footer {
+  text-align: center;
+  font-family: 'Times New Roman', serif;
+  font-size: 9pt;
+  font-style: italic;
+  color: var(--text-mid);
+  margin-top: 0.167in;
+  margin-bottom: 0.083in;
+}
+
+@media print {
+  body { background: white; }
+  .lang-toggle { display: none; }
+  .page { margin: 0; box-shadow: none; width: 8.5in; padding: 0.875in; }
+  .doc-embed-iframe { display: none; }
+  .doc-embed-label a::after { content: " → " attr(href); font-size: 9pt; }
+}
+</style>
+</head>
+<body class="lang-en">
+
+<!-- LANGUAGE TOGGLE -->
+<div class="lang-toggle">
+  <span>ORO PROJECT</span>
+  <button class="lang-btn active" onclick="setLang('en')">EN</button>
+  <button class="lang-btn" onclick="setLang('es')">ES</button>
+</div>
+
+<div class="page">
+
+  <!-- TITLE BLOCK -->
+  <div class="title-block">
+    <div class="doc-title en">INTERNAL MEMORANDUM</div>
+    <div class="doc-title es">MEMORANDO INTERNO</div>
+
+    <div class="doc-subtitle en">Six-Document Architecture — ORO Project</div>
+    <div class="doc-subtitle es">Arquitectura de Seis Documentos — Proyecto ORO</div>
+
+    <div class="doc-meta en">Internal Parties Only &nbsp;|&nbsp; Not for Distribution &nbsp;|&nbsp; May 2026</div>
+    <div class="doc-meta es">Solo para Partes Internas &nbsp;|&nbsp; No para Distribución &nbsp;|&nbsp; Mayo 2026</div>
+
+    <div class="gold-rule"></div>
+
+    <div class="internal-warning en">INTERNAL — NOT FOR DISTRIBUTION</div>
+    <div class="internal-warning es">INTERNO — NO PARA DISTRIBUCIÓN</div>
+  </div>
+
+  <!-- META LINES -->
+  <p class="meta-line en"><strong>To:</strong> ORO Project Internal Parties</p>
+  <p class="meta-line es"><strong>Para:</strong> Partes Internas del Proyecto ORO</p>
+  <p class="meta-line en"><strong>From:</strong> Seller's Mandate</p>
+  <p class="meta-line es"><strong>De:</strong> Mandatario del Vendedor</p>
+  <p class="meta-line en"><strong>Date:</strong> May 2026</p>
+  <p class="meta-line es"><strong>Fecha:</strong> Mayo 2026</p>
+  <p class="meta-line en"><strong>Subject:</strong> Six-Document Pre-SPA Architecture — Sequence, Logic, and Purpose</p>
+  <p class="meta-line es"><strong>Asunto:</strong> Arquitectura de Seis Documentos Pre-CCV — Secuencia, Lógica y Propósito</p>
+
+  <div class="gold-rule"></div>
+
+  <!-- SECTION 1 — PURPOSE OF THIS MEMO -->
+  <div class="h1 en">1. Purpose of This Memorandum</div>
+  <div class="h1 es">1. Propósito de Este Memorando</div>
+
+  <p class="en">This memorandum is an internal document. It is not delivered to the Buyer or to any external party. It is the first document any internal party reads before touching any other document in the ORO Project set.</p>
+  <p class="es">Este memorando es un documento interno. No se entrega al Comprador ni a ninguna parte externa. Es el primer documento que cualquier parte interna lee antes de tocar cualquier otro documento del conjunto del Proyecto ORO.</p>
+
+  <p class="en">Its purpose is to explain the six-document pre-SPA architecture: why each document exists, what function it performs, how all six share the same governing logic, and why the sequence as a whole protects all internal parties — the Seller, the Seller's mandate, and all commission beneficiaries — from first contact with the Buyer through execution of the Sale and Purchase Agreement.</p>
+  <p class="es">Su propósito es explicar la arquitectura de seis documentos pre-CCV: por qué existe cada documento, qué función cumple, cómo los seis comparten la misma lógica rectora, y por qué la secuencia en su conjunto protege a todas las partes internas — el Vendedor, el mandatario del Vendedor y todos los beneficiarios de comisiones — desde el primer contacto con el Comprador hasta la ejecución del Contrato de Compraventa.</p>
+
+  <p class="en">This memo is written after the other five documents are complete, because it describes what they collectively accomplish. It is read first because understanding the architecture is the precondition for using any document correctly.</p>
+  <p class="es">Este memorando se redacta después de que los otros cinco documentos están completos, porque describe lo que logran colectivamente. Se lee primero porque comprender la arquitectura es la condición previa para usar correctamente cualquier documento.</p>
+
+  <div class="gold-rule"></div>
+
+  <!-- SECTION 2 — THE GOVERNING PRINCIPLE -->
+  <div class="h1 en">2. The Governing Principle</div>
+  <div class="h1 es">2. El Principio Rector</div>
+
+  <div class="core-box">
+    <span class="en">"Title never changes hands without confirmed payment. The money always comes first."</span>
+    <span class="es">"La titularidad nunca cambia de manos sin pago confirmado. El dinero siempre va primero."</span>
+  </div>
+
+  <p class="en">Every clause in every document in this set enforces this principle. Not as a policy preference — as a structural impossibility. The sequence is designed so that the Seller cannot release the gold without confirmed payment, and the Buyer cannot receive title without the African bank confirming receipt of funds. There is no step in the procedure where the Seller's position is exposed. There is no moment where the gold moves before money is confirmed.</p>
+  <p class="es">Cada cláusula en cada documento de este conjunto hace cumplir este principio. No como una preferencia de política — sino como una imposibilidad estructural. La secuencia está diseñada de modo que el Vendedor no puede liberar el oro sin pago confirmado, y el Comprador no puede recibir el título sin que el banco africano confirme la recepción de fondos. No hay ningún paso en el procedimiento donde la posición del Vendedor quede expuesta. No hay ningún momento en que el oro se mueva antes de que el dinero sea confirmado.</p>
+
+  <p class="en">This principle is not stated once. It is restated in every document, in language that cannot be misread. It is the spine of the architecture.</p>
+  <p class="es">Este principio no se enuncia una vez. Se reitera en cada documento, en un lenguaje que no puede malinterpretarse. Es la columna vertebral de la arquitectura.</p>
+
+  <div class="gold-rule"></div>
+
+  <!-- SECTION 3 — THE SIX-DOCUMENT SEQUENCE -->
+  <div class="h1 en">3. The Six-Document Sequence</div>
+  <div class="h1 es">3. La Secuencia de Seis Documentos</div>
+
+  <p class="en">The six documents are not independent instruments. They are a single architecture, in a fixed sequence, each performing a specific function that the others cannot perform. Removing any document from the sequence weakens the protection it provides. Executing them out of order breaks the logic entirely.</p>
+  <p class="es">Los seis documentos no son instrumentos independientes. Son una arquitectura única, en una secuencia fija, cada uno realizando una función específica que los demás no pueden realizar. Eliminar cualquier documento de la secuencia debilita la protección que proporciona. Ejecutarlos fuera de orden rompe la lógica por completo.</p>
+
+  <table>
+    <tr class="tbl-header">
+      <th style="width:8%; text-align:center;" class="en">#</th>
+      <th style="width:8%; text-align:center;" class="es" style="display:none">#</th>
+      <th style="width:20%;" class="en">Document</th>
+      <th style="width:20%;" class="es" style="display:none">Documento</th>
+      <th style="width:52%;" class="en">Role in the Architecture</th>
+      <th style="width:52%;" class="es" style="display:none">Rol en la Arquitectura</th>
+      <th style="width:20%;" class="en">Status</th>
+      <th style="width:20%;" class="es" style="display:none">Estado</th>
+    </tr>
+    <tr>
+      <td class="tbl-seq" style="background:var(--navy);color:var(--gold);font-family:Arial;font-size:13pt;font-weight:bold;text-align:center;">1</td>
+      <td style="background:var(--fill-blue);font-weight:bold;" class="en">Memo</td>
+      <td style="background:var(--fill-blue);font-weight:bold;" class="es" style="display:none">Memorando</td>
+      <td class="en">Internal. Explains the architecture. Written last. Read first.</td>
+      <td class="es" style="display:none">Interno. Explica la arquitectura. Escrito último. Leído primero.</td>
+      <td style="background:var(--fill-cream);font-style:italic;font-size:10pt;" class="en">This document</td>
+      <td style="background:var(--fill-cream);font-style:italic;font-size:10pt;" class="es" style="display:none">Este documento</td>
+    </tr>
+    <tr class="placeholder-row">
+      <td style="background:var(--border);color:var(--white);font-family:Arial;font-size:13pt;font-weight:bold;text-align:center;">2</td>
+      <td style="background:var(--fill-grey);font-weight:bold;color:var(--text-mid);" class="en">NDA</td>
+      <td style="background:var(--fill-grey);font-weight:bold;color:var(--text-mid);" class="es" style="display:none">NDA</td>
+      <td style="color:var(--text-mid);font-style:italic;" class="en">Mutual confidentiality and non-circumvention. Executed before any commercial terms are exchanged. Protects the existence and identity of all parties.</td>
+      <td style="color:var(--text-mid);font-style:italic;" class="es" style="display:none">Confidencialidad mutua y no elusión. Ejecutado antes de que se intercambien términos comerciales. Protege la existencia e identidad de todas las partes.</td>
+      <td style="background:var(--fill-grey);font-style:italic;font-size:10pt;color:var(--text-mid);" class="en">To be drafted</td>
+      <td style="background:var(--fill-grey);font-style:italic;font-size:10pt;color:var(--text-mid);" class="es" style="display:none">Por redactar</td>
+    </tr>
+    <tr class="placeholder-row">
+      <td style="background:var(--border);color:var(--white);font-family:Arial;font-size:13pt;font-weight:bold;text-align:center;">3</td>
+      <td style="background:var(--fill-grey);font-weight:bold;color:var(--text-mid);" class="en">IMFPA</td>
+      <td style="background:var(--fill-grey);font-weight:bold;color:var(--text-mid);" class="es" style="display:none">IMFPA</td>
+      <td style="color:var(--text-mid);font-style:italic;" class="en">Irrevocably locks the commission structure before any commercial terms are exchanged. Governs all spots, rolls, and extensions. Non-circumvention survives indefinitely.</td>
+      <td style="color:var(--text-mid);font-style:italic;" class="es" style="display:none">Bloquea irrevocablemente la estructura de comisiones antes de que se intercambien términos comerciales. Rige todos los contratos al contado, renovaciones y extensiones. La no elusión subsiste indefinidamente.</td>
+      <td style="background:var(--fill-grey);font-style:italic;font-size:10pt;color:var(--text-mid);" class="en">To be drafted</td>
+      <td style="background:var(--fill-grey);font-style:italic;font-size:10pt;color:var(--text-mid);" class="es" style="display:none">Por redactar</td>
+    </tr>
+    <tr>
+      <td style="background:var(--navy);color:var(--gold);font-family:Arial;font-size:13pt;font-weight:bold;text-align:center;">4</td>
+      <td style="background:var(--fill-blue);font-weight:bold;" class="en">Blind Offer</td>
+      <td style="background:var(--fill-blue);font-weight:bold;" class="es" style="display:none">Oferta Ciega</td>
+      <td class="en">Non-identifying commercial offer. Presents commodity, pricing, assay basis, and FOB procedure without disclosing Seller identity. Triggers Buyer acceptance via LOI and CIS.</td>
+      <td class="es" style="display:none">Oferta comercial sin identificación. Presenta la mercancía, el precio, la base del ensayo y el procedimiento FOB sin revelar la identidad del Vendedor. Activa la aceptación del Comprador mediante CDI y CIS.</td>
+      <td style="background:var(--fill-cream);font-style:italic;font-size:10pt;" class="en">Produced — see below</td>
+      <td style="background:var(--fill-cream);font-style:italic;font-size:10pt;" class="es" style="display:none">Producida — ver más abajo</td>
+    </tr>
+    <tr>
+      <td style="background:var(--navy);color:var(--gold);font-family:Arial;font-size:13pt;font-weight:bold;text-align:center;">5</td>
+      <td style="background:var(--fill-blue);font-weight:bold;" class="en">LOI</td>
+      <td style="background:var(--fill-blue);font-weight:bold;" class="es" style="display:none">CDI</td>
+      <td class="en">Written by the Buyer. Submitted simultaneously with the CIS. Formal expression of intent. Seller identity not yet disclosed. Triggers the Seller's production of the SCO.</td>
+      <td class="es" style="display:none">Escrita por el Comprador. Presentada simultáneamente con el CIS. Expresión formal de intención. La identidad del Vendedor aún no se ha divulgado. Activa la producción de la SCO por parte del Vendedor.</td>
+      <td style="background:var(--fill-cream);font-style:italic;font-size:10pt;" class="en">Produced — see below</td>
+      <td style="background:var(--fill-cream);font-style:italic;font-size:10pt;" class="es" style="display:none">Producida — ver más abajo</td>
+    </tr>
+    <tr>
+      <td style="background:var(--navy);color:var(--gold);font-family:Arial;font-size:13pt;font-weight:bold;text-align:center;">6</td>
+      <td style="background:var(--fill-blue);font-weight:bold;" class="en">SCO</td>
+      <td style="background:var(--fill-blue);font-weight:bold;" class="es" style="display:none">SCO</td>
+      <td class="en">Seller's full disclosure package — addressed to the identified Buyer. Corporate identity, UBO, mining license, assay history, bank details, FOB logistics. Produced within 48 hours of CIS receipt. Enables SPA negotiation.</td>
+      <td class="es" style="display:none">Paquete de divulgación completa del Vendedor — dirigido al Comprador identificado. Identidad corporativa, UBO, licencia minera, historial de ensayos, datos bancarios, logística FOB. Producido dentro de las 48 horas de la recepción del CIS. Permite la negociación del CCV.</td>
+      <td style="background:var(--fill-cream);font-style:italic;font-size:10pt;" class="en">Produced — see below</td>
+      <td style="background:var(--fill-cream);font-style:italic;font-size:10pt;" class="es" style="display:none">Producida — ver más abajo</td>
+    </tr>
+    <tr class="placeholder-row">
+      <td style="background:var(--border);color:var(--white);font-family:Arial;font-size:13pt;font-weight:bold;text-align:center;">7</td>
+      <td style="background:var(--fill-grey);font-weight:bold;color:var(--text-mid);" class="en">SPA</td>
+      <td style="background:var(--fill-grey);font-weight:bold;color:var(--text-mid);" class="es" style="display:none">CCV</td>
+      <td style="color:var(--text-mid);font-style:italic;" class="en">The binding instrument. Executed after SCO gap cure and KYC/AML completion. Incorporates all commercial terms, FOB procedure, single assay basis, commission schedule, and payment mechanics. Triggers FOB.</td>
+      <td style="color:var(--text-mid);font-style:italic;" class="es" style="display:none">El instrumento vinculante. Ejecutado tras la resolución de brechas de la SCO y la finalización del KYC/AML. Incorpora todos los términos comerciales, el procedimiento FOB, la base del ensayo único, el calendario de comisiones y la mecánica de pago. Activa el FOB.</td>
+      <td style="background:var(--fill-grey);font-style:italic;font-size:10pt;color:var(--text-mid);" class="en">By parties — after SCO</td>
+      <td style="background:var(--fill-grey);font-style:italic;font-size:10pt;color:var(--text-mid);" class="es" style="display:none">Por las partes — después de la SCO</td>
+    </tr>
+  </table>
+
+  <div class="gold-rule"></div>
+
+  <!-- SECTION 4 — WHY EACH DOCUMENT EXISTS -->
+  <div class="h1 en">4. Why Each Document Exists</div>
+  <div class="h1 es">4. Por Qué Existe Cada Documento</div>
+
+  <div class="h3 en">NDA — Non-Disclosure Agreement (placeholder)</div>
+  <div class="h3 es">NDA — Acuerdo de No Divulgación (marcador de posición)</div>
+
+  <div class="placeholder-box">
+    <div class="ph-title en">To be drafted</div>
+    <div class="ph-title es">Por redactar</div>
+    <p class="ph-body en">The NDA is executed before any commercial term, document, or party identity is shared. It binds all parties — Seller, Buyer, and all intermediaries — to mutual confidentiality over the existence of the transaction, the identity of all parties, and the content of every document in this set. It also contains non-circumvention provisions: no party may bypass any other party or intermediary in follow-up transactions. Duration and governing law: TBD.</p>
+    <p class="ph-body es">El NDA se ejecuta antes de que se comparta cualquier término comercial, documento o identidad de parte. Vincula a todas las partes — Vendedor, Comprador y todos los intermediarios — a la confidencialidad mutua sobre la existencia de la transacción, la identidad de todas las partes y el contenido de cada documento de este conjunto. También contiene disposiciones de no elusión: ninguna parte puede eludir a ninguna otra parte o intermediario en transacciones de seguimiento. Duración y ley rectora: por definir.</p>
+  </div>
+
+  <div class="h3 en">IMFPA — Irrevocable Master Fee Protection Agreement (placeholder)</div>
+  <div class="h3 es">IMFPA — Acuerdo Irrevocable de Protección de Honorarios Maestros (marcador de posición)</div>
+
+  <div class="placeholder-box">
+    <div class="ph-title en">To be drafted</div>
+    <div class="ph-title es">Por redactar</div>
+    <p class="ph-body en">The IMFPA is executed immediately after the NDA and before the Blind Offer is delivered. This sequencing is deliberate and critical: it locks the commission structure irrevocably before any commercial term is shared with the Buyer. The commission schedule — Buyer Representative 1% / Brazil Group &amp; Rafael 1% / Seller's Mandate &amp; Group 1% / Total 3% — cannot be altered, challenged, or circumvented once the IMFPA is signed. It governs not only the initial 250 KG spot transaction but all follow-up spots, rolls, and extensions in this commercial relationship. The African bank executes commission distribution automatically on the same day funds are confirmed received — no manual trigger required. Governing law: TBD.</p>
+    <p class="ph-body es">El IMFPA se ejecuta inmediatamente después del NDA y antes de que se entregue la Oferta Ciega. Esta secuencia es deliberada y crítica: bloquea la estructura de comisiones irrevocablemente antes de que cualquier término comercial sea compartido con el Comprador. El calendario de comisiones — Representante del Comprador 1% / Grupo Brasil y Rafael 1% / Mandatario del Vendedor y Grupo 1% / Total 3% — no puede ser alterado, cuestionado ni eludido una vez firmado el IMFPA. Rige no solo la transacción inicial al contado de 250 KG sino todos los contratos al contado de seguimiento, renovaciones y extensiones en esta relación comercial. El banco africano ejecuta la distribución de comisiones automáticamente el mismo día en que se confirma la recepción de fondos — sin activación manual requerida. Ley rectora: por definir.</p>
+  </div>
+
+  <div class="h3 en">Blind Offer — Commercial Blind Offer</div>
+  <div class="h3 es">Oferta Ciega — Oferta Comercial Ciega</div>
+
+  <p class="en">The Blind Offer presents the full commercial terms — commodity, purity, quantity, pricing structure, assay basis, FOB procedure, export documentation package, and KYC/AML requirements — without disclosing the identity of the Seller, the mine of origin, or the Seller's banking institution. The Buyer sees the terms in full. The Buyer does not see who is behind them.</p>
+  <p class="es">La Oferta Ciega presenta los términos comerciales completos — mercancía, pureza, cantidad, estructura de precios, base del ensayo, procedimiento FOB, paquete de documentación de exportación y requisitos KYC/AML — sin revelar la identidad del Vendedor, el origen de la mina ni la institución bancaria del Vendedor. El Comprador ve los términos en su totalidad. El Comprador no ve quién está detrás de ellos.</p>
+
+  <p class="en">This protects the Seller at the most exposed moment of any transaction — the moment before the Buyer has committed to anything. The Seller's mandate, not the Seller, delivers the Blind Offer. The Seller remains behind the structure until the Buyer has demonstrated serious intent by producing a signed LOI and a complete CIS.</p>
+  <p class="es">Esto protege al Vendedor en el momento más expuesto de cualquier transacción — el momento anterior al que el Comprador se haya comprometido con nada. El mandatario del Vendedor, no el Vendedor, entrega la Oferta Ciega. El Vendedor permanece detrás de la estructura hasta que el Comprador haya demostrado intención seria al producir una CDI firmada y un CIS completo.</p>
+
+  <div class="h3 en">LOI — Letter of Intent</div>
+  <div class="h3 es">CDI — Carta de Intención</div>
+
+  <p class="en">The LOI is written by the Buyer, not by both parties. It is addressed to the Seller's mandate. It is submitted simultaneously with the CIS. Together these two documents constitute the Buyer's formal response to the Blind Offer and the trigger for the Seller to produce the SCO.</p>
+  <p class="es">La CDI es escrita por el Comprador, no por ambas partes. Está dirigida al mandatario del Vendedor. Se presenta simultáneamente con el CIS. Juntos, estos dos documentos constituyen la respuesta formal del Comprador a la Oferta Ciega y el detonante para que el Vendedor produzca la SCO.</p>
+
+  <p class="en">The LOI contains the Buyer's identity, confirms acceptance of the commercial terms, and states the governing principles the Buyer accepts. It is non-binding as to delivery and payment — the binding instrument is the SPA. But it is binding, together with the NDA and IMFPA, as to confidentiality and commission protection. The identity of the Seller is not disclosed in the LOI — the Seller does not sign it. Only the Buyer signs.</p>
+  <p class="es">La CDI contiene la identidad del Comprador, confirma la aceptación de los términos comerciales y establece los principios rectores que el Comprador acepta. No es vinculante en cuanto a entrega y pago — el instrumento vinculante es el CCV. Pero sí es vinculante, junto con el NDA y el IMFPA, en cuanto a confidencialidad y protección de comisiones. La identidad del Vendedor no se divulga en la CDI — el Vendedor no la firma. Solo firma el Comprador.</p>
+
+  <div class="h3 en">SCO — Soft Corporate Offer</div>
+  <div class="h3 es">SCO — Oferta Corporativa Blanda</div>
+
+  <p class="en">The SCO is the moment of mutual disclosure. At this point, the Seller knows the Buyer's identity from the LOI and CIS. The Buyer, upon receiving the SCO, knows the Seller's identity for the first time. The SCO is addressed directly to the identified Buyer.</p>
+  <p class="es">La SCO es el momento de divulgación mutua. En este punto, el Vendedor conoce la identidad del Comprador a través de la CDI y el CIS. El Comprador, al recibir la SCO, conoce la identidad del Vendedor por primera vez. La SCO está dirigida directamente al Comprador identificado.</p>
+
+  <p class="en">It is not a traditional offer — it is a structured data package. Full corporate identity, UBO, authorized signatory, mining license, export track record with customs clearance records, government assay history, African bank details with SWIFT and AML compliance status, and confirmed FOB logistics at Bamako Airport. It also flags all remaining open items for resolution in the SPA — the gap-cure agenda. Once the SCO is exchanged and gaps are cured, the parties proceed directly to SPA execution.</p>
+  <p class="es">No es una oferta tradicional — es un paquete de datos estructurado. Identidad corporativa completa, UBO, firmante autorizado, licencia minera, historial de exportaciones con registros de despacho aduanero, historial de ensayos gubernamentales, datos del banco africano con SWIFT y estado de cumplimiento AML, y logística FOB confirmada en el Aeropuerto de Bamako. También señala todos los asuntos pendientes para su resolución en el CCV — la agenda de resolución de brechas. Una vez que la SCO es intercambiada y las brechas resueltas, las partes proceden directamente a la ejecución del CCV.</p>
+
+  <div class="h3 en">SPA — Sale and Purchase Agreement (placeholder)</div>
+  <div class="h3 es">CCV — Contrato de Compraventa (marcador de posición)</div>
+
+  <div class="placeholder-box">
+    <div class="ph-title en">To be drafted — by parties after SCO gap cure</div>
+    <div class="ph-title es">Por redactar — por las partes tras la resolución de brechas de la SCO</div>
+    <p class="ph-body en">The SPA is the binding instrument. It is executed after the SCO gap cure is complete and KYC/AML documentation has been accepted by both parties. It incorporates all commercial terms, the FOB procedure in full, the single assay basis and Seller liability, the commission schedule, MT103 payment mechanics, default and repatriation terms, and governing law and arbitration seat. It explicitly states that payment is triggered by the African bank's written confirmation of MT103 receipt — not by any assay conducted after FOB handover, not by the MT103 instruction alone. Governing law and arbitration seat: TBD.</p>
+    <p class="ph-body es">El CCV es el instrumento vinculante. Se ejecuta una vez que la resolución de brechas de la SCO está completa y la documentación KYC/AML ha sido aceptada por ambas partes. Incorpora todos los términos comerciales, el procedimiento FOB completo, la base del ensayo único y la responsabilidad del Vendedor, el calendario de comisiones, la mecánica de pago MT103, los términos de incumplimiento y repatriación, y la ley rectora y la sede de arbitraje. Establece explícitamente que el pago es activado por la confirmación escrita del banco africano sobre la recepción del MT103 — no por ningún ensayo realizado después de la entrega FOB, ni por la instrucción MT103 por sí sola. Ley rectora y sede de arbitraje: por definir.</p>
+  </div>
+
+  <div class="gold-rule"></div>
+
+  <!-- SECTION 5 — THE PROTECTION LOGIC -->
+  <div class="h1 en">5. The Protection Logic — Why the Sequence Cannot Be Shortcut</div>
+  <div class="h1 es">5. La Lógica de Protección — Por Qué la Secuencia No Puede Abreviarse</div>
+
+  <p class="en">Each document in the sequence removes a specific risk that the prior document left open. The sequence cannot be collapsed without reintroducing that risk.</p>
+  <p class="es">Cada documento en la secuencia elimina un riesgo específico que el documento anterior dejó abierto. La secuencia no puede comprimirse sin reintroducir ese riesgo.</p>
+
+  <ul class="doc-list">
+    <li class="en"><strong>Without the NDA first:</strong> commercial terms shared before confidentiality is secured — the Buyer could expose the transaction or circumvent intermediaries without legal consequence.</li>
+    <li class="es" style="display:none"><strong>Sin el NDA primero:</strong> los términos comerciales se comparten antes de que la confidencialidad esté asegurada — el Comprador podría exponer la transacción o eludir a los intermediarios sin consecuencia legal.</li>
+    <li class="en"><strong>Without the IMFPA before the Blind Offer:</strong> the Buyer sees commercial terms before commission protection is locked — creating a window to negotiate around the commission structure or bypass intermediaries on follow-up spots.</li>
+    <li class="es" style="display:none"><strong>Sin el IMFPA antes de la Oferta Ciega:</strong> el Comprador ve los términos comerciales antes de que la protección de comisiones esté bloqueada — creando una ventana para negociar alrededor de la estructura de comisiones o eludir a los intermediarios en contratos al contado de seguimiento.</li>
+    <li class="en"><strong>Without the Blind Offer:</strong> the Seller's identity is disclosed before the Buyer has committed to any procedure — the Seller is exposed with no protection and no demonstrated Buyer intent.</li>
+    <li class="es" style="display:none"><strong>Sin la Oferta Ciega:</strong> la identidad del Vendedor se divulga antes de que el Comprador se haya comprometido con ningún procedimiento — el Vendedor queda expuesto sin protección y sin intención demostrada del Comprador.</li>
+    <li class="en"><strong>Without the LOI and CIS before the SCO:</strong> the Seller discloses full corporate identity, banking details, and export records to a Buyer who has made no formal commitment and whose identity has not been verified.</li>
+    <li class="es" style="display:none"><strong>Sin la CDI y el CIS antes de la SCO:</strong> el Vendedor divulga la identidad corporativa completa, los datos bancarios y los registros de exportación a un Comprador que no ha hecho ningún compromiso formal y cuya identidad no ha sido verificada.</li>
+    <li class="en"><strong>Without the SCO before the SPA:</strong> the Buyer signs the binding instrument without having seen the Seller's full credentials — and the Seller signs without having cured all open items. The SPA is built on incomplete information.</li>
+    <li class="es" style="display:none"><strong>Sin la SCO antes del CCV:</strong> el Comprador firma el instrumento vinculante sin haber visto las credenciales completas del Vendedor — y el Vendedor firma sin haber resuelto todos los asuntos pendientes. El CCV se construye sobre información incompleta.</li>
+  </ul>
+
+  <p class="en">The sequence is not bureaucratic formality. Each step is a lock. Together they form a chain that holds from first contact to title transfer.</p>
+  <p class="es">La secuencia no es formalidad burocrática. Cada paso es un candado. Juntos forman una cadena que sostiene desde el primer contacto hasta la transferencia de título.</p>
+
+  <div class="gold-rule"></div>
+
+  <!-- SECTION 6 — THE SINGLE ASSAY RULE -->
+  <div class="h1 en">6. The Single Assay Rule</div>
+  <div class="h1 es">6. La Regla del Ensayo Único</div>
+
+  <p class="en">There is one assay for this transaction. It is conducted at the government laboratory in Bamako, Mali. It is presented by the Seller. The Buyer accepts it as-is as the sole basis for calculation of the payable amount. No second assay, re-assay, or independent buyer verification conditions or delays payment in any way.</p>
+  <p class="es">Existe un único ensayo para esta transacción. Se realiza en el laboratorio gubernamental de Bamako, Mali. Lo presenta el Vendedor. El Comprador lo acepta tal cual como base única para el cálculo del monto pagadero. Ningún segundo ensayo, reensayo o verificación independiente del Comprador condiciona o retrasa el pago de ninguna manera.</p>
+
+  <p class="en">The Buyer's commercial consideration for this acceptance is the 15% net discount below LBMA. If the Seller misrepresents the assay, the Seller bears full and sole liability. Post-delivery quality matters are outside the scope of this transaction and all six documents.</p>
+  <p class="es">La contraprestación comercial del Comprador por esta aceptación es el descuento neto del 15% por debajo del LBMA. Si el Vendedor tergiversa el ensayo, el Vendedor asume responsabilidad plena y exclusiva. Los asuntos de calidad posteriores a la entrega están fuera del alcance de esta transacción y de los seis documentos.</p>
+
+  <p class="en">This rule is stated in every document in the set. It is non-negotiable and cannot be varied by any subsequent agreement, verbal understanding, or course of dealing.</p>
+  <p class="es">Esta regla se enuncia en cada documento del conjunto. Es innegociable y no puede ser modificada por ningún acuerdo posterior, entendimiento verbal o práctica comercial.</p>
+
+  <div class="gold-rule"></div>
+
+  <!-- SECTION 7 — COMMISSION PROTECTION -->
+  <div class="h1 en">7. Commission Protection</div>
+  <div class="h1 es">7. Protección de Comisiones</div>
+
+  <p class="en">The commission structure is locked by the IMFPA before any commercial term reaches the Buyer. It cannot be altered after that point. The African bank holds the commission schedule and executes it automatically on the same day payment is confirmed — no instruction from any party is required, and no party can delay or redirect the distribution.</p>
+  <p class="es">La estructura de comisiones está bloqueada por el IMFPA antes de que cualquier término comercial llegue al Comprador. No puede ser alterada después de ese punto. El banco africano tiene el calendario de comisiones y lo ejecuta automáticamente el mismo día que se confirma el pago — no se requiere instrucción de ninguna parte, y ninguna parte puede retrasar o redirigir la distribución.</p>
+
+  <table>
+    <tr class="tbl-header">
+      <th class="en" style="width:50%;">Party</th>
+      <th class="es" style="display:none;width:50%;">Parte</th>
+      <th class="en" style="width:50%;">Commission</th>
+      <th class="es" style="display:none;width:50%;">Comisión</th>
+    </tr>
+    <tr>
+      <td style="background:var(--fill-blue);font-weight:bold;" class="en">Buyer Representative</td>
+      <td style="background:var(--fill-blue);font-weight:bold;" class="es" style="display:none">Representante del Comprador</td>
+      <td style="background:var(--fill-blue);">1%</td>
+    </tr>
+    <tr>
+      <td class="en">Brazil Group &amp; Rafael</td>
+      <td class="es" style="display:none">Grupo Brasil y Rafael</td>
+      <td>1%</td>
+    </tr>
+    <tr>
+      <td style="background:var(--fill-blue);font-weight:bold;" class="en">Seller's Mandate &amp; Group</td>
+      <td style="background:var(--fill-blue);font-weight:bold;" class="es" style="display:none">Mandatario del Vendedor y Grupo</td>
+      <td style="background:var(--fill-blue);">1%</td>
+    </tr>
+    <tr style="background:var(--navy);">
+      <td style="background:var(--navy);color:var(--white);font-family:Arial;font-weight:bold;" class="en">TOTAL</td>
+      <td style="background:var(--navy);color:var(--white);font-family:Arial;font-weight:bold;" class="es" style="display:none">TOTAL</td>
+      <td style="background:var(--navy);color:var(--white);font-family:Arial;font-weight:bold;">3%</td>
+    </tr>
+  </table>
+
+  <p class="en">The IMFPA governs all follow-up spot transactions, rolls, and extensions in this relationship. The SCO does not address rolls and extensions. The SPA does not address rolls and extensions. That domain belongs exclusively to the IMFPA.</p>
+  <p class="es">El IMFPA rige todas las transacciones al contado de seguimiento, renovaciones y extensiones en esta relación. La SCO no aborda renovaciones y extensiones. El CCV no aborda renovaciones y extensiones. Ese dominio pertenece exclusivamente al IMFPA.</p>
+
+  <div class="gold-rule"></div>
+
+  <!-- SECTION 8 — THE THREE PRODUCED DOCUMENTS -->
+  <div class="h1 en">8. The Three Produced Documents</div>
+  <div class="h1 es">8. Los Tres Documentos Producidos</div>
+
+  <p class="en">The following three documents have been produced under the v4 specification and are reproduced below in full for internal review. Each document opens with its own language toggle (EN / ES). Use the open-in-new-tab link on each panel to view any document at full resolution.</p>
+  <p class="es">Los siguientes tres documentos han sido producidos bajo la especificación v4 y se reproducen a continuación en su totalidad para revisión interna. Cada documento se abre con su propio selector de idioma (EN / ES). Use el enlace de abrir en nueva pestaña en cada panel para ver cualquier documento a resolución completa.</p>
+
+  <!-- EMBED 1 — BLIND OFFER -->
+  <div class="doc-embed-container">
+    <div class="doc-embed-label">
+      <span class="en">Document 4 — Commercial Blind Offer</span>
+      <span class="es">Documento 4 — Oferta Comercial Ciega</span>
+      <a href="https://ragosasan-cloud.github.io/HTML-Publications/oro/Blind_Offer_ORO_Project.html" target="_blank" class="en">Open in new tab ↗</a>
+      <a href="https://ragosasan-cloud.github.io/HTML-Publications/oro/Blind_Offer_ORO_Project.html" target="_blank" class="es">Abrir en nueva pestaña ↗</a>
+    </div>
+    <iframe
+      class="doc-embed-iframe"
+      src="https://ragosasan-cloud.github.io/HTML-Publications/oro/Blind_Offer_ORO_Project.html"
+      title="Commercial Blind Offer — ORO Project"
+      loading="lazy">
+    </iframe>
+  </div>
+
+  <!-- EMBED 2 — LOI -->
+  <div class="doc-embed-container">
+    <div class="doc-embed-label">
+      <span class="en">Document 5 — Letter of Intent</span>
+      <span class="es">Documento 5 — Carta de Intención</span>
+      <a href="https://ragosasan-cloud.github.io/HTML-Publications/oro/LOI_Gold_Dore_Mali.html" target="_blank" class="en">Open in new tab ↗</a>
+      <a href="https://ragosasan-cloud.github.io/HTML-Publications/oro/LOI_Gold_Dore_Mali.html" target="_blank" class="es">Abrir en nueva pestaña ↗</a>
+    </div>
+    <iframe
+      class="doc-embed-iframe"
+      src="https://ragosasan-cloud.github.io/HTML-Publications/oro/LOI_Gold_Dore_Mali.html"
+      title="Letter of Intent — ORO Project"
+      loading="lazy">
+    </iframe>
+  </div>
+
+  <!-- EMBED 3 — SCO -->
+  <div class="doc-embed-container">
+    <div class="doc-embed-label">
+      <span class="en">Document 6 — Soft Corporate Offer</span>
+      <span class="es">Documento 6 — Oferta Corporativa Blanda</span>
+      <a href="https://ragosasan-cloud.github.io/HTML-Publications/oro/SCO_ORO_Project.html" target="_blank" class="en">Open in new tab ↗</a>
+      <a href="https://ragosasan-cloud.github.io/HTML-Publications/oro/SCO_ORO_Project.html" target="_blank" class="es">Abrir en nueva pestaña ↗</a>
+    </div>
+    <iframe
+      class="doc-embed-iframe"
+      src="https://ragosasan-cloud.github.io/HTML-Publications/oro/SCO_ORO_Project.html"
+      title="Soft Corporate Offer — ORO Project"
+      loading="lazy">
+    </iframe>
+  </div>
+
+  <div class="gold-rule"></div>
+
+  <!-- FOOTER -->
+  <div class="doc-footer">
+    <div class="en">INTERNAL — Prepared for ORO Project Internal Parties Only</div>
+    <div class="es">INTERNO — Preparado Exclusivamente para Partes Internas del Proyecto ORO</div>
+    <div class="en">Internal Memorandum — ORO Project — Mali to Hong Kong — May 2026</div>
+    <div class="es">Memorando Interno — Proyecto ORO — Mali a Hong Kong — Mayo 2026</div>
+  </div>
+
+</div><!-- end .page -->
+
+<script>
+function setLang(l) {
+  document.body.className = document.body.className.replace(/lang-\w+/, '') + ' lang-' + l;
+  document.querySelectorAll('.lang-btn').forEach(b =>
+    b.classList.toggle('active', b.textContent.toLowerCase() === l)
+  );
+  ['td','th','li'].forEach(tag => {
+    document.querySelectorAll(tag + '.en, ' + tag + '.es').forEach(el => {
+      el.style.display = el.classList.contains(l) ? '' : 'none';
+    });
+  });
+}
+setLang('en');
+</script>
+</body>
+</html>
