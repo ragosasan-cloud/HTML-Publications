@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>R1-2 — Teaser / Resumen Ejecutivo · Ronda 1 · Refinería NaCl</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:   #1B2A4A;
+    --teal:   #1F6F78;
+    --gold:   #8B6914;
+    --gray1:  #F5F6F8;
+    --gray2:  #ECEFF3;
+    --border: #D0D5DE;
+    --light:  #5A6A7A;
+    --text:   #1E2530;
+    --white:  #FFFFFF;
+    --page:   #FAFBFC;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { font-size: 16px; background: #DDE1E8; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+    padding: 2.5rem 1rem 4rem;
+  }
+
+  /* ── Page shell ─────────────────────────────────────────────────── */
+  .page {
+    background: var(--page);
+    max-width: 860px;
+    margin: 0 auto;
+    box-shadow: 0 4px 40px rgba(0,0,0,.18);
+  }
+
+  /* ── Running header ─────────────────────────────────────────────── */
+  .running-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .6rem 2.8rem;
+    background: var(--white);
+    border-bottom: 3px solid var(--navy);
+    font-family: 'DM Sans', sans-serif;
+    font-size: .72rem;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+  .running-header .rh-left { color: var(--light); }
+  .running-header .rh-right { color: var(--gold); font-weight: 600; }
+
+  /* ── Main content padding ───────────────────────────────────────── */
+  .content { padding: 2.8rem 3rem 3.2rem; }
+
+  /* ── Portada ────────────────────────────────────────────────────── */
+  .doc-label {
+    font-family: 'DM Mono', monospace;
+    font-size: .72rem;
+    letter-spacing: .18em;
+    color: var(--teal);
+    text-transform: uppercase;
+    margin-bottom: .65rem;
+  }
+
+  .doc-title {
+    font-family: 'EB Garamond', serif;
+    font-size: 2.6rem;
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1.1;
+    margin-bottom: .5rem;
+  }
+
+  .doc-subtitle {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 300;
+    color: var(--teal);
+    margin-bottom: .35rem;
+  }
+
+  .doc-sub2 {
+    font-size: .9rem;
+    color: var(--light);
+    margin-bottom: 1.6rem;
+  }
+
+  .title-rule {
+    border: none;
+    border-top: 4px solid var(--navy);
+    margin-bottom: 1.8rem;
+  }
+
+  /* ── KPI strip ──────────────────────────────────────────────────── */
+  .kpi-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1px solid var(--border);
+    margin-bottom: 2.4rem;
+    overflow: hidden;
+  }
+
+  .kpi-header-row {
+    display: contents;
+  }
+
+  .kpi-head {
+    background: var(--navy);
+    color: var(--white);
+    text-align: center;
+    padding: .55rem .5rem;
+    font-size: .68rem;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+
+  .kpi-cell {
+    border: 1px solid var(--border);
+    text-align: center;
+    padding: 1.1rem .7rem 1rem;
+    background: var(--white);
+  }
+
+  .kpi-value {
+    font-family: 'EB Garamond', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    display: block;
+    line-height: 1;
+    margin-bottom: .3rem;
+  }
+  .kpi-value.navy { color: var(--navy); }
+  .kpi-value.gold { color: var(--gold); }
+  .kpi-value.teal { color: var(--teal); }
+
+  .kpi-label {
+    font-size: .75rem;
+    color: var(--light);
+    line-height: 1.3;
+  }
+
+  /* ── Section headings ───────────────────────────────────────────── */
+  .section {
+    margin-bottom: 2.2rem;
+  }
+
+  .section-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: .78rem;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: .35rem;
+    padding-bottom: .35rem;
+    border-bottom: 1.5px solid var(--teal);
+  }
+
+  /* ── Body text ──────────────────────────────────────────────────── */
+  p {
+    font-size: .95rem;
+    line-height: 1.7;
+    color: var(--text);
+    margin-bottom: .9rem;
+  }
+
+  strong { font-weight: 600; color: var(--navy); }
+  em { font-style: italic; color: var(--light); }
+
+  .highlight-teal { color: var(--teal); font-weight: 600; }
+  .highlight-gold { color: var(--gold); font-weight: 600; }
+
+  /* ── Tables ─────────────────────────────────────────────────────── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.4rem;
+    font-size: .88rem;
+  }
+
+  thead th {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: .68rem;
+    font-weight: 600;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    padding: .55rem .75rem;
+    text-align: left;
+    border: none;
+  }
+
+  tbody tr:nth-child(odd)  td { background: var(--white); }
+  tbody tr:nth-child(even) td { background: var(--gray1); }
+
+  tbody td {
+    padding: .6rem .75rem;
+    border: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.5;
+    color: var(--text);
+  }
+
+  tbody td:first-child { font-weight: 600; color: var(--navy); }
+
+  /* Hitos table: primera col es el nombre del hito */
+  .hitos-table tbody td:first-child {
+    background: var(--teal);
+    color: var(--white);
+    font-weight: 700;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+  .hitos-table tbody tr:nth-child(even) td:first-child { background: var(--teal); }
+
+  /* Resultado de liberación en teal */
+  .hitos-table tbody td:last-child { color: var(--teal); font-weight: 500; }
+
+  /* Métricas table: Ronda 1 col en gold */
+  .metrics-table tbody td:nth-child(2) { color: var(--text); }
+  .metrics-table .irr-row td:nth-child(2) {
+    font-weight: 700;
+    color: var(--gold);
+    font-size: 1rem;
+  }
+
+  /* Uso de fondos: primera col */
+  .fondos-table tbody td:first-child { color: var(--navy); }
+
+  /* Métricas 2-col (arquitectura financiera) */
+  .arch-table tbody td:first-child {
+    background: var(--gray1);
+    color: var(--navy);
+    font-weight: 600;
+    width: 32%;
+  }
+  .arch-table tbody tr:nth-child(even) td:first-child { background: var(--gray2); }
+  .arch-table tbody tr:nth-child(even) td { background: var(--white); }
+
+  /* ── Consistency blocks ─────────────────────────────────────────── */
+  .chain-block {
+    border-left: 3px solid var(--teal);
+    padding: .5rem .5rem .5rem 1rem;
+    margin-bottom: .6rem;
+    background: var(--gray1);
+  }
+
+  .chain-label {
+    font-size: .8rem;
+    font-weight: 700;
+    color: var(--teal);
+    display: inline;
+    margin-right: .4rem;
+  }
+
+  .chain-text {
+    font-size: .82rem;
+    font-style: italic;
+    color: var(--light);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ── Permit callout ─────────────────────────────────────────────── */
+  .permit-callout {
+    display: inline;
+    color: var(--teal);
+    font-weight: 600;
+  }
+
+  /* ── Section 8 "no es" blocks ───────────────────────────────────── */
+  .no-es-block {
+    margin-bottom: .9rem;
+  }
+  .no-es-block strong { color: var(--navy); }
+
+  /* ── Footer ─────────────────────────────────────────────────────── */
+  .next-step {
+    margin-top: 2.4rem;
+    padding-top: 1.2rem;
+    border-top: 3px solid var(--navy);
+  }
+
+  .next-step-title {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: .5rem;
+  }
+
+  .contact-line {
+    margin-top: .9rem;
+    font-size: .9rem;
+  }
+  .contact-line strong { color: var(--navy); }
+  .contact-line a { color: var(--teal); text-decoration: none; }
+
+  .meta-line {
+    font-size: .82rem;
+    font-style: italic;
+    color: var(--light);
+    margin-top: .35rem;
+  }
+
+  /* ── Running footer ─────────────────────────────────────────────── */
+  .running-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .55rem 2.8rem;
+    background: var(--white);
+    border-top: 1px solid var(--border);
+    font-size: .72rem;
+    color: var(--light);
+    margin-top: 2.2rem;
+  }
+
+  .confidential-note {
+    text-align: center;
+    font-size: .75rem;
+    font-style: italic;
+    color: var(--light);
+    padding: .8rem 2.8rem 1rem;
+    background: var(--white);
+  }
+
+  /* ── Print ──────────────────────────────────────────────────────── */
+  @media print {
+    html { background: white; font-size: 13px; }
+    body { padding: 0; }
+    .page { box-shadow: none; max-width: 100%; }
+    .running-header, .running-footer { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    thead th { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .kpi-head { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .hitos-table tbody td:first-child { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- Running header -->
+  <div class="running-header">
+    <span class="rh-left">Proyecto Refinería NaCl — Mar de Cortés / San Felipe, B.C.</span>
+    <span class="rh-right">Confidencial — Uso exclusivo del destinatario</span>
+  </div>
+
+  <div class="content">
+
+    <!-- ── PORTADA ─────────────────────────────────────────────────── -->
+    <div class="doc-label">Documento R1-2</div>
+    <div class="doc-title">Teaser / Resumen Ejecutivo</div>
+    <div class="doc-subtitle">Ronda 1 — Habilitación Legal y Regulatoria</div>
+    <div class="doc-sub2">Refinería de NaCl 4N (99.90%+) — Mar de Cortés / San Felipe, B.C.</div>
+    <hr class="title-rule">
+
+    <!-- ── KPI STRIP ───────────────────────────────────────────────── -->
+    <div class="kpi-strip">
+      <div class="kpi-head">Capital requerido</div>
+      <div class="kpi-head">IRR objetivo</div>
+      <div class="kpi-head">Horizonte</div>
+
+      <div class="kpi-cell">
+        <span class="kpi-value navy">USD $1–2M</span>
+        <span class="kpi-label">Ronda 1 — Habilitación Legal y Regulatoria</span>
+      </div>
+      <div class="kpi-cell">
+        <span class="kpi-value gold">65%</span>
+        <span class="kpi-label">Anualizado — Nota convertible / Capital preferente</span>
+      </div>
+      <div class="kpi-cell">
+        <span class="kpi-value teal">12 meses</span>
+        <span class="kpi-label">Con liberación por Hitos A/B/C/D</span>
+      </div>
+    </div>
+
+    <!-- ── SECCIÓN 1 ────────────────────────────────────────────────── -->
+    <div class="section">
+      <div class="section-title">1. La tesis de inversión</div>
+
+      <p>Este documento no es una solicitud de capital para construir una refinería. Es la presentación de una <strong>oportunidad de compra de opciones reales</strong>: derechos, permisos y certeza jurídica que transforman un activo técnicamente validado en un proyecto bancable e invertible.</p>
+
+      <p>El Proyecto Refinería NaCl parte de una ventaja geológica no replicable: una salmuera natural a <strong>~17° Baumé</strong> en el Mar de Cortés que elimina aproximadamente el <strong class="highlight-gold">70%</strong> del trabajo energético de evaporación frente a fuentes convencionales (~3° Baumé). Esa ventaja está validada científicamente por la <strong>UABC</strong>, que certificó una ruta de pureza de <strong>99.90% (4N)</strong> — el estándar exigido por más de 300 aplicaciones industriales a escala global.</p>
+
+      <p>La sal de alta pureza no es un producto de nicho: es un insumo crítico con demanda estructural en <strong>Japón, Corea del Sur, China, Alemania y Estados Unidos</strong>, entre otros mercados. Sus aplicaciones abarcan semiconductores, cloro-álcali de membrana, industria farmacéutica, química fina, tratamiento de agua ultrapura, baterías de nueva generación y procesos alimentarios de alta exigencia. El corredor industrial <strong>Arizona–Texas</strong> (CHIPS Act / nearshoring) representa uno de los mercados de mayor crecimiento inmediato para el proyecto, pero la tesis comercial no depende de un solo destino geográfico.</p>
+
+      <p>La Ronda 1 existe porque <strong>el activo más valioso de este proyecto no es la planta: es el derecho a construirla</strong>. Ese derecho depende de tres frentes que hoy tienen brechas documentadas y costos de resolución cuantificables: el <strong>corredor de tierra</strong> (Tramos 1–4), el <strong>cruce SCT/SICT</strong> bajo carretera, y la <strong>EIA ante SEMARNAT</strong> (trámite SEMARNAT-04-002, modalidad particular). Resolver estos tres frentes en 12 meses — con hitos verificables — es exactamente lo que compra el inversionista de esta ronda.</p>
+    </div>
+
+    <!-- ── SECCIÓN 2 ────────────────────────────────────────────────── -->
+    <div class="section">
+      <div class="section-title">2. Punto de partida: antecedentes y marco vigente</div>
+
+      <p>El proyecto no parte de cero. En 2013, se ingresó ante SEMARNAT un expediente completo bajo el marco regulatorio entonces vigente: <strong>MIA 02BC2013MD049</strong> (bitácora 02/MP-0310/08/13) y <strong>DTU 02BC2013MD048</strong> (bitácora 02/MC-0179/08/13). <span class="permit-callout">Los resultados de ese proceso ante la Secretaría fueron favorables: se obtuvieron los permisos necesarios para la construcción de la refinería de sal.</span> Estos antecedentes acreditan que el sitio ya fue evaluado institucionalmente, que el proyecto superó el escrutinio ambiental de la época y que existe una base documental sólida sobre la cual actualizar el trámite bajo el nuevo marco vigente.</p>
+
+      <p>Con vigencia desde el 1 de abril de 2026 (DOF), SEMARNAT sustituyó la MIA por la <strong>EIA (Evaluación de Impacto Ambiental)</strong> y eliminó el DTU. El trámite habilitante ahora es la clave <strong>SEMARNAT-04-002</strong> (modalidad particular). El expediente 2013 se referencia como <em>antecedente bajo marco anterior</em> — una base documentada que reduce la incertidumbre de reingreso y acelera la ruta crítica.</p>
+
+      <p>Los plazos oficiales de respuesta bajo el nuevo marco son de <strong>20 días hábiles</strong> (10 días si se ingresa por el Sistema Electrónico de Trámites Ambientales). Estos tiempos son compatibles con el cronograma de 12 meses de la Ronda 1.</p>
+    </div>
+
+    <!-- ── SECCIÓN 3 ────────────────────────────────────────────────── -->
+    <div class="section">
+      <div class="section-title">3. Arquitectura financiera — Ronda 1</div>
+
+      <table class="arch-table">
+        <tbody>
+          <tr><td>Ronda</td><td>1 — Habilitación Legal y Regulatoria</td></tr>
+          <tr><td>Capital</td><td>USD $1M – $2M (nota convertible / capital preferente)</td></tr>
+          <tr><td>IRR objetivo</td><td>65% anualizado — prima por riesgo pre-permiso, pre-activo</td></tr>
+          <tr><td>Horizonte</td><td>12 meses con 4 hitos de liberación (A/B/C/D)</td></tr>
+          <tr><td>Activación R2</td><td>Carpeta habilitante completa: tierra + EIA + cruce SCT + expediente documental</td></tr>
+          <tr><td>Estructura</td><td>Nota convertible con descuento + techo de valuación / Capital preferente</td></tr>
+          <tr><td>Protección</td><td>Capital liberado por hitos verificables — no de golpe</td></tr>
+        </tbody>
+      </table>
+
+      <p><strong>Por qué 65% IRR es el precio correcto del riesgo.</strong> El inversionista de Ronda 1 entra en un activo pre-permiso, pre-activo físico y pre-ingreso. El capital se despliega antes de que exista garantía colateral convencional. En el mercado privado latinoamericano, este perfil — con tierra ejidal en proceso, permisología pendiente y cruce carretero no resuelto — se compensa históricamente entre 65% y 80% IRR, o con mecanismos de protección estructural equivalentes.</p>
+
+      <p>La diferencia aquí es que el IRR no es narrativa: es estructura. Cada hito de control (A/B/C/D) detiene la liberación de capital si el entregable no se cumple. No existe desembolso discrecional. El inversionista compra <strong>opciones reales con evidencia verificable</strong>, no proyecciones de largo plazo.</p>
+
+      <p>Cuando Ronda 1 cierra — carpeta habilitante entregada — el proyecto entra a Ronda 2 (~USD $70M de inversión de construcción, IRR 22%). El diferencial de <strong class="highlight-gold">43 puntos entre rondas</strong> es la historia que le cuenta el mercado a sí mismo: <em>"el riesgo de permisología ya fue pagado por otros — usted entra con el activo habilitado."</em></p>
+    </div>
+
+    <!-- ── SECCIÓN 4 ────────────────────────────────────────────────── -->
+    <div class="section">
+      <div class="section-title">4. Estructura de hitos — control del capital</div>
+
+      <p>El capital de Ronda 1 se libera en cuatro tramos vinculados a entregables verificables con evidencia documental. <strong>No hay liberación sin cumplimiento del hito.</strong> Esta es la mecánica de protección central del instrumento.</p>
+
+      <table class="hitos-table">
+        <thead>
+          <tr>
+            <th>Hito</th>
+            <th>Período</th>
+            <th>Entregables verificables</th>
+            <th>Resultado de liberación</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Hito A</td>
+            <td>Días 0–60</td>
+            <td>Mapeo de corredor (Tramos 1–4) • Contratos marco • Contratación consultor EIA (SEMARNAT-04-002) • Inventario expediente 2013</td>
+            <td>Corredor y equipo técnico activos</td>
+          </tr>
+          <tr>
+            <td>Hito B</td>
+            <td>Días 60–120</td>
+            <td>Contratos/servidumbres Tramos 1–2 firmados • Ingeniería cruce SCT/SICT contratada • Pre-diagnóstico expediente 2013 vs. marco EIA 2026</td>
+            <td>Tierra y corredor parcialmente asegurados</td>
+          </tr>
+          <tr>
+            <td>Hito C</td>
+            <td>Días 120–240</td>
+            <td>RAN completado • Servidumbres críticas inscritas • Expediente EIA integrado y revisado • Índice documental v0.9</td>
+            <td>Habilitante regulatorio en proceso</td>
+          </tr>
+          <tr>
+            <td>Hito D</td>
+            <td>Días 240–360</td>
+            <td>EIA ingresada ante SEMARNAT • Expediente documental v1.0 • Cruce SCT/SICT en trámite • Carpeta habilitante entregada</td>
+            <td>Carpeta habilitante completa — activa Ronda 2</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ── SECCIÓN 5 ────────────────────────────────────────────────── -->
+    <div class="section">
+      <div class="section-title">5. Uso de fondos</div>
+
+      <p>Los USD $1–2M de Ronda 1 se asignan a cinco frentes de ejecución con entregables verificables:</p>
+
+      <table class="fondos-table">
+        <thead>
+          <tr>
+            <th>Frente de trabajo</th>
+            <th style="width:12%">% del capital</th>
+            <th>Alcance / Entregable</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Control de corredor (Tramos 1–4)</td>
+            <td>~35%</td>
+            <td>Contratos, servidumbres, actas ejidales, RAN, inscripciones</td>
+          </tr>
+          <tr>
+            <td>EIA SEMARNAT-04-002</td>
+            <td>~25%</td>
+            <td>Consultoría ambiental, actualización expediente 2013, ingreso formal</td>
+          </tr>
+          <tr>
+            <td>Cruce SCT/SICT bajo carretera</td>
+            <td>~20%</td>
+            <td>Ingeniería ejecutiva del cruce, estudios, trámite SICT</td>
+          </tr>
+          <tr>
+            <td>Organización documental v1.0</td>
+            <td>~10%</td>
+            <td>Índice maestro, control de versiones, auditoría interna, carpeta para revisión</td>
+          </tr>
+          <tr>
+            <td>Contingencia y gobernanza</td>
+            <td>~10%</td>
+            <td>Imprevistos de ejecución, asesoría legal, gestión del proyecto</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ── SECCIÓN 6 ────────────────────────────────────────────────── -->
+    <div class="section">
+      <div class="section-title">6. Cadenas de consistencia</div>
+
+      <p>Todo argumento del proyecto deriva de cuatro cadenas estructurales. Ronda 1 resuelve los eslabones iniciales de cada una:</p>
+
+      <div class="chain-block">
+        <span class="chain-label">Técnica → Financiera:</span>
+        <span class="chain-text">17° Baumé → OPEX bajo → EBITDA 85%+ → IRR defendible → bancabilidad (Ronda 3)</span>
+      </div>
+      <div class="chain-block">
+        <span class="chain-label">Regulatoria → Ejecutiva:</span>
+        <span class="chain-text">Expediente histórico 2013 (permisos obtenidos) → EIA SEMARNAT-04-002 → permisos actualizados → certeza jurídica → activa inversión Ronda 2</span>
+      </div>
+      <div class="chain-block">
+        <span class="chain-label">Científica → Comercial:</span>
+        <span class="chain-text">Certificación UABC (99.90%) → especificación 4N → +300 aplicaciones industriales → mercado global → precio premium (~$412/ton)</span>
+      </div>
+      <div class="chain-block">
+        <span class="chain-label">Rondas:</span>
+        <span class="chain-text">Ronda 1 (hitos verificables) → carpeta habilitante → activa Ronda 2 → genera resultados → activa Ronda 3 (bancaria)</span>
+      </div>
+    </div>
+
+    <!-- ── SECCIÓN 7 ────────────────────────────────────────────────── -->
+    <div class="section">
+      <div class="section-title">7. Instrumento de inversión</div>
+
+      <p>La estructura preferida para Ronda 1 es una <strong>nota convertible</strong> con descuento sobre la valuación de Ronda 2 y techo de conversión, o bien <strong>capital preferente</strong> con derechos de prelación en la siguiente ronda. En ambos casos el mecanismo de hitos opera sobre el flujo de capital — no sobre el instrumento legal.</p>
+
+      <p>El instrumento específico y los términos finales se documentan en R1-8 (Nota Convertible / Carta de Términos). Este Teaser presenta únicamente la lógica estructural.</p>
+    </div>
+
+    <!-- ── SECCIÓN 8 ────────────────────────────────────────────────── -->
+    <div class="section">
+      <div class="section-title">8. Lo que Ronda 1 no es</div>
+
+      <div class="no-es-block">
+        <p><strong>Ronda 1 no es construir.</strong> No se compromete inversión de construcción. No se contratan equipos de proceso. No se firma con constructoras. El capital de construcción de Ronda 2 (~USD $70M) se activa únicamente cuando la carpeta habilitante de Ronda 1 está entregada y verificada.</p>
+      </div>
+
+      <div class="no-es-block">
+        <p><strong>Ronda 1 no mezcla narrativas.</strong> La Tasa Interna de Retorno de 65% corresponde exclusivamente a la prima por riesgo de etapa — no a la rentabilidad operativa del activo, que pertenece a Ronda 2 (22% TIR). Confundir ambos perfiles es el error más frecuente en instrumentos de este tipo.</p>
+      </div>
+
+      <div class="no-es-block">
+        <p><strong>Ronda 1 no es la última oportunidad.</strong> Es la primera. El inversionista que resuelve la habilitación jurídica y regulatoria entra al Año 1 de una curva de retorno de tres rondas. El activo que habilita con $1–2M respalda una plataforma industrial de $70M.</p>
+      </div>
+    </div>
+
+    <!-- ── SECCIÓN 9 ────────────────────────────────────────────────── -->
+    <div class="section">
+      <div class="section-title">9. Métricas de referencia rápida</div>
+
+      <table class="metrics-table">
+        <thead>
+          <tr>
+            <th>Métrica</th>
+            <th>Ronda 1 ★</th>
+            <th>Ronda 2</th>
+            <th>Ronda 3</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Capital</td><td>USD $1–2M</td><td>~USD $70M</td><td>Deuda LP</td></tr>
+          <tr><td>Horizonte</td><td>12 meses</td><td>36 meses</td><td>Año 3+</td></tr>
+          <tr class="irr-row"><td>IRR objetivo</td><td>65%</td><td>22%</td><td>~10–12% (costo deuda)</td></tr>
+          <tr><td>OPEX/ton</td><td>N/A</td><td>~$40</td><td>~$40</td></tr>
+          <tr><td>EBITDA</td><td>N/A</td><td>85%+</td><td>85%+</td></tr>
+          <tr><td>Precio NaCl</td><td>N/A</td><td>~$412/ton</td><td>~$412/ton</td></tr>
+          <tr><td>Pureza</td><td>N/A</td><td>99.90% (4N)</td><td>99.90% (4N)</td></tr>
+          <tr><td>Índice de Cobertura de Deuda</td><td>N/A</td><td>N/A</td><td>&gt;1.25x</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ── CIERRE ──────────────────────────────────────────────────── -->
+    <div class="next-step">
+      <div class="next-step-title">Próximo paso</div>
+      <p>Este Teaser es el documento de entrada. El ecosistema de Ronda 1 incluye: <strong>Carta de Presentación (R1-1)</strong>, <strong>Cuerpo de la Propuesta (R1-3)</strong>, <strong>Ingeniería Financiera (R1-4)</strong>, <strong>Mapa de Corredor + Cronograma (R1-5/6)</strong>, <strong>Expediente Documental v1.0 (R1-7)</strong> y <strong>Nota Convertible / Carta de Términos (R1-8)</strong>. Todos disponibles bajo solicitud formal al equipo del proyecto.</p>
+
+      <div class="contact-line">
+        <strong>Contacto:</strong> <a href="mailto:RefinadoraDeNaCl@GoSaMaterials.com">RefinadoraDeNaCl@GoSaMaterials.com</a>
+      </div>
+      <div class="meta-line">San Felipe, Baja California &nbsp;|&nbsp; Mayo 2026 &nbsp;|&nbsp; Confidencial</div>
+    </div>
+
+  </div><!-- /content -->
+
+  <!-- Running footer -->
+  <div class="running-footer">
+    <span>R1-2 &nbsp; Teaser / Resumen Ejecutivo — Ronda 1 &nbsp;|&nbsp; Mayo 2026</span>
+    <span>Pág. 1</span>
+  </div>
+
+  <div class="confidential-note">
+    Este documento es de carácter estrictamente confidencial. Su distribución no autorizada está prohibida.
+  </div>
+
+</div><!-- /page -->
+</body>
+</html>
