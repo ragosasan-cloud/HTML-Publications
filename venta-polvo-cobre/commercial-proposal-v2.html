@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Confidential Commercial Proposal – Copper Conductive Paste</title>
+<style>
+  :root {
+    --copper: #b45309;
+    --copper-light: #d97706;
+    --copper-pale: #fef3c7;
+    --copper-rule: #92400e;
+    --ink: #1c1917;
+    --ink-soft: #44403c;
+    --ink-muted: #78716c;
+    --paper: #fffbf7;
+    --paper-warm: #fdf8f0;
+    --rule: #e7e0d8;
+    --accent-bg: #1c1917;
+    --accent-text: #fef3c7;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 16px;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .doc-header {
+    background: var(--accent-bg);
+    color: var(--accent-text);
+    padding: 14px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .doc-header .series { opacity: 0.6; }
+
+  .hero {
+    background: var(--accent-bg);
+    color: var(--accent-text);
+    padding: 72px 48px 56px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .hero .eyebrow {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--copper-light);
+    margin-bottom: 28px;
+  }
+  .hero h1 {
+    font-size: clamp(30px, 4.5vw, 50px);
+    font-weight: 400;
+    line-height: 1.1;
+    color: #fafaf9;
+    margin-bottom: 20px;
+  }
+  .hero h1 em { color: var(--copper-light); font-style: italic; }
+  .hero .hero-sub {
+    font-size: 14px;
+    color: #a8a29e;
+    font-style: italic;
+    max-width: 480px;
+    line-height: 1.6;
+  }
+
+  .stat-strip {
+    background: var(--paper-warm);
+    border-bottom: 1px solid var(--rule);
+    padding: 28px 48px;
+    max-width: 860px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .stat-item {}
+  .stat-item .stat-num {
+    font-size: 26px;
+    font-weight: 300;
+    color: var(--copper);
+    line-height: 1;
+    font-family: 'Georgia', serif;
+  }
+  .stat-item .stat-label {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-top: 4px;
+  }
+
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 48px 64px;
+  }
+
+  /* SECTION */
+  .section {
+    margin-top: 64px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section:last-of-type { border-bottom: none; }
+
+  .section-number {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--copper);
+    margin-bottom: 10px;
+  }
+  .section h2 {
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 28px;
+    color: var(--ink);
+  }
+  .section h2 em { color: var(--copper); font-style: italic; }
+
+  .body-text p {
+    color: var(--ink-soft);
+    margin-bottom: 20px;
+    font-size: 16px;
+  }
+  .body-text strong { color: var(--ink); }
+
+  .bullet-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+  }
+  .bullet-list li {
+    padding: 10px 0 10px 20px;
+    position: relative;
+    border-bottom: 1px solid var(--rule);
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .bullet-list li:last-child { border-bottom: none; }
+  .bullet-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--copper);
+    font-size: 12px;
+    top: 12px;
+  }
+  .bullet-list li strong { color: var(--ink); }
+
+  /* ASSET TABLE */
+  .asset-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 14px;
+  }
+  .asset-table th {
+    background: var(--accent-bg);
+    color: var(--copper-light);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 500;
+  }
+  .asset-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--rule);
+    color: var(--ink-soft);
+    vertical-align: top;
+  }
+  .asset-table tr:last-child td { border-bottom: none; }
+  .asset-table td:first-child { font-weight: 600; color: var(--ink); }
+  .asset-table tr:nth-child(even) td { background: var(--paper-warm); }
+
+  /* TWO ROLE CARDS */
+  .role-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin: 24px 0;
+  }
+  .role-card {
+    padding: 28px 28px;
+    background: var(--paper-warm);
+    border-top: 2px solid var(--copper);
+  }
+  .role-card.operator { border-top-color: var(--accent-bg); background: var(--accent-bg); color: var(--accent-text); }
+  .role-card .role-tag {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--copper);
+    margin-bottom: 10px;
+  }
+  .role-card.operator .role-tag { color: var(--copper-light); }
+  .role-card .role-name {
+    font-size: 18px;
+    color: var(--ink);
+    margin-bottom: 14px;
+    font-weight: 400;
+  }
+  .role-card.operator .role-name { color: #fafaf9; }
+  .role-card .role-body {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.65;
+  }
+  .role-card.operator .role-body { color: #a8a29e; }
+  .role-card .role-body p + p { margin-top: 10px; }
+
+  /* UPSIDE SCENARIOS */
+  .scenarios {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin: 24px 0;
+  }
+  .scenario {
+    background: var(--accent-bg);
+    padding: 24px 20px;
+    color: var(--accent-text);
+  }
+  .scenario .sc-label {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--copper-light);
+    margin-bottom: 10px;
+  }
+  .scenario .sc-value {
+    font-size: 26px;
+    font-weight: 300;
+    color: #fafaf9;
+    line-height: 1;
+    margin-bottom: 8px;
+    font-family: 'Georgia', serif;
+  }
+  .scenario .sc-note {
+    font-size: 11px;
+    color: #78716c;
+    line-height: 1.5;
+  }
+
+  /* CITIES TABLE */
+  .cities-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 14px;
+  }
+  .cities-table th {
+    background: var(--accent-bg);
+    color: var(--copper-light);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 500;
+  }
+  .cities-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--rule);
+    color: var(--ink-soft);
+    vertical-align: top;
+  }
+  .cities-table tr:last-child td { border-bottom: none; }
+  .cities-table td:first-child { font-weight: 700; color: var(--ink); }
+  .cities-table tr:nth-child(even) td { background: var(--paper-warm); }
+
+  /* NON-NEGOTIABLES */
+  .non-neg {
+    counter-reset: nn;
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+  }
+  .non-neg li {
+    counter-increment: nn;
+    padding: 14px 14px 14px 52px;
+    position: relative;
+    border-bottom: 1px solid var(--rule);
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .non-neg li:last-child { border-bottom: none; }
+  .non-neg li::before {
+    content: counter(nn);
+    position: absolute;
+    left: 0;
+    top: 14px;
+    width: 32px;
+    height: 32px;
+    background: var(--copper);
+    color: white;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .non-neg li strong { color: var(--ink); }
+
+  /* CLOSING */
+  .closing-section {
+    background: var(--accent-bg);
+    color: var(--accent-text);
+    padding: 48px;
+    margin-top: 64px;
+  }
+  .closing-section .section-number { color: var(--copper-light); }
+  .closing-section h2 { color: #fafaf9; margin-bottom: 20px; }
+  .closing-section h2 em { color: var(--copper-light); }
+  .closing-section p { color: #a8a29e; font-size: 15px; margin-bottom: 16px; line-height: 1.7; }
+  .closing-section .closing-cta { color: #fafaf9; font-size: 16px; font-style: italic; }
+  .closing-section .closing-cta strong { color: var(--copper-light); font-style: normal; }
+
+  .doc-footer {
+    margin-top: 56px;
+    text-align: center;
+    padding-bottom: 48px;
+  }
+  .doc-footer .ornament {
+    color: var(--copper);
+    font-size: 18px;
+    letter-spacing: 8px;
+    margin-bottom: 14px;
+  }
+  .doc-footer .footer-text {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  @media (max-width: 640px) {
+    .container { padding: 0 20px 48px; }
+    .hero { padding: 48px 20px 40px; }
+    .doc-header { padding: 12px 20px; font-size: 10px; }
+    .stat-strip { grid-template-columns: 1fr 1fr; padding: 20px; }
+    .role-cards, .scenarios { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="doc-header">
+  <span>Confidential · For Private Review</span>
+  <span class="series">Document 1 of 2 · Commercial Proposal</span>
+</div>
+
+<div class="hero">
+  <div class="eyebrow">The Copper Dust Papers · Document 3 of 4</div>
+  <h1>The Role That<br><em>Money Cannot Buy</em></h1>
+  <p class="hero-sub">For the high-caliber broker or strategic partner in China's advanced materials ecosystem.</p>
+</div>
+
+<div class="stat-strip">
+  <div class="stat-item">
+    <div class="stat-num">4,300 t</div>
+    <div class="stat-label">Global Market Annual</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">$30–$100</div>
+    <div class="stat-label">Premium Pricing / gram, Band A</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">45–55%</div>
+    <div class="stat-label">China Share of Global Volume</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">5×–25×</div>
+    <div class="stat-label">Upside vs. Commodity Sales</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- SECTION 01 -->
+  <div class="section">
+    <div class="section-number">01 · The Opportunity</div>
+    <h2>Why Now, <em>Why China</em></h2>
+    <div class="body-text">
+      <p>There is a real — though narrow — window of time in which a properly connected actor in China's advanced materials ecosystem can position themselves as the bridge between a high-spec copper powder producer with a proprietary process, and a buyer network in China that is currently paying <strong>$30 to $100 per gram</strong> for precisely this kind of material.</p>
+      <p>That window exists because three trends are converging at once:</p>
+    </div>
+    <ul class="bullet-list">
+      <li><strong>China's solar industry transition to HJT (Heterojunction)</strong> is creating urgent demand for low-temperature conductive pastes — requiring high-purity copper powder with tightly controlled particle-size distribution.</li>
+      <li><strong>China's EV value chain</strong> — CATL, BYD, and their tier-1 suppliers — is actively seeking alternatives to silver in power electronics. High-purity copper is the natural candidate.</li>
+      <li><strong>The MLCC market</strong> is moving toward smaller geometries that require powders with more precise particle-size distributions — exactly where this material differentiates.</li>
+    </ul>
+    <div class="body-text" style="margin-top:20px;">
+      <p><strong>The Chinese Market Pain Point:</strong> China has copper powder production capacity, but it lacks batch-to-batch consistency at the specifications demanded by premium conductive-paste manufacturers. Local suppliers offer volume and price; they do not offer the combination of <strong>purity + dendritic morphology + statistical consistency</strong> that the premium segment requires. That gap is the opportunity.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 02 -->
+  <div class="section">
+    <div class="section-number">02 · The Asset</div>
+    <h2>What Exists Today — <em>And Why It Matters</em></h2>
+    <div class="body-text">
+      <p>This is not a concept project. This is an asset that exists, produces today, and can be technically demonstrated at any time.</p>
+    </div>
+    <table class="asset-table">
+      <thead>
+        <tr>
+          <th>Asset Element</th>
+          <th>Current Status</th>
+          <th>Commercial Relevance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Production process</td>
+          <td>Operational and proven</td>
+          <td>Execution risk removed — the material exists</td>
+        </tr>
+        <tr>
+          <td>Available lot</td>
+          <td>1 metric ton / month of high-purity Cu powder</td>
+          <td>Immediate sampling capacity without waiting for new production</td>
+        </tr>
+        <tr>
+          <td>Batch-to-batch consistency</td>
+          <td>Documented — multiple lots</td>
+          <td>Core technical argument for demanding buyers</td>
+        </tr>
+        <tr>
+          <td>Band A (0–45 µm)</td>
+          <td>Separable with standard equipment; ~3.5% of lot by mass</td>
+          <td>Access to highest-price segment: $40–$100/g</td>
+        </tr>
+        <tr>
+          <td>Band B (45–150 µm)</td>
+          <td>Separable with standard equipment; ~25% of lot by mass</td>
+          <td>High volume, attractive pricing: $15–$40/g</td>
+        </tr>
+        <tr>
+          <td>Technical documentation</td>
+          <td>Available upon NDA</td>
+          <td>Minimum requirement to enter qualification processes</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 03 -->
+  <div class="section">
+    <div class="section-number">03 · The Roles</div>
+    <h2>Two Paths. <em>One Decision.</em></h2>
+    <div class="body-text">
+      <p>The reader of this document will recognize which role belongs to them. We are not prescribing a path. We are describing two doors — and asking which one you can open.</p>
+    </div>
+    <div class="role-cards">
+      <div class="role-card">
+        <div class="role-tag">Path One · The Connector</div>
+        <div class="role-name">Strategic Broker</div>
+        <div class="role-body">
+          <p>You have direct, active relationships with technical teams — not only commercial teams — at conductive paste manufacturers, MLCC makers, EV tier-1 suppliers, or solar HJT R&amp;D labs. You speak the language. Your call is picked up.</p>
+          <p>You do not need to own equipment or manage logistics. You activate the operator in China who already has the infrastructure. Your value is the introduction — and the credibility you lend compresses a four-year qualification cycle into months.</p>
+        </div>
+      </div>
+      <div class="role-card operator">
+        <div class="role-tag">Path Two · The Builder</div>
+        <div class="role-name">Trojan Horse Distributor</div>
+        <div class="role-body">
+          <p>You are not looking for the room. You are building it. You and your partners install the separation capability — $300K–$700K USD — own the buyer relationships, and operate the full value chain. You become the qualified supplier the market cannot find.</p>
+          <p>The margin is yours. The annuity is yours. The company is yours. This is the slower path. It is also the path that does not depend on anyone else's priorities once it is running.</p>
+        </div>
+      </div>
+    </div>
+    <div class="body-text" style="margin-top:24px;">
+      <p><strong>Ideal Broker Profile (Path One):</strong> Physical presence in at least two of Shenzhen, Shanghai, Suzhou, Xi'an. Technical fluency in materials — not a metallurgist, but able to navigate technical conversations. Verifiable track record of enabling a new supplier entry into an established supply chain in China. Ability to operate discreetly through the initial phase.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 04 -->
+  <div class="section">
+    <div class="section-number">04 · The Infrastructure</div>
+    <h2>The Trojan Horse — <em>Cities and Terms</em></h2>
+    <div class="body-text">
+      <p>The Trojan Horse distributor is the infrastructure that converts access into a scalable business. Ideally, the broker already knows — or can identify — this distributor within their existing network. If you are reading this as a potential builder, this section describes your operating map.</p>
+    </div>
+    <table class="cities-table">
+      <thead>
+        <tr>
+          <th>City</th>
+          <th>Why It Matters</th>
+          <th>Primary Segment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Shenzhen 深圳</td>
+          <td>Highest density of electronics manufacturers — hub for commercial decisions</td>
+          <td>General electronics, PCB, EV</td>
+        </tr>
+        <tr>
+          <td>Suzhou 苏州</td>
+          <td>MLCC + precision passive components — access to localized Japanese players</td>
+          <td>MLCC, passive components</td>
+        </tr>
+        <tr>
+          <td>Shanghai 上海</td>
+          <td>R&amp;D + corporate decision center — access to multinationals with China plants</td>
+          <td>Semiconductors, power electronics</td>
+        </tr>
+        <tr>
+          <td>Xi'an 西安</td>
+          <td>Home of LONGi + solar HJT ecosystem — direct access to largest potential buyer</td>
+          <td>Solar HJT — Band A priority</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="body-text" style="margin-top:20px;"><p><strong>Five Non-Negotiables Offered to the Distributor:</strong></p></div>
+    <ol class="non-neg">
+      <li><strong>Certified, ready material</strong> — the producer guarantees quality, traceability, and consistency. The distributor does not carry input-quality risk.</li>
+      <li><strong>Territorial exclusivity</strong> — China market protection for a defined period in exchange for volume and penetration commitments.</li>
+      <li><strong>Full technical support</strong> — team training, buyer-ready documentation, and support during qualification.</li>
+      <li><strong>Differentiated internal band pricing</strong> — internal transfer pricing based on real market value, not commodity cost. The distributor captures real margin from the separation process they install.</li>
+      <li><strong>Joint growth roadmap</strong> — band separation is step one. Surface coatings, passivation, and functionalization are next, with the distributor as preferred partner.</li>
+    </ol>
+  </div>
+
+</div>
+
+<!-- CLOSING SECTION -->
+<div class="closing-section">
+  <div class="container">
+    <div class="section-number">05 · Next Step</div>
+    <h2>One Meeting. <em>No Sales Agenda.</em></h2>
+    <p>This proposal is designed to start a screening conversation, not to deliver a monologue. If what you have read resonates with your network and your view of China's advanced materials market, the next step is simple: a 30–45 minute meeting.</p>
+    <p>We bring the technical framework, controlled sample availability, and a proposed structure. You bring your honest read of the market and — most importantly — whether you can take us to the right person in China, or whether you are that person yourself.</p>
+    <p>If there is alignment, we define terms and begin. If there isn't, both sides will have learned something valuable in under an hour.</p>
+    <p class="closing-cta">The question is not whether the opportunity exists. The question is who has what no check can buy: <strong>access, credibility, and the willingness to use them — discreetly.</strong></p>
+  </div>
+</div>
+
+<div class="container">
+  <div class="doc-footer">
+    <div class="ornament">· · — · ·</div>
+    <div class="footer-text">Confidential Commercial Proposal · Copper Conductive Paste · China Market · 2026 · Document 1 of 2 · For designated recipient only</div>
+  </div>
+</div>
+
+</body>
+</html>
