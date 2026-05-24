@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Value Chain – Copper Powder</title>
+<style>
+  :root {
+    --copper: #b45309;
+    --copper-light: #d97706;
+    --copper-pale: #fef3c7;
+    --copper-rule: #92400e;
+    --ink: #1c1917;
+    --ink-soft: #44403c;
+    --ink-muted: #78716c;
+    --paper: #fffbf7;
+    --paper-warm: #fdf8f0;
+    --rule: #e7e0d8;
+    --accent-bg: #1c1917;
+    --accent-text: #fef3c7;
+    --green-cagr: #15803d;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .doc-header {
+    background: var(--accent-bg);
+    color: var(--accent-text);
+    padding: 14px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .doc-header .series { opacity: 0.6; }
+
+  .hero {
+    background: var(--accent-bg);
+    color: var(--accent-text);
+    padding: 64px 48px 52px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .hero .eyebrow {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--copper-light);
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 400;
+    line-height: 1.15;
+    color: #fafaf9;
+    margin-bottom: 8px;
+  }
+  .hero .hero-sub {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: #a8a29e;
+    margin-top: 16px;
+  }
+
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 48px 64px;
+  }
+
+  /* CHAIN BLOCKS */
+  .chain {
+    margin-top: 56px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .block {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    background: var(--paper-warm);
+    border-top: 2px solid var(--rule);
+    overflow: hidden;
+  }
+  .block.key-node {
+    border-top-color: var(--copper);
+  }
+
+  .block-number {
+    background: var(--rule);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 28px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--ink-muted);
+    font-weight: 500;
+  }
+  .block.key-node .block-number {
+    background: var(--copper);
+    color: white;
+  }
+
+  .block-content {
+    padding: 28px 32px;
+  }
+
+  .block-eyebrow {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 6px;
+  }
+  .block.key-node .block-eyebrow { color: var(--copper); }
+
+  .block-title {
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+
+  .block-tag {
+    display: inline-block;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    background: var(--accent-bg);
+    color: var(--copper-light);
+    padding: 3px 10px;
+    margin-bottom: 16px;
+  }
+
+  .block-body {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.65;
+  }
+  .block-body p { margin-bottom: 10px; }
+  .block-body ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 12px;
+  }
+  .block-body ul li {
+    padding: 6px 0 6px 18px;
+    position: relative;
+    border-bottom: 1px solid var(--rule);
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .block-body ul li:last-child { border-bottom: none; }
+  .block-body ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--copper);
+    font-size: 11px;
+  }
+  .block-body strong { color: var(--ink); }
+
+  /* GRADE BANDS */
+  .grade-bands {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin: 16px 0;
+  }
+  .grade-band {
+    background: var(--accent-bg);
+    padding: 20px 24px;
+    color: var(--accent-text);
+  }
+  .grade-band .grade-label {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--copper-light);
+    margin-bottom: 8px;
+  }
+  .grade-band .grade-range {
+    font-size: 20px;
+    font-weight: 300;
+    color: #fafaf9;
+    margin-bottom: 4px;
+  }
+  .grade-band .grade-price {
+    font-size: 13px;
+    color: #a8a29e;
+  }
+
+  /* ARROW CONNECTOR */
+  .arrow-connector {
+    text-align: center;
+    padding: 8px 0;
+    color: var(--copper);
+    font-size: 20px;
+    background: var(--paper);
+  }
+
+  /* END MARKET SEGMENTS */
+  .segments {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-top: 16px;
+  }
+  .segment {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: 20px 22px;
+  }
+  .segment .seg-label {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 6px;
+  }
+  .segment .seg-name {
+    font-size: 15px;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .segment .seg-buyers {
+    font-size: 12px;
+    color: var(--ink-muted);
+    margin-bottom: 8px;
+    font-style: italic;
+  }
+  .segment .seg-cagr {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--green-cagr);
+    letter-spacing: 0.05em;
+  }
+
+  /* CLOSING QUOTE */
+  .closing-quote {
+    background: var(--accent-bg);
+    color: var(--accent-text);
+    padding: 40px 48px;
+    margin-top: 48px;
+    font-size: 17px;
+    font-style: italic;
+    line-height: 1.65;
+  }
+  .closing-quote strong { color: var(--copper-light); font-style: normal; }
+
+  .doc-footer {
+    margin-top: 56px;
+    text-align: center;
+    padding-bottom: 48px;
+  }
+  .doc-footer .ornament {
+    color: var(--copper);
+    font-size: 18px;
+    letter-spacing: 8px;
+    margin-bottom: 14px;
+  }
+  .doc-footer .footer-text {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  @media (max-width: 640px) {
+    .container { padding: 0 20px 48px; }
+    .hero { padding: 40px 20px 36px; }
+    .doc-header { padding: 12px 20px; font-size: 10px; }
+    .block { grid-template-columns: 44px 1fr; }
+    .grade-bands, .segments { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="doc-header">
+  <span>Value Chain · Copper Powder ≥99.5%</span>
+  <span class="series">Strategic Partnership · Confidential</span>
+</div>
+
+<div class="hero">
+  <div class="eyebrow">The Copper Dust Papers · Document 2 of 4</div>
+  <h1>Value Chain<br>Copper Powder</h1>
+  <div class="hero-sub">Target Market: China · Shenzhen / Suzhou / Shanghai / Xi'an</div>
+</div>
+
+<div class="container">
+  <div class="chain">
+
+    <!-- BLOCK 01 -->
+    <div class="block">
+      <div class="block-number">01</div>
+      <div class="block-content">
+        <div class="block-eyebrow">Block 01 · Origin</div>
+        <div class="block-title">Raw Material Producer</div>
+        <div class="block-tag">Foundational Asset</div>
+        <div class="block-body">
+          <p>A proprietary production process that cannot be negotiated away, reverse-engineered, or outsourced. This is the foundational asset everything else is built upon.</p>
+          <ul>
+            <li>Guaranteed ≥99.5% Cu purity — verified batch by batch</li>
+            <li>Full particle spectrum: sub-micron → 2,000+ µm</li>
+            <li>Dendritic morphology — produced through controlled chemical electrodeposition</li>
+            <li>Batch-to-batch consistency — the single most valued variable among high-spec buyers</li>
+            <li>Proprietary tacit knowledge · 1 metric ton available per month</li>
+            <li>Continuous, scalable production capacity</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-connector">↓</div>
+
+    <!-- BLOCK 02 -->
+    <div class="block">
+      <div class="block-number">02</div>
+      <div class="block-content">
+        <div class="block-eyebrow">Block 02 · Movement</div>
+        <div class="block-title">Logistics &amp; Transport Infrastructure</div>
+        <div class="block-tag">The Backbone</div>
+        <div class="block-body">
+          <p>A reliable, compliant pipeline that moves virgin powder from origin to separation point without compromising material integrity or chain of custody.</p>
+          <ul>
+            <li>Certified, batch-level chain of custody — fully traceable</li>
+            <li>International customs compliance · verifiable origin documentation</li>
+            <li>Coordination with industrial free-trade zones across China</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-connector">↓</div>
+
+    <!-- BLOCK 03 – KEY NODE -->
+    <div class="block key-node">
+      <div class="block-number">03</div>
+      <div class="block-content">
+        <div class="block-eyebrow">Block 03 · Transformation · Key Node</div>
+        <div class="block-title">Separator &amp; Certified Supplier</div>
+        <div class="block-tag">Strategic Piece</div>
+        <div class="block-body">
+          <p>The critical node. Converts the full-spectrum virgin powder into the two market-ready grade bands buyers actually purchase. This is the role the Connector activates — or the role the Builder owns directly.</p>
+          <div class="grade-bands">
+            <div class="grade-band">
+              <div class="grade-label">Grade A</div>
+              <div class="grade-range">0 – 45 µm</div>
+              <div class="grade-price">$40 – $100 / g</div>
+            </div>
+            <div class="grade-band">
+              <div class="grade-label">Grade B</div>
+              <div class="grade-range">45 – 150 µm</div>
+              <div class="grade-price">$15 – $40 / g</div>
+            </div>
+          </div>
+          <ul>
+            <li>Ultrasonic vibratory sieving + inert-atmosphere air classification</li>
+            <li>Full-spectrum input — bulk mass in 75–600 µm range; Band A is a small, high-value fraction</li>
+            <li>Internal pricing tied to grade value — not commodity benchmarks</li>
+            <li><strong>Qualified supplier status with target end-users is the goal of this node</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-connector">↓</div>
+
+    <!-- BLOCK 04 -->
+    <div class="block">
+      <div class="block-number">04</div>
+      <div class="block-content">
+        <div class="block-eyebrow">Block 04 · End Market</div>
+        <div class="block-title">End Users — China</div>
+        <div class="block-body">
+          <p>Four priority segments. China represents 45–55% of the 4,300 t/yr global market.</p>
+          <div class="segments">
+            <div class="segment">
+              <div class="seg-label">Segment A</div>
+              <div class="seg-name">HJT Solar</div>
+              <div class="seg-buyers">LONGi · Risen · Tongwei<br>Xi'an / Shenzhen</div>
+              <div class="seg-cagr">CAGR +28%</div>
+            </div>
+            <div class="segment">
+              <div class="seg-label">Segment B</div>
+              <div class="seg-name">EV Power Electronics</div>
+              <div class="seg-buyers">CATL · BYD<br>Shenzhen / Suzhou</div>
+              <div class="seg-cagr">CAGR +35%</div>
+            </div>
+            <div class="segment">
+              <div class="seg-label">Segment C</div>
+              <div class="seg-name">MLCC / Passives</div>
+              <div class="seg-buyers">Electronic components<br>Suzhou / Shanghai</div>
+              <div class="seg-cagr">CAGR +18%</div>
+            </div>
+            <div class="segment">
+              <div class="seg-label">Segment D</div>
+              <div class="seg-name">Additive Manufacturing</div>
+              <div class="seg-buyers">Industrial + Defense<br>Shanghai / Beijing</div>
+              <div class="seg-cagr">Expanding</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end .chain -->
+
+  <div class="closing-quote">
+    "Our partner sells what we produce. And what we produce — <strong>the process, the consistency, the tacit knowledge</strong> — is never on the table."
+  </div>
+
+  <div class="doc-footer">
+    <div class="ornament">· · — · ·</div>
+    <div class="footer-text">Value Chain · Copper Powder · Version 2.0 · Confidential</div>
+  </div>
+
+</div>
+</body>
+</html>
