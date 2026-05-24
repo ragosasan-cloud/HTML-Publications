@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Confidential Technical Document – Copper Conductive Paste</title>
+<style>
+  :root {
+    --copper: #b45309;
+    --copper-light: #d97706;
+    --copper-pale: #fef3c7;
+    --copper-rule: #92400e;
+    --ink: #1c1917;
+    --ink-soft: #44403c;
+    --ink-muted: #78716c;
+    --paper: #fffbf7;
+    --paper-warm: #fdf8f0;
+    --rule: #e7e0d8;
+    --accent-bg: #1c1917;
+    --accent-text: #fef3c7;
+    --green: #15803d;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 16px;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .doc-header {
+    background: var(--accent-bg);
+    color: var(--accent-text);
+    padding: 14px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .doc-header .series { opacity: 0.6; }
+
+  .hero {
+    background: var(--accent-bg);
+    color: var(--accent-text);
+    padding: 72px 48px 56px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .hero .eyebrow {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--copper-light);
+    margin-bottom: 28px;
+  }
+  .hero h1 {
+    font-size: clamp(28px, 4vw, 46px);
+    font-weight: 400;
+    line-height: 1.15;
+    color: #fafaf9;
+    margin-bottom: 20px;
+  }
+  .hero h1 em { color: var(--copper-light); font-style: italic; }
+  .hero .scope-note {
+    font-size: 13px;
+    color: #78716c;
+    font-style: italic;
+    max-width: 560px;
+    line-height: 1.6;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #3d3532;
+  }
+
+  .stat-strip {
+    background: var(--paper-warm);
+    border-bottom: 1px solid var(--rule);
+    padding: 28px 48px;
+    max-width: 860px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .stat-item .stat-num {
+    font-size: 24px;
+    font-weight: 300;
+    color: var(--copper);
+    font-family: 'Georgia', serif;
+  }
+  .stat-item .stat-label {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-top: 4px;
+  }
+
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 48px 64px;
+  }
+
+  .section {
+    margin-top: 64px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section:last-of-type { border-bottom: none; }
+
+  .section-number {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--copper);
+    margin-bottom: 10px;
+  }
+  .section h2 {
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 28px;
+    color: var(--ink);
+  }
+  .section h2 em { color: var(--copper); font-style: italic; }
+
+  .body-text p {
+    color: var(--ink-soft);
+    margin-bottom: 18px;
+    font-size: 15px;
+  }
+  .body-text strong { color: var(--ink); }
+
+  /* SPEC TABLE */
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 14px;
+  }
+  .spec-table th {
+    background: var(--accent-bg);
+    color: var(--copper-light);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 500;
+  }
+  .spec-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--rule);
+    color: var(--ink-soft);
+    vertical-align: top;
+  }
+  .spec-table tr:last-child td { border-bottom: none; }
+  .spec-table td:first-child { font-weight: 600; color: var(--ink); }
+  .spec-table tr:nth-child(even) td { background: var(--paper-warm); }
+  .spec-table .corrected { color: var(--copper-rule); font-weight: 700; }
+
+  /* PARTICLE SIZE DISTRIBUTION */
+  .psd-container {
+    margin: 32px 0;
+  }
+  .psd-label {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 16px;
+  }
+  .psd-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .psd-table th {
+    background: var(--accent-bg);
+    color: var(--copper-light);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 500;
+  }
+  .psd-table td {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--rule);
+    color: var(--ink-soft);
+  }
+  .psd-table tr:last-child td { border-bottom: none; }
+  .psd-table tr.highlight-bulk td { background: #fef9c3; color: var(--ink); font-weight: 500; }
+  .psd-table tr.highlight-bandA td { background: var(--copper-pale); color: var(--copper-rule); font-weight: 600; }
+  .psd-table tr.highlight-bandB td { background: #fdf4e7; color: #78350f; font-weight: 500; }
+  .psd-table .bar-cell { width: 140px; }
+  .psd-bar-wrap { background: var(--rule); height: 8px; border-radius: 2px; overflow: hidden; }
+  .psd-bar { height: 8px; background: var(--copper); border-radius: 2px; }
+  .psd-bar.band-a { background: var(--copper-rule); }
+  .psd-bar.band-b { background: var(--copper-light); }
+
+  .psd-legend {
+    display: flex;
+    gap: 24px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  .psd-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11px;
+    color: var(--ink-muted);
+  }
+  .legend-dot {
+    width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0;
+  }
+
+  /* BAND CARDS */
+  .band-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin: 28px 0;
+  }
+  .band-card {
+    background: var(--accent-bg);
+    color: var(--accent-text);
+    padding: 24px 28px;
+  }
+  .band-card .band-tag {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--copper-light);
+    margin-bottom: 10px;
+  }
+  .band-card .band-range {
+    font-size: 24px;
+    font-weight: 300;
+    color: #fafaf9;
+    margin-bottom: 6px;
+    font-family: 'Georgia', serif;
+  }
+  .band-card .band-price {
+    font-size: 15px;
+    color: var(--copper-light);
+    margin-bottom: 12px;
+  }
+  .band-card .band-yield {
+    font-size: 12px;
+    color: #78716c;
+    margin-bottom: 12px;
+    font-style: italic;
+  }
+  .band-card .band-note {
+    font-size: 12px;
+    color: #a8a29e;
+    line-height: 1.55;
+  }
+
+  /* KEY NOTE */
+  .key-note {
+    background: var(--paper-warm);
+    border-left: 3px solid var(--copper);
+    padding: 20px 24px;
+    margin: 24px 0;
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.65;
+    font-style: italic;
+  }
+  .key-note strong { color: var(--ink); font-style: normal; }
+
+  /* EQUIPMENT TABLE */
+  .equip-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 13px;
+  }
+  .equip-table th {
+    background: var(--accent-bg);
+    color: var(--copper-light);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 11px 14px;
+    text-align: left;
+    font-weight: 500;
+  }
+  .equip-table td {
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--rule);
+    color: var(--ink-soft);
+    vertical-align: top;
+  }
+  .equip-table tr:last-child td { border-bottom: none; }
+  .equip-table tr:nth-child(even) td { background: var(--paper-warm); }
+  .equip-table td:first-child { font-weight: 600; color: var(--ink); }
+  .equip-table td:last-child { font-weight: 600; color: var(--copper-rule); white-space: nowrap; }
+
+  .capex-summary {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin: 16px 0;
+  }
+  .capex-item {
+    background: var(--accent-bg);
+    color: var(--accent-text);
+    padding: 20px 24px;
+  }
+  .capex-item .capex-label {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #78716c;
+    margin-bottom: 8px;
+  }
+  .capex-item .capex-num {
+    font-size: 22px;
+    font-weight: 300;
+    color: var(--copper-light);
+    font-family: 'Georgia', serif;
+  }
+
+  /* QUAL PARAMS */
+  .qual-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    columns: 2;
+    column-gap: 32px;
+  }
+  .qual-list li {
+    padding: 8px 0 8px 16px;
+    position: relative;
+    border-bottom: 1px solid var(--rule);
+    font-size: 13px;
+    color: var(--ink-soft);
+    break-inside: avoid;
+  }
+  .qual-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--copper);
+    font-size: 11px;
+  }
+
+  /* SEGMENTS */
+  .seg-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin: 24px 0;
+  }
+  .seg-card {
+    background: var(--accent-bg);
+    padding: 24px 20px;
+    color: var(--accent-text);
+  }
+  .seg-card .seg-tag {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--copper-light);
+    margin-bottom: 8px;
+  }
+  .seg-card .seg-name {
+    font-size: 16px;
+    color: #fafaf9;
+    margin-bottom: 6px;
+  }
+  .seg-card .seg-volume {
+    font-size: 12px;
+    color: #78716c;
+    margin-bottom: 4px;
+  }
+  .seg-card .seg-price {
+    font-size: 13px;
+    color: var(--copper-light);
+    margin-bottom: 6px;
+  }
+  .seg-card .seg-cagr {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #4ade80;
+  }
+
+  /* BUYERS TABLE */
+  .buyers-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 13px;
+  }
+  .buyers-table th {
+    background: var(--accent-bg);
+    color: var(--copper-light);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 11px 14px;
+    text-align: left;
+    font-weight: 500;
+  }
+  .buyers-table td {
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--rule);
+    color: var(--ink-soft);
+    vertical-align: top;
+  }
+  .buyers-table tr:last-child td { border-bottom: none; }
+  .buyers-table tr:nth-child(even) td { background: var(--paper-warm); }
+  .buyers-table td:first-child { font-weight: 600; color: var(--ink); }
+
+  /* GEO TABLE */
+  .geo-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 13px;
+  }
+  .geo-table th {
+    background: var(--accent-bg);
+    color: var(--copper-light);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 11px 14px;
+    text-align: left;
+    font-weight: 500;
+  }
+  .geo-table td {
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--rule);
+    color: var(--ink-soft);
+    vertical-align: top;
+  }
+  .geo-table tr:last-child td { border-bottom: none; }
+  .geo-table tr:nth-child(even) td { background: var(--paper-warm); }
+  .geo-table td:first-child { font-weight: 700; color: var(--ink); }
+
+  /* CONCLUSION */
+  .conclusion {
+    background: var(--accent-bg);
+    color: var(--accent-text);
+    padding: 48px;
+    margin-top: 48px;
+  }
+  .conclusion .section-number { color: var(--copper-light); margin-bottom: 10px; }
+  .conclusion h2 { color: #fafaf9; font-size: 24px; font-weight: 400; margin-bottom: 24px; }
+  .conclusion h2 em { color: var(--copper-light); }
+  .conclusion p { color: #a8a29e; font-size: 15px; margin-bottom: 16px; line-height: 1.7; }
+  .conclusion p strong { color: #fafaf9; }
+
+  .doc-footer {
+    margin-top: 56px;
+    text-align: center;
+    padding-bottom: 48px;
+  }
+  .doc-footer .ornament { color: var(--copper); font-size: 18px; letter-spacing: 8px; margin-bottom: 14px; }
+  .doc-footer .footer-text {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  @media (max-width: 640px) {
+    .container { padding: 0 20px 48px; }
+    .hero { padding: 48px 20px 40px; }
+    .doc-header { padding: 12px 20px; font-size: 10px; }
+    .stat-strip { grid-template-columns: 1fr; padding: 20px; }
+    .band-cards, .capex-summary, .seg-cards { grid-template-columns: 1fr; }
+    .qual-list { columns: 1; }
+  }
+</style>
+</head>
+<body>
+
+<div class="doc-header">
+  <span>Confidential · For Private Review</span>
+  <span class="series">Document 2 of 2 · Technical Framework</span>
+</div>
+
+<div class="hero">
+  <div class="eyebrow">The Copper Dust Papers · Document 4 of 4</div>
+  <h1>The Material,<br><em>The Separation,<br>The Market</em></h1>
+  <p class="scope-note">Scope note: This document summarizes the minimum technical framework required for an initial screening conversation. Sensitive details — IP, fine operating parameters, specific counterparty names, and final economic terms — are disclosed only to a qualified counterparty under NDA. The ranges and examples are indicative for sizing and screening; they must be validated by subsegment, band, specification, and commercial agreement.</p>
+</div>
+
+<div class="stat-strip">
+  <div class="stat-item">
+    <div class="stat-num">≥ 99.5% Cu</div>
+    <div class="stat-label">Chemical Purity · ICP-OES / XRF Verified</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">~4,300 t</div>
+    <div class="stat-label">Global Market · Annual Consumption</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">$30–$100</div>
+    <div class="stat-label">Price Range / gram, Band A</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- SECTION 01 -->
+  <div class="section">
+    <div class="section-number">01 · Base Material</div>
+    <h2>Specifications — <em>The Available Lot</em></h2>
+    <div class="body-text">
+      <p>The available lot is copper powder produced under a proprietary process with high lot-to-lot consistency. Unlike commoditized powders on the market, this material is produced under controlled conditions that determine not only chemical purity, but also morphology, particle-size distribution, and surface behavior — the variables that high-spec conductive-paste buyers truly value.</p>
+      <p><strong>Communication rule at this stage:</strong> We discuss capacity and technical evidence, not recipes or parameters that enable replication. The information is structured so the recipient can decide whether it is worth moving forward to an NDA.</p>
+    </div>
+
+    <table class="spec-table">
+      <thead>
+        <tr>
+          <th>Parameter</th>
+          <th>Specification</th>
+          <th>Test Method</th>
+          <th>Relevance for Pastes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Chemical purity</td>
+          <td>≥ 99.5% Cu</td>
+          <td>ICP-OES / XRF</td>
+          <td>Direct electrical conductivity</td>
+        </tr>
+        <tr>
+          <td>Total particle-size range</td>
+          <td>Sub-micron – 2,360+ µm</td>
+          <td>Sieving / Laser diffraction</td>
+          <td>Feedstock for separation</td>
+        </tr>
+        <tr>
+          <td>Predominant morphology</td>
+          <td class="corrected">Dendritic</td>
+          <td>SEM</td>
+          <td>High surface area; paste flow and sintering behavior</td>
+        </tr>
+        <tr>
+          <td>Apparent density</td>
+          <td>To be confirmed by band</td>
+          <td>Hall flowmeter</td>
+          <td>Paste formulation and loading</td>
+        </tr>
+        <tr>
+          <td>Moisture</td>
+          <td>&lt; 0.05%</td>
+          <td>Karl Fischer</td>
+          <td>Formulation stability</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- PSD -->
+    <div class="psd-container">
+      <div class="psd-label">Typical Particle Size Distribution — TDS260331</div>
+      <table class="psd-table">
+        <thead>
+          <tr>
+            <th>Range (mm)</th>
+            <th>Range (µm)</th>
+            <th>Mass %</th>
+            <th class="bar-cell">Distribution</th>
+            <th>Note</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>&gt;2.36</td><td>&gt;2360</td><td>0.11%</td>
+            <td class="bar-cell"><div class="psd-bar-wrap"><div class="psd-bar" style="width:1%"></div></div></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>2.36–1.18</td><td>2360–1180</td><td>4.67%</td>
+            <td class="bar-cell"><div class="psd-bar-wrap"><div class="psd-bar" style="width:23%"></div></div></td>
+            <td></td>
+          </tr>
+          <tr class="highlight-bulk">
+            <td>1.18–0.6</td><td>1180–600</td><td>13.79%</td>
+            <td class="bar-cell"><div class="psd-bar-wrap"><div class="psd-bar" style="width:69%"></div></div></td>
+            <td>Bulk range</td>
+          </tr>
+          <tr class="highlight-bulk">
+            <td>0.6–0.425</td><td>600–425</td><td>14.65%</td>
+            <td class="bar-cell"><div class="psd-bar-wrap"><div class="psd-bar" style="width:73%"></div></div></td>
+            <td>Bulk range</td>
+          </tr>
+          <tr class="highlight-bulk">
+            <td>0.425–0.3</td><td>425–300</td><td>11.99%</td>
+            <td class="bar-cell"><div class="psd-bar-wrap"><div class="psd-bar" style="width:60%"></div></div></td>
+            <td>Bulk range</td>
+          </tr>
+          <tr class="highlight-bulk">
+            <td>0.3–0.212</td><td>300–212</td><td>17.41%</td>
+            <td class="bar-cell"><div class="psd-bar-wrap"><div class="psd-bar" style="width:87%"></div></div></td>
+            <td>Peak fraction</td>
+          </tr>
+          <tr class="highlight-bulk">
+            <td>0.212–0.15</td><td>212–150</td><td>9.07%</td>
+            <td class="bar-cell"><div class="psd-bar-wrap"><div class="psd-bar" style="width:45%"></div></div></td>
+            <td>Bulk range</td>
+          </tr>
+          <tr class="highlight-bandB">
+            <td>0.15–0.075</td><td>150–75</td><td>16.96%</td>
+            <td class="bar-cell"><div class="psd-bar-wrap"><div class="psd-bar band-b" style="width:85%"></div></div></td>
+            <td>Band B (lower)</td>
+          </tr>
+          <tr class="highlight-bandB">
+            <td>0.075–0.045</td><td>75–45</td><td>7.89%</td>
+            <td class="bar-cell"><div class="psd-bar-wrap"><div class="psd-bar band-b" style="width:39%"></div></div></td>
+            <td>Band B (upper)</td>
+          </tr>
+          <tr class="highlight-bandA">
+            <td>&lt;0.045</td><td>&lt;45</td><td>3.46%</td>
+            <td class="bar-cell"><div class="psd-bar-wrap"><div class="psd-bar band-a" style="width:17%"></div></div></td>
+            <td>Band A — premium</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="psd-legend">
+        <div class="psd-legend-item"><div class="legend-dot" style="background:#b45309"></div> Bulk mass (75–600 µm) — ~74% of lot</div>
+        <div class="psd-legend-item"><div class="legend-dot" style="background:#d97706"></div> Band B (45–150 µm) — ~25% of lot</div>
+        <div class="psd-legend-item"><div class="legend-dot" style="background:#92400e"></div> Band A (&lt;45 µm) — ~3.5% of lot</div>
+      </div>
+    </div>
+
+    <div class="key-note">
+      <strong>The competitive advantage is not the yield of any single fraction.</strong> It is the lot-to-lot repeatability of this entire distribution. A buyer who qualifies their paste formulation to this distribution is qualifying to a supply relationship — not a spot purchase. That repeatability is what the premium segment cannot find locally, and it is what cannot be replicated without the same process.
+    </div>
+
+    <div class="band-cards">
+      <div class="band-card">
+        <div class="band-tag">Band A · High Specification</div>
+        <div class="band-range">0 – 45 µm</div>
+        <div class="band-price">$40 – $100 / gram</div>
+        <div class="band-yield">~3.5% of lot by mass</div>
+        <div class="band-note">High-resolution pastes: MLCC, semiconductors, flexible electronics, HJT solar contacts. Requires N₂ or Ar atmosphere — high oxidation sensitivity.</div>
+      </div>
+      <div class="band-card">
+        <div class="band-tag">Band B · Industrial Volume</div>
+        <div class="band-range">45 – 150 µm</div>
+        <div class="band-price">$15 – $40 / gram</div>
+        <div class="band-yield">~25% of lot by mass</div>
+        <div class="band-note">Standard pastes: conventional solar contacts, passive components, EMI shielding. Controlled storage — medium oxidation sensitivity.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 02 -->
+  <div class="section">
+    <div class="section-number">02 · Separation Process</div>
+    <h2>No Plasma. <em>No Eight-Figure Investment.</em></h2>
+    <div class="body-text">
+      <p>A common mistake in this market is assuming that converting copper powder into high-spec fractions requires plasma technology or capex above $10M USD. For the two strategic bands identified, the required technology is mature, commercially available, and can be installed by an operator or distributor with moderate financial strength.</p>
+    </div>
+
+    <table class="equip-table">
+      <thead>
+        <tr>
+          <th>Equipment</th>
+          <th>Function</th>
+          <th>Reference Brands</th>
+          <th>Estimated Cost (USD)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Ultrasonic vibrating sieve</td>
+          <td>45–150 µm separation (Band B)</td>
+          <td>Russell Finex, Elcan, Sweco</td>
+          <td>$80,000 – $180,000</td>
+        </tr>
+        <tr>
+          <td>Air classifier</td>
+          <td>0–45 µm fine separation (Band A)</td>
+          <td>Hosokawa Alpine, Netzsch, ALPA</td>
+          <td>$150,000 – $350,000</td>
+        </tr>
+        <tr>
+          <td>Inert-atmosphere system (N₂)</td>
+          <td>Band A handling without oxidation</td>
+          <td>Local China suppliers</td>
+          <td>$50,000 – $120,000</td>
+        </tr>
+        <tr>
+          <td>Sealed storage</td>
+          <td>Band A preservation post-separation</td>
+          <td>Custom solution</td>
+          <td>$20,000 – $50,000</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="capex-summary">
+      <div class="capex-item">
+        <div class="capex-label">Minimum · Band B Only</div>
+        <div class="capex-num">$100K – $200K</div>
+      </div>
+      <div class="capex-item">
+        <div class="capex-label">Full Investment · Band A + B</div>
+        <div class="capex-num">$300K – $700K</div>
+      </div>
+    </div>
+
+    <div class="body-text" style="margin-top:24px;">
+      <p><strong>Process-Critical Qualification Parameters</strong> — Chinese manufacturers of high-spec conductive pastes qualify copper-powder suppliers on the following parameters:</p>
+    </div>
+    <ul class="qual-list">
+      <li>D10, D50, D90 particle-size distribution — laser diffraction (Malvern or equivalent)</li>
+      <li>Morphology and sphericity — SEM with quantitative image analysis</li>
+      <li>Surface oxide content — XPS or TPR, critical to paste conductivity</li>
+      <li>Apparent density and tap density — Hall flowmeter</li>
+      <li>Flowability and angle of repose — relevant for high-speed screen printing</li>
+      <li>Thermal stability — TGA, for low-temperature sintering pastes</li>
+      <li>Lot-to-lot consistency — coefficient of variation &lt;5% in D50 across consecutive lots</li>
+    </ul>
+
+    <div class="key-note">
+      <strong>Technical note — why consistency beats purity:</strong> In the MLCC and power-electronics paste market, a supplier at 99.2% purity with &lt;3% D50 variation is often preferred over 99.7% purity with 12% variation. Paste formulations are tuned to a specific distribution — variation forces costly line re-optimization.
+    </div>
+  </div>
+
+  <!-- SECTION 03 -->
+  <div class="section">
+    <div class="section-number">03 · China Market</div>
+    <h2>Sizing, <em>Segments and Buyers</em></h2>
+    <div class="body-text">
+      <p>Global demand for high-spec conductive pastes based on copper powder is estimated at approximately 4,300 metric tons annually. China represents 45%–55% of that volume — concentrated in three fast-growing subsegments:</p>
+    </div>
+
+    <div class="seg-cards">
+      <div class="seg-card">
+        <div class="seg-tag">Solar PV · HJT</div>
+        <div class="seg-name">~900 t/year</div>
+        <div class="seg-price">$35–$60 / g</div>
+        <div class="seg-volume">LONGi, Risen, Tongwei<br>HJT transition driving demand</div>
+        <div class="seg-cagr">+28% CAGR</div>
+      </div>
+      <div class="seg-card">
+        <div class="seg-tag">MLCC &amp; Passive</div>
+        <div class="seg-name">~600 t/year</div>
+        <div class="seg-price">$50–$100 / g</div>
+        <div class="seg-volume">5G + EV electronics<br>driving miniaturization</div>
+        <div class="seg-cagr">+18% CAGR</div>
+      </div>
+      <div class="seg-card">
+        <div class="seg-tag">Power Electronics / EV</div>
+        <div class="seg-name">~450 t/year</div>
+        <div class="seg-price">$40–$80 / g</div>
+        <div class="seg-volume">CATL, BYD and full EV<br>value chain</div>
+        <div class="seg-cagr">+35% CAGR</div>
+      </div>
+    </div>
+
+    <div class="body-text" style="margin-top:24px;">
+      <p><strong>Strategic Buyers in China — Band A (0–45 µm)</strong></p>
+    </div>
+    <table class="buyers-table">
+      <thead>
+        <tr>
+          <th>Buyer</th>
+          <th>Location</th>
+          <th>Application</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>LONGi Green Energy 隆基绿能</td>
+          <td>Xi'an</td>
+          <td>Global HJT leader — low-temperature sintered contact pastes</td>
+        </tr>
+        <tr>
+          <td>Murata Manufacturing China 村田制作所</td>
+          <td>Suzhou</td>
+          <td>High-density MLCC — strictest powder specs in the market</td>
+        </tr>
+        <tr>
+          <td>Yageo / Walsin Technology</td>
+          <td>Shenzhen, Suzhou</td>
+          <td>Passive components — high-volume Band A consumption</td>
+        </tr>
+        <tr>
+          <td>BYD Electronic 比亚迪电子</td>
+          <td>Shenzhen</td>
+          <td>EV component manufacturing and power electronics</td>
+        </tr>
+        <tr>
+          <td>Amorphous Electronic Technology</td>
+          <td>Shanghai</td>
+          <td>Specialized pastes for flexible electronics</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="body-text" style="margin-top:20px;"><p><strong>Geographic Map of the Value Chain</strong></p></div>
+    <table class="geo-table">
+      <thead>
+        <tr>
+          <th>City / Region</th>
+          <th>Specialization</th>
+          <th>Distribution Relevance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Shenzhen 深圳</td>
+          <td>Consumer electronics, PCB, EMS</td>
+          <td>Primary hub — highest density of manufacturers</td>
+        </tr>
+        <tr>
+          <td>Suzhou 苏州</td>
+          <td>MLCC, passive components, precision electronics</td>
+          <td>Access to Murata, Yageo, localized Japanese manufacturers</td>
+        </tr>
+        <tr>
+          <td>Shanghai 上海</td>
+          <td>Semiconductors, power electronics</td>
+          <td>Financial and R&amp;D center — corporate purchasing decisions</td>
+        </tr>
+        <tr>
+          <td>Xi'an 西安</td>
+          <td>Solar PV — LONGi HQ</td>
+          <td>Critical access point for the HJT solar market</td>
+        </tr>
+        <tr>
+          <td>Dongguan 东莞</td>
+          <td>Tier-2 / tier-3 electronics manufacturing</td>
+          <td>High volume, price-competitive — ideal for Band B</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<!-- CONCLUSION -->
+<div class="conclusion">
+  <div class="container">
+    <div class="section-number">04 · Technical Conclusion</div>
+    <h2>The Limiting Factor <em>Is Not Technical</em></h2>
+    <p>The available material — high-purity copper powder with a <strong>dendritic morphology</strong> produced under a proprietary, proven-consistency process — meets the fundamental technical requirements to access China's high-spec conductive-paste market.</p>
+    <p>The two identified separation bands cover the three highest-growth, highest-price subsegments in China: HJT solar, MLCC, and EV power electronics. Band A is a small, premium fraction of the full lot — its value is real, and its scarcity is part of what makes it premium.</p>
+    <p>The <strong>true competitive asset is the repeatability of the full distribution</strong> — something no amount of capital alone can manufacture. A buyer who qualifies to this supply relationship is qualifying to something the local market cannot consistently replicate.</p>
+    <p>The required separation technology does not require plasma or heavy-industry capex. A distributor with moderate financial capacity and controlled-atmosphere infrastructure can install full separation capability with an investment of <strong>$300,000 to $700,000 USD.</strong></p>
+    <p>The limiting factor is not technical. It is access. And access is determined by the quality of the human link — whether that is the Connector who knows the room, or the Builder who constructs it.</p>
+  </div>
+</div>
+
+<div class="container">
+  <div class="doc-footer">
+    <div class="ornament">· · — · ·</div>
+    <div class="footer-text">Confidential Technical Document · Copper Conductive Paste · China Market · 2026 · Document 2 of 2 · For designated recipient only</div>
+  </div>
+</div>
+
+</body>
+</html>
