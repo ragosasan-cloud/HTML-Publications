@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cómo Permanecer · Pablo · Pedro · Santiago · Juan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg:         #faf8f4;
+      --surface:    #ffffff;
+      --surface-2:  #f4f0e8;
+      --border:     #e2d9c8;
+      --text:       #1a1510;
+      --text-muted: #7a6e5f;
+      --gold:       #c9a84c;
+      --gold-soft:  #f5edda;
+      --shadow:     0 2px 16px rgba(0,0,0,0.07);
+      --shadow-md:  0 6px 24px rgba(0,0,0,0.10);
+      --radius:     10px;
+
+      /* Un color por apóstol */
+      --pablo:      #6b2020;   /* rojo oscuro — urgencia, doctrina */
+      --pablo-soft: #f9eded;
+      --pedro:      #1e4060;   /* azul marino — roca, firmeza */
+      --pedro-soft: #edf3f9;
+      --santiago:   #3a5a2a;   /* verde olivo — práctica, fruto */
+      --santiago-soft: #edf4ea;
+      --juan:       #5a3a6e;   /* morado — amor, comunión */
+      --juan-soft:  #f3edf9;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg:         #0f0d0a;
+        --surface:    #1a1612;
+        --surface-2:  #221e18;
+        --border:     #36302a;
+        --text:       #ede8df;
+        --text-muted: #9a8e7e;
+        --gold:       #d4aa5a;
+        --gold-soft:  #2a2208;
+        --pablo-soft: #220e0e;
+        --pedro-soft: #0a131f;
+        --santiago-soft: #0d1a0a;
+        --juan-soft:  #140e1e;
+      }
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 18px; scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'EB Garamond', Georgia, serif;
+      line-height: 1.78;
+    }
+
+    /* ── CABECERA ── */
+    .essay-header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 3.5rem 2rem 2.8rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .series-badge {
+      display: inline-block;
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 0.28em 1em;
+      border-radius: 2px;
+      margin-bottom: 1.5rem;
+    }
+
+    .essay-header h1 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+
+    .header-rule {
+      width: 52px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 1.4rem auto 1.1rem;
+    }
+
+    .essay-header .subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-style: italic;
+      color: var(--text-muted);
+    }
+
+    /* ── NAV DE APÓSTOLES ── */
+    .apostle-nav {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      flex-wrap: wrap;
+    }
+
+    .apostle-nav a {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--text-muted);
+      padding: 0.85rem 1.6rem;
+      border-bottom: 3px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .apostle-nav a:hover { color: var(--text); }
+    .apostle-nav a[data-who="pablo"]:hover  { border-color: var(--pablo);    color: var(--pablo); }
+    .apostle-nav a[data-who="pedro"]:hover  { border-color: var(--pedro);    color: var(--pedro); }
+    .apostle-nav a[data-who="santiago"]:hover { border-color: var(--santiago); color: var(--santiago); }
+    .apostle-nav a[data-who="juan"]:hover   { border-color: var(--juan);     color: var(--juan); }
+
+    /* ── INTRO ── */
+    .intro {
+      max-width: 680px;
+      margin: 3rem auto 0;
+      padding: 0 2rem;
+    }
+
+    .intro p {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      font-style: italic;
+      text-align: center;
+      line-height: 1.7;
+    }
+
+    /* ── SECCIÓN DE APÓSTOL ── */
+    .apostle-section {
+      max-width: 740px;
+      margin: 4rem auto 0;
+      padding: 0 2rem;
+    }
+
+    .apostle-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.2rem;
+      margin-bottom: 1.8rem;
+      padding-bottom: 1.4rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .apostle-monogram {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      font-style: italic;
+      flex-shrink: 0;
+      color: #fff;
+    }
+
+    .apostle-monogram.pablo    { background: var(--pablo); }
+    .apostle-monogram.pedro    { background: var(--pedro); }
+    .apostle-monogram.santiago { background: var(--santiago); }
+    .apostle-monogram.juan     { background: var(--juan); }
+
+    .apostle-meta {
+      flex: 1;
+    }
+
+    .apostle-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 0.2rem;
+      color: var(--text);
+    }
+
+    .apostle-tag {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .pablo    .apostle-tag { color: var(--pablo); }
+    .pedro    .apostle-tag { color: var(--pedro); }
+    .santiago .apostle-tag { color: var(--santiago); }
+    .juan     .apostle-tag { color: var(--juan); }
+
+    /* ── VERSO ANCLA ── */
+    .anchor-verse {
+      border-radius: var(--radius);
+      padding: 1.6rem 1.8rem;
+      margin-bottom: 1.8rem;
+      border-left: 4px solid;
+    }
+
+    .anchor-verse.pablo    { background: var(--pablo-soft);    border-color: var(--pablo); }
+    .anchor-verse.pedro    { background: var(--pedro-soft);    border-color: var(--pedro); }
+    .anchor-verse.santiago { background: var(--santiago-soft); border-color: var(--santiago); }
+    .anchor-verse.juan     { background: var(--juan-soft);     border-color: var(--juan); }
+
+    .anchor-verse blockquote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-style: italic;
+      line-height: 1.68;
+      color: var(--text);
+      margin-bottom: 0.7rem;
+    }
+
+    .anchor-verse .verse-ref {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.66rem;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .anchor-verse.pablo    .verse-ref { color: var(--pablo); }
+    .anchor-verse.pedro    .verse-ref { color: var(--pedro); }
+    .anchor-verse.santiago .verse-ref { color: var(--santiago); }
+    .anchor-verse.juan     .verse-ref { color: var(--juan); }
+
+    /* ── CUERPO DE SECCIÓN ── */
+    .apostle-section p {
+      font-size: 1.05rem;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      text-align: justify;
+      hyphens: auto;
+    }
+
+    /* ── TARJETAS PRÁCTICAS ── */
+    .practice-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    @media (max-width: 580px) {
+      .practice-grid { grid-template-columns: 1fr; }
+    }
+
+    .practice-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.3rem 1.4rem;
+      box-shadow: var(--shadow);
+      border-top: 3px solid;
+    }
+
+    .practice-card.pablo    { border-top-color: var(--pablo); }
+    .practice-card.pedro    { border-top-color: var(--pedro); }
+    .practice-card.santiago { border-top-color: var(--santiago); }
+    .practice-card.juan     { border-top-color: var(--juan); }
+
+    .practice-card .card-num {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .practice-card.pablo    .card-num { color: var(--pablo); }
+    .practice-card.pedro    .card-num { color: var(--pedro); }
+    .practice-card.santiago .card-num { color: var(--santiago); }
+    .practice-card.juan     .card-num { color: var(--juan); }
+
+    .practice-card .card-action {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.45rem;
+      line-height: 1.3;
+    }
+
+    .practice-card .card-body {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin: 0;
+      text-align: left;
+    }
+
+    .practice-card .card-ref {
+      display: block;
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 0.6rem;
+    }
+
+    .practice-card.pablo    .card-ref { color: var(--pablo); }
+    .practice-card.pedro    .card-ref { color: var(--pedro); }
+    .practice-card.santiago .card-ref { color: var(--santiago); }
+    .practice-card.juan     .card-ref { color: var(--juan); }
+
+    /* ── VERSO SECUNDARIO ── */
+    .inner-verse {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.3rem 1.6rem;
+      margin: 1.5rem 0;
+    }
+
+    .inner-verse blockquote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.08rem;
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.65;
+      margin-bottom: 0.45rem;
+    }
+
+    .inner-verse .verse-ref {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.64rem;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* ── DIVISOR ── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 3.5rem 0 0;
+      max-width: 740px;
+      padding: 0 2rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
+    .divider span {
+      font-size: 0.7rem;
+      color: var(--gold);
+      letter-spacing: 0.2em;
+    }
+
+    /* ── SÍNTESIS FINAL ── */
+    .synthesis {
+      max-width: 740px;
+      margin: 4rem auto 0;
+      padding: 0 2rem;
+    }
+
+    .synthesis h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .synthesis-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.94rem;
+      background: var(--surface);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+
+    .synthesis-table th {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 0.8rem 1.1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface-2);
+    }
+
+    .synthesis-table td {
+      padding: 0.9rem 1.1rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+
+    .synthesis-table tr:last-child td { border-bottom: none; }
+
+    .apostle-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 0.5rem;
+      vertical-align: middle;
+    }
+
+    .dot-pablo    { background: var(--pablo); }
+    .dot-pedro    { background: var(--pedro); }
+    .dot-santiago { background: var(--santiago); }
+    .dot-juan     { background: var(--juan); }
+
+    .td-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .td-enfasis {
+      font-style: italic;
+      color: var(--text-muted);
+    }
+
+    /* ── CIERRE ── */
+    .close-verse {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--gold);
+      border-radius: var(--radius);
+      padding: 2.2rem 2.4rem;
+      margin: 3rem auto 0;
+      max-width: 740px;
+      padding-left: calc(2rem + 2px);
+      padding-right: 2rem;
+      text-align: center;
+      box-shadow: var(--shadow-md);
+    }
+
+    .close-verse p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.28rem;
+      font-style: italic;
+      line-height: 1.65;
+      color: var(--text);
+      margin-bottom: 0.8rem;
+    }
+
+    .close-verse .close-ref {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.66rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* ── FOOTER ── */
+    .foot {
+      border-top: 1px solid var(--border);
+      padding: 2.2rem 2rem;
+      text-align: center;
+      background: var(--surface);
+      margin-top: 4rem;
+    }
+
+    .foot-note {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.66rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: 1.2rem;
+    }
+
+    .foot-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .foot-link {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .foot-link:hover { border-bottom-color: var(--gold); }
+
+    @media (max-width: 600px) {
+      .essay-header { padding: 2.5rem 1.2rem 2rem; }
+      .apostle-section,
+      .synthesis,
+      .divider { padding-left: 1.2rem; padding-right: 1.2rem; }
+      .intro { padding: 0 1.2rem; }
+      .close-verse { margin-left: 1.2rem; margin-right: 1.2rem; }
+      .practice-grid { grid-template-columns: 1fr; }
+      .synthesis-table { font-size: 0.85rem; }
+      .synthesis-table td,
+      .synthesis-table th { padding: 0.7rem 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── CABECERA ── -->
+<header class="essay-header">
+  <div class="series-badge">IGV Internacional · Complemento de 5-25</div>
+  <h1>Cómo Permanecer</h1>
+  <div class="header-rule"></div>
+  <p class="subtitle">Pablo · Pedro · Santiago · Juan — instrucciones prácticas</p>
+</header>
+
+<!-- NAV -->
+<nav class="apostle-nav">
+  <a href="#pablo"    data-who="pablo">Pablo</a>
+  <a href="#pedro"    data-who="pedro">Pedro</a>
+  <a href="#santiago" data-who="santiago">Santiago</a>
+  <a href="#juan"     data-who="juan">Juan</a>
+</nav>
+
+<!-- INTRO -->
+<div class="intro">
+  <p>Efesios 2 nos dice <em>dónde</em> ya estamos. Lo que sigue es la pregunta práctica: ¿cómo se vive desde allí? Cuatro apóstoles —cada uno con su voz, su urgencia y su audiencia— nos dan la misma respuesta con distintas herramientas.</p>
+</div>
+
+<!-- ═══════════════ PABLO ═══════════════ -->
+<div class="divider"><span>· · ·</span></div>
+
+<section class="apostle-section" id="pablo">
+
+  <div class="apostle-header pablo">
+    <div class="apostle-monogram pablo">P</div>
+    <div class="apostle-meta pablo">
+      <div class="apostle-name">Pablo</div>
+      <div class="apostle-tag pablo">Permanecer es renovar la mente · No volver al punto de partida</div>
+    </div>
+  </div>
+
+  <div class="anchor-verse pablo">
+    <blockquote>"No os conforméis a este siglo, sino transformaos por medio de la renovación de vuestro entendimiento, para que comprobéis cuál sea la buena voluntad de Dios, agradable y perfecta."</blockquote>
+    <span class="verse-ref">Romanos 12:2 · RVR1960</span>
+  </div>
+
+  <p>Pablo no pide un esfuerzo moral nuevo, sino una reorientación de la mente. El verbo griego μεταμορφόω — el mismo de la metamorfosis — habla de un cambio de forma desde adentro. No se puede permanecer en lo alto con una mente que todavía razona desde abajo.</p>
+
+  <p>En Filipenses explica el mecanismo concreto: lo que ocupa la mente determina la experiencia de la paz que guarda.</p>
+
+  <div class="inner-verse">
+    <blockquote>"Todo lo que es verdadero, todo lo honesto, todo lo justo, todo lo puro, todo lo amable, todo lo que es de buen nombre; si hay virtud alguna, si algo digno de alabanza, en esto pensad."</blockquote>
+    <span class="verse-ref">Filipenses 4:8 · RVR1960</span>
+  </div>
+
+  <p>Permanecer, para Pablo, es una disciplina de atención: elegir deliberadamente qué ocupa el pensamiento. No represión, sino sustitución activa.</p>
+
+  <div class="practice-grid">
+    <div class="practice-card pablo">
+      <div class="card-num">Acción 1</div>
+      <div class="card-action">Identifica el patrón que te baja</div>
+      <p class="card-body">¿Qué pensamiento recurrente te devuelve al ras del suelo — la queja, la comparación, el miedo? Nómbralo. Pablo dice: no te conformes. Primero hay que ver la conformación.</p>
+      <span class="card-ref">Ro 12:2</span>
+    </div>
+    <div class="practice-card pablo">
+      <div class="card-num">Acción 2</div>
+      <div class="card-action">Redirige la atención, no la suprimas</div>
+      <p class="card-body">Cuando el pensamiento equivocado aparezca, no pelees contra él — dale a la mente algo verdadero, honesto, puro en qué fijarse. La transformación ocurre por sustitución.</p>
+      <span class="card-ref">Fil 4:8</span>
+    </div>
+    <div class="practice-card pablo">
+      <div class="card-num">Acción 3</div>
+      <div class="card-action">Practica la acción de gracias sin condición</div>
+      <p class="card-body">"En todo dad gracias" (1 Ts 5:18) no es sentimentalismo — es una declaración de que estás posicionado por encima de las circunstancias, no dentro de ellas.</p>
+      <span class="card-ref">1 Ts 5:18</span>
+    </div>
+    <div class="practice-card pablo">
+      <div class="card-num">Acción 4</div>
+      <div class="card-action">Recuerda quién eres antes de actuar</div>
+      <p class="card-body">"Consideraos muertos al pecado, pero vivos para Dios" (Ro 6:11). Cada mañana: primero la identidad, luego la conducta. No al revés.</p>
+      <span class="card-ref">Ro 6:11</span>
+    </div>
+  </div>
+
+</section>
+
+<!-- ═══════════════ PEDRO ═══════════════ -->
+<div class="divider"><span>· · ·</span></div>
+
+<section class="apostle-section" id="pedro">
+
+  <div class="apostle-header pedro">
+    <div class="apostle-monogram pedro">Pe</div>
+    <div class="apostle-meta pedro">
+      <div class="apostle-name">Pedro</div>
+      <div class="apostle-tag pedro">Permanecer es estar alerta y echar el peso · No cargar lo que no te corresponde</div>
+    </div>
+  </div>
+
+  <div class="anchor-verse pedro">
+    <blockquote>"Humillaos, pues, bajo la poderosa mano de Dios, para que él os exalte cuando fuere tiempo; echando toda vuestra ansiedad sobre él, porque él tiene cuidado de vosotros."</blockquote>
+    <span class="verse-ref">1 Pedro 5:6–7 · RVR1960</span>
+  </div>
+
+  <p>Pedro escribe desde la experiencia del hundimiento: él sabe lo que es caminar sobre el agua y lo que es mirar el viento. Su instrucción no es "esfuérzate más" sino "suelta el peso que te hunde". La humildad que describe no es timidez — es reconocer que la posición elevada no la sostienes tú.</p>
+
+  <p>Luego añade la advertencia que lo hace práctico: hay un adversario cuyo único trabajo es convencerte de que ya no estás donde estás.</p>
+
+  <div class="inner-verse">
+    <blockquote>"Sed sobrios y velad; porque vuestro adversario el diablo, como león rugiente, anda alrededor buscando a quien devorar; al cual resistid firmes en la fe."</blockquote>
+    <span class="verse-ref">1 Pedro 5:8–9 · RVR1960</span>
+  </div>
+
+  <p>Permanecer, para Pedro, requiere las dos cosas a la vez: soltar la ansiedad hacia arriba y resistir la presión desde abajo. No son acciones contradictorias — son la misma postura desde dos ángulos.</p>
+
+  <div class="practice-grid">
+    <div class="practice-card pedro">
+      <div class="card-num">Acción 1</div>
+      <div class="card-action">Echa la carga — literalmente</div>
+      <p class="card-body">Pedro usa un verbo de acción física: "echar". No es resignación, es transferencia deliberada. Cuando llegue la ansiedad, nómbrala en voz alta y entrégala en oración antes de tomar ninguna decisión.</p>
+      <span class="card-ref">1 Pe 5:7</span>
+    </div>
+    <div class="practice-card pedro">
+      <div class="card-num">Acción 2</div>
+      <div class="card-action">Reconoce el origen de la presión</div>
+      <p class="card-body">No todo lo que sientes viene de las circunstancias. Pedro dice que hay un adversario activo. Cuando la duda sobre tu posición llegue como tormenta, pregunta: ¿de dónde viene esta voz?</p>
+      <span class="card-ref">1 Pe 5:8</span>
+    </div>
+    <div class="practice-card pedro">
+      <div class="card-num">Acción 3</div>
+      <div class="card-action">Resiste — no huyas, no cedas</div>
+      <p class="card-body">"Firme en la fe" no es sentimiento, es posición. La resistencia no requiere que dejes de sentir miedo; requiere que no cambies de lugar por él.</p>
+      <span class="card-ref">1 Pe 5:9</span>
+    </div>
+    <div class="practice-card pedro">
+      <div class="card-num">Acción 4</div>
+      <div class="card-action">Recuerda que el sufrimiento es temporal</div>
+      <p class="card-body">"Después de un poco de tiempo" (1 Pe 5:10) — Pedro da perspectiva. Permanecer no es negar el dolor; es saber que el dolor no tiene la última palabra sobre dónde estás.</p>
+      <span class="card-ref">1 Pe 5:10</span>
+    </div>
+  </div>
+
+</section>
+
+<!-- ═══════════════ SANTIAGO ═══════════════ -->
+<div class="divider"><span>· · ·</span></div>
+
+<section class="apostle-section" id="santiago">
+
+  <div class="apostle-header santiago">
+    <div class="apostle-monogram santiago">S</div>
+    <div class="apostle-meta santiago">
+      <div class="apostle-name">Santiago</div>
+      <div class="apostle-tag santiago">Permanecer es actuar desde allí · La fe sin obras no permanece</div>
+    </div>
+  </div>
+
+  <div class="anchor-verse santiago">
+    <blockquote>"Pero sed hacedores de la palabra, y no tan solamente oidores, engañándoos a vosotros mismos."</blockquote>
+    <span class="verse-ref">Santiago 1:22 · RVR1960</span>
+  </div>
+
+  <p>Santiago es el más directo de los cuatro. Para él, la posición que no produce conducta es una ilusión. No está contradiciendo a Pablo — está completando el argumento: si realmente estás sentado en los lugares celestiales, eso se verá en cómo tratas al prójimo, cómo hablas, cómo usas lo que tienes.</p>
+
+  <p>Su imagen de la fe como árbol lo dice todo:</p>
+
+  <div class="inner-verse">
+    <blockquote>"¿Ves que la fe actuó juntamente con sus obras, y que la fe se perfeccionó por las obras?"</blockquote>
+    <span class="verse-ref">Santiago 2:22 · RVR1960</span>
+  </div>
+
+  <p>Permanecer en lo alto, para Santiago, no es una experiencia contemplativa solamente. Es una posición que se verifica en lo cotidiano: en la paciencia con el hermano difícil, en la lengua que no destruye, en la mano que da.</p>
+
+  <div class="practice-grid">
+    <div class="practice-card santiago">
+      <div class="card-num">Acción 1</div>
+      <div class="card-action">Haz algo desde tu posición hoy</div>
+      <p class="card-body">¿Hay alguien que necesita lo que tienes — tiempo, palabra, recurso? Santiago dice que la fe que no actúa se muere sola. Permanecer requiere movimiento hacia afuera.</p>
+      <span class="card-ref">Stg 2:17</span>
+    </div>
+    <div class="practice-card santiago">
+      <div class="card-num">Acción 2</div>
+      <div class="card-action">Guarda la lengua</div>
+      <p class="card-body">"Si alguno no ofende en palabra, éste es varón perfecto" (Stg 3:2). Lo que dices revela dónde estás parado. Un creyente posicionado en lo alto no destruye con palabras a quienes están abajo.</p>
+      <span class="card-ref">Stg 3:2</span>
+    </div>
+    <div class="practice-card santiago">
+      <div class="card-num">Acción 3</div>
+      <div class="card-action">Recibe la prueba como herramienta, no como amenaza</div>
+      <p class="card-body">"La prueba de vuestra fe produce paciencia" (Stg 1:3). La tribulación no te baja de posición — la confirma, si la recibes desde arriba.</p>
+      <span class="card-ref">Stg 1:3</span>
+    </div>
+    <div class="practice-card santiago">
+      <div class="card-num">Acción 4</div>
+      <div class="card-action">Pide con fe, sin doblez</div>
+      <p class="card-body">"El que duda es semejante a la onda del mar" (Stg 1:6). La persona de doble ánimo no permanece en ningún lugar. Permanecer requiere una sola dirección.</p>
+      <span class="card-ref">Stg 1:6–8</span>
+    </div>
+  </div>
+
+</section>
+
+<!-- ═══════════════ JUAN ═══════════════ -->
+<div class="divider"><span>· · ·</span></div>
+
+<section class="apostle-section" id="juan">
+
+  <div class="apostle-header juan">
+    <div class="apostle-monogram juan">J</div>
+    <div class="apostle-meta juan">
+      <div class="apostle-name">Juan</div>
+      <div class="apostle-tag juan">Permanecer es morar · La comunión de amor como domicilio</div>
+    </div>
+  </div>
+
+  <div class="anchor-verse juan">
+    <blockquote>"Permaneced en mí, y yo en vosotros. Como el pámpano no puede llevar fruto por sí mismo, si no permanece en la vid, así tampoco vosotros, si no permanecéis en mí."</blockquote>
+    <span class="verse-ref">Juan 15:4 · RVR1960</span>
+  </div>
+
+  <p>Juan usa la misma palabra — μένω, permanecer, morar, habitar — más de cuarenta veces en su Evangelio y sus cartas. Es su palabra clave. Y el contexto siempre es el mismo: la relación de amor entre el Padre, el Hijo y el creyente.</p>
+
+  <p>Para Juan, permanecer no es un esfuerzo de voluntad ni una disciplina intelectual ni una obra práctica — es una elección de morada. ¿Dónde vives? ¿Desde dónde operas habitualmente?</p>
+
+  <div class="inner-verse">
+    <blockquote>"El que permanece en amor, permanece en Dios, y Dios en él."</blockquote>
+    <span class="verse-ref">1 Juan 4:16 · RVR1960</span>
+  </div>
+
+  <p>La señal más clara de que alguien está permaneciendo en lo alto es el amor activo hacia el hermano. No el sentimiento — el amor que "no es de palabra ni de lengua, sino de hecho y en verdad" (1 Jn 3:18).</p>
+
+  <div class="practice-grid">
+    <div class="practice-card juan">
+      <div class="card-num">Acción 1</div>
+      <div class="card-action">Practica la comunión diaria como domicilio</div>
+      <p class="card-body">Juan dice "permaneced" como quien dice "vivan ahí". No visitas breves — morada. La oración, la Palabra, el silencio ante Él son la manera de no marcharse de la casa.</p>
+      <span class="card-ref">Jn 15:4</span>
+    </div>
+    <div class="practice-card juan">
+      <div class="card-num">Acción 2</div>
+      <div class="card-action">Ama al hermano que tienes enfrente</div>
+      <p class="card-body">"El que dice que está en la luz, y aborrece a su hermano, está todavía en tinieblas" (1 Jn 2:9). La prueba de posición es concreta: ¿cómo tratas a la persona más difícil de amar que tienes cerca?</p>
+      <span class="card-ref">1 Jn 2:9</span>
+    </div>
+    <div class="practice-card juan">
+      <div class="card-num">Acción 3</div>
+      <div class="card-action">No ames al mundo — no como domicilio</div>
+      <p class="card-body">"No améis al mundo, ni las cosas que están en el mundo" (1 Jn 2:15). Juan no habla de odiar la creación — habla de no establecer ahí tu dirección permanente. Dos lugares no pueden ser tu hogar al mismo tiempo.</p>
+      <span class="card-ref">1 Jn 2:15</span>
+    </div>
+    <div class="practice-card juan">
+      <div class="card-num">Acción 4</div>
+      <div class="card-action">Deja que el amor eche fuera el temor</div>
+      <p class="card-body">"El perfecto amor echa fuera el temor" (1 Jn 4:18). Cuando el miedo vuelve, no es señal de que fallaste — es señal de que necesitas regresar a la morada del amor. El remedio del temor es la intimidad, no el esfuerzo.</p>
+      <span class="card-ref">1 Jn 4:18</span>
+    </div>
+  </div>
+
+</section>
+
+<!-- ═══════════════ SÍNTESIS ═══════════════ -->
+<div class="divider"><span>· · ·</span></div>
+
+<section class="synthesis">
+  <h2>Los cuatro juntos</h2>
+  <table class="synthesis-table">
+    <thead>
+      <tr>
+        <th>Apóstol</th>
+        <th>Énfasis</th>
+        <th>La pregunta práctica</th>
+        <th>El peligro opuesto</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="td-name"><span class="apostle-dot dot-pablo"></span>Pablo</td>
+        <td class="td-enfasis">La mente renovada</td>
+        <td>¿En qué pienso habitualmente?</td>
+        <td>Conformarse al siglo por hábito mental</td>
+      </tr>
+      <tr>
+        <td class="td-name"><span class="apostle-dot dot-pedro"></span>Pedro</td>
+        <td class="td-enfasis">Soltar y resistir</td>
+        <td>¿Estoy cargando lo que no me corresponde?</td>
+        <td>Hundirse bajo el peso de la ansiedad</td>
+      </tr>
+      <tr>
+        <td class="td-name"><span class="apostle-dot dot-santiago"></span>Santiago</td>
+        <td class="td-enfasis">La fe que actúa</td>
+        <td>¿Mi posición se ve en mi conducta?</td>
+        <td>Una fe contemplativa sin fruto visible</td>
+      </tr>
+      <tr>
+        <td class="td-name"><span class="apostle-dot dot-juan"></span>Juan</td>
+        <td class="td-enfasis">La morada de amor</td>
+        <td>¿Dónde tengo establecida mi dirección?</td>
+        <td>Visitar a Dios en lugar de habitar en Él</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- CIERRE -->
+<div class="close-verse" style="margin-left: auto; margin-right: auto; margin-top: 3rem; max-width: 740px; padding: 2.2rem 2rem;">
+  <p>"Así que, hermanos míos amados, estad firmes y constantes, creciendo en la obra del Señor siempre, sabiendo que vuestro trabajo en el Señor no es en vano."</p>
+  <span class="close-ref">1 Corintios 15:58 · RVR1960 · Permanecer es la obra, y la obra tiene recompensa</span>
+</div>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <span class="foot-note">RVR1960 · Complemento práctico de IGV 5-25 · Pablo · Pedro · Santiago · Juan</span>
+  <div class="foot-links">
+    <a href="devocional-igv525-mantente-donde-estas.html" class="foot-link">← IGV 5-25 · ¡Mantente donde estás!</a>
+    <a href="manual-comunion-oracion-rvr1960.html" class="foot-link">Manual · Comunión y Oración →</a>
+  </div>
+</footer>
+
+</body>
+</html>
