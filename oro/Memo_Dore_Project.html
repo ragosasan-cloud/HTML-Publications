@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Internal Memorandum — Dore Project</title>
+<style>
+  :root {
+    --navy:       #1A3A5C;
+    --blue:       #2E6096;
+    --gold:       #C9A84C;
+    --dark-gold:  #B8860B;
+    --fill-blue:  #EEF3F8;
+    --fill-cream: #F9F5EC;
+    --fill-grey:  #F5F5F5;
+    --white:      #FFFFFF;
+    --red:        #AA0000;
+    --border:     #CCCCCC;
+    --text-dark:  #444444;
+    --text-mid:   #666666;
+    --text-black: #000000;
+    --header-txt: #FFFFFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 11pt;
+    color: var(--text-black);
+    line-height: 1.5;
+    background: #e0e0e0;
+  }
+  body.lang-en .es { display: none; }
+  body.lang-es .en { display: none; }
+
+  .lang-toggle {
+    position: sticky;
+    top: 0;
+    background: var(--navy);
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 100;
+  }
+  .lang-toggle span {
+    color: var(--header-txt);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 9pt;
+    letter-spacing: 0.05em;
+  }
+  .lang-btn {
+    background: transparent;
+    border: 1pt solid var(--gold);
+    color: var(--gold);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 9pt;
+    padding: 3px 12px;
+    cursor: pointer;
+    border-radius: 2px;
+  }
+  .lang-btn.active {
+    background: var(--gold);
+    color: var(--navy);
+    font-weight: bold;
+  }
+
+  .page {
+    width: 8.5in;
+    min-height: 11in;
+    margin: 0.25in auto;
+    padding: 0.875in;
+    background: var(--white);
+  }
+
+  .title-block { text-align: center; padding-top: 0.25in; }
+  .doc-title {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 19pt;
+    font-weight: bold;
+    color: var(--navy);
+    margin-bottom: 6pt;
+  }
+  .doc-subtitle {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13pt;
+    font-weight: bold;
+    color: var(--blue);
+    margin-bottom: 6pt;
+  }
+  .doc-meta {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 10pt;
+    font-style: italic;
+    color: var(--text-dark);
+  }
+  .confidential {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 9pt;
+    font-weight: bold;
+    color: var(--red);
+    text-align: center;
+    margin-top: 6pt;
+  }
+
+  .gold-rule {
+    border: none;
+    border-bottom: 1pt solid var(--gold);
+    margin-top: 0.222in;
+    margin-bottom: 0.222in;
+  }
+  .grey-rule {
+    border: none;
+    border-bottom: 1pt solid var(--border);
+    margin-top: 0.222in;
+    margin-bottom: 0.222in;
+  }
+
+  .h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15pt;
+    font-weight: bold;
+    color: var(--navy);
+    margin-top: 0.417in;
+    margin-bottom: 0.194in;
+  }
+  .h2 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12pt;
+    font-weight: bold;
+    color: var(--blue);
+    margin-top: 0.306in;
+    margin-bottom: 0.139in;
+  }
+  .h3 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11pt;
+    font-weight: bold;
+    color: var(--dark-gold);
+    text-decoration: underline;
+    margin-top: 0.25in;
+    margin-bottom: 0.111in;
+  }
+
+  p, .body-para {
+    margin-top: 0.111in;
+    margin-bottom: 0.111in;
+    text-align: justify;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 11pt;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    margin-top: 0.111in;
+    margin-bottom: 0.111in;
+  }
+  td, th {
+    border: 1pt solid var(--border);
+    padding: 6pt 8pt;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 11pt;
+    vertical-align: top;
+  }
+  .tbl-header th {
+    background-color: var(--navy);
+    color: var(--header-txt);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11pt;
+    font-weight: bold;
+    text-align: left;
+  }
+  .tbl-label td:first-child {
+    background-color: var(--fill-blue);
+    font-weight: bold;
+    width: 32%;
+  }
+  .tbl-label tr:nth-child(odd) td:last-child  { background-color: var(--fill-blue); }
+  .tbl-label tr:nth-child(even) td:last-child { background-color: var(--white); }
+
+  .phase-num  { background: var(--navy); color: var(--gold); text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 13pt; font-weight: bold; width: 10%; }
+  .phase-name { background: var(--fill-blue); font-weight: bold; width: 55%; }
+  .phase-resp { background: var(--fill-grey); font-size: 10pt; width: 35%; }
+  .spacer-sm  { margin-top: 0.014in; margin-bottom: 0.014in; line-height: 0; }
+
+  ul.doc-list {
+    list-style-type: disc;
+    padding-left: 0.5in;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  ul.doc-list li {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 11pt;
+    margin-top: 0.069in;
+    margin-bottom: 0.069in;
+    text-align: left;
+    padding-left: 0.25in;
+  }
+
+  .callout {
+    border-left: 3pt solid var(--gold);
+    background: var(--fill-cream);
+    padding: 8pt 12pt;
+    margin-top: 0.139in;
+    margin-bottom: 0.139in;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 11pt;
+  }
+
+  .doc-footer {
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 9pt;
+    font-style: italic;
+    color: var(--text-mid);
+    margin-top: 0.167in;
+    margin-bottom: 0.083in;
+  }
+
+  @media print {
+    .lang-toggle { display: none; }
+    body { background: white; }
+    .page { margin: 0; width: 8.5in; }
+  }
+</style>
+</head>
+<body class="lang-en">
+
+<div class="lang-toggle">
+  <span>DORE PROJECT</span>
+  <button class="lang-btn active" onclick="setLang('en')">EN</button>
+  <button class="lang-btn" onclick="setLang('es')">ES</button>
+</div>
+
+<div class="page">
+
+  <!-- TITLE BLOCK -->
+  <div class="title-block">
+    <div class="doc-title en">INTERNAL MEMORANDUM</div>
+    <div class="doc-title es">MEMORANDO INTERNO</div>
+    <div class="doc-subtitle en">Seven-Document Architecture — Dore Project</div>
+    <div class="doc-subtitle es">Arquitectura de Siete Documentos — Proyecto Dore</div>
+    <div class="doc-meta en">Internal Parties Only &nbsp;|&nbsp; May 2026</div>
+    <div class="doc-meta es">Solo para Partes Internas &nbsp;|&nbsp; Mayo 2026</div>
+  </div>
+  <div class="gold-rule"></div>
+  <div class="confidential en">INTERNAL — NOT FOR DISTRIBUTION</div>
+  <div class="confidential es">INTERNO — NO PARA DISTRIBUCIÓN</div>
+
+  <!-- SECTION 1 -->
+  <div class="h1 en">1. PURPOSE OF THIS MEMORANDUM</div>
+  <div class="h1 es">1. PROPÓSITO DE ESTE MEMORANDO</div>
+
+  <p class="en">This memorandum is an internal document. It is not delivered to the Buyer, to any external party, or to any party outside the internal Dore Project team. It sits first in the document stack because it is the first thing any internal party reads before touching any other document in the set.</p>
+  <p class="es">Este memorando es un documento interno. No se entrega al Comprador, a ninguna parte externa, ni a ninguna parte fuera del equipo interno del Proyecto Dore. Ocupa el primer lugar en la pila de documentos porque es lo primero que cualquier parte interna lee antes de tocar cualquier otro documento del conjunto.</p>
+
+  <p class="en">The purpose of this memorandum is to explain the architecture of the seven-document strategy and to confirm that every document in the set shares the same governing logic and the same core principle.</p>
+  <p class="es">El propósito de este memorando es explicar la arquitectura de la estrategia de siete documentos y confirmar que cada documento del conjunto comparte la misma lógica rectora y el mismo principio central.</p>
+
+  <div class="gold-rule"></div>
+
+  <!-- SECTION 2 -->
+  <div class="h1 en">2. THE CORE PRINCIPLE</div>
+  <div class="h1 es">2. EL PRINCIPIO CENTRAL</div>
+
+  <div class="callout en"><strong>"Title never changes hands without confirmed payment. The money always comes first."</strong></div>
+  <div class="callout es"><strong>"El título nunca cambia de manos sin el pago confirmado. El dinero siempre va primero."</strong></div>
+
+  <p class="en">This is the non-negotiable foundation of the entire Dore Project. Every clause in every document must enforce this principle without exception, variation, or workaround. The six-document architecture exists to implement this principle in a structured, sequenced, and legally defensible manner — from first contact through SPA execution and FOB handover.</p>
+  <p class="es">Este es el fundamento innegociable de todo el Proyecto Dore. Cada cláusula en cada documento debe hacer cumplir este principio sin excepción, variación ni alternativa. La arquitectura de seis documentos existe para implementar este principio de manera estructurada, secuenciada y legalmente defendible — desde el primer contacto hasta la ejecución del SPA y la entrega FOB.</p>
+
+  <p class="en">Under the FOB model governing this transaction: the Seller holds the gold and prepares for FOB at Bamako International Airport. The African bank confirms payment received. FOB handover is then authorized. Title transfers to the Buyer at the FOB point. The Buyer takes custody and transports independently.</p>
+  <p class="es">Bajo el modelo FOB que rige esta transacción: el Vendedor conserva el oro y se prepara para el FOB en el Aeropuerto Internacional de Bamako. El banco africano confirma la recepción del pago. Entonces se autoriza la entrega FOB. El título se transfiere al Comprador en el punto FOB. El Comprador toma posesión física y lo transporta de manera independiente.</p>
+
+  <div class="gold-rule"></div>
+
+  <!-- SECTION 3 -->
+  <div class="h1 en">3. THE SEVEN-DOCUMENT ARCHITECTURE</div>
+  <div class="h1 es">3. LA ARQUITECTURA DE SIETE DOCUMENTOS</div>
+
+  <p class="en">The pre-SPA package consists of seven documents produced by the internal team, followed by the SPA which is executed by the parties. Each document occupies a defined position in the sequence. No document is redundant. Each one performs a function that no other document in the set performs.</p>
+  <p class="es">El paquete pre-SPA consiste en siete documentos producidos por el equipo interno, seguidos del SPA ejecutado por las partes. Cada documento ocupa una posición definida en la secuencia. Ningún documento es redundante. Cada uno cumple una función que ningún otro documento del conjunto realiza.</p>
+
+  <div class="h2 en">Document Sequence and Role</div>
+  <div class="h2 es">Secuencia y Función de los Documentos</div>
+
+  <table class="tbl-label">
+    <tbody>
+      <tr>
+        <td style="width:8%; text-align:center; font-weight:bold; background:var(--fill-blue);">1</td>
+        <td style="width:20%; font-weight:bold; background:var(--fill-blue);"><span class="en">Memo</span><span class="es">Memorando</span></td>
+        <td style="width:48%; background:var(--fill-blue);"><span class="en">Internal architecture guide. Sits first. Not delivered externally.</span><span class="es">Guía de arquitectura interna. Situado primero. No se distribuye externamente.</span></td>
+        <td style="width:24%; background:var(--fill-blue);"><span class="en">Internal only</span><span class="es">Solo interno</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center; font-weight:bold;">2</td>
+        <td style="font-weight:bold;"><span class="en">1st NDA</span><span class="es">1er NDA</span></td>
+        <td><span class="en">Covers and ties down all IMFPA commission parties and the Seller. Executed before any commercial terms are exchanged with those parties.</span><span class="es">Cubre y compromete a todas las partes de comisión del IMFPA y al Vendedor. Ejecutado antes de intercambiar cualquier término comercial con dichas partes.</span></td>
+        <td><span class="en">IMFPA parties + Seller</span><span class="es">Partes IMFPA + Vendedor</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center; font-weight:bold;">3</td>
+        <td style="font-weight:bold;"><span class="en">IMFPA</span><span class="es">IMFPA</span></td>
+        <td><span class="en">Irrevocably locks the commission structure for all spots, rolls, and extensions. Executed after 1st NDA, before Blind Offer is delivered.</span><span class="es">Bloquea irrevocablemente la estructura de comisiones para todos los spots, renovaciones y extensiones. Ejecutado después del 1er NDA, antes de entregar la Oferta Ciega.</span></td>
+        <td><span class="en">All commission parties</span><span class="es">Todas las partes de comisión</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center; font-weight:bold;">4</td>
+        <td style="font-weight:bold;"><span class="en"><a href="Blind_Offer_Dore_Project.html" target="_blank" style="color:var(--blue);">Blind Offer</a></span><span class="es"><a href="Blind_Offer_Dore_Project.html" target="_blank" style="color:var(--blue);">Oferta Ciega</a></span></td>
+        <td><span class="en">Non-identifying informational communication of commercial facts. Delivered to Buyer. Presents terms and FOB procedure. Triggers CIS submission. Not executed — informational only.</span><span class="es">Comunicación informativa no identificable de hechos comerciales. Entregada al Comprador. Presenta condiciones y procedimiento FOB. Activa la presentación del CIS. No se ejecuta — solo informativa.</span></td>
+        <td><span class="en">Seller's mandate → Buyer (informational)</span><span class="es">Mandato Vendedor → Comprador (informativa)</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center; font-weight:bold;">5</td>
+        <td style="font-weight:bold;"><span class="en"><a href="LOI_Gold_Dore_Mali.html" target="_blank" style="color:var(--blue);">LOI</a></span><span class="es"><a href="LOI_Gold_Dore_Mali.html" target="_blank" style="color:var(--blue);">LOI</a></span></td>
+        <td><span class="en">Formal statement of intent executed by the Buyer only. Confirms the Buyer's commercial intent and acceptance of the transaction structure before full Seller disclosure.</span><span class="es">Declaración formal de intención ejecutada únicamente por el Comprador. Confirma la intención comercial del Comprador y la aceptación de la estructura de la transacción antes de la divulgación completa del Vendedor.</span></td>
+        <td><span class="en">Buyer only</span><span class="es">Solo el Comprador</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center; font-weight:bold;">6</td>
+        <td style="font-weight:bold;"><span class="en">2nd NDA</span><span class="es">2do NDA</span></td>
+        <td><span class="en">Covers and ties down the Buyer and all parties to the 1st NDA. Executed after the LOI, before the SCO is delivered — bringing the Buyer into the full confidentiality and non-circumvention framework before Seller full disclosure.</span><span class="es">Cubre y compromete al Comprador y a todas las partes del 1er NDA. Ejecutado después de la LOI, antes de entregar el SCO — incorporando al Comprador al marco completo de confidencialidad y no elusión antes de la divulgación completa del Vendedor.</span></td>
+        <td><span class="en">Buyer + 1st NDA parties</span><span class="es">Comprador + partes del 1er NDA</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center; font-weight:bold;">7</td>
+        <td style="font-weight:bold;"><span class="en"><a href="SCO_Dore_Project.html" target="_blank" style="color:var(--blue);">SCO</a></span><span class="es"><a href="SCO_Dore_Project.html" target="_blank" style="color:var(--blue);">SCO</a></span></td>
+        <td><span class="en">Soft Corporate Offer. Full Seller disclosure. Produced within 48 hours of CIS receipt. Cures all gaps before SPA.</span><span class="es">Oferta Corporativa Flexible. Divulgación completa del Vendedor. Producido dentro de 48 horas tras recibir el CIS. Resuelve todos los vacíos antes del SPA.</span></td>
+        <td><span class="en">Seller</span><span class="es">Vendedor</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center; font-weight:bold;">8</td>
+        <td style="font-weight:bold;"><span class="en">SPA</span><span class="es">SPA</span></td>
+        <td><span class="en">The binding instrument. Executed by both parties after SCO cures all gaps. Triggers the FOB procedure.</span><span class="es">El instrumento vinculante. Ejecutado por ambas partes después de que el SCO resuelve todos los vacíos. Activa el procedimiento FOB.</span></td>
+        <td><span class="en">Both parties</span><span class="es">Ambas partes</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="h2 en">Why This Sequence Is Non-Negotiable</div>
+  <div class="h2 es">Por Qué Esta Secuencia Es Innegociable</div>
+
+  <p class="en">The sequence is not administrative formality. Each step creates a legal and commercial condition that the next step depends on. The 1st NDA locks confidentiality and non-circumvention across the Seller side and all commission parties before any internal terms are discussed. The IMFPA then locks commissions irrevocably — ensuring intermediaries cannot be bypassed once the transaction is in motion. The <a href="Blind_Offer_Dore_Project.html" target="_blank" style="color:var(--blue);">Blind Offer</a> delivers commercial facts to the Buyer without exposing the Seller. The <a href="LOI_Gold_Dore_Mali.html" target="_blank" style="color:var(--blue);">LOI</a>, executed by the Buyer alone, creates a formal record of the Buyer's commercial intent. The 2nd NDA then brings the Buyer into the full confidentiality and non-circumvention framework — at the point where the Buyer has committed via the LOI but before the Seller makes full disclosure. The <a href="SCO_Dore_Project.html" target="_blank" style="color:var(--blue);">SCO</a> is the full disclosure package — produced only after the Buyer is bound by the 2nd NDA. The SPA is executed only after all gaps are cured. Every step earns the next.</p>
+  <p class="es">La secuencia no es una formalidad administrativa. Cada paso crea una condición legal y comercial de la que depende el siguiente. El 1er NDA bloquea la confidencialidad y la no elusión en el lado del Vendedor y todas las partes de comisión antes de que se discuta cualquier término interno. El IMFPA luego bloquea las comisiones irrevocablemente, asegurando que los intermediarios no puedan ser eludidos una vez que la transacción está en marcha. La <a href="Blind_Offer_Dore_Project.html" target="_blank" style="color:var(--blue);">Oferta Ciega</a> entrega los hechos comerciales al Comprador sin exponer al Vendedor. La <a href="LOI_Gold_Dore_Mali.html" target="_blank" style="color:var(--blue);">LOI</a>, ejecutada únicamente por el Comprador, crea un registro formal de la intención comercial del Comprador. El 2do NDA incorpora entonces al Comprador al marco completo de confidencialidad y no elusión — en el punto en que el Comprador se ha comprometido mediante la LOI pero antes de que el Vendedor haga la divulgación completa. El <a href="SCO_Dore_Project.html" target="_blank" style="color:var(--blue);">SCO</a> es el paquete de divulgación completa — producido únicamente después de que el Comprador está vinculado por el 2do NDA. El SPA se ejecuta solo después de que todos los vacíos estén resueltos. Cada paso se gana el siguiente.</p>
+
+  <div class="gold-rule"></div>
+
+  <!-- SECTION 4 -->
+  <div class="h1 en">4. DOCUMENT-BY-DOCUMENT LOGIC</div>
+  <div class="h1 es">4. LÓGICA DOCUMENTO POR DOCUMENTO</div>
+
+  <div class="h3 en">The 1st NDA — First Gate (Seller Side)</div>
+  <div class="h3 es">El 1er NDA — Primera Barrera (Lado Vendedor)</div>
+  <p class="en">The 1st NDA is the first document executed. It covers and ties down all IMFPA commission parties and the Seller. It establishes mutual confidentiality and non-circumvention across the Seller side of the transaction before any commercial terms, identities, or transactional details are discussed internally. Nothing moves on the Seller side until the 1st NDA is in place.</p>
+  <p class="es">El 1er NDA es el primer documento ejecutado. Cubre y compromete a todas las partes de comisión del IMFPA y al Vendedor. Establece confidencialidad mutua y no elusión en el lado Vendedor de la transacción antes de que se discutan internamente términos comerciales, identidades o detalles de la transacción. Nada se mueve en el lado del Vendedor hasta que el 1er NDA esté en vigor.</p>
+
+  <div class="h3 en">The IMFPA — Commission Lock</div>
+  <div class="h3 es">El IMFPA — Bloqueo de Comisiones</div>
+  <p class="en">The IMFPA is executed after the 1st NDA is in place and before the Blind Offer is delivered. Its function is singular: to irrevocably lock the commission structure for all intermediaries across the initial spot transaction and all follow-up spots, rolls, and extensions. The commission structure is: Buyer Representative 1%, Brazil Group &amp; Rafael 1%, Seller's Mandate &amp; Group 1%, total 3%. The African bank executes commission distribution automatically on the same day funds are confirmed received — no manual trigger required. The IMFPA is the only document that governs rolls and extensions.</p>
+  <p class="es">El IMFPA se ejecuta después de que el 1er NDA esté en vigor y antes de que se entregue la Oferta Ciega. Su función es singular: bloquear irrevocablemente la estructura de comisiones para todos los intermediarios en la transacción spot inicial y todos los spots de seguimiento, renovaciones y extensiones. La estructura de comisiones es: Representante del Comprador 1%, Brazil Group y Rafael 1%, Mandato del Vendedor y Grupo 1%, total 3%. El banco africano ejecuta la distribución de comisiones automáticamente el mismo día en que se confirma la recepción de los fondos, sin necesidad de un disparador manual. El IMFPA es el único documento que rige las renovaciones y extensiones.</p>
+
+  <div class="h3 en">The Blind Offer — Informational Communication</div>
+  <div class="h3 es">La Oferta Ciega — Comunicación Informativa</div>
+  <p class="en">The <a href="Blind_Offer_Dore_Project.html" target="_blank" style="color:var(--blue);">Blind Offer</a> is not executed. It is an informational communication of commercial facts delivered to the Buyer after the 1st NDA and the IMFPA are in place. It presents commodity, purity, quantity, pricing (LBMA –18% gross, 3% commission, 15% net), FOB delivery terms, payment instrument (MT103), assay basis (Mali government laboratory, accepted as-is), the inspection agent mechanism, and the conditional MT103 release structure. It invites the Buyer to submit a Corporate Identity Sheet via zero-knowledge mechanism and to execute the Letter of Intent. No Seller identity, no mine of origin, no bank details are disclosed.</p>
+  <p class="es">La <a href="Blind_Offer_Dore_Project.html" target="_blank" style="color:var(--blue);">Oferta Ciega</a> no se ejecuta. Es una comunicación informativa de hechos comerciales entregada al Comprador después de que el 1er NDA y el IMFPA estén en vigor. Presenta: mercancía, pureza, cantidad, precio (LBMA –18% bruto, 3% comisión, 15% neto), términos de entrega FOB, instrumento de pago (MT103), base del ensayo (laboratorio gubernamental de Mali, aceptado tal cual), el mecanismo del agente de inspección y la estructura de liberación condicional del MT103. Invita al Comprador a presentar una Ficha de Identidad Corporativa mediante mecanismo de conocimiento cero y a ejecutar la Carta de Intención. No se revela ninguna identidad del Vendedor, origen de la mina ni detalles bancarios.</p>
+
+  <div class="h3 en">The LOI — Buyer's Formal Commitment</div>
+  <div class="h3 es">La LOI — Compromiso Formal del Comprador</div>
+  <p class="en">The <a href="LOI_Gold_Dore_Mali.html" target="_blank" style="color:var(--blue);">Letter of Intent</a> is executed by the Buyer only. It is the Buyer's formal statement of intent to proceed with the transaction on the terms presented in the Blind Offer. It is not a binding payment or delivery obligation — the SPA is the binding instrument. The LOI creates a formal record that the Buyer has reviewed and accepted the commercial terms and the transaction structure, including the inspection agent mechanism and the conditional MT103 release. The LOI is the Buyer's documented commitment — the condition that must exist before the 2nd NDA is executed and the Seller proceeds to full disclosure.</p>
+  <p class="es">La <a href="LOI_Gold_Dore_Mali.html" target="_blank" style="color:var(--blue);">Carta de Intención</a> es ejecutada únicamente por el Comprador. Es la declaración formal de intención del Comprador de proceder con la transacción según los términos presentados en la Oferta Ciega. No es una obligación vinculante de pago o entrega — el SPA es el instrumento vinculante. La LOI crea un registro formal de que el Comprador ha revisado y aceptado los términos comerciales y la estructura de la transacción, incluyendo el mecanismo del agente de inspección y la liberación condicional del MT103. La LOI es el compromiso documentado del Comprador — la condición que debe existir antes de que se ejecute el 2do NDA y el Vendedor proceda a la divulgación completa.</p>
+
+  <div class="h3 en">The 2nd NDA — Second Gate (Buyer Fully Bound Before Seller Discloses)</div>
+  <div class="h3 es">El 2do NDA — Segunda Barrera (Comprador Completamente Vinculado Antes de que el Vendedor Divulgue)</div>
+  <p class="en">The 2nd NDA is executed after the Buyer has committed via the LOI and before the SCO is delivered. It covers and ties down the Buyer and all parties to the 1st NDA, extending the confidentiality and non-circumvention framework to include the Buyer at the precise moment the Seller is about to make full corporate and operational disclosure. The Seller makes no full disclosure until the Buyer is inside this framework. This is the correct gate position: the Buyer has already shown commercial intent via the LOI; the 2nd NDA then ensures that the full Seller identity, bank details, mine origin, and export credentials disclosed in the SCO are fully protected before they are shared.</p>
+  <p class="es">El 2do NDA se ejecuta después de que el Comprador se ha comprometido mediante la LOI y antes de que se entregue el SCO. Cubre y compromete al Comprador y a todas las partes del 1er NDA, extendiendo el marco de confidencialidad y no elusión para incluir al Comprador en el preciso momento en que el Vendedor está a punto de hacer la divulgación corporativa y operativa completa. El Vendedor no hace ninguna divulgación completa hasta que el Comprador esté dentro de este marco. Esta es la posición de barrera correcta: el Comprador ya ha demostrado intención comercial mediante la LOI; el 2do NDA asegura entonces que la identidad completa del Vendedor, los detalles bancarios, el origen de la mina y las credenciales de exportación divulgados en el SCO estén completamente protegidos antes de ser compartidos.</p>
+
+  <div class="h3 en">The SCO — Full Seller Disclosure</div>
+  <div class="h3 es">El SCO — Divulgación Completa del Vendedor</div>
+  <p class="en">The <a href="SCO_Dore_Project.html" target="_blank" style="color:var(--blue);">Soft Corporate Offer</a> is the Seller's full disclosure package. It is produced within 48 hours of receipt of the Buyer's CIS. It discloses: corporate identity, UBO, authorized signatory, mining license, export track record, government assay history, African bank details (name, SWIFT, correspondent bank, AML compliance), confirmed FOB logistics at Bamako Airport, and the Seller's formal confirmation of willingness to present gold to the inspection agent at Bamako International Airport prior to MT103 release. The SCO flags all remaining open items for resolution in the SPA.</p>
+  <p class="es">La <a href="SCO_Dore_Project.html" target="_blank" style="color:var(--blue);">Oferta Corporativa Flexible</a> es el paquete de divulgación completa del Vendedor. Se produce dentro de las 48 horas posteriores a la recepción del CIS del Comprador. Revela: identidad corporativa, UBO, firmante autorizado, licencia minera, historial de exportaciones, historial de ensayos gubernamentales, detalles del banco africano (nombre, SWIFT, banco corresponsal, cumplimiento AML), logística FOB confirmada en el Aeropuerto de Bamako y la confirmación formal del Vendedor de su disposición a presentar el oro al agente de inspección en el Aeropuerto Internacional de Bamako antes de la liberación del MT103.</p>
+
+  <div class="h3 en">The SPA — The Binding Instrument</div>
+  <div class="h3 es">El SPA — El Instrumento Vinculante</div>
+  <p class="en">The SPA is executed by both parties after the SCO cures all open items and KYC/AML is complete. It incorporates all commercial terms, the FOB procedure, the single assay basis and Seller liability, the commission schedule, MT103 payment mechanics, the conditional MT103 release structure, the inspection agent identity and scope, default and repatriation terms, and governing law and arbitration seat. The inspection agent is named in the SPA.</p>
+  <p class="es">El SPA es ejecutado por ambas partes después de que el SCO resuelve todos los puntos pendientes y se completa el KYC/AML. Incorpora todos los términos comerciales, el procedimiento FOB, la base del ensayo único y la responsabilidad del Vendedor, el calendario de comisiones, la mecánica de pago MT103, la estructura de liberación condicional del MT103, la identidad y el alcance del agente de inspección, los términos de incumplimiento y repatriación, y la ley aplicable y sede de arbitraje. El agente de inspección se nombra en el SPA.</p>
+
+  <div class="gold-rule"></div>
+
+  <!-- SECTION 5 — PAYMENT PROTECTION STRUCTURE -->
+  <div class="h1 en">5. PAYMENT PROTECTION STRUCTURE</div>
+  <div class="h1 es">5. ESTRUCTURA DE PROTECCIÓN DE PAGO</div>
+
+  <p class="en">The transaction incorporates two payment protection mechanisms that function as a single indivisible structure. They are always presented together, never independently. Neither mechanism modifies the core principle: title never changes hands without confirmed payment. The money always comes first.</p>
+  <p class="es">La transacción incorpora dos mecanismos de protección de pago que funcionan como una estructura única e indivisible. Siempre se presentan juntos, nunca de forma independiente. Ningún mecanismo modifica el principio central: el título nunca cambia de manos sin el pago confirmado. El dinero siempre va primero.</p>
+
+  <div class="h2 en">Mechanism 1 — Independent Inspection Agent</div>
+  <div class="h2 es">Mecanismo 1 — Agente Independiente de Inspección</div>
+
+  <p class="en">Before the Buyer's MT103 releases from the Buyer's Hong Kong bank, a mutually agreed independent inspection agent is physically present at Bamako International Airport and provides written confirmation that the gold is present, packaged, and ready for FOB handover.</p>
+  <p class="es">Antes de que el MT103 del Comprador se libere del banco de Hong Kong del Comprador, un agente independiente de inspección mutuamente acordado está físicamente presente en el Aeropuerto Internacional de Bamako y proporciona confirmación escrita de que el oro está presente, embalado y listo para la entrega FOB.</p>
+
+  <ul class="doc-list">
+    <li class="en"><strong>Physical presence confirmation only:</strong> The agent confirms that the gold is physically present at Bamako International Airport, packaged and ready for FOB handover. Nothing more.</li>
+    <li class="es"><strong>Solo confirmación de presencia física:</strong> El agente confirma que el oro está físicamente presente en el Aeropuerto Internacional de Bamako, embalado y listo para la entrega FOB. Nada más.</li>
+    <li class="en"><strong>Not a re-assay:</strong> The inspection agent does not conduct, commission, or reference a second assay. The agent does not re-weigh the gold and does not conduct or comment on purity testing.</li>
+    <li class="es"><strong>No es un nuevo ensayo:</strong> El agente de inspección no realiza, encarga ni hace referencia a un segundo ensayo. El agente no vuelve a pesar el oro y no realiza ni comenta sobre pruebas de pureza.</li>
+    <li class="en"><strong>Single assay rule unchanged:</strong> The Mali government laboratory assay remains the sole assay for this transaction without modification of any kind.</li>
+    <li class="es"><strong>Regla del ensayo único sin cambios:</strong> El ensayo del laboratorio gubernamental de Mali sigue siendo el único ensayo para esta transacción sin modificación de ningún tipo.</li>
+    <li class="en"><strong>Named in SPA:</strong> The identity of the inspection agent is to be agreed by both parties and named in the SPA. This is a flagged open item.</li>
+    <li class="es"><strong>Nombrado en el SPA:</strong> La identidad del agente de inspección debe ser acordada por ambas partes y nombrada en el SPA. Este es un punto pendiente señalado.</li>
+  </ul>
+
+  <div class="h2 en">Mechanism 2 — Conditional MT103 Release</div>
+  <div class="h2 es">Mecanismo 2 — Liberación Condicional del MT103</div>
+
+  <p class="en">The Buyer's Hong Kong bank prepares, authenticates, and queues the MT103 wire instruction. The wire is held on a confirmed-release basis — it does not release until the inspection agent's written confirmation of gold presence is received. Both the Seller's African bank and the Buyer's Hong Kong bank are in the loop simultaneously.</p>
+  <p class="es">El banco de Hong Kong del Comprador prepara, autentica y pone en cola la instrucción de transferencia MT103. La transferencia se retiene en base a una liberación confirmada — no se libera hasta que se recibe la confirmación escrita del agente de inspección sobre la presencia del oro. Tanto el banco africano del Vendedor como el banco de Hong Kong del Comprador están informados simultáneamente.</p>
+
+  <ul class="doc-list">
+    <li class="en"><strong>Seller visibility:</strong> The Seller sees a committed, bank-authenticated payment instruction before the gold is presented at the FOB point.</li>
+    <li class="es"><strong>Visibilidad del Vendedor:</strong> El Vendedor ve una instrucción de pago comprometida y autenticada por el banco antes de que el oro se presente en el punto FOB.</li>
+    <li class="en"><strong>Buyer protection:</strong> The Buyer's funds do not leave their Hong Kong bank until the inspection agent has confirmed in writing that the gold is physically present at Bamako Airport, packaged and ready for FOB handover.</li>
+    <li class="es"><strong>Protección del Comprador:</strong> Los fondos del Comprador no salen de su banco de Hong Kong hasta que el agente de inspección haya confirmado por escrito que el oro está físicamente presente en el Aeropuerto de Bamako, embalado y listo para la entrega FOB.</li>
+    <li class="en"><strong>Core principle preserved:</strong> Confirmed payment still precedes FOB handover and title transfer. The sequence is: inspection confirmation → MT103 releases → African bank confirms receipt → FOB authorized → title transfers.</li>
+    <li class="es"><strong>Principio central preservado:</strong> El pago confirmado todavía precede a la entrega FOB y la transferencia de título. La secuencia es: confirmación de inspección → MT103 se libera → banco africano confirma recepción → FOB autorizado → título se transfiere.</li>
+    <li class="en"><strong>Not escrow:</strong> No funds deposited with a third party. No gold deposited with a third party. This is a FOB physical handover transaction with a conditional payment release mechanism.</li>
+    <li class="es"><strong>No es fideicomiso:</strong> No se depositan fondos con un tercero. No se deposita oro con un tercero. Esta es una transacción de entrega física FOB con un mecanismo de liberación de pago condicional.</li>
+  </ul>
+
+  <div class="gold-rule"></div>
+
+  <!-- SECTION 6 — FOB PROCEDURE SEQUENCE -->
+  <div class="h1 en">6. THE FOB PROCEDURE SEQUENCE</div>
+  <div class="h1 es">6. LA SECUENCIA DEL PROCEDIMIENTO FOB</div>
+
+  <p class="en">The following is the complete FOB procedure sequence governing this transaction. This sequence is reflected consistently across all active documents and will govern the SPA.</p>
+  <p class="es">La siguiente es la secuencia completa del procedimiento FOB que rige esta transacción. Esta secuencia se refleja de manera coherente en todos los documentos activos y regirá el SPA.</p>
+
+  <table class="tbl-header" style="margin-bottom:0;">
+    <tr>
+      <th style="width:10%; text-align:center;"><span class="en">Step</span><span class="es">Paso</span></th>
+      <th style="width:55%;"><span class="en">Action</span><span class="es">Acción</span></th>
+      <th style="width:35%;"><span class="en">Party</span><span class="es">Parte</span></th>
+    </tr>
+  </table>
+  <div class="spacer-sm"></div>
+  <table><tr><td class="phase-num">01</td><td class="phase-name"><span class="en">1st NDA Executed — IMFPA parties and Seller bound</span><span class="es">1er NDA Ejecutado — partes IMFPA y Vendedor comprometidos</span></td><td class="phase-resp"><span class="en">IMFPA parties + Seller</span><span class="es">Partes IMFPA + Vendedor</span></td></tr></table>
+  <div class="spacer-sm"></div>
+  <table><tr><td class="phase-num">02</td><td class="phase-name"><span class="en">IMFPA Executed — commission structure locked for all spots, rolls, and extensions</span><span class="es">IMFPA Ejecutado — estructura de comisiones bloqueada para todos los spots, renovaciones y extensiones</span></td><td class="phase-resp"><span class="en">Commission parties</span><span class="es">Partes de comisión</span></td></tr></table>
+  <div class="spacer-sm"></div>
+  <table><tr><td class="phase-num">03</td><td class="phase-name"><span class="en"><a href="Blind_Offer_Dore_Project.html" target="_blank" style="color:var(--gold); font-weight:bold;">Blind Offer Delivered</a> — informational communication of commercial facts — no Seller identity disclosed</span><span class="es"><a href="Blind_Offer_Dore_Project.html" target="_blank" style="color:var(--gold); font-weight:bold;">Oferta Ciega Entregada</a> — comunicación informativa de hechos comerciales — sin identidad del Vendedor</span></td><td class="phase-resp"><span class="en">Seller's mandate → Buyer</span><span class="es">Mandato Vendedor → Comprador</span></td></tr></table>
+  <div class="spacer-sm"></div>
+  <table><tr><td class="phase-num">04</td><td class="phase-name"><span class="en">Buyer reviews Blind Offer — submits CIS via zero-knowledge mechanism</span><span class="es">Comprador revisa la Oferta Ciega — presenta CIS mediante mecanismo de conocimiento cero</span></td><td class="phase-resp"><span class="en">Buyer</span><span class="es">Comprador</span></td></tr></table>
+  <div class="spacer-sm"></div>
+  <table><tr><td class="phase-num">05</td><td class="phase-name"><span class="en"><a href="LOI_Gold_Dore_Mali.html" target="_blank" style="color:var(--gold); font-weight:bold;">LOI Executed by Buyer</a> — formal commercial intent confirmed — Buyer only</span><span class="es"><a href="LOI_Gold_Dore_Mali.html" target="_blank" style="color:var(--gold); font-weight:bold;">LOI Ejecutada por el Comprador</a> — intención comercial formal confirmada — solo el Comprador</span></td><td class="phase-resp"><span class="en">Buyer only</span><span class="es">Solo el Comprador</span></td></tr></table>
+  <div class="spacer-sm"></div>
+  <table><tr><td class="phase-num">06</td><td class="phase-name"><span class="en">2nd NDA Executed — Buyer and all 1st NDA parties fully bound before Seller full disclosure</span><span class="es">2do NDA Ejecutado — Comprador y todas las partes del 1er NDA completamente comprometidos antes de la divulgación completa del Vendedor</span></td><td class="phase-resp"><span class="en">Buyer + 1st NDA parties</span><span class="es">Comprador + partes del 1er NDA</span></td></tr></table>
+  <div class="spacer-sm"></div>
+  <table><tr><td class="phase-num">07</td><td class="phase-name"><span class="en"><a href="SCO_Dore_Project.html" target="_blank" style="color:var(--gold); font-weight:bold;">SCO Produced</a> — Seller full disclosure — within 48 hours of CIS receipt</span><span class="es"><a href="SCO_Dore_Project.html" target="_blank" style="color:var(--gold); font-weight:bold;">SCO Producido</a> — divulgación completa del Vendedor — dentro de 48 horas tras recibir el CIS</span></td><td class="phase-resp"><span class="en">Seller</span><span class="es">Vendedor</span></td></tr></table>
+  <div class="spacer-sm"></div>
+  <table><tr><td class="phase-num">08</td><td class="phase-name"><span class="en">Gap Cure / KYC-AML — all open items resolved — inspection agent agreed and named</span><span class="es">Resolución de Vacíos / KYC-AML — todos los puntos pendientes resueltos — agente de inspección acordado y nombrado</span></td><td class="phase-resp"><span class="en">Both parties</span><span class="es">Ambas partes</span></td></tr></table>
+  <div class="spacer-sm"></div>
+  <table><tr><td class="phase-num">09</td><td class="phase-name"><span class="en">SPA Executed — binding instrument — inspection agent named — conditional MT103 release confirmed</span><span class="es">SPA Ejecutado — instrumento vinculante — agente de inspección nombrado — liberación condicional del MT103 confirmada</span></td><td class="phase-resp"><span class="en">Both parties</span><span class="es">Ambas partes</span></td></tr></table>
+  <div class="spacer-sm"></div>
+  <table><tr><td class="phase-num">10</td><td class="phase-name"><span class="en">Documents to African Bank — executed SPA and commission schedule received before any movement of funds or gold</span><span class="es">Documentos al Banco Africano — SPA ejecutado y calendario de comisiones recibidos antes de cualquier movimiento de fondos u oro</span></td><td class="phase-resp"><span class="en">Both parties</span><span class="es">Ambas partes</span></td></tr></table>
+  <div class="spacer-sm"></div>
+  <table><tr><td class="phase-num">11</td><td class="phase-name"><span class="en">Mali Government Assay Presented — Buyer accepts as-is — payable amount calculated — sole assay for this transaction</span><span class="es">Ensayo Gubernamental de Mali Presentado — Comprador acepta tal cual — importe a pagar calculado — único ensayo para esta transacción</span></td><td class="phase-resp"><span class="en">Seller</span><span class="es">Vendedor</span></td></tr></table>
+  <div class="spacer-sm"></div>
+  <table><tr><td class="phase-num">12</td><td class="phase-name"><span class="en">Export Documentation Package Issued per SPA</span><span class="es">Paquete de Documentación de Exportación Emitido según el SPA</span></td><td class="phase-resp"><span class="en">Seller</span><span class="es">Vendedor</span></td></tr></table>
+  <div class="spacer-sm"></div>
+  <table><tr><td class="phase-num">13</td><td class="phase-name"><span class="en">MT103 Prepared, Authenticated, and Queued at Buyer's HK Bank — held pending inspection confirmation — visible to both banks simultaneously</span><span class="es">MT103 Preparado, Autenticado y en Cola en el Banco HK del Comprador — retenido a la espera de confirmación de inspección — visible para ambos bancos simultáneamente</span></td><td class="phase-resp"><span class="en">Buyer / HK Bank</span><span class="es">Comprador / Banco HK</span></td></tr></table>
+  <div class="spacer-sm"></div>
+  <table><tr><td class="phase-num">14</td><td class="phase-name"><span class="en">Gold Presented to Inspection Agent at Bamako International Airport — agent physically present</span><span class="es">Oro Presentado al Agente de Inspección en el Aeropuerto Internacional de Bamako — agente físicamente presente</span></td><td class="phase-resp"><span class="en">Seller / Inspection Agent</span><span class="es">Vendedor / Agente de Inspección</span></td></tr></table>
+  <div class="spacer-sm"></div>
+  <table><tr><td class="phase-num">15</td><td class="phase-name"><span class="en">Inspection Agent Issues Written Confirmation — gold present, packaged, ready for FOB handover — presence confirmation only, not a re-assay</span><span class="es">Agente de Inspección Emite Confirmación Escrita — oro presente, embalado, listo para entrega FOB — solo confirmación de presencia, no un nuevo ensayo</span></td><td class="phase-resp"><span class="en">Inspection Agent</span><span class="es">Agente de Inspección</span></td></tr></table>
+  <div class="spacer-sm"></div>
+  <table><tr><td class="phase-num">16</td><td class="phase-name"><span class="en">MT103 Releases — funds transferred to Seller's African bank via SWIFT</span><span class="es">MT103 se Libera — fondos transferidos al banco africano del Vendedor vía SWIFT</span></td><td class="phase-resp"><span class="en">Buyer / HK Bank</span><span class="es">Comprador / Banco HK</span></td></tr></table>
+  <div class="spacer-sm"></div>
+  <table><tr><td class="phase-num">17</td><td class="phase-name"><span class="en">African Bank Confirms Receipt — commission schedule executed automatically — same day, no manual trigger</span><span class="es">Banco Africano Confirma Recepción — calendario de comisiones ejecutado automáticamente — mismo día, sin disparador manual</span></td><td class="phase-resp"><span class="en">African Bank</span><span class="es">Banco Africano</span></td></tr></table>
+  <div class="spacer-sm"></div>
+  <table><tr><td class="phase-num">18</td><td class="phase-name"><span class="en">FOB Handover Authorized — Seller completes FOB handover at Bamako International Airport — title transfers to Buyer — Buyer takes physical custody and transports independently</span><span class="es">Entrega FOB Autorizada — el Vendedor completa la entrega FOB en el Aeropuerto Internacional de Bamako — el título se transfiere al Comprador — el Comprador toma posesión física y transporta de manera independiente</span></td><td class="phase-resp"><span class="en">Seller / Buyer</span><span class="es">Vendedor / Comprador</span></td></tr></table>
+
+  <div class="gold-rule"></div>
+
+  <!-- SECTION 7 — SINGLE ASSAY -->
+  <div class="h1 en">7. THE SINGLE ASSAY RULE — UNCHANGED</div>
+  <div class="h1 es">7. LA REGLA DEL ENSAYO ÚNICO — SIN CAMBIOS</div>
+
+  <div class="callout en"><strong>There is one assay. It is conducted in Mali. It is presented by the Seller. The Buyer accepts it. Payment follows. Export proceeds.</strong> The payment protection structure does not modify this rule in any respect.</div>
+  <div class="callout es"><strong>Hay un solo ensayo. Se realiza en Mali. Lo presenta el Vendedor. El Comprador lo acepta. El pago sigue. La exportación procede.</strong> La estructura de protección de pago no modifica esta regla en ningún aspecto.</div>
+
+  <p class="en">The Mali government laboratory assay is the sole assay for this transaction. It is accepted by the Buyer as the basis for payment — no second opinion, no re-assay. The 15% net discount below LBMA is the Buyer's commercial consideration for accepting the Seller's assay without independent verification. The inspection agent confirms physical presence only. The agent does not weigh, test, or assay the gold in any capacity.</p>
+  <p class="es">El ensayo del laboratorio gubernamental de Mali es el único ensayo para esta transacción. El Comprador lo acepta como base para el pago — sin segunda opinión, sin nuevo ensayo. El descuento neto del 15% por debajo del LBMA es la consideración comercial del Comprador por aceptar el ensayo del Vendedor sin verificación independiente. El agente de inspección confirma únicamente la presencia física. El agente no pesa, no prueba ni realiza ensayos del oro en ninguna capacidad.</p>
+
+  <div class="gold-rule"></div>
+
+  <!-- SECTION 8 — OPEN ITEMS -->
+  <div class="h1 en">8. OPEN ITEMS</div>
+  <div class="h1 es">8. PUNTOS PENDIENTES</div>
+
+  <ul class="doc-list">
+    <li class="en">Buyer — full company name and authorized signatory</li>
+    <li class="es">Comprador — nombre completo de la empresa y firmante autorizado</li>
+    <li class="en">Seller — full company name and authorized signatory</li>
+    <li class="es">Vendedor — nombre completo de la empresa y firmante autorizado</li>
+    <li class="en">African bank — full name, SWIFT, account details, correspondent bank</li>
+    <li class="es">Banco africano — nombre completo, SWIFT, detalles de cuenta, banco corresponsal</li>
+    <li class="en">Freight agent — confirmed name and contact at Bamako International Airport</li>
+    <li class="es">Agente de carga — nombre y contacto confirmados en el Aeropuerto Internacional de Bamako</li>
+    <li class="en">IMFPA parties — full identification of all commission beneficiaries</li>
+    <li class="es">Partes del IMFPA — identificación completa de todos los beneficiarios de comisión</li>
+    <li class="en">Inspection Agent — mutually agreed, named in SPA</li>
+    <li class="es">Agente de Inspección — acordado mutuamente, nombrado en el SPA</li>
+    <li class="en">MT103 instruction deadline — days from assay presentation within which Buyer must prepare and queue MT103</li>
+    <li class="es">Plazo de instrucción MT103 — días desde la presentación del ensayo dentro de los cuales el Comprador debe preparar y poner en cola el MT103</li>
+    <li class="en">Export documentation production timeline — allowable days from SPA execution</li>
+    <li class="es">Cronograma de producción de documentación de exportación — días permitidos desde la ejecución del SPA</li>
+    <li class="en">Default and repatriation terms — if payment not confirmed within agreed timeline</li>
+    <li class="es">Términos de incumplimiento y repatriación — si el pago no se confirma dentro del plazo acordado</li>
+    <li class="en">NDA duration and governing law (both NDAs)</li>
+    <li class="es">Duración y ley aplicable de los NDAs (ambos NDAs)</li>
+    <li class="en">IMFPA governing law and rolls and extensions terms</li>
+    <li class="es">Ley aplicable del IMFPA y términos de renovaciones y extensiones</li>
+    <li class="en">SPA governing law and arbitration seat</li>
+    <li class="es">Ley aplicable del SPA y sede de arbitraje</li>
+    <li class="en">Governing language (primary) for all documents</li>
+    <li class="es">Idioma rector (principal) para todos los documentos</li>
+  </ul>
+
+  <div class="gold-rule"></div>
+
+  <!-- SECTION 9 — SHARED GOVERNING LOGIC -->
+  <div class="h1 en">9. SHARED GOVERNING LOGIC — ALL DOCUMENTS</div>
+  <div class="h1 es">9. LÓGICA RECTORA COMPARTIDA — TODOS LOS DOCUMENTOS</div>
+
+  <ul class="doc-list">
+    <li class="en"><strong>Core principle:</strong> "Title never changes hands without confirmed payment. The money always comes first."</li>
+    <li class="es"><strong>Principio central:</strong> "El título nunca cambia de manos sin el pago confirmado. El dinero siempre va primero."</li>
+    <li class="en"><strong>Delivery model:</strong> FOB — Bamako International Airport, Mali. Seller holds the gold. Buyer takes custody at FOB point and transports independently.</li>
+    <li class="es"><strong>Modelo de entrega:</strong> FOB — Aeropuerto Internacional de Bamako, Mali. El Vendedor conserva el oro. El Comprador toma posesión en el punto FOB y lo transporta de manera independiente.</li>
+    <li class="en"><strong>Single assay rule:</strong> Mali government laboratory assay — presented by Seller, accepted by Buyer as-is. No second assay. No HK refinery assay. No re-weigh. The inspection agent is not an assay mechanism.</li>
+    <li class="es"><strong>Regla del ensayo único:</strong> Ensayo del laboratorio gubernamental de Mali — presentado por el Vendedor, aceptado por el Comprador tal cual. Sin segundo ensayo. Sin ensayo de refinería de HK. Sin nuevo pesaje. El agente de inspección no es un mecanismo de ensayo.</li>
+    <li class="en"><strong>Payment instrument:</strong> MT103 — SWIFT wire from Buyer's Hong Kong bank to Seller's African bank.</li>
+    <li class="es"><strong>Instrumento de pago:</strong> MT103 — transferencia SWIFT del banco de Hong Kong del Comprador al banco africano del Vendedor.</li>
+    <li class="en"><strong>Commission execution:</strong> African bank executes commission schedule on the same day funds are confirmed received — automatic, no manual trigger.</li>
+    <li class="es"><strong>Ejecución de comisiones:</strong> El banco africano ejecuta el calendario de comisiones el mismo día en que se confirma la recepción de los fondos — automático, sin disparador manual.</li>
+    <li class="en"><strong>No escrow:</strong> The word "escrow" does not appear applied to gold or title in any document in this set. This is a FOB physical handover.</li>
+    <li class="es"><strong>Sin fideicomiso:</strong> La palabra "fideicomiso" no aparece aplicada al oro o al título en ningún documento de este conjunto. Esto es una entrega física FOB.</li>
+    <li class="en"><strong>Blind Offer:</strong> Informational communication only — not executed, no signature required. <a href="Blind_Offer_Dore_Project.html" target="_blank" style="color:var(--blue);">Open Blind Offer →</a></li>
+    <li class="es"><strong>Oferta Ciega:</strong> Solo comunicación informativa — no se ejecuta, no requiere firma. <a href="Blind_Offer_Dore_Project.html" target="_blank" style="color:var(--blue);">Abrir Oferta Ciega →</a></li>
+    <li class="en"><strong>LOI:</strong> Executed by the Buyer only. <a href="LOI_Gold_Dore_Mali.html" target="_blank" style="color:var(--blue);">Open LOI →</a></li>
+    <li class="es"><strong>LOI:</strong> Ejecutada únicamente por el Comprador. <a href="LOI_Gold_Dore_Mali.html" target="_blank" style="color:var(--blue);">Abrir LOI →</a></li>
+    <li class="en"><strong>SCO:</strong> Seller full disclosure package — produced after 2nd NDA is executed. <a href="SCO_Dore_Project.html" target="_blank" style="color:var(--blue);">Open SCO →</a></li>
+    <li class="es"><strong>SCO:</strong> Paquete de divulgación completa del Vendedor — producido después de ejecutarse el 2do NDA. <a href="SCO_Dore_Project.html" target="_blank" style="color:var(--blue);">Abrir SCO →</a></li>
+  </ul>
+
+  <div class="gold-rule"></div>
+
+  <div class="doc-footer en">INTERNAL — Prepared for Dore Project Internal Parties Only</div>
+  <div class="doc-footer es">INTERNO — Preparado para las Partes Internas del Proyecto Dore</div>
+  <div class="doc-footer en">Internal Memorandum — Dore Project — Mali to Hong Kong — May 2026</div>
+  <div class="doc-footer es">Memorando Interno — Proyecto Dore — Mali a Hong Kong — Mayo 2026</div>
+
+</div>
+
+<script>
+function setLang(l) {
+  document.body.className = document.body.className.replace(/lang-\w+/, '') + ' lang-' + l;
+  document.querySelectorAll('.lang-btn').forEach(function(b) {
+    b.classList.toggle('active', b.textContent.toLowerCase() === l);
+  });
+}
+</script>
+</body>
+</html>
