@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Internal Memorandum — Dore Project — Revised</title>
+<style>
+  :root {
+    --navy:       #1A3A5C;
+    --blue:       #2E6096;
+    --gold:       #C9A84C;
+    --dark-gold:  #B8860B;
+    --fill-blue:  #EEF3F8;
+    --fill-cream: #F9F5EC;
+    --fill-grey:  #F5F5F5;
+    --white:      #FFFFFF;
+    --red:        #AA0000;
+    --border:     #CCCCCC;
+    --text-dark:  #444444;
+    --text-mid:   #666666;
+    --text-black: #000000;
+    --header-txt: #FFFFFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 11pt;
+    color: var(--text-black);
+    line-height: 1.5;
+    background: #e0e0e0;
+  }
+  body.lang-en .es { display: none; }
+  body.lang-es .en { display: none; }
+
+  .lang-toggle {
+    position: sticky;
+    top: 0;
+    background: var(--navy);
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 100;
+  }
+  .lang-toggle span {
+    color: var(--header-txt);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 9pt;
+    letter-spacing: 0.05em;
+  }
+  .lang-btn {
+    background: transparent;
+    border: 1pt solid var(--gold);
+    color: var(--gold);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 9pt;
+    padding: 3px 12px;
+    cursor: pointer;
+    border-radius: 2px;
+  }
+  .lang-btn.active {
+    background: var(--gold);
+    color: var(--navy);
+    font-weight: bold;
+  }
+
+  .page {
+    width: 8.5in;
+    min-height: 11in;
+    margin: 0.25in auto;
+    padding: 0.875in;
+    background: var(--white);
+  }
+
+  .title-block { text-align: center; padding-top: 0.25in; }
+  .doc-title {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 19pt;
+    font-weight: bold;
+    color: var(--navy);
+    margin-bottom: 6pt;
+  }
+  .doc-subtitle {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13pt;
+    font-weight: bold;
+    color: var(--blue);
+    margin-bottom: 6pt;
+  }
+  .doc-meta {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 10pt;
+    font-style: italic;
+    color: var(--text-dark);
+  }
+  .confidential {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 9pt;
+    font-weight: bold;
+    color: var(--red);
+    text-align: center;
+    margin-top: 6pt;
+  }
+
+  .gold-rule {
+    border: none;
+    border-bottom: 1pt solid var(--gold);
+    margin-top: 0.222in;
+    margin-bottom: 0.222in;
+  }
+  .grey-rule {
+    border: none;
+    border-bottom: 1pt solid var(--border);
+    margin-top: 0.222in;
+    margin-bottom: 0.222in;
+  }
+
+  .h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15pt;
+    font-weight: bold;
+    color: var(--navy);
+    margin-top: 0.417in;
+    margin-bottom: 0.194in;
+  }
+  .h2 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12pt;
+    font-weight: bold;
+    color: var(--blue);
+    margin-top: 0.306in;
+    margin-bottom: 0.139in;
+  }
+  .h3 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11pt;
+    font-weight: bold;
+    color: var(--dark-gold);
+    text-decoration: underline;
+    margin-top: 0.25in;
+    margin-bottom: 0.111in;
+  }
+
+  p, .body-para {
+    margin-top: 0.111in;
+    margin-bottom: 0.111in;
+    text-align: justify;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 11pt;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    margin-top: 0.111in;
+    margin-bottom: 0.111in;
+  }
+  td, th {
+    border: 1pt solid var(--border);
+    padding: 6pt 8pt;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 11pt;
+    vertical-align: top;
+  }
+  .tbl-header th {
+    background-color: var(--navy);
+    color: var(--header-txt);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11pt;
+    font-weight: bold;
+    text-align: left;
+  }
+  .tbl-label td:first-child {
+    background-color: var(--fill-blue);
+    font-weight: bold;
+    width: 32%;
+  }
+  .tbl-label tr:nth-child(odd) td:last-child  { background-color: var(--fill-blue); }
+  .tbl-label tr:nth-child(even) td:last-child { background-color: var(--white); }
+
+  /* Change log table */
+  .tbl-change td:first-child { width: 28%; font-weight: bold; background: var(--fill-cream); }
+  .tbl-change td:nth-child(2) { width: 36%; background: var(--fill-grey); }
+  .tbl-change td:nth-child(3) { width: 36%; background: var(--fill-blue); }
+  .tbl-change th { background: var(--navy); color: var(--header-txt); font-family: Arial, Helvetica, sans-serif; font-size: 11pt; font-weight: bold; }
+
+  .phase-num  { background: var(--navy); color: var(--gold); text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 13pt; font-weight: bold; width: 10%; }
+  .phase-name { background: var(--fill-blue); font-weight: bold; width: 55%; }
+  .phase-resp { background: var(--fill-grey); font-size: 10pt; width: 35%; }
+  .phase-name.retired { background: var(--fill-grey); color: var(--text-mid); font-style: italic; }
+  .phase-num.retired  { background: var(--fill-grey); color: var(--text-mid); }
+  .spacer-sm  { margin-top: 0.014in; margin-bottom: 0.014in; line-height: 0; }
+
+  ul.doc-list {
+    list-style-type: disc;
+    padding-left: 0.5in;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  ul.doc-list li {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 11pt;
+    margin-top: 0.069in;
+    margin-bottom: 0.069in;
+    text-align: left;
+    padding-left: 0.25in;
+  }
+
+  .callout {
+    border-left: 3pt solid var(--gold);
+    background: var(--fill-cream);
+    padding: 8pt 12pt;
+    margin-top: 0.139in;
+    margin-bottom: 0.139in;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 11pt;
+  }
+
+  .callout-change {
+    border-left: 3pt solid var(--dark-gold);
+    background: #FFF8EC;
+    padding: 8pt 12pt;
+    margin-top: 0.139in;
+    margin-bottom: 0.139in;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 11pt;
+  }
+
+  .doc-footer {
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 9pt;
+    font-style: italic;
+    color: var(--text-mid);
+    margin-top: 0.167in;
+    margin-bottom: 0.083in;
+  }
+
+  @media print {
+    .lang-toggle { display: none; }
+    body { background: white; }
+    .page { margin: 0; width: 8.5in; }
+  }
+</style>
+</head>
+<body class="lang-en">
+
+<div class="lang-toggle">
+  <span>DORE PROJECT</span>
+  <button class="lang-btn active" onclick="setLang('en')">EN</button>
+  <button class="lang-btn" onclick="setLang('es')">ES</button>
+</div>
+
+<div class="page">
+
+  <!-- TITLE BLOCK -->
+  <div class="title-block">
+    <div class="doc-title en">MEMORANDUM — REVISED</div>
+    <div class="doc-title es">MEMORANDO — REVISADO</div>
+    <div class="doc-subtitle en">Transaction Architecture Update — Dore Project</div>
+    <div class="doc-subtitle es">Actualización de la Arquitectura de la Transacción — Proyecto Dore</div>
+    <div class="doc-meta en">Prepared for Seller Side Review &nbsp;|&nbsp; May 2026</div>
+    <div class="doc-meta es">Preparado para Revisión del Lado Vendedor &nbsp;|&nbsp; Mayo 2026</div>
+  </div>
+  <div class="gold-rule"></div>
+  <div class="confidential en">CONFIDENTIAL — FOR AUTHORIZED TRANSACTION PARTIES ONLY</div>
+  <div class="confidential es">CONFIDENCIAL — SOLO PARA PARTES AUTORIZADAS DE LA TRANSACCIÓN</div>
+
+  <!-- SECTION 1 — PURPOSE -->
+  <div class="h1 en">1. PURPOSE OF THIS MEMORANDUM</div>
+  <div class="h1 es">1. PROPÓSITO DE ESTE MEMORANDO</div>
+
+  <p class="en">This memorandum is being shared with the Seller side to explain the changes that have been made to the Dore Project transaction architecture since the previous version of this document. It replaces the prior memorandum and governs the current document set.</p>
+  <p class="es">Este memorando se comparte con el lado del Vendedor para explicar los cambios realizados en la arquitectura de la transacción del Proyecto Dore desde la versión anterior de este documento. Reemplaza al memorando anterior y rige el conjunto de documentos actual.</p>
+
+  <p class="en">Two things have changed. First, full Buyer coordinates are now available to the transaction team. This changes what documents are required and when. Second, the Buyer side has confirmed they wish to skip the Blind Offer and the Letter of Intent and move directly to the Soft Corporate Offer once the NDA and IMFPA are executed. These two changes together allow a significantly simpler and faster path to the SPA. Nothing changes in the commercial terms, the FOB procedure, the single assay rule, or the core principle.</p>
+  <p class="es">Dos cosas han cambiado. Primero, las coordenadas completas del Comprador están ahora disponibles para el equipo de la transacción. Esto cambia qué documentos se requieren y cuándo. Segundo, el lado del Comprador ha confirmado que desea omitir la Oferta Ciega y la Carta de Intención y pasar directamente a la Oferta Corporativa Flexible una vez ejecutados el NDA y el IMFPA. Estos dos cambios juntos permiten un camino significativamente más simple y rápido hacia el SPA. Nada cambia en los términos comerciales, el procedimiento FOB, la regla del ensayo único ni el principio central.</p>
+
+  <p class="en">Additionally, all documents in this transaction will be executed via DocuSign — the digital signature platform used for legally binding electronic execution. This applies to the NDA/IMFPA, the SCO, and the SPA. DocuSign execution is fully legally valid and produces a tamper-evident signed document with a complete audit trail.</p>
+  <p class="es">Adicionalmente, todos los documentos de esta transacción se ejecutarán mediante DocuSign — la plataforma de firma digital utilizada para la ejecución electrónica legalmente vinculante. Esto aplica al NDA/IMFPA, al SCO y al SPA. La ejecución mediante DocuSign es plenamente válida legalmente y produce un documento firmado a prueba de manipulaciones con un rastro de auditoría completo.</p>
+
+  <div class="gold-rule"></div>
+
+  <!-- SECTION 2 — WHAT CHANGED -->
+  <div class="h1 en">2. WHAT CHANGED — SIDE BY SIDE</div>
+  <div class="h1 es">2. QUÉ CAMBIÓ — COMPARACIÓN</div>
+
+  <table>
+    <thead class="tbl-change">
+      <tr>
+        <th style="width:28%;"><span class="en">Element</span><span class="es">Elemento</span></th>
+        <th style="width:36%;"><span class="en">Previous Version</span><span class="es">Versión Anterior</span></th>
+        <th style="width:36%;"><span class="en">Current Version</span><span class="es">Versión Actual</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="tbl-change" style="font-weight:bold; background:var(--fill-cream);"><span class="en">Buyer identity</span><span class="es">Identidad del Comprador</span></td>
+        <td style="background:var(--fill-grey);"><span class="en">Unknown at outset — required zero-knowledge CIS mechanism</span><span class="es">Desconocida al inicio — requería mecanismo CIS de conocimiento cero</span></td>
+        <td style="background:var(--fill-blue);"><span class="en">Full Buyer coordinates known — CIS mechanism not needed</span><span class="es">Coordenadas completas del Comprador conocidas — mecanismo CIS no necesario</span></td>
+      </tr>
+      <tr>
+        <td style="font-weight:bold; background:var(--fill-cream);"><span class="en">Blind Offer</span><span class="es">Oferta Ciega</span></td>
+        <td style="background:var(--fill-grey);"><span class="en">Delivered to Buyer — informational communication of commercial facts before Buyer identity disclosed</span><span class="es">Entregada al Comprador — comunicación informativa de hechos comerciales antes de revelar la identidad del Comprador</span></td>
+        <td style="background:var(--fill-blue);"><span class="en">Retired from this transaction — Buyer waived it. Document exists in the set but is not deployed.</span><span class="es">Retirada de esta transacción — el Comprador la omitió. El documento existe en el conjunto pero no se despliega.</span></td>
+      </tr>
+      <tr>
+        <td style="font-weight:bold; background:var(--fill-cream);"><span class="en">Letter of Intent</span><span class="es">Carta de Intención</span></td>
+        <td style="background:var(--fill-grey);"><span class="en">Executed by Buyer only — formal statement of commercial intent before SCO</span><span class="es">Ejecutada solo por el Comprador — declaración formal de intención comercial antes del SCO</span></td>
+        <td style="background:var(--fill-blue);"><span class="en">Retired from this transaction — Buyer waived it. Document exists in the set but is not deployed.</span><span class="es">Retirada de esta transacción — el Comprador la omitió. El documento existe en el conjunto pero no se despliega.</span></td>
+      </tr>
+      <tr>
+        <td style="font-weight:bold; background:var(--fill-cream);"><span class="en">NDA / IMFPA structure</span><span class="es">Estructura NDA / IMFPA</span></td>
+        <td style="background:var(--fill-grey);"><span class="en">Single NDA/IMFPA with all parties including Buyer Rep — executed before Blind Offer</span><span class="es">Un solo NDA/IMFPA con todas las partes incluyendo Representante del Comprador — ejecutado antes de la Oferta Ciega</span></td>
+        <td style="background:var(--fill-blue);"><span class="en">Two-phase: 1st NDA/IMFPA (4 parties, Seller side only, interim) executed first. 2nd NDA/IMFPA (5 parties, adds Buyer Rep, definitive) replaces it before SPA.</span><span class="es">Dos fases: 1er NDA/IMFPA (4 partes, solo lado Vendedor, provisional) ejecutado primero. 2do NDA/IMFPA (5 partes, añade Rep. del Comprador, definitivo) lo reemplaza antes del SPA.</span></td>
+      </tr>
+      <tr>
+        <td style="font-weight:bold; background:var(--fill-cream);"><span class="en">SCO trigger</span><span class="es">Disparador del SCO</span></td>
+        <td style="background:var(--fill-grey);"><span class="en">Produced within 48 hours of CIS receipt from Buyer</span><span class="es">Producido dentro de 48 horas tras recibir el CIS del Comprador</span></td>
+        <td style="background:var(--fill-blue);"><span class="en">Produced immediately upon 1st NDA/IMFPA execution — no CIS required, Buyer coordinates already in hand</span><span class="es">Producido inmediatamente tras la ejecución del 1er NDA/IMFPA — no se requiere CIS, coordenadas del Comprador ya disponibles</span></td>
+      </tr>
+      <tr>
+        <td style="font-weight:bold; background:var(--fill-cream);"><span class="en">Execution method</span><span class="es">Método de ejecución</span></td>
+        <td style="background:var(--fill-grey);"><span class="en">Physical or scanned signatures — no platform specified</span><span class="es">Firmas físicas o escaneadas — sin plataforma especificada</span></td>
+        <td style="background:var(--fill-blue);"><span class="en">DocuSign — digital execution platform — applied to all executed documents in this transaction</span><span class="es">DocuSign — plataforma de ejecución digital — aplicada a todos los documentos ejecutados en esta transacción</span></td>
+      </tr>
+      <tr>
+        <td style="font-weight:bold; background:var(--fill-cream);"><span class="en">Commission split — 1st NDA/IMFPA</span><span class="es">División de comisiones — 1er NDA/IMFPA</span></td>
+        <td style="background:var(--fill-grey);"><span class="en">Buyer Rep 1%, Brazil Group &amp; Rafael 1%, Seller's Mandate &amp; Group 1% — total 3%</span><span class="es">Rep. Comprador 1%, Brazil Group y Rafael 1%, Mandato Vendedor y Grupo 1% — total 3%</span></td>
+        <td style="background:var(--fill-blue);"><span class="en">Sergio 1.5%, Rafael 0.5%, Seller Rep 1% — total 3%. Buyer Rep not yet named — added in 2nd NDA/IMFPA.</span><span class="es">Sergio 1.5%, Rafael 0.5%, Representante Vendedor 1% — total 3%. Rep. Comprador aún sin nombrar — se añade en el 2do NDA/IMFPA.</span></td>
+      </tr>
+      <tr>
+        <td style="font-weight:bold; background:var(--fill-cream);"><span class="en">Commission split — 2nd NDA/IMFPA</span><span class="es">División de comisiones — 2do NDA/IMFPA</span></td>
+        <td style="background:var(--fill-grey);"><span class="en">Not applicable — single NDA/IMFPA in prior version</span><span class="es">No aplica — un solo NDA/IMFPA en la versión anterior</span></td>
+        <td style="background:var(--fill-blue);"><span class="en">Sergio 0.5%, Rafael 0.5%, Seller Rep 1%, Buyer Rep 1% — total 3%. Sergio adjusts from 1.5% to 0.5% to accommodate Buyer Rep.</span><span class="es">Sergio 0.5%, Rafael 0.5%, Rep. Vendedor 1%, Rep. Comprador 1% — total 3%. Sergio ajusta del 1.5% al 0.5% para acomodar al Rep. Comprador.</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="gold-rule"></div>
+
+  <!-- SECTION 3 — CORE PRINCIPLE -->
+  <div class="h1 en">3. THE CORE PRINCIPLE — UNCHANGED</div>
+  <div class="h1 es">3. EL PRINCIPIO CENTRAL — SIN CAMBIOS</div>
+
+  <div class="callout en"><strong>"Title never changes hands without confirmed payment. The money always comes first."</strong></div>
+  <div class="callout es"><strong>"El título nunca cambia de manos sin el pago confirmado. El dinero siempre va primero."</strong></div>
+
+  <p class="en">The simplification of the pre-SPA sequence does not modify this principle in any respect. The FOB model, the single assay rule, the payment instrument, the payment protection structure, and the commission execution mechanics are all unchanged. What has changed is the path to the SPA — not what happens at and after the SPA.</p>
+  <p class="es">La simplificación de la secuencia pre-SPA no modifica este principio en ningún aspecto. El modelo FOB, la regla del ensayo único, el instrumento de pago, la estructura de protección de pago y la mecánica de ejecución de comisiones no han cambiado. Lo que ha cambiado es el camino hacia el SPA — no lo que ocurre en el SPA y después de él.</p>
+
+  <div class="gold-rule"></div>
+
+  <!-- SECTION 4 — NEW SEQUENCE -->
+  <div class="h1 en">4. THE NEW TRANSACTION SEQUENCE</div>
+  <div class="h1 es">4. LA NUEVA SECUENCIA DE LA TRANSACCIÓN</div>
+
+  <p class="en">The previous sequence had seven pre-SPA steps. The new sequence has four. The Blind Offer and the Letter of Intent are retired. The two-phase NDA/IMFPA structure is introduced. DocuSign executes all signed documents.</p>
+  <p class="es">La secuencia anterior tenía siete pasos pre-SPA. La nueva secuencia tiene cuatro. La Oferta Ciega y la Carta de Intención se retiran. Se introduce la estructura NDA/IMFPA de dos fases. DocuSign ejecuta todos los documentos firmados.</p>
+
+  <div class="h2 en">Previous Sequence (for reference)</div>
+  <div class="h2 es">Secuencia Anterior (para referencia)</div>
+
+  <table class="tbl-header" style="margin-bottom:0;">
+    <tr>
+      <th style="width:10%; text-align:center;"><span class="en">Step</span><span class="es">Paso</span></th>
+      <th style="width:55%;"><span class="en">Action</span><span class="es">Acción</span></th>
+      <th style="width:35%;"><span class="en">Status</span><span class="es">Estado</span></th>
+    </tr>
+  </table>
+  <div class="spacer-sm"></div>
+  <table><tr><td class="phase-num">01</td><td class="phase-name"><span class="en">1st NDA/IMFPA — Seller side parties</span><span class="es">1er NDA/IMFPA — partes del lado Vendedor</span></td><td class="phase-resp"><span class="en">✓ Retained — revised</span><span class="es">✓ Conservado — revisado</span></td></tr></table>
+  <div class="spacer-sm"></div>
+  <table><tr><td class="phase-num" style="background:var(--fill-grey); color:var(--text-mid);">02</td><td class="phase-name retired"><span class="en">2nd NDA — Buyer brought in before Blind Offer</span><span class="es">2do NDA — Comprador incorporado antes de la Oferta Ciega</span></td><td class="phase-resp" style="background:var(--fill-grey); color:var(--text-mid); font-style:italic;"><span class="en">✗ Repositioned — see new step 04</span><span class="es">✗ Reposicionado — ver nuevo paso 04</span></td></tr></table>
+  <div class="spacer-sm"></div>
+  <table><tr><td class="phase-num" style="background:var(--fill-grey); color:var(--text-mid);">03</td><td class="phase-name retired"><span class="en">Blind Offer delivered to Buyer</span><span class="es">Oferta Ciega entregada al Comprador</span></td><td class="phase-resp" style="background:var(--fill-grey); color:var(--text-mid); font-style:italic;"><span class="en">✗ Retired — Buyer waived</span><span class="es">✗ Retirada — Comprador la omitió</span></td></tr></table>
+  <div class="spacer-sm"></div>
+  <table><tr><td class="phase-num" style="background:var(--fill-grey); color:var(--text-mid);">04</td><td class="phase-name retired"><span class="en">Buyer reviews Blind Offer — submits CIS</span><span class="es">Comprador revisa Oferta Ciega — presenta CIS</span></td><td class="phase-resp" style="background:var(--fill-grey); color:var(--text-mid); font-style:italic;"><span class="en">✗ Retired — not needed</span><span class="es">✗ Retirado — no necesario</span></td></tr></table>
+  <div class="spacer-sm"></div>
+  <table><tr><td class="phase-num" style="background:var(--fill-grey); color:var(--text-mid);">05</td><td class="phase-name retired"><span class="en">LOI executed by Buyer only</span><span class="es">LOI ejecutada solo por el Comprador</span></td><td class="phase-resp" style="background:var(--fill-grey); color:var(--text-mid); font-style:italic;"><span class="en">✗ Retired — Buyer waived</span><span class="es">✗ Retirada — Comprador la omitió</span></td></tr></table>
+  <div class="spacer-sm"></div>
+  <table><tr><td class="phase-num">06</td><td class="phase-name"><span class="en">2nd NDA/IMFPA — Buyer fully bound before SCO</span><span class="es">2do NDA/IMFPA — Comprador completamente comprometido antes del SCO</span></td><td class="phase-resp"><span class="en">✓ Retained — now step 04</span><span class="es">✓ Conservado — ahora paso 04</span></td></tr></table>
+  <div class="spacer-sm"></div>
+  <table><tr><td class="phase-num">07</td><td class="phase-name"><span class="en">SCO produced — Seller full disclosure</span><span class="es">SCO producido — divulgación completa del Vendedor</span></td><td class="phase-resp"><span class="en">✓ Retained — trigger revised</span><span class="es">✓ Conservado — disparador revisado</span></td></tr></table>
+  <div class="spacer-sm"></div>
+  <table><tr><td class="phase-num">08</td><td class="phase-name"><span class="en">Gap cure / KYC-AML / SPA</span><span class="es">Resolución de vacíos / KYC-AML / SPA</span></td><td class="phase-resp"><span class="en">✓ Retained — unchanged</span><span class="es">✓ Conservado — sin cambios</span></td></tr></table>
+
+  <div class="grey-rule"></div>
+
+  <div class="h2 en">New Sequence — Now Governing</div>
+  <div class="h2 es">Nueva Secuencia — Ahora Vigente</div>
+
+  <table class="tbl-header" style="margin-bottom:0;">
+    <tr>
+      <th style="width:10%; text-align:center;"><span class="en">Step</span><span class="es">Paso</span></th>
+      <th style="width:55%;"><span class="en">Action</span><span class="es">Acción</span></th>
+      <th style="width:35%;"><span class="en">Party / Method</span><span class="es">Parte / Método</span></th>
+    </tr>
+  </table>
+  <div class="spacer-sm"></div>
+  <table><tr><td class="phase-num">01</td><td class="phase-name"><span class="en">1st NDA/IMFPA Executed via DocuSign — Seller side only — 4 parties — interim commission structure</span><span class="es">1er NDA/IMFPA Ejecutado vía DocuSign — solo lado Vendedor — 4 partes — estructura de comisiones provisional</span></td><td class="phase-resp"><span class="en">Sergio, Rafael, Seller Rep, Seller — DocuSign</span><span class="es">Sergio, Rafael, Rep. Vendedor, Vendedor — DocuSign</span></td></tr></table>
+  <div class="spacer-sm"></div>
+  <table><tr><td class="phase-num">02</td><td class="phase-name"><span class="en"><a href="SCO_Dore_Project.html" target="_blank" style="color:var(--gold);">SCO Delivered</a> — Seller full disclosure — produced immediately upon 1st NDA/IMFPA execution — Buyer coordinates already known</span><span class="es"><a href="SCO_Dore_Project.html" target="_blank" style="color:var(--gold);">SCO Entregado</a> — divulgación completa del Vendedor — producido inmediatamente tras ejecutarse el 1er NDA/IMFPA — coordenadas del Comprador ya conocidas</span></td><td class="phase-resp"><span class="en">Seller → Buyer</span><span class="es">Vendedor → Comprador</span></td></tr></table>
+  <div class="spacer-sm"></div>
+  <table><tr><td class="phase-num">03</td><td class="phase-name"><span class="en">Gap Cure / KYC-AML — all open items resolved — inspection agent agreed and named</span><span class="es">Resolución de Vacíos / KYC-AML — todos los puntos pendientes resueltos — agente de inspección acordado y nombrado</span></td><td class="phase-resp"><span class="en">Both parties</span><span class="es">Ambas partes</span></td></tr></table>
+  <div class="spacer-sm"></div>
+  <table><tr><td class="phase-num">04</td><td class="phase-name"><span class="en">2nd NDA/IMFPA Executed via DocuSign — 5 parties — definitive commission structure — includes Buyer Rep — SPA details incorporated — replaces 1st NDA/IMFPA</span><span class="es">2do NDA/IMFPA Ejecutado vía DocuSign — 5 partes — estructura de comisiones definitiva — incluye Rep. del Comprador — detalles del SPA incorporados — reemplaza al 1er NDA/IMFPA</span></td><td class="phase-resp"><span class="en">All parties + Buyer Rep — DocuSign</span><span class="es">Todas las partes + Rep. Comprador — DocuSign</span></td></tr></table>
+  <div class="spacer-sm"></div>
+  <table><tr><td class="phase-num">05</td><td class="phase-name"><span class="en">SPA Executed via DocuSign — binding instrument — incorporates all commercial terms, FOB procedure, inspection agent, conditional MT103 release</span><span class="es">SPA Ejecutado vía DocuSign — instrumento vinculante — incorpora todos los términos comerciales, procedimiento FOB, agente de inspección, liberación condicional del MT103</span></td><td class="phase-resp"><span class="en">Buyer + Seller — DocuSign</span><span class="es">Comprador + Vendedor — DocuSign</span></td></tr></table>
+  <div class="spacer-sm"></div>
+  <table><tr><td class="phase-num">06</td><td class="phase-name"><span class="en">FOB Procedure Commences — gold presented to inspection agent — MT103 queued — payment confirmed — FOB handover — title transfers</span><span class="es">Procedimiento FOB Comienza — oro presentado al agente de inspección — MT103 en cola — pago confirmado — entrega FOB — título transferido</span></td><td class="phase-resp"><span class="en">Both parties + African Bank</span><span class="es">Ambas partes + Banco Africano</span></td></tr></table>
+
+  <div class="gold-rule"></div>
+
+  <!-- SECTION 5 — TWO-PHASE NDA/IMFPA -->
+  <div class="h1 en">5. THE TWO-PHASE NDA/IMFPA STRUCTURE</div>
+  <div class="h1 es">5. LA ESTRUCTURA NDA/IMFPA DE DOS FASES</div>
+
+  <p class="en">Because the Buyer Representative has not yet been formally identified and named, and because the SPA details will only be finalized after gap cure, the NDA/IMFPA is executed in two phases. This is a practical and clean solution — the Seller side is protected immediately, and the definitive commission instrument is produced once all remaining information is in hand.</p>
+  <p class="es">Dado que el Representante del Comprador aún no ha sido formalmente identificado y nombrado, y dado que los detalles del SPA solo se finalizarán después de la resolución de vacíos, el NDA/IMFPA se ejecuta en dos fases. Esta es una solución práctica y limpia — el lado del Vendedor está protegido inmediatamente, y el instrumento definitivo de comisiones se produce una vez que toda la información restante esté disponible.</p>
+
+  <div class="h3 en">1st NDA/IMFPA — Interim — 4 Signature Blocks</div>
+  <div class="h3 es">1er NDA/IMFPA — Provisional — 4 Bloques de Firma</div>
+
+  <table>
+    <thead class="tbl-header">
+      <tr>
+        <th style="width:30%;"><span class="en">Party</span><span class="es">Parte</span></th>
+        <th style="width:25%;"><span class="en">Commission</span><span class="es">Comisión</span></th>
+        <th style="width:45%;"><span class="en">Role</span><span class="es">Función</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="background:var(--fill-blue);">Sergio</td>
+        <td style="background:var(--fill-blue);">1.5%</td>
+        <td style="background:var(--fill-blue);"><span class="en">Seller-side facilitator</span><span class="es">Facilitador del lado Vendedor</span></td>
+      </tr>
+      <tr>
+        <td>Rafael</td>
+        <td>0.5%</td>
+        <td><span class="en">Seller-side facilitator</span><span class="es">Facilitador del lado Vendedor</span></td>
+      </tr>
+      <tr>
+        <td style="background:var(--fill-blue);"><span class="en">Seller Representative</span><span class="es">Representante del Vendedor</span></td>
+        <td style="background:var(--fill-blue);">1.0%</td>
+        <td style="background:var(--fill-blue);"><span class="en">Seller-side mandate</span><span class="es">Mandato del lado Vendedor</span></td>
+      </tr>
+      <tr>
+        <td><span class="en">Seller</span><span class="es">Vendedor</span></td>
+        <td>0.0%</td>
+        <td><span class="en">Commission paymaster via African bank</span><span class="es">Pagador de comisiones vía banco africano</span></td>
+      </tr>
+      <tr>
+        <td style="font-weight:bold; background:var(--navy); color:var(--header-txt); font-family:Arial,Helvetica,sans-serif;"><span class="en">Total</span><span class="es">Total</span></td>
+        <td style="font-weight:bold; background:var(--navy); color:var(--header-txt);">3.0%</td>
+        <td style="background:var(--navy); color:var(--header-txt); font-style:italic; font-size:10pt;"><span class="en">Buyer Rep (1%) to be added in 2nd NDA/IMFPA</span><span class="es">Rep. Comprador (1%) se añade en el 2do NDA/IMFPA</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout-change en"><strong>Note:</strong> This interim document explicitly states that it is to be replaced by the 2nd NDA/IMFPA once the Buyer Representative is identified and the SPA details are finalized. It contains a replacement clause to that effect. The commission protection and non-circumvention obligations of this document are fully binding on all four parties from the moment of execution.</div>
+  <div class="callout-change es"><strong>Nota:</strong> Este documento provisional establece explícitamente que será reemplazado por el 2do NDA/IMFPA una vez que el Representante del Comprador sea identificado y los detalles del SPA sean finalizados. Contiene una cláusula de reemplazo a tal efecto. Las obligaciones de protección de comisiones y no elusión de este documento son plenamente vinculantes para las cuatro partes desde el momento de su ejecución.</div>
+
+  <div class="h3 en">2nd NDA/IMFPA — Definitive — 5 Signature Blocks</div>
+  <div class="h3 es">2do NDA/IMFPA — Definitivo — 5 Bloques de Firma</div>
+
+  <table>
+    <thead class="tbl-header">
+      <tr>
+        <th style="width:30%;"><span class="en">Party</span><span class="es">Parte</span></th>
+        <th style="width:25%;"><span class="en">Commission</span><span class="es">Comisión</span></th>
+        <th style="width:45%;"><span class="en">Role</span><span class="es">Función</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="background:var(--fill-blue);"><span class="en">Buyer Representative</span><span class="es">Representante del Comprador</span></td>
+        <td style="background:var(--fill-blue);">1.0%</td>
+        <td style="background:var(--fill-blue);"><span class="en">Buyer-side mandate — TBD, to be named</span><span class="es">Mandato del lado Comprador — pendiente, a nombrar</span></td>
+      </tr>
+      <tr>
+        <td>Sergio</td>
+        <td>0.5%</td>
+        <td><span class="en">Seller-side facilitator</span><span class="es">Facilitador del lado Vendedor</span></td>
+      </tr>
+      <tr>
+        <td style="background:var(--fill-blue);">Rafael</td>
+        <td style="background:var(--fill-blue);">0.5%</td>
+        <td style="background:var(--fill-blue);"><span class="en">Seller-side facilitator</span><span class="es">Facilitador del lado Vendedor</span></td>
+      </tr>
+      <tr>
+        <td><span class="en">Seller Representative</span><span class="es">Representante del Vendedor</span></td>
+        <td>1.0%</td>
+        <td><span class="en">Seller-side mandate</span><span class="es">Mandato del lado Vendedor</span></td>
+      </tr>
+      <tr>
+        <td style="background:var(--fill-blue);"><span class="en">Seller</span><span class="es">Vendedor</span></td>
+        <td style="background:var(--fill-blue);">0.0%</td>
+        <td style="background:var(--fill-blue);"><span class="en">Commission paymaster via African bank</span><span class="es">Pagador de comisiones vía banco africano</span></td>
+      </tr>
+      <tr>
+        <td style="font-weight:bold; background:var(--navy); color:var(--header-txt); font-family:Arial,Helvetica,sans-serif;"><span class="en">Total</span><span class="es">Total</span></td>
+        <td style="font-weight:bold; background:var(--navy); color:var(--header-txt);">3.0%</td>
+        <td style="background:var(--navy); color:var(--header-txt); font-style:italic; font-size:10pt;"><span class="en">Distributed automatically by African bank on day of payment confirmation</span><span class="es">Distribuido automáticamente por el banco africano el día de la confirmación del pago</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout-change en"><strong>Note on commission redistribution:</strong> In the 2nd NDA/IMFPA, Sergio's commission adjusts from 1.5% to 0.5% to accommodate the Buyer Representative at 1%. The total commission remains 3%. This will be confirmed and incorporated into the SPA pricing formula at gap cure.</div>
+  <div class="callout-change es"><strong>Nota sobre la redistribución de comisiones:</strong> En el 2do NDA/IMFPA, la comisión de Sergio se ajusta del 1.5% al 0.5% para acomodar al Representante del Comprador al 1%. La comisión total se mantiene en el 3%. Esto se confirmará e incorporará en la fórmula de precio del SPA en la resolución de vacíos.</div>
+
+  <div class="gold-rule"></div>
+
+  <!-- SECTION 6 — DOCUSIGN -->
+  <div class="h1 en">6. DOCUSIGN — ELECTRONIC EXECUTION</div>
+  <div class="h1 es">6. DOCUSIGN — EJECUCIÓN ELECTRÓNICA</div>
+
+  <p class="en">All executed documents in this transaction — the 1st NDA/IMFPA, the 2nd NDA/IMFPA, and the SPA — will be signed via DocuSign. DocuSign is a globally recognized digital signature platform. Electronic execution via DocuSign is legally valid in over 180 countries, including the United States, the European Union, the United Kingdom, Hong Kong, Brazil, and Mali.</p>
+  <p class="es">Todos los documentos ejecutados en esta transacción — el 1er NDA/IMFPA, el 2do NDA/IMFPA y el SPA — se firmarán mediante DocuSign. DocuSign es una plataforma de firma digital reconocida globalmente. La ejecución electrónica mediante DocuSign es legalmente válida en más de 180 países, incluyendo Estados Unidos, la Unión Europea, el Reino Unido, Hong Kong, Brasil y Mali.</p>
+
+  <div class="h3 en">What DocuSign Means for Each Signer</div>
+  <div class="h3 es">Qué Significa DocuSign para Cada Firmante</div>
+
+  <p class="en">Each signer receives an email from DocuSign with a secure link. They click the link, review the document in their browser — no software installation required — and sign where indicated by clicking their designated signature field. The entire process takes under two minutes. No printing, no scanning, no courier. The completed signed document is delivered to all parties simultaneously and stored with a tamper-evident audit trail showing who signed, when, and from where.</p>
+  <p class="es">Cada firmante recibe un correo electrónico de DocuSign con un enlace seguro. Hacen clic en el enlace, revisan el documento en su navegador — sin necesidad de instalar software — y firman donde se indica haciendo clic en su campo de firma designado. El proceso completo toma menos de dos minutos. Sin impresión, sin escaneo, sin mensajería. El documento firmado y completado se entrega a todas las partes simultáneamente y se almacena con un rastro de auditoría a prueba de manipulaciones que muestra quién firmó, cuándo y desde dónde.</p>
+
+  <div class="h3 en">Signing Order — 1st NDA/IMFPA</div>
+  <div class="h3 es">Orden de Firma — 1er NDA/IMFPA</div>
+
+  <p class="en">DocuSign enforces a sequential signing order. No party receives the document until the party before them has signed. The routing order for the 1st NDA/IMFPA will be confirmed before the envelope is sent. Each party signs in their designated position — once all four have signed, DocuSign delivers the completed executed document to all parties simultaneously.</p>
+  <p class="es">DocuSign hace cumplir un orden de firma secuencial. Ninguna parte recibe el documento hasta que la parte anterior haya firmado. El orden de envío del 1er NDA/IMFPA se confirmará antes de enviar el sobre. Cada parte firma en su posición designada — una vez que los cuatro hayan firmado, DocuSign entrega el documento ejecutado y completado a todas las partes simultáneamente.</p>
+
+  <div class="h3 en">Legal Basis for Electronic Execution</div>
+  <div class="h3 es">Base Legal para la Ejecución Electrónica</div>
+
+  <p class="en">The existing electronic transmission clause in the NDA/IMFPA already references the UNCITRAL Model Law on Electronic Signatures (2001) and the UN/CEFACT Electronic Commerce Agreement. This clause will be updated in both the 1st and 2nd NDA/IMFPA to name DocuSign specifically as the execution platform and to confirm that signatures collected via DocuSign carry the full legal force of handwritten signatures under the applicable governing law.</p>
+  <p class="es">La cláusula de transmisión electrónica existente en el NDA/IMFPA ya hace referencia a la Ley Modelo de la UNCITRAL sobre Firmas Electrónicas (2001) y al Acuerdo de Comercio Electrónico UN/CEFACT. Esta cláusula se actualizará en ambos el 1er y 2do NDA/IMFPA para nombrar a DocuSign específicamente como plataforma de ejecución y para confirmar que las firmas recopiladas mediante DocuSign tienen plena fuerza legal de firmas manuscritas bajo la ley aplicable.</p>
+
+  <div class="gold-rule"></div>
+
+  <!-- SECTION 7 — WHAT IS NOT CHANGING -->
+  <div class="h1 en">7. WHAT IS NOT CHANGING</div>
+  <div class="h1 es">7. QUÉ NO CAMBIA</div>
+
+  <p class="en">The following elements of the transaction are identical to the previous version and are not affected by any of the changes described in this memorandum.</p>
+  <p class="es">Los siguientes elementos de la transacción son idénticos a la versión anterior y no se ven afectados por ninguno de los cambios descritos en este memorando.</p>
+
+  <ul class="doc-list">
+    <li class="en"><strong>Core principle:</strong> Title never changes hands without confirmed payment. The money always comes first.</li>
+    <li class="es"><strong>Principio central:</strong> El título nunca cambia de manos sin el pago confirmado. El dinero siempre va primero.</li>
+    <li class="en"><strong>Commercial terms:</strong> Gold Doré Bars, 250 kg initial spot, 96%+ minimum purity, LBMA pricing basis, FOB Bamako International Airport.</li>
+    <li class="es"><strong>Términos comerciales:</strong> Barras de Oro Doré, 250 kg spot inicial, pureza mínima 96%+, base de precio LBMA, FOB Aeropuerto Internacional de Bamako.</li>
+    <li class="en"><strong>Payment instrument:</strong> MT103 — SWIFT wire from Buyer's Hong Kong bank to Seller's African bank.</li>
+    <li class="es"><strong>Instrumento de pago:</strong> MT103 — transferencia SWIFT del banco de Hong Kong del Comprador al banco africano del Vendedor.</li>
+    <li class="en"><strong>Single assay rule:</strong> Mali government laboratory assay — presented by Seller, accepted by Buyer as-is. No second assay of any kind before payment.</li>
+    <li class="es"><strong>Regla del ensayo único:</strong> Ensayo del laboratorio gubernamental de Mali — presentado por el Vendedor, aceptado por el Comprador tal cual. Ningún segundo ensayo de ningún tipo antes del pago.</li>
+    <li class="en"><strong>Payment protection structure:</strong> Independent inspection agent at Bamako Airport (presence confirmation only) and conditional MT103 release — functioning as a single indivisible mechanism.</li>
+    <li class="es"><strong>Estructura de protección de pago:</strong> Agente independiente de inspección en el Aeropuerto de Bamako (solo confirmación de presencia) y liberación condicional del MT103 — funcionando como un mecanismo único e indivisible.</li>
+    <li class="en"><strong>Commission execution:</strong> African bank executes commission distribution automatically on the same day funds are confirmed received — no manual trigger.</li>
+    <li class="es"><strong>Ejecución de comisiones:</strong> El banco africano ejecuta la distribución de comisiones automáticamente el mismo día en que se confirman los fondos recibidos — sin disparador manual.</li>
+    <li class="en"><strong>FOB procedure from SPA onward:</strong> The entire post-SPA FOB sequence is unchanged — assay presentation, export documentation, MT103 queuing, inspection confirmation, payment, African bank confirmation, FOB handover, title transfer.</li>
+    <li class="es"><strong>Procedimiento FOB desde el SPA en adelante:</strong> Toda la secuencia FOB posterior al SPA no cambia — presentación del ensayo, documentación de exportación, cola MT103, confirmación de inspección, pago, confirmación del banco africano, entrega FOB, transferencia de título.</li>
+    <li class="en"><strong>Export documentation package:</strong> All nine documents required — government assay, certificate of origin, certificate of ownership, mining license, export permit, commercial invoice, AWB, cargo insurance, declaration of non-criminal origin.</li>
+    <li class="es"><strong>Paquete de documentación de exportación:</strong> Los nueve documentos requeridos — ensayo gubernamental, certificado de origen, certificado de propiedad, licencia minera, permiso de exportación, factura comercial, AWB, seguro de carga, declaración de origen no criminal.</li>
+  </ul>
+
+  <div class="gold-rule"></div>
+
+  <!-- SECTION 8 — OPEN ITEMS -->
+  <div class="h1 en">8. OPEN ITEMS</div>
+  <div class="h1 es">8. PUNTOS PENDIENTES</div>
+
+  <p class="en">The following items remain open and must be resolved before the indicated milestone.</p>
+  <p class="es">Los siguientes puntos permanecen abiertos y deben resolverse antes del hito indicado.</p>
+
+  <table>
+    <thead class="tbl-header">
+      <tr>
+        <th style="width:45%;"><span class="en">Open Item</span><span class="es">Punto Pendiente</span></th>
+        <th style="width:30%;"><span class="en">Needed Before</span><span class="es">Necesario Antes de</span></th>
+        <th style="width:25%;"><span class="en">Status</span><span class="es">Estado</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="background:var(--fill-blue);"><span class="en">DocuSign signing order for 1st NDA/IMFPA confirmed</span><span class="es">Orden de firma DocuSign para el 1er NDA/IMFPA confirmado</span></td>
+        <td style="background:var(--fill-blue);"><span class="en">1st NDA/IMFPA execution</span><span class="es">Ejecución del 1er NDA/IMFPA</span></td>
+        <td style="background:var(--fill-blue); color:var(--dark-gold); font-weight:bold;"><span class="en">Pending</span><span class="es">Pendiente</span></td>
+      </tr>
+      <tr>
+        <td><span class="en">Governing law confirmed — for DocuSign electronic signature statement</span><span class="es">Ley aplicable confirmada — para declaración de firma electrónica DocuSign</span></td>
+        <td><span class="en">1st NDA/IMFPA execution</span><span class="es">Ejecución del 1er NDA/IMFPA</span></td>
+        <td style="color:var(--dark-gold); font-weight:bold;"><span class="en">Pending</span><span class="es">Pendiente</span></td>
+      </tr>
+      <tr>
+        <td style="background:var(--fill-blue);"><span class="en">Seller — full company name and authorized signatory</span><span class="es">Vendedor — nombre completo de la empresa y firmante autorizado</span></td>
+        <td style="background:var(--fill-blue);"><span class="en">1st NDA/IMFPA execution</span><span class="es">Ejecución del 1er NDA/IMFPA</span></td>
+        <td style="background:var(--fill-blue); color:var(--dark-gold); font-weight:bold;"><span class="en">Pending</span><span class="es">Pendiente</span></td>
+      </tr>
+      <tr>
+        <td><span class="en">African bank — full name, SWIFT, account details, correspondent bank</span><span class="es">Banco africano — nombre completo, SWIFT, detalles de cuenta, banco corresponsal</span></td>
+        <td><span class="en">SCO delivery</span><span class="es">Entrega del SCO</span></td>
+        <td style="color:var(--dark-gold); font-weight:bold;"><span class="en">Pending</span><span class="es">Pendiente</span></td>
+      </tr>
+      <tr>
+        <td style="background:var(--fill-blue);"><span class="en">Buyer Representative — full identity and commission banking coordinates</span><span class="es">Representante del Comprador — identidad completa y coordenadas bancarias de comisión</span></td>
+        <td style="background:var(--fill-blue);"><span class="en">2nd NDA/IMFPA execution</span><span class="es">Ejecución del 2do NDA/IMFPA</span></td>
+        <td style="background:var(--fill-blue); color:var(--dark-gold); font-weight:bold;"><span class="en">Pending</span><span class="es">Pendiente</span></td>
+      </tr>
+      <tr>
+        <td><span class="en">Inspection Agent — mutually agreed identity, named in SPA</span><span class="es">Agente de Inspección — identidad acordada mutuamente, nombrado en el SPA</span></td>
+        <td><span class="en">SPA execution</span><span class="es">Ejecución del SPA</span></td>
+        <td style="color:var(--dark-gold); font-weight:bold;"><span class="en">Pending</span><span class="es">Pendiente</span></td>
+      </tr>
+      <tr>
+        <td style="background:var(--fill-blue);"><span class="en">Freight agent — confirmed name and contact at Bamako Airport</span><span class="es">Agente de carga — nombre y contacto confirmados en el Aeropuerto de Bamako</span></td>
+        <td style="background:var(--fill-blue);"><span class="en">SPA execution</span><span class="es">Ejecución del SPA</span></td>
+        <td style="background:var(--fill-blue); color:var(--dark-gold); font-weight:bold;"><span class="en">Pending</span><span class="es">Pendiente</span></td>
+      </tr>
+      <tr>
+        <td><span class="en">MT103 instruction deadline — days from assay presentation</span><span class="es">Plazo de instrucción MT103 — días desde la presentación del ensayo</span></td>
+        <td><span class="en">SPA execution</span><span class="es">Ejecución del SPA</span></td>
+        <td style="color:var(--dark-gold); font-weight:bold;"><span class="en">Pending</span><span class="es">Pendiente</span></td>
+      </tr>
+      <tr>
+        <td style="background:var(--fill-blue);"><span class="en">Export documentation production timeline</span><span class="es">Cronograma de producción de documentación de exportación</span></td>
+        <td style="background:var(--fill-blue);"><span class="en">SPA execution</span><span class="es">Ejecución del SPA</span></td>
+        <td style="background:var(--fill-blue); color:var(--dark-gold); font-weight:bold;"><span class="en">Pending</span><span class="es">Pendiente</span></td>
+      </tr>
+      <tr>
+        <td><span class="en">Default and repatriation terms</span><span class="es">Términos de incumplimiento y repatriación</span></td>
+        <td><span class="en">SPA execution</span><span class="es">Ejecución del SPA</span></td>
+        <td style="color:var(--dark-gold); font-weight:bold;"><span class="en">Pending</span><span class="es">Pendiente</span></td>
+      </tr>
+      <tr>
+        <td style="background:var(--fill-blue);"><span class="en">SPA arbitration seat</span><span class="es">Sede de arbitraje del SPA</span></td>
+        <td style="background:var(--fill-blue);"><span class="en">SPA execution</span><span class="es">Ejecución del SPA</span></td>
+        <td style="background:var(--fill-blue); color:var(--dark-gold); font-weight:bold;"><span class="en">Pending</span><span class="es">Pendiente</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="gold-rule"></div>
+
+  <!-- SECTION 9 — DOCUMENT STATUS -->
+  <div class="h1 en">9. DOCUMENT STATUS — CURRENT SET</div>
+  <div class="h1 es">9. ESTADO DE DOCUMENTOS — CONJUNTO ACTUAL</div>
+
+  <table class="tbl-label">
+    <tbody>
+      <tr>
+        <td><span class="en">1st NDA/IMFPA</span><span class="es">1er NDA/IMFPA</span></td>
+        <td><span class="en">To be produced — 4 parties — interim — DocuSign ready</span><span class="es">Por producir — 4 partes — provisional — listo para DocuSign</span></td>
+      </tr>
+      <tr>
+        <td><a href="SCO_Dore_Project.html" target="_blank" style="color:var(--blue);"><span class="en">SCO</span><span class="es">SCO</span></a></td>
+        <td><span class="en">Produced — to be updated: CIS trigger removed, Buyer addressed directly</span><span class="es">Producido — por actualizar: disparador CIS eliminado, Comprador tratado directamente</span></td>
+      </tr>
+      <tr>
+        <td><span class="en">2nd NDA/IMFPA</span><span class="es">2do NDA/IMFPA</span></td>
+        <td><span class="en">To be produced — 5 parties — definitive — awaiting Buyer Rep identity</span><span class="es">Por producir — 5 partes — definitivo — pendiente identidad Rep. Comprador</span></td>
+      </tr>
+      <tr>
+        <td><span class="en">SPA</span><span class="es">SPA</span></td>
+        <td><span class="en">Drafted by parties after gap cure — DocuSign execution</span><span class="es">Redactado por las partes después de la resolución de vacíos — ejecución DocuSign</span></td>
+      </tr>
+      <tr>
+        <td><a href="Blind_Offer_Dore_Project.html" target="_blank" style="color:var(--text-mid);"><span class="en">Blind Offer</span><span class="es">Oferta Ciega</span></a></td>
+        <td style="color:var(--text-mid); font-style:italic;"><span class="en">Retired from this transaction — Buyer waived. Document available for reference only.</span><span class="es">Retirada de esta transacción — Comprador la omitió. Documento disponible solo como referencia.</span></td>
+      </tr>
+      <tr>
+        <td><a href="LOI_Gold_Dore_Mali.html" target="_blank" style="color:var(--text-mid);"><span class="en">LOI</span><span class="es">LOI</span></a></td>
+        <td style="color:var(--text-mid); font-style:italic;"><span class="en">Retired from this transaction — Buyer waived. Document available for reference only.</span><span class="es">Retirada de esta transacción — Comprador la omitió. Documento disponible solo como referencia.</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="gold-rule"></div>
+
+  <div class="doc-footer en">CONFIDENTIAL — Prepared for Authorized Transaction Parties Only</div>
+  <div class="doc-footer es">CONFIDENCIAL — Preparado para las Partes Autorizadas de la Transacción</div>
+  <div class="doc-footer en">Memorandum Revised — Dore Project — Mali to Hong Kong — May 2026</div>
+  <div class="doc-footer es">Memorando Revisado — Proyecto Dore — Mali a Hong Kong — Mayo 2026</div>
+
+</div>
+
+<script>
+function setLang(l) {
+  document.body.className = document.body.className.replace(/lang-\w+/, '') + ' lang-' + l;
+  document.querySelectorAll('.lang-btn').forEach(function(b) {
+    b.classList.toggle('active', b.textContent.toLowerCase() === l);
+  });
+}
+</script>
+</body>
+</html>
